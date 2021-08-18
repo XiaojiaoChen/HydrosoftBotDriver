@@ -8,7 +8,8 @@
 
 #include <CANbus.h>
 struct CANBUS_HANDLE canbus;
-
+#include "messages.h"
+#include "can.h"
 #include <inttypes.h>
 static HAL_StatusTypeDef my_HAL_CAN_GetRxMessage(CAN_HandleTypeDef *hcan, uint32_t RxFifo, CAN_RxHeaderTypeDef *pHeader, uint8_t aData[]);
 /***************************     Can bus        ***************************/
@@ -18,8 +19,13 @@ static HAL_StatusTypeDef my_HAL_CAN_GetRxMessage(CAN_HandleTypeDef *hcan, uint32
 /**************************************************************************/
 /**************************************************************************/
 /**************************************************************************/
+
+extern SENSORDATA sensorData[6];
+
+static SENSORDATACOMPACT sensorDataBuffer[6];
+
 void canConfig(){
-	canbus.CanHandle=hcan1;
+	canbus.CanHandle=hcan;
 	CAN_FilterTypeDef  sFilterConfig;
 	/*##-2- Configure the CAN Filter ###########################################*/
 	/*For single CAN instance(14 dedicated filter banks)*/
@@ -80,8 +86,8 @@ void canSend()
 	canbus.TxHeader.IDE = CAN_ID_STD;
 	canbus.TxHeader.TransmitGlobalTime = DISABLE;
 
-	canbus.TxData=(uint8_t *)(softArm.canBusCommand);
-	canbus.TxHeader.DLC = sizeof(softArm.canBusCommand);
+	canbus.TxData=(uint8_t *)(&sensorData);
+	canbus.TxHeader.DLC = sizeof(sensorData);
 
 	/* Start the Transmission process */
 	if (HAL_CAN_AddTxMessage(&canbus.CanHandle, &canbus.TxHeader, canbus.TxData, &canbus.TxMailbox) != HAL_OK)
@@ -177,37 +183,10 @@ static HAL_StatusTypeDef my_HAL_CAN_GetRxMessage(CAN_HandleTypeDef *hcan, uint32
 
 
     /**********************  added  ******************************************/
-	int i = pHeader->StdId/6;
+	//int i = pHeader->StdId/6;
     int j = pHeader->StdId%6;
 
-
-    /**********************                 ********************************/
-    /**********************                 ********************************/
-    /**********************     Attention ! ********************************/
-    /**********************                 *******************************/
-    /* exchange actuator[2][4] with actuator[5][1] physically,
-       *In normal condition, actuator[2][4] has CAN_ID = 16 ,actuator[5][1] has CAN_ID = 31.
-        * After physical placement exchange,
-        * Now actuator[2][4] has CAN_ID = 31 ,actuator[5][1] has CAN_ID = 16.
-        * The reason is that we need to change their position but we cann't alter their firmware due to hardware problems.
-        * Romove this if else if all actuators are in their right position with corrent CAN ID.
-        */
-    if(i==2 && j==4){
-    	i=5;
-    	j=1;
-    }
-    else if(i==5 && j==1){
-    	i=2;
-    	j=4;
-    }
-    /**********************                     *******************************/
-    /**********************   Attention ends    ********************************/
-    /**********************                     ********************************/
-    /**********************                     ********************************/
-
-
-
-    aData=(uint8_t *)(&softArm.sensorDataBuffer[i][j]);
+    aData=(uint8_t *)(sensorDataBuffer);
     /****************************************************************/
 
     /* Get the data */
@@ -223,8 +202,7 @@ static HAL_StatusTypeDef my_HAL_CAN_GetRxMessage(CAN_HandleTypeDef *hcan, uint32
 
     /**********************  Added Docode the sensor Data to SPI buffer*******************************/
 
-
-    decodeSensorData(&softArm.sensorDataBuffer[i][j],&(softArm.sensorData.data[i][j]),(int16_t)(softArm.armSegments[i].bellows[j]->pressureOffset/100),(int16_t)(softArm.armSegments[i].bellows[j]->positionOffset));
+    decodeSensorData(&(sensorDataBuffer[j]),&(sensorData[j]));
     /*******************************************************************/
 
 
