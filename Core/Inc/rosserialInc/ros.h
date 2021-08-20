@@ -35,21 +35,20 @@
 **********************************  Configuration  Zone   ************************************
 **********************************  	   BEGIN     	  ***********************************
 ********************************************************************************************/
+#include <hydrosoft_ros/Command_Arm.h>
 
-#include "std_msgs/Float64.h"		//include messageType headers
+#include <hydrosoft_ros/Sensor_Arm.h>
 
-#include "std_msgs/String.h"		//include messageType headers
-
-#define DEFAULT_ROS_HUART huart3 //choose  your uart for ROS serial
+#define DEFAULT_ROS_HUART huart1 //choose  your uart for ROS serial
 
 #define PUBLISHER_NUMBER 1  //define how many publisher you have, currently <=3
 
 #define SUBSCRIBER_NUMBER 1 //define how many subscriber you have
 
 #if PUBLISHER_NUMBER >= 1
-#define Publisher1_TopicName    	"pubTopic1"        	//define your Topic Name string to be published
-#define Publisher1_MessageName  	pubData1         	//name your variable to be published
-#define Publisher1_MessageType  	std_msgs::Float64 	//define your variable Type
+#define Publisher1_TopicName    	"HydroStates"        	//define your Topic Name string to be published
+#define Publisher1_MessageName  	sensor_msg         	//name your variable to be published
+#define Publisher1_MessageType  	hydrosoft_ros::Sensor_Arm 	//define your variable Type
 #define Publisher1_Name		  		publisher1			//name a publisher for this topic
 #endif
 #if PUBLISHER_NUMBER >= 2
@@ -66,9 +65,9 @@
 #endif
 
 #if SUBSCRIBER_NUMBER >= 1
-#define Subscriber1_TopicName 			"subTopic1"                 //define your sub topic name string
-#define Subscriber1_MessageName 		subData1                    //name your local variable for receiving sub data
-#define Subscriber1_MessageType 		std_msgs::String            //define your local variable type
+#define Subscriber1_TopicName 			"HydroCommands"                 //define your sub topic name string
+#define Subscriber1_MessageName 		command_msg                    //name your local variable for receiving sub data
+#define Subscriber1_MessageType 		hydrosoft_ros::Command_Arm            //define your local variable type
 #define Subscriber1_Name		  		subscriber1					//name a subscriber for this topic
 #define Subscriber1_CallbackFunc_Name   sub1Callback                //define your sub callback function name
 #endif

@@ -49,10 +49,10 @@
 
 /* USER CODE END Variables */
 osThreadId sensorTaskHandle;
-uint32_t sensorTaskBuffer[1024];
+uint32_t sensorTaskBuffer[ 1024 ];
 osStaticThreadDef_t sensorTaskControlBlock;
 osThreadId communicationTaHandle;
-uint32_t communicationTaskBuffer[1024];
+uint32_t communicationTaskBuffer[ 1024 ];
 osStaticThreadDef_t communicationTaskControlBlock;
 
 /* Private function prototypes -----------------------------------------------*/
@@ -60,14 +60,13 @@ osStaticThreadDef_t communicationTaskControlBlock;
 
 /* USER CODE END FunctionPrototypes */
 
-void sensorTaskFunc(void const *argument);
-void communicationTaskFunc(void const *argument);
+void sensorTaskFunc(void const * argument);
+void communicationTaskFunc(void const * argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
 /* GetIdleTaskMemory prototype (linked to static allocation support) */
-void vApplicationGetIdleTaskMemory(StaticTask_t **ppxIdleTaskTCBBuffer,
-		StackType_t **ppxIdleTaskStackBuffer, uint32_t *pulIdleTaskStackSize);
+void vApplicationGetIdleTaskMemory( StaticTask_t **ppxIdleTaskTCBBuffer, StackType_t **ppxIdleTaskStackBuffer, uint32_t *pulIdleTaskStackSize );
 
 /* USER CODE BEGIN GET_IDLE_TASK_MEMORY */
 static StaticTask_t xIdleTaskTCBBuffer;
@@ -83,46 +82,43 @@ void vApplicationGetIdleTaskMemory(StaticTask_t **ppxIdleTaskTCBBuffer,
 /* USER CODE END GET_IDLE_TASK_MEMORY */
 
 /**
- * @brief  FreeRTOS initialization
- * @param  None
- * @retval None
- */
+  * @brief  FreeRTOS initialization
+  * @param  None
+  * @retval None
+  */
 void MX_FREERTOS_Init(void) {
-	/* USER CODE BEGIN Init */
+  /* USER CODE BEGIN Init */
 
-	/* USER CODE END Init */
+  /* USER CODE END Init */
 
-	/* USER CODE BEGIN RTOS_MUTEX */
+  /* USER CODE BEGIN RTOS_MUTEX */
 	/* add mutexes, ... */
-	/* USER CODE END RTOS_MUTEX */
+  /* USER CODE END RTOS_MUTEX */
 
-	/* USER CODE BEGIN RTOS_SEMAPHORES */
+  /* USER CODE BEGIN RTOS_SEMAPHORES */
 	/* add semaphores, ... */
-	/* USER CODE END RTOS_SEMAPHORES */
+  /* USER CODE END RTOS_SEMAPHORES */
 
-	/* USER CODE BEGIN RTOS_TIMERS */
+  /* USER CODE BEGIN RTOS_TIMERS */
 	/* start timers, add new ones, ... */
-	/* USER CODE END RTOS_TIMERS */
+  /* USER CODE END RTOS_TIMERS */
 
-	/* USER CODE BEGIN RTOS_QUEUES */
+  /* USER CODE BEGIN RTOS_QUEUES */
 	/* add queues, ... */
-	/* USER CODE END RTOS_QUEUES */
+  /* USER CODE END RTOS_QUEUES */
 
-	/* Create the thread(s) */
-	/* definition and creation of sensorTask */
-	osThreadStaticDef(sensorTask, sensorTaskFunc, osPriorityHigh, 0, 1024,
-			sensorTaskBuffer, &sensorTaskControlBlock);
-	sensorTaskHandle = osThreadCreate(osThread(sensorTask), NULL);
+  /* Create the thread(s) */
+  /* definition and creation of sensorTask */
+  osThreadStaticDef(sensorTask, sensorTaskFunc, osPriorityHigh, 0, 1024, sensorTaskBuffer, &sensorTaskControlBlock);
+  sensorTaskHandle = osThreadCreate(osThread(sensorTask), NULL);
 
-	/* definition and creation of communicationTa */
-	osThreadStaticDef(communicationTa, communicationTaskFunc,
-			osPriorityAboveNormal, 0, 1024, communicationTaskBuffer,
-			&communicationTaskControlBlock);
-	communicationTaHandle = osThreadCreate(osThread(communicationTa), NULL);
+  /* definition and creation of communicationTa */
+  osThreadStaticDef(communicationTa, communicationTaskFunc, osPriorityAboveNormal, 0, 1024, communicationTaskBuffer, &communicationTaskControlBlock);
+  communicationTaHandle = osThreadCreate(osThread(communicationTa), NULL);
 
-	/* USER CODE BEGIN RTOS_THREADS */
+  /* USER CODE BEGIN RTOS_THREADS */
 	/* add threads, ... */
-	/* USER CODE END RTOS_THREADS */
+  /* USER CODE END RTOS_THREADS */
 
 }
 
@@ -133,8 +129,9 @@ void MX_FREERTOS_Init(void) {
  * @retval None
  */
 /* USER CODE END Header_sensorTaskFunc */
-void sensorTaskFunc(void const *argument) {
-	/* USER CODE BEGIN sensorTaskFunc */
+void sensorTaskFunc(void const * argument)
+{
+  /* USER CODE BEGIN sensorTaskFunc */
 	TickType_t xLastWakeTime = xTaskGetTickCount();
 	TickType_t sensorTaskPeriod = pdMS_TO_TICKS(1);
 	static int32_t loopTick = 0;
@@ -149,7 +146,7 @@ void sensorTaskFunc(void const *argument) {
 		vTaskDelayUntil(&xLastWakeTime, sensorTaskPeriod);
 
 	}
-	/* USER CODE END sensorTaskFunc */
+  /* USER CODE END sensorTaskFunc */
 }
 
 /* USER CODE BEGIN Header_communicationTaskFunc */
@@ -159,8 +156,9 @@ void sensorTaskFunc(void const *argument) {
  * @retval None
  */
 /* USER CODE END Header_communicationTaskFunc */
-void communicationTaskFunc(void const *argument) {
-	/* USER CODE BEGIN communicationTaskFunc */
+void communicationTaskFunc(void const * argument)
+{
+  /* USER CODE BEGIN communicationTaskFunc */
 	TickType_t xLastWakeTime = xTaskGetTickCount();
 	TickType_t communicationTaskPeriod = pdMS_TO_TICKS(1);
 	static int32_t loopTick = 0;
@@ -175,7 +173,7 @@ void communicationTaskFunc(void const *argument) {
 		vTaskDelayUntil(&xLastWakeTime, communicationTaskPeriod);
 
 	}
-	/* USER CODE END communicationTaskFunc */
+  /* USER CODE END communicationTaskFunc */
 }
 
 /* Private application code --------------------------------------------------*/

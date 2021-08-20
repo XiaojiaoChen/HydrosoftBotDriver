@@ -22,15 +22,15 @@
 #include "cmsis_os.h"
 #include "can.h"
 #include "crc.h"
+#include "dma.h"
 #include "i2c.h"
+#include "tim.h"
 #include "usart.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "messages.h"
 #include "myMain.h"
-#include "CANbus.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -50,7 +50,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-SENSORDATA sensorData[6];
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -95,7 +95,9 @@ int main(void)
   MX_GPIO_Init();
   MX_CAN_Init();
   MX_CRC_Init();
-  MX_I2C1_Init();
+  MX_DMA_Init();
+  MX_I2C2_Init();
+  MX_TIM2_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
   setup();
