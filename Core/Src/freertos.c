@@ -1,21 +1,21 @@
 /* USER CODE BEGIN Header */
 /**
-  ******************************************************************************
-  * File Name          : freertos.c
-  * Description        : Code for freertos applications
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2021 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under Ultimate Liberty license
-  * SLA0044, the "License"; You may not use this file except in compliance with
-  * the License. You may obtain a copy of the License at:
-  *                             www.st.com/SLA0044
-  *
-  ******************************************************************************
-  */
+ ******************************************************************************
+ * File Name          : freertos.c
+ * Description        : Code for freertos applications
+ ******************************************************************************
+ * @attention
+ *
+ * <h2><center>&copy; Copyright (c) 2021 STMicroelectronics.
+ * All rights reserved.</center></h2>
+ *
+ * This software component is licensed by ST under Ultimate Liberty license
+ * SLA0044, the "License"; You may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at:
+ *                             www.st.com/SLA0044
+ *
+ ******************************************************************************
+ */
 /* USER CODE END Header */
 
 /* Includes ------------------------------------------------------------------*/
@@ -26,7 +26,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "myMain.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -48,14 +48,11 @@
 /* USER CODE BEGIN Variables */
 
 /* USER CODE END Variables */
-osThreadId defaultTaskHandle;
-uint32_t defaultTaskBuffer[ 128 ];
-osStaticThreadDef_t defaultTaskControlBlock;
 osThreadId sensorTaskHandle;
-uint32_t sensorTaskBuffer[ 1024 ];
+uint32_t sensorTaskBuffer[1024];
 osStaticThreadDef_t sensorTaskControlBlock;
 osThreadId communicationTaHandle;
-uint32_t communicationTaskBuffer[ 1024 ];
+uint32_t communicationTaskBuffer[1024];
 osStaticThreadDef_t communicationTaskControlBlock;
 
 /* Private function prototypes -----------------------------------------------*/
@@ -63,125 +60,122 @@ osStaticThreadDef_t communicationTaskControlBlock;
 
 /* USER CODE END FunctionPrototypes */
 
-void StartDefaultTask(void const * argument);
-void sensorTaskFunc(void const * argument);
-void communicationTaskFunc(void const * argument);
+void sensorTaskFunc(void const *argument);
+void communicationTaskFunc(void const *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
 /* GetIdleTaskMemory prototype (linked to static allocation support) */
-void vApplicationGetIdleTaskMemory( StaticTask_t **ppxIdleTaskTCBBuffer, StackType_t **ppxIdleTaskStackBuffer, uint32_t *pulIdleTaskStackSize );
+void vApplicationGetIdleTaskMemory(StaticTask_t **ppxIdleTaskTCBBuffer,
+		StackType_t **ppxIdleTaskStackBuffer, uint32_t *pulIdleTaskStackSize);
 
 /* USER CODE BEGIN GET_IDLE_TASK_MEMORY */
 static StaticTask_t xIdleTaskTCBBuffer;
 static StackType_t xIdleStack[configMINIMAL_STACK_SIZE];
 
-void vApplicationGetIdleTaskMemory( StaticTask_t **ppxIdleTaskTCBBuffer, StackType_t **ppxIdleTaskStackBuffer, uint32_t *pulIdleTaskStackSize )
-{
-  *ppxIdleTaskTCBBuffer = &xIdleTaskTCBBuffer;
-  *ppxIdleTaskStackBuffer = &xIdleStack[0];
-  *pulIdleTaskStackSize = configMINIMAL_STACK_SIZE;
-  /* place for user code */
+void vApplicationGetIdleTaskMemory(StaticTask_t **ppxIdleTaskTCBBuffer,
+		StackType_t **ppxIdleTaskStackBuffer, uint32_t *pulIdleTaskStackSize) {
+	*ppxIdleTaskTCBBuffer = &xIdleTaskTCBBuffer;
+	*ppxIdleTaskStackBuffer = &xIdleStack[0];
+	*pulIdleTaskStackSize = configMINIMAL_STACK_SIZE;
+	/* place for user code */
 }
 /* USER CODE END GET_IDLE_TASK_MEMORY */
 
 /**
-  * @brief  FreeRTOS initialization
-  * @param  None
-  * @retval None
-  */
+ * @brief  FreeRTOS initialization
+ * @param  None
+ * @retval None
+ */
 void MX_FREERTOS_Init(void) {
-  /* USER CODE BEGIN Init */
+	/* USER CODE BEGIN Init */
 
-  /* USER CODE END Init */
+	/* USER CODE END Init */
 
-  /* USER CODE BEGIN RTOS_MUTEX */
-  /* add mutexes, ... */
-  /* USER CODE END RTOS_MUTEX */
+	/* USER CODE BEGIN RTOS_MUTEX */
+	/* add mutexes, ... */
+	/* USER CODE END RTOS_MUTEX */
 
-  /* USER CODE BEGIN RTOS_SEMAPHORES */
-  /* add semaphores, ... */
-  /* USER CODE END RTOS_SEMAPHORES */
+	/* USER CODE BEGIN RTOS_SEMAPHORES */
+	/* add semaphores, ... */
+	/* USER CODE END RTOS_SEMAPHORES */
 
-  /* USER CODE BEGIN RTOS_TIMERS */
-  /* start timers, add new ones, ... */
-  /* USER CODE END RTOS_TIMERS */
+	/* USER CODE BEGIN RTOS_TIMERS */
+	/* start timers, add new ones, ... */
+	/* USER CODE END RTOS_TIMERS */
 
-  /* USER CODE BEGIN RTOS_QUEUES */
-  /* add queues, ... */
-  /* USER CODE END RTOS_QUEUES */
+	/* USER CODE BEGIN RTOS_QUEUES */
+	/* add queues, ... */
+	/* USER CODE END RTOS_QUEUES */
 
-  /* Create the thread(s) */
-  /* definition and creation of defaultTask */
-  osThreadStaticDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128, defaultTaskBuffer, &defaultTaskControlBlock);
-  defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
+	/* Create the thread(s) */
+	/* definition and creation of sensorTask */
+	osThreadStaticDef(sensorTask, sensorTaskFunc, osPriorityHigh, 0, 1024,
+			sensorTaskBuffer, &sensorTaskControlBlock);
+	sensorTaskHandle = osThreadCreate(osThread(sensorTask), NULL);
 
-  /* definition and creation of sensorTask */
-  osThreadStaticDef(sensorTask, sensorTaskFunc, osPriorityHigh, 0, 1024, sensorTaskBuffer, &sensorTaskControlBlock);
-  sensorTaskHandle = osThreadCreate(osThread(sensorTask), NULL);
+	/* definition and creation of communicationTa */
+	osThreadStaticDef(communicationTa, communicationTaskFunc,
+			osPriorityAboveNormal, 0, 1024, communicationTaskBuffer,
+			&communicationTaskControlBlock);
+	communicationTaHandle = osThreadCreate(osThread(communicationTa), NULL);
 
-  /* definition and creation of communicationTa */
-  osThreadStaticDef(communicationTa, communicationTaskFunc, osPriorityAboveNormal, 0, 1024, communicationTaskBuffer, &communicationTaskControlBlock);
-  communicationTaHandle = osThreadCreate(osThread(communicationTa), NULL);
+	/* USER CODE BEGIN RTOS_THREADS */
+	/* add threads, ... */
+	/* USER CODE END RTOS_THREADS */
 
-  /* USER CODE BEGIN RTOS_THREADS */
-  /* add threads, ... */
-  /* USER CODE END RTOS_THREADS */
-
-}
-
-/* USER CODE BEGIN Header_StartDefaultTask */
-/**
-  * @brief  Function implementing the defaultTask thread.
-  * @param  argument: Not used
-  * @retval None
-  */
-/* USER CODE END Header_StartDefaultTask */
-void StartDefaultTask(void const * argument)
-{
-  /* USER CODE BEGIN StartDefaultTask */
-  /* Infinite loop */
-  for(;;)
-  {
-    osDelay(1);
-  }
-  /* USER CODE END StartDefaultTask */
 }
 
 /* USER CODE BEGIN Header_sensorTaskFunc */
 /**
-* @brief Function implementing the sensorTask thread.
-* @param argument: Not used
-* @retval None
-*/
+ * @brief Function implementing the sensorTask thread.
+ * @param argument: Not used
+ * @retval None
+ */
 /* USER CODE END Header_sensorTaskFunc */
-void sensorTaskFunc(void const * argument)
-{
-  /* USER CODE BEGIN sensorTaskFunc */
-  /* Infinite loop */
-  for(;;)
-  {
-    osDelay(1);
-  }
-  /* USER CODE END sensorTaskFunc */
+void sensorTaskFunc(void const *argument) {
+	/* USER CODE BEGIN sensorTaskFunc */
+	TickType_t xLastWakeTime = xTaskGetTickCount();
+	TickType_t sensorTaskPeriod = pdMS_TO_TICKS(1);
+	static int32_t loopTick = 0;
+	extern int32_t globalSensorTaskPeriod;
+	/* Infinite loop */
+	for (;;) {
+
+		if (++loopTick >= globalSensorTaskPeriod) {
+			loopTick = 0;
+			loop();
+		}
+		vTaskDelayUntil(&xLastWakeTime, sensorTaskPeriod);
+
+	}
+	/* USER CODE END sensorTaskFunc */
 }
 
 /* USER CODE BEGIN Header_communicationTaskFunc */
 /**
-* @brief Function implementing the communicationTa thread.
-* @param argument: Not used
-* @retval None
-*/
+ * @brief Function implementing the communicationTa thread.
+ * @param argument: Not used
+ * @retval None
+ */
 /* USER CODE END Header_communicationTaskFunc */
-void communicationTaskFunc(void const * argument)
-{
-  /* USER CODE BEGIN communicationTaskFunc */
-  /* Infinite loop */
-  for(;;)
-  {
-    osDelay(1);
-  }
-  /* USER CODE END communicationTaskFunc */
+void communicationTaskFunc(void const *argument) {
+	/* USER CODE BEGIN communicationTaskFunc */
+	TickType_t xLastWakeTime = xTaskGetTickCount();
+	TickType_t communicationTaskPeriod = pdMS_TO_TICKS(1);
+	static int32_t loopTick = 0;
+	extern int32_t globalCommunicationTaskPeriod;
+	/* Infinite loop */
+	for (;;) {
+
+		if (++loopTick >= globalCommunicationTaskPeriod) {
+			loopTick = 0;
+			loop2();
+		}
+		vTaskDelayUntil(&xLastWakeTime, communicationTaskPeriod);
+
+	}
+	/* USER CODE END communicationTaskFunc */
 }
 
 /* Private application code --------------------------------------------------*/

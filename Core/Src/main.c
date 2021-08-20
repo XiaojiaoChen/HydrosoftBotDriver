@@ -29,6 +29,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "messages.h"
+#include "myMain.h"
 #include "CANbus.h"
 /* USER CODE END Includes */
 
@@ -97,7 +98,7 @@ int main(void)
   MX_I2C1_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-  canConfig();
+  setup();
 
   /* USER CODE END 2 */
 
