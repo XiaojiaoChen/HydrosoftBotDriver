@@ -20,9 +20,9 @@ static HAL_StatusTypeDef my_HAL_CAN_GetRxMessage(CAN_HandleTypeDef *hcan, uint32
 /**************************************************************************/
 /**************************************************************************/
 
-extern SENSORDATA sensorData[6];
+extern SENSORDATA sensorData[4];
 
-static SENSORDATACOMPACT sensorDataBuffer[6];
+static SENSORDATACOMPACT sensorDataBuffer[4];
 
 void canConfig(){
 	canbus.CanHandle=hcan;
@@ -183,8 +183,8 @@ static HAL_StatusTypeDef my_HAL_CAN_GetRxMessage(CAN_HandleTypeDef *hcan, uint32
 
 
     /**********************  added  ******************************************/
-	//int i = pHeader->StdId/6;
-    int j = pHeader->StdId%6;
+	//int i = pHeader->StdId/4;
+    int j = pHeader->StdId%4;
 
     aData=(uint8_t *)(sensorDataBuffer);
     /****************************************************************/

@@ -18,6 +18,23 @@ extern "C"
 #define ACTNUM 4
 #define P_ATM 101000
 
+
+
+typedef struct SPIDATA_T_TAG{
+	SENSORDATA data[SEGMENTNUM][BELLOWNUM];
+	char infos[10];
+}SPIDATA_T;
+
+typedef struct SPIDATA_R_TAG{
+	COMMANDDATA data[SEGMENTNUM][BELLOWNUM];
+	char infos[10];
+}SPIDATA_R;
+
+//local sensor and command buffer
+SENSORDATACOMPACT sensorDataBuffer[SEGMENTNUM][BELLOWNUM];
+SPIDATA_R commandDataBuffer;
+
+
 	class HydroUnderwaterManipulator
 	{
 	public:
