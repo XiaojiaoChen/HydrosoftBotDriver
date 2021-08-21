@@ -14,25 +14,16 @@ extern "C"
 
 #include "CHAMBER.h"
 #include "PRESSURESOURCE.h"
-#define SEGNUM 2
+#include "message.h"
+#define SEGNUM 3
 #define ACTNUM 4
 #define P_ATM 101000
 
 
-
-typedef struct SPIDATA_T_TAG{
-	SENSORDATA data[SEGMENTNUM][BELLOWNUM];
-	char infos[10];
-}SPIDATA_T;
-
-typedef struct SPIDATA_R_TAG{
-	COMMANDDATA data[SEGMENTNUM][BELLOWNUM];
-	char infos[10];
-}SPIDATA_R;
-
 //local sensor and command buffer
-SENSORDATACOMPACT sensorDataBuffer[SEGMENTNUM][BELLOWNUM];
-SPIDATA_R commandDataBuffer;
+SENSORDATACOMPACT botNodeDataBuffer[SEGMENTNUM][BELLOWNUM];
+SENSORDATA botNodeData[SEGMENTNUM][BELLOWNUM];
+
 
 
 	class HydroUnderwaterManipulator
