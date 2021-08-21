@@ -11,6 +11,7 @@ struct CANBUS_HANDLE canbus;
 #include "messages.h"
 #include "can.h"
 #include <inttypes.h>
+#include "ros.h"
 static HAL_StatusTypeDef my_HAL_CAN_GetRxMessage(CAN_HandleTypeDef *hcan, uint32_t RxFifo, CAN_RxHeaderTypeDef *pHeader, uint8_t aData[]);
 /***************************     Can bus        ***************************/
 /***************************                     ***************************/
@@ -20,9 +21,8 @@ static HAL_StatusTypeDef my_HAL_CAN_GetRxMessage(CAN_HandleTypeDef *hcan, uint32
 /**************************************************************************/
 /**************************************************************************/
 
-extern SENSORDATA sensorData[4];
-
-static SENSORDATACOMPACT sensorDataBuffer[4];
+static SENSORDATACOMPACT botNodeDataBuffer[4];
+static SENSORDATA botNodeData[4];
 
 void canConfig(){
 	canbus.CanHandle=hcan;
@@ -186,7 +186,7 @@ static HAL_StatusTypeDef my_HAL_CAN_GetRxMessage(CAN_HandleTypeDef *hcan, uint32
 	//int i = pHeader->StdId/4;
     int j = pHeader->StdId%4;
 
-    aData=(uint8_t *)(sensorDataBuffer);
+    aData=(uint8_t *)(botNodeDataBuffer);
     /****************************************************************/
 
     /* Get the data */
@@ -200,11 +200,14 @@ static HAL_StatusTypeDef my_HAL_CAN_GetRxMessage(CAN_HandleTypeDef *hcan, uint32
     aData[7] = (uint8_t)((CAN_RDH0R_DATA7 & hcan->Instance->sFIFOMailBox[RxFifo].RDHR) >> CAN_RDH0R_DATA7_Pos);
 
 
-    /**********************  Added Docode the sensor Data to SPI buffer*******************************/
+    /**********************  Added Docode the compact sensor Data to complete sensor data*******************************/
 
-    decodeSensorData(&(sensorDataBuffer[j]),&(sensorData[j]));
+    decodeSensorData(&(botNodeDataBuffer[j]),&(botNodeData[j]));
     /*******************************************************************/
 
+
+    /********************** update the content of rosserial.pubdata*******************************/
+    // sensor_msg.data. =  rosserialNode.pubData
 
 
 
