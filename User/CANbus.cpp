@@ -86,8 +86,8 @@ void canSend()
 	canbus.TxHeader.IDE = CAN_ID_STD;
 	canbus.TxHeader.TransmitGlobalTime = DISABLE;
 
-	canbus.TxData=(uint8_t *)(&sensorData);
-	canbus.TxHeader.DLC = sizeof(sensorData);
+//	canbus.TxData=(uint8_t *)(&sensorData);
+//	canbus.TxHeader.DLC = sizeof(sensorData);
 
 	/* Start the Transmission process */
 	if (HAL_CAN_AddTxMessage(&canbus.CanHandle, &canbus.TxHeader, canbus.TxData, &canbus.TxMailbox) != HAL_OK)

@@ -14,15 +14,11 @@ extern "C"
 
 #include "CHAMBER.h"
 #include "PRESSURESOURCE.h"
-#include "message.h"
+#include "messages.h"
 #define SEGNUM 3
 #define ACTNUM 4
 #define P_ATM 101000
 
-
-//local sensor and command buffer
-SENSORDATACOMPACT botNodeDataBuffer[SEGMENTNUM][BELLOWNUM];
-SENSORDATA botNodeData[SEGMENTNUM][BELLOWNUM];
 
 
 
