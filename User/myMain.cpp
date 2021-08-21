@@ -32,8 +32,8 @@ uint8_t valveControlPorts[2 * ACTALLNUM] =
     // Act1      Act2       Act3      Act4
     //In,Out,   In,Out,   In,Out,   In,Out,
     {
-        31, 47, 33, 49, 24, 38, 34, 40, //Seg 1  (Root segment)
-        26, 42, 28, 44, 30, 46, 32, 48  //Seg 2y
+        0, 1, 2, 3, 4, 5, 6, 7, //Seg 1  (Root segment)
+        8, 9, 10, 11, 12, 13, 14, 15  //Seg 2y
 };
 uint8_t PumpInControlPorts = 41;
 uint8_t PumpInValveControlPorts = 43;
@@ -87,18 +87,18 @@ void setup(){
 
 	canConfig();
 
-	  /*soft arm Valves' port mapping*/
-	  uwManipulator.setupValvePorts(valveControlPorts);
+	/*soft arm Valves' port mapping*/
+	uwManipulator.setupValvePorts(valveControlPorts);
 
-	  /*soft arm Valves' port mapping*/
-	  uwManipulator.setupGripperPorts(gripperControlPorts[0], gripperControlPorts[1]);
+	/*soft arm Valves' port mapping*/
+	uwManipulator.setupGripperPorts(gripperControlPorts[0], gripperControlPorts[1]);
 
-	  /*soft arm Pumps' port mapping*/
-	  uwManipulator.setupPumpPorts(PumpInControlPorts, PumpInValveControlPorts, PumpSensorPorts[0], PumpOutControlPorts, PumpOutValveControlPorts, PumpSensorPorts[1]);
+	/*soft arm Pumps' port mapping*/
+	uwManipulator.setupPumpPorts(PumpInControlPorts, PumpInValveControlPorts, PumpSensorPorts[0], PumpOutControlPorts, PumpOutValveControlPorts, PumpSensorPorts[1]);
 
-	  /*setup buffer pointer and length*/
-	  rosserialNode.sensor_msg.actuator = sensorActuatorBuffer;
-	  rosserialNode.sensor_msg.actuator_length = ACTALLNUM;
+	/*setup buffer pointer and length*/
+	rosserialNode.sensor_msg.actuator = sensorActuatorBuffer;
+	rosserialNode.sensor_msg.actuator_length = ACTALLNUM;
 
 }
 
