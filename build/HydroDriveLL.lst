@@ -1,0 +1,315 @@
+ARM GAS  /tmp/ccfx0ImB.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"HydroDriveLL.cpp"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.global	__aeabi_i2f
+  16              		.global	__aeabi_fdiv
+  17              		.global	__aeabi_fmul
+  18              		.section	.text.AnalogRead,"ax",%progbits
+  19              		.align	1
+  20              		.global	AnalogRead
+  21              		.arch armv7-m
+  22              		.syntax unified
+  23              		.thumb
+  24              		.thumb_func
+  25              		.fpu softvfp
+  27              	AnalogRead:
+  28              		.fnstart
+  29              	.LVL0:
+  30              	.LFB65:
+  31              		.file 1 "User/HydroDriveLL.cpp"
+   1:User/HydroDriveLL.cpp **** /*
+   2:User/HydroDriveLL.cpp ****  * HydroDriveLL.c
+   3:User/HydroDriveLL.cpp ****  *
+   4:User/HydroDriveLL.cpp ****  *  Created on: Aug 20, 2021
+   5:User/HydroDriveLL.cpp ****  *      Author: 402072495
+   6:User/HydroDriveLL.cpp ****  */
+   7:User/HydroDriveLL.cpp **** #include <HydroDriveLL.h>
+   8:User/HydroDriveLL.cpp **** #include "ads1115.h"
+   9:User/HydroDriveLL.cpp **** #include "LED_Driver.h"
+  10:User/HydroDriveLL.cpp **** //extern TIM_HandleTypeDef htim5;
+  11:User/HydroDriveLL.cpp **** 
+  12:User/HydroDriveLL.cpp **** static int16_t adRawData=0;
+  13:User/HydroDriveLL.cpp **** float adVoltage=0;
+  14:User/HydroDriveLL.cpp **** 
+  15:User/HydroDriveLL.cpp **** 
+  16:User/HydroDriveLL.cpp **** float AnalogRead(uint16_t num)
+  17:User/HydroDriveLL.cpp **** {
+  32              		.loc 1 17 1 view -0
+  33              		.cfi_startproc
+  34              		@ args = 0, pretend = 0, frame = 0
+  35              		@ frame_needed = 0, uses_anonymous_args = 0
+  36              		.loc 1 17 1 is_stmt 0 view .LVU1
+  37 0000 08B5     		push	{r3, lr}
+  38              		.save {r3, lr}
+  39              	.LCFI0:
+  40              		.cfi_def_cfa_offset 8
+  41              		.cfi_offset 3, -8
+ARM GAS  /tmp/ccfx0ImB.s 			page 2
+
+
+  42              		.cfi_offset 14, -4
+  18:User/HydroDriveLL.cpp **** 	adRawData = ADS1115_Read(num);
+  43              		.loc 1 18 2 is_stmt 1 view .LVU2
+  44              		.loc 1 18 26 is_stmt 0 view .LVU3
+  45 0002 FFF7FEFF 		bl	ADS1115_Read
+  46              	.LVL1:
+  47              		.loc 1 18 12 view .LVU4
+  48 0006 064B     		ldr	r3, .L3
+  49 0008 1880     		strh	r0, [r3]	@ movhi
+  19:User/HydroDriveLL.cpp **** 	adVoltage = (float)(adRawData)/32767.0f*5.0f;     //raw data to voltage
+  50              		.loc 1 19 2 is_stmt 1 view .LVU5
+  51              		.loc 1 19 14 is_stmt 0 view .LVU6
+  52 000a FFF7FEFF 		bl	__aeabi_i2f
+  53              	.LVL2:
+  54              		.loc 1 19 32 view .LVU7
+  55 000e 0549     		ldr	r1, .L3+4
+  56 0010 FFF7FEFF 		bl	__aeabi_fdiv
+  57              	.LVL3:
+  58              		.loc 1 19 41 view .LVU8
+  59 0014 0449     		ldr	r1, .L3+8
+  60 0016 FFF7FEFF 		bl	__aeabi_fmul
+  61              	.LVL4:
+  62              		.loc 1 19 12 view .LVU9
+  63 001a 044B     		ldr	r3, .L3+12
+  64 001c 1860     		str	r0, [r3]	@ float
+  20:User/HydroDriveLL.cpp **** 	return adVoltage;
+  65              		.loc 1 20 2 is_stmt 1 view .LVU10
+  21:User/HydroDriveLL.cpp **** }
+  66              		.loc 1 21 1 is_stmt 0 view .LVU11
+  67 001e 08BD     		pop	{r3, pc}
+  68              	.L4:
+  69              		.align	2
+  70              	.L3:
+  71 0020 00000000 		.word	.LANCHOR0
+  72 0024 00FEFF46 		.word	1191181824
+  73 0028 0000A040 		.word	1084227584
+  74 002c 00000000 		.word	.LANCHOR1
+  75              		.cfi_endproc
+  76              	.LFE65:
+  77              		.fnend
+  79              		.section	.text.DigitalWrite,"ax",%progbits
+  80              		.align	1
+  81              		.global	DigitalWrite
+  82              		.syntax unified
+  83              		.thumb
+  84              		.thumb_func
+  85              		.fpu softvfp
+  87              	DigitalWrite:
+  88              		.fnstart
+  89              	.LVL5:
+  90              	.LFB66:
+  22:User/HydroDriveLL.cpp **** 
+  23:User/HydroDriveLL.cpp **** 
+  24:User/HydroDriveLL.cpp **** void DigitalWrite(uint16_t num, uint16_t state)
+  25:User/HydroDriveLL.cpp **** {
+  91              		.loc 1 25 1 is_stmt 1 view -0
+  92              		.cfi_startproc
+ARM GAS  /tmp/ccfx0ImB.s 			page 3
+
+
+  93              		@ args = 0, pretend = 0, frame = 0
+  94              		@ frame_needed = 0, uses_anonymous_args = 0
+  95              		@ link register save eliminated.
+  26:User/HydroDriveLL.cpp **** 
+  27:User/HydroDriveLL.cpp **** }
+  96              		.loc 1 27 1 is_stmt 0 view .LVU13
+  97 0000 7047     		bx	lr
+  98              		.cfi_endproc
+  99              	.LFE66:
+ 100              		.cantunwind
+ 101              		.fnend
+ 103              		.global	__aeabi_fcmplt
+ 104              		.global	__aeabi_fcmpgt
+ 105              		.global	__aeabi_f2uiz
+ 106              		.section	.text.PWMWriteDuty,"ax",%progbits
+ 107              		.align	1
+ 108              		.global	PWMWriteDuty
+ 109              		.syntax unified
+ 110              		.thumb
+ 111              		.thumb_func
+ 112              		.fpu softvfp
+ 114              	PWMWriteDuty:
+ 115              		.fnstart
+ 116              	.LVL6:
+ 117              	.LFB67:
+  28:User/HydroDriveLL.cpp **** 
+  29:User/HydroDriveLL.cpp **** void PWMWriteDuty(uint16_t num, float fduty)
+  30:User/HydroDriveLL.cpp **** {
+ 118              		.loc 1 30 1 is_stmt 1 view -0
+ 119              		.cfi_startproc
+ 120              		@ args = 0, pretend = 0, frame = 0
+ 121              		@ frame_needed = 0, uses_anonymous_args = 0
+ 122              		.loc 1 30 1 is_stmt 0 view .LVU15
+ 123 0000 38B5     		push	{r3, r4, r5, lr}
+ 124              		.save {r3, r4, r5, lr}
+ 125              	.LCFI1:
+ 126              		.cfi_def_cfa_offset 16
+ 127              		.cfi_offset 3, -16
+ 128              		.cfi_offset 4, -12
+ 129              		.cfi_offset 5, -8
+ 130              		.cfi_offset 14, -4
+ 131 0002 0546     		mov	r5, r0
+ 132 0004 0C46     		mov	r4, r1
+  31:User/HydroDriveLL.cpp **** 	fduty = fduty<0 ? 0 : ( fduty>1?1:fduty);
+ 133              		.loc 1 31 2 is_stmt 1 view .LVU16
+ 134              		.loc 1 31 18 is_stmt 0 view .LVU17
+ 135 0006 0021     		movs	r1, #0
+ 136              	.LVL7:
+ 137              		.loc 1 31 18 view .LVU18
+ 138 0008 2046     		mov	r0, r4
+ 139              	.LVL8:
+ 140              		.loc 1 31 18 view .LVU19
+ 141 000a FFF7FEFF 		bl	__aeabi_fcmplt
+ 142              	.LVL9:
+ 143 000e 40B9     		cbnz	r0, .L9
+ 144              		.loc 1 31 33 discriminator 2 view .LVU20
+ 145 0010 4FF07E51 		mov	r1, #1065353216
+ARM GAS  /tmp/ccfx0ImB.s 			page 4
+
+
+ 146 0014 2046     		mov	r0, r4
+ 147 0016 FFF7FEFF 		bl	__aeabi_fcmpgt
+ 148              	.LVL10:
+ 149 001a 18B1     		cbz	r0, .L7
+ 150              		.loc 1 31 33 view .LVU21
+ 151 001c 4FF07E54 		mov	r4, #1065353216
+ 152              	.LVL11:
+ 153              		.loc 1 31 33 view .LVU22
+ 154 0020 00E0     		b	.L7
+ 155              	.LVL12:
+ 156              	.L9:
+ 157              		.loc 1 31 18 view .LVU23
+ 158 0022 0024     		movs	r4, #0
+ 159              	.LVL13:
+ 160              	.L7:
+  32:User/HydroDriveLL.cpp **** 	uint8_t cycleduty = fduty*255;
+ 161              		.loc 1 32 2 is_stmt 1 discriminator 8 view .LVU24
+ 162              		.loc 1 32 27 is_stmt 0 discriminator 8 view .LVU25
+ 163 0024 0549     		ldr	r1, .L12
+ 164 0026 2046     		mov	r0, r4
+ 165 0028 FFF7FEFF 		bl	__aeabi_fmul
+ 166              	.LVL14:
+ 167              		.loc 1 32 10 discriminator 8 view .LVU26
+ 168 002c FFF7FEFF 		bl	__aeabi_f2uiz
+ 169              	.LVL15:
+  33:User/HydroDriveLL.cpp **** 	LED_Driver_SetPWM_One(num,cycleduty);
+ 170              		.loc 1 33 2 is_stmt 1 discriminator 8 view .LVU27
+ 171              		.loc 1 33 23 is_stmt 0 discriminator 8 view .LVU28
+ 172 0030 C1B2     		uxtb	r1, r0
+ 173 0032 2846     		mov	r0, r5
+ 174              	.LVL16:
+ 175              		.loc 1 33 23 discriminator 8 view .LVU29
+ 176 0034 FFF7FEFF 		bl	LED_Driver_SetPWM_One
+ 177              	.LVL17:
+  34:User/HydroDriveLL.cpp **** 
+  35:User/HydroDriveLL.cpp **** }
+ 178              		.loc 1 35 1 discriminator 8 view .LVU30
+ 179 0038 38BD     		pop	{r3, r4, r5, pc}
+ 180              	.LVL18:
+ 181              	.L13:
+ 182              		.loc 1 35 1 discriminator 8 view .LVU31
+ 183 003a 00BF     		.align	2
+ 184              	.L12:
+ 185 003c 00007F43 		.word	1132396544
+ 186              		.cfi_endproc
+ 187              	.LFE67:
+ 188              		.fnend
+ 190              		.section	.text.PWMWriteFrequency,"ax",%progbits
+ 191              		.align	1
+ 192              		.global	PWMWriteFrequency
+ 193              		.syntax unified
+ 194              		.thumb
+ 195              		.thumb_func
+ 196              		.fpu softvfp
+ 198              	PWMWriteFrequency:
+ 199              		.fnstart
+ 200              	.LVL19:
+ARM GAS  /tmp/ccfx0ImB.s 			page 5
+
+
+ 201              	.LFB68:
+  36:User/HydroDriveLL.cpp **** 
+  37:User/HydroDriveLL.cpp **** void PWMWriteFrequency(uint16_t num, float fre)
+  38:User/HydroDriveLL.cpp **** {
+ 202              		.loc 1 38 1 is_stmt 1 view -0
+ 203              		.cfi_startproc
+ 204              		@ args = 0, pretend = 0, frame = 0
+ 205              		@ frame_needed = 0, uses_anonymous_args = 0
+ 206              		@ link register save eliminated.
+  39:User/HydroDriveLL.cpp **** 
+  40:User/HydroDriveLL.cpp **** }
+ 207              		.loc 1 40 1 is_stmt 0 view .LVU33
+ 208 0000 7047     		bx	lr
+ 209              		.cfi_endproc
+ 210              	.LFE68:
+ 211              		.cantunwind
+ 212              		.fnend
+ 214              		.global	adVoltage
+ 215              		.section	.bss._ZL9adRawData,"aw",%nobits
+ 216              		.align	1
+ 217              		.set	.LANCHOR0,. + 0
+ 220              	_ZL9adRawData:
+ 221 0000 0000     		.space	2
+ 222              		.section	.bss.adVoltage,"aw",%nobits
+ 223              		.align	2
+ 224              		.set	.LANCHOR1,. + 0
+ 227              	adVoltage:
+ 228 0000 00000000 		.space	4
+ 229              		.text
+ 230              	.Letext0:
+ 231              		.file 2 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-n
+ 232              		.file 3 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-n
+ 233              		.file 4 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h"
+ 234              		.file 5 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
+ 235              		.file 6 "User/Inc/LED_Driver.h"
+ 236              		.file 7 "User/Inc/ads1115.h"
+ARM GAS  /tmp/ccfx0ImB.s 			page 6
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 HydroDriveLL.cpp
+     /tmp/ccfx0ImB.s:19     .text.AnalogRead:0000000000000000 $t
+     /tmp/ccfx0ImB.s:27     .text.AnalogRead:0000000000000000 AnalogRead
+     /tmp/ccfx0ImB.s:71     .text.AnalogRead:0000000000000020 $d
+       .ARM.extab.text.AnalogRead:0000000000000000 $d
+       .ARM.exidx.text.AnalogRead:0000000000000000 $d
+     /tmp/ccfx0ImB.s:80     .text.DigitalWrite:0000000000000000 $t
+     /tmp/ccfx0ImB.s:87     .text.DigitalWrite:0000000000000000 DigitalWrite
+     .ARM.exidx.text.DigitalWrite:0000000000000000 $d
+     /tmp/ccfx0ImB.s:107    .text.PWMWriteDuty:0000000000000000 $t
+     /tmp/ccfx0ImB.s:114    .text.PWMWriteDuty:0000000000000000 PWMWriteDuty
+     /tmp/ccfx0ImB.s:185    .text.PWMWriteDuty:000000000000003c $d
+     .ARM.exidx.text.PWMWriteDuty:0000000000000000 $d
+     /tmp/ccfx0ImB.s:191    .text.PWMWriteFrequency:0000000000000000 $t
+     /tmp/ccfx0ImB.s:198    .text.PWMWriteFrequency:0000000000000000 PWMWriteFrequency
+.ARM.exidx.text.PWMWriteFrequency:0000000000000000 $d
+     /tmp/ccfx0ImB.s:227    .bss.adVoltage:0000000000000000 adVoltage
+     /tmp/ccfx0ImB.s:216    .bss._ZL9adRawData:0000000000000000 $d
+     /tmp/ccfx0ImB.s:220    .bss._ZL9adRawData:0000000000000000 _ZL9adRawData
+     /tmp/ccfx0ImB.s:223    .bss.adVoltage:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+__aeabi_i2f
+__aeabi_fdiv
+__aeabi_fmul
+ADS1115_Read
+__aeabi_unwind_cpp_pr1
+__aeabi_fcmplt
+__aeabi_fcmpgt
+__aeabi_f2uiz
+LED_Driver_SetPWM_One
+__aeabi_unwind_cpp_pr0

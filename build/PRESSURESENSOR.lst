@@ -1,0 +1,295 @@
+ARM GAS  /tmp/cckD7AJu.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"PRESSURESENSOR.cpp"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.global	__aeabi_f2d
+  16              		.global	__aeabi_ddiv
+  17              		.global	__aeabi_dmul
+  18              		.global	__aeabi_d2iz
+  19              		.section	.text._ZN15PRESSURE_SENSOR4readEv,"ax",%progbits
+  20              		.align	1
+  21              		.global	_ZN15PRESSURE_SENSOR4readEv
+  22              		.arch armv7-m
+  23              		.syntax unified
+  24              		.thumb
+  25              		.thumb_func
+  26              		.fpu softvfp
+  28              	_ZN15PRESSURE_SENSOR4readEv:
+  29              		.fnstart
+  30              	.LVL0:
+  31              	.LFB68:
+  32              		.file 1 "User/PRESSURESENSOR.cpp"
+   1:User/PRESSURESENSOR.cpp **** /*
+   2:User/PRESSURESENSOR.cpp ****  * PRESSURESENSOR.cpp
+   3:User/PRESSURESENSOR.cpp ****  *
+   4:User/PRESSURESENSOR.cpp ****  *  Created on: Jun 15, 2018
+   5:User/PRESSURESENSOR.cpp ****  *      Author: Xiaojiao Chen
+   6:User/PRESSURESENSOR.cpp ****  *		 Email: chen2014@connect.hku.hk
+   7:User/PRESSURESENSOR.cpp ****  *	Laboratory: Bio-Control Lab
+   8:User/PRESSURESENSOR.cpp ****  * Orgnization: the University of Hong Kong
+   9:User/PRESSURESENSOR.cpp ****  */
+  10:User/PRESSURESENSOR.cpp **** 
+  11:User/PRESSURESENSOR.cpp **** #include "main.h"
+  12:User/PRESSURESENSOR.cpp **** #include "HydroDriveLL.h"
+  13:User/PRESSURESENSOR.cpp **** #include "PRESSURESENSOR.h"
+  14:User/PRESSURESENSOR.cpp **** 
+  15:User/PRESSURESENSOR.cpp **** 
+  16:User/PRESSURESENSOR.cpp **** //gauge pressure Pa
+  17:User/PRESSURESENSOR.cpp **** const int32_t PascalPerPSI=6895;
+  18:User/PRESSURESENSOR.cpp **** const int32_t pressureSensorType1_pMin =   0;
+  19:User/PRESSURESENSOR.cpp **** const int32_t pressureSensorType1_pMax =  50*PascalPerPSI;
+  20:User/PRESSURESENSOR.cpp **** 
+  21:User/PRESSURESENSOR.cpp **** 
+  22:User/PRESSURESENSOR.cpp **** PRESSURE_SENSOR::PRESSURE_SENSOR(uint8_t num):
+  23:User/PRESSURESENSOR.cpp **** pressure(0)
+  24:User/PRESSURESENSOR.cpp **** {
+  25:User/PRESSURESENSOR.cpp **** 	attach(num);
+  26:User/PRESSURESENSOR.cpp **** 	setSensorRange_GaugePa(pressureSensorType1_pMin,pressureSensorType1_pMax);
+ARM GAS  /tmp/cckD7AJu.s 			page 2
+
+
+  27:User/PRESSURESENSOR.cpp **** }
+  28:User/PRESSURESENSOR.cpp **** 
+  29:User/PRESSURESENSOR.cpp **** int32_t PRESSURE_SENSOR::read()
+  30:User/PRESSURESENSOR.cpp **** {
+  33              		.loc 1 30 1 view -0
+  34              		.cfi_startproc
+  35              		@ args = 0, pretend = 0, frame = 0
+  36              		@ frame_needed = 0, uses_anonymous_args = 0
+  37              		.loc 1 30 1 is_stmt 0 view .LVU1
+  38 0000 10B5     		push	{r4, lr}
+  39              		.save {r4, lr}
+  40              	.LCFI0:
+  41              		.cfi_def_cfa_offset 8
+  42              		.cfi_offset 4, -8
+  43              		.cfi_offset 14, -4
+  44 0002 0446     		mov	r4, r0
+  31:User/PRESSURESENSOR.cpp **** 	float vol=AnalogRead(AnalogPort);
+  45              		.loc 1 31 2 is_stmt 1 view .LVU2
+  46              		.loc 1 31 22 is_stmt 0 view .LVU3
+  47 0004 0078     		ldrb	r0, [r0]	@ zero_extendqisi2
+  48              	.LVL1:
+  49              		.loc 1 31 22 view .LVU4
+  50 0006 FFF7FEFF 		bl	AnalogRead
+  51              	.LVL2:
+  32:User/PRESSURESENSOR.cpp **** 	pressure = (int32_t)(vol/5.0*10000);
+  52              		.loc 1 32 2 is_stmt 1 view .LVU5
+  53              		.loc 1 32 23 is_stmt 0 view .LVU6
+  54 000a FFF7FEFF 		bl	__aeabi_f2d
+  55              	.LVL3:
+  56              		.loc 1 32 26 view .LVU7
+  57 000e 0022     		movs	r2, #0
+  58 0010 074B     		ldr	r3, .L3+8
+  59 0012 FFF7FEFF 		bl	__aeabi_ddiv
+  60              	.LVL4:
+  61              		.loc 1 32 30 view .LVU8
+  62 0016 04A3     		adr	r3, .L3
+  63 0018 D3E90023 		ldrd	r2, [r3]
+  64 001c FFF7FEFF 		bl	__aeabi_dmul
+  65              	.LVL5:
+  66              		.loc 1 32 13 view .LVU9
+  67 0020 FFF7FEFF 		bl	__aeabi_d2iz
+  68              	.LVL6:
+  69              		.loc 1 32 11 view .LVU10
+  70 0024 6060     		str	r0, [r4, #4]
+  33:User/PRESSURESENSOR.cpp **** 	return pressure;
+  71              		.loc 1 33 2 is_stmt 1 view .LVU11
+  34:User/PRESSURESENSOR.cpp **** }
+  72              		.loc 1 34 1 is_stmt 0 view .LVU12
+  73 0026 10BD     		pop	{r4, pc}
+  74              	.LVL7:
+  75              	.L4:
+  76              		.loc 1 34 1 view .LVU13
+  77              		.align	3
+  78              	.L3:
+  79 0028 00000000 		.word	0
+  80 002c 0088C340 		.word	1086556160
+  81 0030 00001440 		.word	1075052544
+ARM GAS  /tmp/cckD7AJu.s 			page 3
+
+
+  82              		.cfi_endproc
+  83              	.LFE68:
+  84              		.fnend
+  86              		.section	.text._ZN15PRESSURE_SENSOR6attachEh,"ax",%progbits
+  87              		.align	1
+  88              		.global	_ZN15PRESSURE_SENSOR6attachEh
+  89              		.syntax unified
+  90              		.thumb
+  91              		.thumb_func
+  92              		.fpu softvfp
+  94              	_ZN15PRESSURE_SENSOR6attachEh:
+  95              		.fnstart
+  96              	.LVL8:
+  97              	.LFB69:
+  35:User/PRESSURESENSOR.cpp **** 
+  36:User/PRESSURESENSOR.cpp **** void PRESSURE_SENSOR::attach(uint8_t num)
+  37:User/PRESSURESENSOR.cpp **** {
+  98              		.loc 1 37 1 is_stmt 1 view -0
+  99              		.cfi_startproc
+ 100              		@ args = 0, pretend = 0, frame = 0
+ 101              		@ frame_needed = 0, uses_anonymous_args = 0
+ 102              		@ link register save eliminated.
+  38:User/PRESSURESENSOR.cpp **** 	AnalogPort = num;
+ 103              		.loc 1 38 2 view .LVU15
+ 104              		.loc 1 38 13 is_stmt 0 view .LVU16
+ 105 0000 0170     		strb	r1, [r0]
+  39:User/PRESSURESENSOR.cpp **** 
+  40:User/PRESSURESENSOR.cpp **** }
+ 106              		.loc 1 40 1 view .LVU17
+ 107 0002 7047     		bx	lr
+ 108              		.cfi_endproc
+ 109              	.LFE69:
+ 110              		.cantunwind
+ 111              		.fnend
+ 113              		.section	.text._ZN15PRESSURE_SENSOR22setSensorRange_GaugePaEll,"ax",%progbits
+ 114              		.align	1
+ 115              		.global	_ZN15PRESSURE_SENSOR22setSensorRange_GaugePaEll
+ 116              		.syntax unified
+ 117              		.thumb
+ 118              		.thumb_func
+ 119              		.fpu softvfp
+ 121              	_ZN15PRESSURE_SENSOR22setSensorRange_GaugePaEll:
+ 122              		.fnstart
+ 123              	.LVL9:
+ 124              	.LFB70:
+  41:User/PRESSURESENSOR.cpp **** 
+  42:User/PRESSURESENSOR.cpp **** void PRESSURE_SENSOR::setSensorRange_GaugePa(int32_t pmin,int32_t pmax)
+  43:User/PRESSURESENSOR.cpp **** {
+ 125              		.loc 1 43 1 is_stmt 1 view -0
+ 126              		.cfi_startproc
+ 127              		@ args = 0, pretend = 0, frame = 0
+ 128              		@ frame_needed = 0, uses_anonymous_args = 0
+ 129              		@ link register save eliminated.
+  44:User/PRESSURESENSOR.cpp **** 	pMin=pmin;
+ 130              		.loc 1 44 2 view .LVU19
+ 131              		.loc 1 44 6 is_stmt 0 view .LVU20
+ 132 0000 8160     		str	r1, [r0, #8]
+ARM GAS  /tmp/cckD7AJu.s 			page 4
+
+
+  45:User/PRESSURESENSOR.cpp **** 	pMax=pmax;
+ 133              		.loc 1 45 2 is_stmt 1 view .LVU21
+ 134              		.loc 1 45 6 is_stmt 0 view .LVU22
+ 135 0002 C260     		str	r2, [r0, #12]
+  46:User/PRESSURESENSOR.cpp **** }
+ 136              		.loc 1 46 1 view .LVU23
+ 137 0004 7047     		bx	lr
+ 138              		.cfi_endproc
+ 139              	.LFE70:
+ 140              		.cantunwind
+ 141              		.fnend
+ 143              		.section	.text._ZN15PRESSURE_SENSORC2Eh,"ax",%progbits
+ 144              		.align	1
+ 145              		.global	_ZN15PRESSURE_SENSORC2Eh
+ 146              		.syntax unified
+ 147              		.thumb
+ 148              		.thumb_func
+ 149              		.fpu softvfp
+ 151              	_ZN15PRESSURE_SENSORC2Eh:
+ 152              		.fnstart
+ 153              	.LVL10:
+ 154              	.LFB66:
+  22:User/PRESSURESENSOR.cpp **** pressure(0)
+ 155              		.loc 1 22 1 is_stmt 1 view -0
+ 156              		.cfi_startproc
+ 157              		@ args = 0, pretend = 0, frame = 0
+ 158              		@ frame_needed = 0, uses_anonymous_args = 0
+  22:User/PRESSURESENSOR.cpp **** pressure(0)
+ 159              		.loc 1 22 1 is_stmt 0 view .LVU25
+ 160 0000 38B5     		push	{r3, r4, r5, lr}
+ 161              	.LCFI1:
+ 162              		.cfi_def_cfa_offset 16
+ 163              		.cfi_offset 3, -16
+ 164              		.cfi_offset 4, -12
+ 165              		.cfi_offset 5, -8
+ 166              		.cfi_offset 14, -4
+ 167 0002 0446     		mov	r4, r0
+ 168              	.LBB2:
+  23:User/PRESSURESENSOR.cpp **** {
+ 169              		.loc 1 23 11 view .LVU26
+ 170 0004 0025     		movs	r5, #0
+ 171 0006 4560     		str	r5, [r0, #4]
+  25:User/PRESSURESENSOR.cpp **** 	setSensorRange_GaugePa(pressureSensorType1_pMin,pressureSensorType1_pMax);
+ 172              		.loc 1 25 2 is_stmt 1 view .LVU27
+  25:User/PRESSURESENSOR.cpp **** 	setSensorRange_GaugePa(pressureSensorType1_pMin,pressureSensorType1_pMax);
+ 173              		.loc 1 25 8 is_stmt 0 view .LVU28
+ 174 0008 FFF7FEFF 		bl	_ZN15PRESSURE_SENSOR6attachEh
+ 175              	.LVL11:
+  26:User/PRESSURESENSOR.cpp **** }
+ 176              		.loc 1 26 2 is_stmt 1 view .LVU29
+  26:User/PRESSURESENSOR.cpp **** }
+ 177              		.loc 1 26 24 is_stmt 0 view .LVU30
+ 178 000c 034A     		ldr	r2, .L9
+ 179 000e 2946     		mov	r1, r5
+ 180 0010 2046     		mov	r0, r4
+ 181 0012 FFF7FEFF 		bl	_ZN15PRESSURE_SENSOR22setSensorRange_GaugePaEll
+ 182              	.LVL12:
+ARM GAS  /tmp/cckD7AJu.s 			page 5
+
+
+ 183              	.LBE2:
+  27:User/PRESSURESENSOR.cpp **** 
+ 184              		.loc 1 27 1 view .LVU31
+ 185 0016 2046     		mov	r0, r4
+ 186 0018 38BD     		pop	{r3, r4, r5, pc}
+ 187              	.LVL13:
+ 188              	.L10:
+  27:User/PRESSURESENSOR.cpp **** 
+ 189              		.loc 1 27 1 view .LVU32
+ 190 001a 00BF     		.align	2
+ 191              	.L9:
+ 192 001c AE420500 		.word	344750
+ 193              		.cfi_endproc
+ 194              	.LFE66:
+ 195              		.cantunwind
+ 196              		.fnend
+ 198              		.global	_ZN15PRESSURE_SENSORC1Eh
+ 199              		.thumb_set _ZN15PRESSURE_SENSORC1Eh,_ZN15PRESSURE_SENSORC2Eh
+ 200              		.text
+ 201              	.Letext0:
+ 202              		.file 2 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-n
+ 203              		.file 3 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-n
+ 204              		.file 4 "User/Inc/PRESSURESENSOR.h"
+ 205              		.file 5 "User/Inc/HydroDriveLL.h"
+ARM GAS  /tmp/cckD7AJu.s 			page 6
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 PRESSURESENSOR.cpp
+     /tmp/cckD7AJu.s:20     .text._ZN15PRESSURE_SENSOR4readEv:0000000000000000 $t
+     /tmp/cckD7AJu.s:28     .text._ZN15PRESSURE_SENSOR4readEv:0000000000000000 _ZN15PRESSURE_SENSOR4readEv
+     /tmp/cckD7AJu.s:79     .text._ZN15PRESSURE_SENSOR4readEv:0000000000000028 $d
+.ARM.exidx.text._ZN15PRESSURE_SENSOR4readEv:0000000000000000 $d
+     /tmp/cckD7AJu.s:87     .text._ZN15PRESSURE_SENSOR6attachEh:0000000000000000 $t
+     /tmp/cckD7AJu.s:94     .text._ZN15PRESSURE_SENSOR6attachEh:0000000000000000 _ZN15PRESSURE_SENSOR6attachEh
+.ARM.exidx.text._ZN15PRESSURE_SENSOR6attachEh:0000000000000000 $d
+     /tmp/cckD7AJu.s:114    .text._ZN15PRESSURE_SENSOR22setSensorRange_GaugePaEll:0000000000000000 $t
+     /tmp/cckD7AJu.s:121    .text._ZN15PRESSURE_SENSOR22setSensorRange_GaugePaEll:0000000000000000 _ZN15PRESSURE_SENSOR22setSensorRange_GaugePaEll
+.ARM.exidx.text._ZN15PRESSURE_SENSOR22setSensorRange_GaugePaEll:0000000000000000 $d
+     /tmp/cckD7AJu.s:144    .text._ZN15PRESSURE_SENSORC2Eh:0000000000000000 $t
+     /tmp/cckD7AJu.s:151    .text._ZN15PRESSURE_SENSORC2Eh:0000000000000000 _ZN15PRESSURE_SENSORC2Eh
+     /tmp/cckD7AJu.s:192    .text._ZN15PRESSURE_SENSORC2Eh:000000000000001c $d
+.ARM.exidx.text._ZN15PRESSURE_SENSORC2Eh:0000000000000000 $d
+     /tmp/cckD7AJu.s:151    .text._ZN15PRESSURE_SENSORC2Eh:0000000000000000 _ZN15PRESSURE_SENSORC1Eh
+
+UNDEFINED SYMBOLS
+__aeabi_f2d
+__aeabi_ddiv
+__aeabi_dmul
+__aeabi_d2iz
+AnalogRead
+__aeabi_unwind_cpp_pr0

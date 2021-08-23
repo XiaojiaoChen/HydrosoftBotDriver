@@ -1,0 +1,1201 @@
+ARM GAS  /tmp/ccsz8two.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"HydroUnderwaterManipulator.cpp"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text._ZN26HydroUnderwaterManipulatorC2Ev,"ax",%progbits
+  16              		.align	1
+  17              		.global	_ZN26HydroUnderwaterManipulatorC2Ev
+  18              		.arch armv7-m
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu softvfp
+  24              	_ZN26HydroUnderwaterManipulatorC2Ev:
+  25              		.fnstart
+  26              	.LVL0:
+  27              	.LFB66:
+  28              		.file 1 "User/HydroUnderwaterManipulator.cpp"
+   1:User/HydroUnderwaterManipulator.cpp **** /*
+   2:User/HydroUnderwaterManipulator.cpp ****  * SoftArm.c
+   3:User/HydroUnderwaterManipulator.cpp ****  *
+   4:User/HydroUnderwaterManipulator.cpp ****  *  Created on: May 12, 2018
+   5:User/HydroUnderwaterManipulator.cpp ****  *      Author: 402072495
+   6:User/HydroUnderwaterManipulator.cpp ****  */
+   7:User/HydroUnderwaterManipulator.cpp **** #include "HydroUnderwaterManipulator.h"
+   8:User/HydroUnderwaterManipulator.cpp **** 
+   9:User/HydroUnderwaterManipulator.cpp **** #include "main.h"
+  10:User/HydroUnderwaterManipulator.cpp **** 
+  11:User/HydroUnderwaterManipulator.cpp **** /*************************SOFT ARM**************************
+  12:User/HydroUnderwaterManipulator.cpp ****  *
+  13:User/HydroUnderwaterManipulator.cpp ****  ***********************************************************/
+  14:User/HydroUnderwaterManipulator.cpp **** HydroUnderwaterManipulator::HydroUnderwaterManipulator():
+  29              		.loc 1 14 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              		.loc 1 14 1 is_stmt 0 view .LVU1
+  34 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+  35              		.save {r4, r5, r6, r7, r8, lr}
+  36              	.LCFI0:
+  37              		.cfi_def_cfa_offset 24
+  38              		.cfi_offset 4, -24
+  39              		.cfi_offset 5, -20
+  40              		.cfi_offset 6, -16
+  41              		.cfi_offset 7, -12
+  42              		.cfi_offset 8, -8
+  43              		.cfi_offset 14, -4
+  44              		.pad #8
+ARM GAS  /tmp/ccsz8two.s 			page 2
+
+
+  45 0004 82B0     		sub	sp, sp, #8
+  46              	.LCFI1:
+  47              		.cfi_def_cfa_offset 32
+  48 0006 8046     		mov	r8, r0
+  49              	.LBB2:
+  15:User/HydroUnderwaterManipulator.cpp **** pSource(0,0,HIGH_PRESSURE_SOURCE),
+  16:User/HydroUnderwaterManipulator.cpp **** pSink(0,0,LOW_PRESSURE_SINK)
+  50              		.loc 1 16 28 view .LVU2
+  51 0008 0746     		mov	r7, r0
+  52 000a 0226     		movs	r6, #2
+  53 000c 0BE0     		b	.L5
+  54              	.LVL1:
+  55              	.L7:
+  56              		.loc 1 16 28 discriminator 6 view .LVU3
+  57 000e 0023     		movs	r3, #0
+  58 0010 0122     		movs	r2, #1
+  59 0012 1946     		mov	r1, r3
+  60 0014 2846     		mov	r0, r5
+  61 0016 FFF7FEFF 		bl	_ZN7CHAMBERC1Eiii
+  62              	.LVL2:
+  63 001a 3C35     		adds	r5, r5, #60
+  64              		.loc 1 16 28 is_stmt 1 discriminator 6 view .LVU4
+  65 001c 013C     		subs	r4, r4, #1
+  66              	.L4:
+  67              		.loc 1 16 28 discriminator 7 view .LVU5
+  68 001e 002C     		cmp	r4, #0
+  69 0020 F5DA     		bge	.L7
+  70              		.loc 1 16 28 is_stmt 0 discriminator 5 view .LVU6
+  71 0022 F037     		adds	r7, r7, #240
+  72              		.loc 1 16 28 is_stmt 1 discriminator 5 view .LVU7
+  73 0024 013E     		subs	r6, r6, #1
+  74              	.L5:
+  75              		.loc 1 16 28 discriminator 8 view .LVU8
+  76 0026 002E     		cmp	r6, #0
+  77 0028 02DB     		blt	.L2
+  78              		.loc 1 16 28 is_stmt 0 view .LVU9
+  79 002a 3D46     		mov	r5, r7
+  80 002c 0324     		movs	r4, #3
+  81 002e F6E7     		b	.L4
+  82              	.L2:
+  83              		.loc 1 16 28 discriminator 2 view .LVU10
+  84 0030 0023     		movs	r3, #0
+  85 0032 0122     		movs	r2, #1
+  86 0034 1946     		mov	r1, r3
+  87 0036 08F53470 		add	r0, r8, #720
+  88 003a FFF7FEFF 		bl	_ZN7CHAMBERC1Eiii
+  89              	.LVL3:
+  90 003e 0024     		movs	r4, #0
+  91 0040 0094     		str	r4, [sp]
+  92 0042 2346     		mov	r3, r4
+  93 0044 2246     		mov	r2, r4
+  94 0046 2146     		mov	r1, r4
+  95 0048 08F54370 		add	r0, r8, #780
+  96 004c FFF7FEFF 		bl	_ZN15PRESSURE_SOURCEC1Ehhhh
+  97              	.LVL4:
+  98 0050 0094     		str	r4, [sp]
+  99 0052 0123     		movs	r3, #1
+ARM GAS  /tmp/ccsz8two.s 			page 3
+
+
+ 100 0054 2246     		mov	r2, r4
+ 101 0056 2146     		mov	r1, r4
+ 102 0058 08F55070 		add	r0, r8, #832
+ 103 005c FFF7FEFF 		bl	_ZN15PRESSURE_SOURCEC1Ehhhh
+ 104              	.LVL5:
+ 105              	.LBE2:
+  17:User/HydroUnderwaterManipulator.cpp **** {
+  18:User/HydroUnderwaterManipulator.cpp **** }
+ 106              		.loc 1 18 1 discriminator 2 view .LVU11
+ 107 0060 4046     		mov	r0, r8
+ 108 0062 02B0     		add	sp, sp, #8
+ 109              	.LCFI2:
+ 110              		.cfi_def_cfa_offset 24
+ 111              		@ sp needed
+ 112 0064 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 113              		.loc 1 18 1 discriminator 2 view .LVU12
+ 114              		.cfi_endproc
+ 115              	.LFE66:
+ 116              		.fnend
+ 118              		.global	_ZN26HydroUnderwaterManipulatorC1Ev
+ 119              		.thumb_set _ZN26HydroUnderwaterManipulatorC1Ev,_ZN26HydroUnderwaterManipulatorC2Ev
+ 120              		.section	.text._ZN26HydroUnderwaterManipulator15setupValvePortsEPh,"ax",%progbits
+ 121              		.align	1
+ 122              		.global	_ZN26HydroUnderwaterManipulator15setupValvePortsEPh
+ 123              		.syntax unified
+ 124              		.thumb
+ 125              		.thumb_func
+ 126              		.fpu softvfp
+ 128              	_ZN26HydroUnderwaterManipulator15setupValvePortsEPh:
+ 129              		.fnstart
+ 130              	.LVL6:
+ 131              	.LFB68:
+  19:User/HydroUnderwaterManipulator.cpp **** 
+  20:User/HydroUnderwaterManipulator.cpp **** void HydroUnderwaterManipulator::setupValvePorts(uint8_t *ports)
+  21:User/HydroUnderwaterManipulator.cpp **** {
+ 132              		.loc 1 21 1 is_stmt 1 view -0
+ 133              		.cfi_startproc
+ 134              		@ args = 0, pretend = 0, frame = 0
+ 135              		@ frame_needed = 0, uses_anonymous_args = 0
+ 136              		.loc 1 21 1 is_stmt 0 view .LVU14
+ 137 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 138              		.save {r4, r5, r6, r7, r8, lr}
+ 139              	.LCFI3:
+ 140              		.cfi_def_cfa_offset 24
+ 141              		.cfi_offset 4, -24
+ 142              		.cfi_offset 5, -20
+ 143              		.cfi_offset 6, -16
+ 144              		.cfi_offset 7, -12
+ 145              		.cfi_offset 8, -8
+ 146              		.cfi_offset 14, -4
+ 147 0004 8046     		mov	r8, r0
+ 148 0006 0F46     		mov	r7, r1
+  22:User/HydroUnderwaterManipulator.cpp **** 	/*Every actuator is refered to with two numbers, segNum(0-3) and bellowNum(0-3)*/
+  23:User/HydroUnderwaterManipulator.cpp **** 
+  24:User/HydroUnderwaterManipulator.cpp **** 	for (int j = 0; j < SEGNUM; j++)
+ 149              		.loc 1 24 2 is_stmt 1 view .LVU15
+ 150              	.LVL7:
+ARM GAS  /tmp/ccsz8two.s 			page 4
+
+
+ 151              	.LBB3:
+ 152              		.loc 1 24 11 is_stmt 0 view .LVU16
+ 153 0008 0026     		movs	r6, #0
+ 154 000a 19E0     		b	.L12
+ 155              	.LVL8:
+ 156              	.L14:
+ 157              	.LBB4:
+  25:User/HydroUnderwaterManipulator.cpp **** 	{
+  26:User/HydroUnderwaterManipulator.cpp **** 		for (int i = 0; i < ACTNUM; i++)
+  27:User/HydroUnderwaterManipulator.cpp **** 		{
+  28:User/HydroUnderwaterManipulator.cpp **** 			actuators[j][i].attachPWM(ports[2*(j*ACTNUM+i)+0],ports[2*(j*ACTNUM+i)+1]);
+ 158              		.loc 1 28 4 is_stmt 1 discriminator 2 view .LVU17
+ 159              		.loc 1 28 29 is_stmt 0 discriminator 2 view .LVU18
+ 160 000c C5EB0513 		rsb	r3, r5, r5, lsl #4
+ 161 0010 C6EB0614 		rsb	r4, r6, r6, lsl #4
+ 162 0014 2401     		lsls	r4, r4, #4
+ 163 0016 04EB8304 		add	r4, r4, r3, lsl #2
+ 164 001a 4444     		add	r4, r4, r8
+ 165              		.loc 1 28 47 discriminator 2 view .LVU19
+ 166 001c 05EB8603 		add	r3, r5, r6, lsl #2
+ 167              		.loc 1 28 76 discriminator 2 view .LVU20
+ 168 0020 07EB4302 		add	r2, r7, r3, lsl #1
+ 169              		.loc 1 28 29 discriminator 2 view .LVU21
+ 170 0024 5278     		ldrb	r2, [r2, #1]	@ zero_extendqisi2
+ 171 0026 17F81310 		ldrb	r1, [r7, r3, lsl #1]	@ zero_extendqisi2
+ 172 002a 2046     		mov	r0, r4
+ 173 002c FFF7FEFF 		bl	_ZN7CHAMBER9attachPWMEii
+ 174              	.LVL9:
+  29:User/HydroUnderwaterManipulator.cpp **** 			actuators[j][i].writeOpening(0);
+ 175              		.loc 1 29 4 is_stmt 1 discriminator 2 view .LVU22
+ 176              		.loc 1 29 32 is_stmt 0 discriminator 2 view .LVU23
+ 177 0030 0021     		movs	r1, #0
+ 178 0032 2046     		mov	r0, r4
+ 179 0034 FFF7FEFF 		bl	_ZN7CHAMBER12writeOpeningEs
+ 180              	.LVL10:
+  26:User/HydroUnderwaterManipulator.cpp **** 		{
+ 181              		.loc 1 26 3 is_stmt 1 discriminator 2 view .LVU24
+ 182 0038 0135     		adds	r5, r5, #1
+ 183              	.LVL11:
+ 184              	.L11:
+  26:User/HydroUnderwaterManipulator.cpp **** 		{
+ 185              		.loc 1 26 21 discriminator 3 view .LVU25
+ 186 003a 032D     		cmp	r5, #3
+ 187 003c E6DD     		ble	.L14
+ 188              	.LBE4:
+  24:User/HydroUnderwaterManipulator.cpp **** 	{
+ 189              		.loc 1 24 2 discriminator 2 view .LVU26
+ 190 003e 0136     		adds	r6, r6, #1
+ 191              	.LVL12:
+ 192              	.L12:
+  24:User/HydroUnderwaterManipulator.cpp **** 	{
+ 193              		.loc 1 24 20 discriminator 1 view .LVU27
+ 194 0040 022E     		cmp	r6, #2
+ 195 0042 01DC     		bgt	.L8
+ 196              	.LBB5:
+  26:User/HydroUnderwaterManipulator.cpp **** 		{
+ 197              		.loc 1 26 12 is_stmt 0 view .LVU28
+ARM GAS  /tmp/ccsz8two.s 			page 5
+
+
+ 198 0044 0025     		movs	r5, #0
+ 199 0046 F8E7     		b	.L11
+ 200              	.L8:
+ 201              	.LBE5:
+ 202              	.LBE3:
+  30:User/HydroUnderwaterManipulator.cpp **** 		}
+  31:User/HydroUnderwaterManipulator.cpp **** 	}
+  32:User/HydroUnderwaterManipulator.cpp **** }
+ 203              		.loc 1 32 1 view .LVU29
+ 204 0048 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 205              		.loc 1 32 1 view .LVU30
+ 206              		.cfi_endproc
+ 207              	.LFE68:
+ 208              		.fnend
+ 210              		.section	.text._ZN26HydroUnderwaterManipulator17setupGripperPortsEhh,"ax",%progbits
+ 211              		.align	1
+ 212              		.global	_ZN26HydroUnderwaterManipulator17setupGripperPortsEhh
+ 213              		.syntax unified
+ 214              		.thumb
+ 215              		.thumb_func
+ 216              		.fpu softvfp
+ 218              	_ZN26HydroUnderwaterManipulator17setupGripperPortsEhh:
+ 219              		.fnstart
+ 220              	.LVL13:
+ 221              	.LFB69:
+  33:User/HydroUnderwaterManipulator.cpp **** void HydroUnderwaterManipulator::setupGripperPorts(uint8_t cp1,uint8_t cp2)
+  34:User/HydroUnderwaterManipulator.cpp **** {
+ 222              		.loc 1 34 1 is_stmt 1 view -0
+ 223              		.cfi_startproc
+ 224              		@ args = 0, pretend = 0, frame = 0
+ 225              		@ frame_needed = 0, uses_anonymous_args = 0
+ 226              		.loc 1 34 1 is_stmt 0 view .LVU32
+ 227 0000 10B5     		push	{r4, lr}
+ 228              		.save {r4, lr}
+ 229              	.LCFI4:
+ 230              		.cfi_def_cfa_offset 8
+ 231              		.cfi_offset 4, -8
+ 232              		.cfi_offset 14, -4
+  35:User/HydroUnderwaterManipulator.cpp **** 	gripper.attachPWM(cp1,cp2);
+ 233              		.loc 1 35 2 is_stmt 1 view .LVU33
+ 234              		.loc 1 35 19 is_stmt 0 view .LVU34
+ 235 0002 00F53474 		add	r4, r0, #720
+ 236 0006 2046     		mov	r0, r4
+ 237              	.LVL14:
+ 238              		.loc 1 35 19 view .LVU35
+ 239 0008 FFF7FEFF 		bl	_ZN7CHAMBER9attachPWMEii
+ 240              	.LVL15:
+  36:User/HydroUnderwaterManipulator.cpp **** 	gripper.writeOpening(0);
+ 241              		.loc 1 36 2 is_stmt 1 view .LVU36
+ 242              		.loc 1 36 22 is_stmt 0 view .LVU37
+ 243 000c 0021     		movs	r1, #0
+ 244 000e 2046     		mov	r0, r4
+ 245 0010 FFF7FEFF 		bl	_ZN7CHAMBER12writeOpeningEs
+ 246              	.LVL16:
+  37:User/HydroUnderwaterManipulator.cpp **** }
+ 247              		.loc 1 37 1 view .LVU38
+ 248 0014 10BD     		pop	{r4, pc}
+ARM GAS  /tmp/ccsz8two.s 			page 6
+
+
+ 249              		.loc 1 37 1 view .LVU39
+ 250              		.cfi_endproc
+ 251              	.LFE69:
+ 252              		.fnend
+ 254              		.section	.text._ZN26HydroUnderwaterManipulator14setupPumpPortsEhhhhhh,"ax",%progbits
+ 255              		.align	1
+ 256              		.global	_ZN26HydroUnderwaterManipulator14setupPumpPortsEhhhhhh
+ 257              		.syntax unified
+ 258              		.thumb
+ 259              		.thumb_func
+ 260              		.fpu softvfp
+ 262              	_ZN26HydroUnderwaterManipulator14setupPumpPortsEhhhhhh:
+ 263              		.fnstart
+ 264              	.LVL17:
+ 265              	.LFB70:
+  38:User/HydroUnderwaterManipulator.cpp **** void HydroUnderwaterManipulator::setupPumpPorts(uint8_t cp1,uint8_t vp1,uint8_t sp1, uint8_t cp2, u
+  39:User/HydroUnderwaterManipulator.cpp **** {
+ 266              		.loc 1 39 1 is_stmt 1 view -0
+ 267              		.cfi_startproc
+ 268              		@ args = 12, pretend = 0, frame = 0
+ 269              		@ frame_needed = 0, uses_anonymous_args = 0
+ 270              		.loc 1 39 1 is_stmt 0 view .LVU41
+ 271 0000 10B5     		push	{r4, lr}
+ 272              		.save {r4, lr}
+ 273              	.LCFI5:
+ 274              		.cfi_def_cfa_offset 8
+ 275              		.cfi_offset 4, -8
+ 276              		.cfi_offset 14, -4
+ 277 0002 0446     		mov	r4, r0
+  40:User/HydroUnderwaterManipulator.cpp **** 	pSource.attach(cp1, vp1,sp1);
+ 278              		.loc 1 40 2 is_stmt 1 view .LVU42
+ 279              		.loc 1 40 16 is_stmt 0 view .LVU43
+ 280 0004 00F54370 		add	r0, r0, #780
+ 281              	.LVL18:
+ 282              		.loc 1 40 16 view .LVU44
+ 283 0008 FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE6attachEhhh
+ 284              	.LVL19:
+  41:User/HydroUnderwaterManipulator.cpp **** 	pSink.attach(cp2,vp2, sp2);
+ 285              		.loc 1 41 2 is_stmt 1 view .LVU45
+ 286              		.loc 1 41 14 is_stmt 0 view .LVU46
+ 287 000c 9DF81030 		ldrb	r3, [sp, #16]	@ zero_extendqisi2
+ 288 0010 9DF80C20 		ldrb	r2, [sp, #12]	@ zero_extendqisi2
+ 289 0014 9DF80810 		ldrb	r1, [sp, #8]	@ zero_extendqisi2
+ 290 0018 04F55070 		add	r0, r4, #832
+ 291 001c FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE6attachEhhh
+ 292              	.LVL20:
+  42:User/HydroUnderwaterManipulator.cpp **** }
+ 293              		.loc 1 42 1 view .LVU47
+ 294 0020 10BD     		pop	{r4, pc}
+ 295              		.loc 1 42 1 view .LVU48
+ 296              		.cfi_endproc
+ 297              	.LFE70:
+ 298              		.fnend
+ 300              		.section	.text._ZN26HydroUnderwaterManipulator18maintainUpPressureEll,"ax",%progbits
+ 301              		.align	1
+ 302              		.global	_ZN26HydroUnderwaterManipulator18maintainUpPressureEll
+ 303              		.syntax unified
+ARM GAS  /tmp/ccsz8two.s 			page 7
+
+
+ 304              		.thumb
+ 305              		.thumb_func
+ 306              		.fpu softvfp
+ 308              	_ZN26HydroUnderwaterManipulator18maintainUpPressureEll:
+ 309              		.fnstart
+ 310              	.LVL21:
+ 311              	.LFB71:
+  43:User/HydroUnderwaterManipulator.cpp **** 
+  44:User/HydroUnderwaterManipulator.cpp **** void HydroUnderwaterManipulator::maintainUpPressure(int32_t posP, int32_t posP2)
+  45:User/HydroUnderwaterManipulator.cpp **** {
+ 312              		.loc 1 45 1 is_stmt 1 view -0
+ 313              		.cfi_startproc
+ 314              		@ args = 0, pretend = 0, frame = 0
+ 315              		@ frame_needed = 0, uses_anonymous_args = 0
+ 316              		.loc 1 45 1 is_stmt 0 view .LVU50
+ 317 0000 08B5     		push	{r3, lr}
+ 318              		.save {r3, lr}
+ 319              	.LCFI6:
+ 320              		.cfi_def_cfa_offset 8
+ 321              		.cfi_offset 3, -8
+ 322              		.cfi_offset 14, -4
+  46:User/HydroUnderwaterManipulator.cpp **** 	pSource.maintainPressure(posP, posP2);
+ 323              		.loc 1 46 2 is_stmt 1 view .LVU51
+ 324              		.loc 1 46 26 is_stmt 0 view .LVU52
+ 325 0002 00F54370 		add	r0, r0, #780
+ 326              	.LVL22:
+ 327              		.loc 1 46 26 view .LVU53
+ 328 0006 FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE16maintainPressureEll
+ 329              	.LVL23:
+  47:User/HydroUnderwaterManipulator.cpp **** }
+ 330              		.loc 1 47 1 view .LVU54
+ 331 000a 08BD     		pop	{r3, pc}
+ 332              		.cfi_endproc
+ 333              	.LFE71:
+ 334              		.fnend
+ 336              		.section	.text._ZN26HydroUnderwaterManipulator20maintainDownPressureEll,"ax",%progbits
+ 337              		.align	1
+ 338              		.global	_ZN26HydroUnderwaterManipulator20maintainDownPressureEll
+ 339              		.syntax unified
+ 340              		.thumb
+ 341              		.thumb_func
+ 342              		.fpu softvfp
+ 344              	_ZN26HydroUnderwaterManipulator20maintainDownPressureEll:
+ 345              		.fnstart
+ 346              	.LVL24:
+ 347              	.LFB72:
+  48:User/HydroUnderwaterManipulator.cpp **** void HydroUnderwaterManipulator::maintainDownPressure(int32_t negP, int32_t negP2)
+  49:User/HydroUnderwaterManipulator.cpp **** {
+ 348              		.loc 1 49 1 is_stmt 1 view -0
+ 349              		.cfi_startproc
+ 350              		@ args = 0, pretend = 0, frame = 0
+ 351              		@ frame_needed = 0, uses_anonymous_args = 0
+ 352              		.loc 1 49 1 is_stmt 0 view .LVU56
+ 353 0000 08B5     		push	{r3, lr}
+ 354              		.save {r3, lr}
+ 355              	.LCFI7:
+ 356              		.cfi_def_cfa_offset 8
+ARM GAS  /tmp/ccsz8two.s 			page 8
+
+
+ 357              		.cfi_offset 3, -8
+ 358              		.cfi_offset 14, -4
+  50:User/HydroUnderwaterManipulator.cpp **** 	pSink.maintainPressure(negP, negP2);
+ 359              		.loc 1 50 2 is_stmt 1 view .LVU57
+ 360              		.loc 1 50 24 is_stmt 0 view .LVU58
+ 361 0002 00F55070 		add	r0, r0, #832
+ 362              	.LVL25:
+ 363              		.loc 1 50 24 view .LVU59
+ 364 0006 FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE16maintainPressureEll
+ 365              	.LVL26:
+  51:User/HydroUnderwaterManipulator.cpp **** }
+ 366              		.loc 1 51 1 view .LVU60
+ 367 000a 08BD     		pop	{r3, pc}
+ 368              		.cfi_endproc
+ 369              	.LFE72:
+ 370              		.fnend
+ 372              		.section	.text._ZN26HydroUnderwaterManipulator15readPressureAllEv,"ax",%progbits
+ 373              		.align	1
+ 374              		.global	_ZN26HydroUnderwaterManipulator15readPressureAllEv
+ 375              		.syntax unified
+ 376              		.thumb
+ 377              		.thumb_func
+ 378              		.fpu softvfp
+ 380              	_ZN26HydroUnderwaterManipulator15readPressureAllEv:
+ 381              		.fnstart
+ 382              	.LVL27:
+ 383              	.LFB73:
+  52:User/HydroUnderwaterManipulator.cpp **** 
+  53:User/HydroUnderwaterManipulator.cpp **** void HydroUnderwaterManipulator::readPressureAll()
+  54:User/HydroUnderwaterManipulator.cpp **** {
+ 384              		.loc 1 54 1 is_stmt 1 view -0
+ 385              		.cfi_startproc
+ 386              		@ args = 0, pretend = 0, frame = 0
+ 387              		@ frame_needed = 0, uses_anonymous_args = 0
+ 388              		.loc 1 54 1 is_stmt 0 view .LVU62
+ 389 0000 70B5     		push	{r4, r5, r6, lr}
+ 390              		.save {r4, r5, r6, lr}
+ 391              	.LCFI8:
+ 392              		.cfi_def_cfa_offset 16
+ 393              		.cfi_offset 4, -16
+ 394              		.cfi_offset 5, -12
+ 395              		.cfi_offset 6, -8
+ 396              		.cfi_offset 14, -4
+ 397 0002 0646     		mov	r6, r0
+  55:User/HydroUnderwaterManipulator.cpp **** 	for (int j = 0; j < SEGNUM; j++)
+ 398              		.loc 1 55 2 is_stmt 1 view .LVU63
+ 399              	.LVL28:
+ 400              	.LBB6:
+ 401              		.loc 1 55 11 is_stmt 0 view .LVU64
+ 402 0004 0025     		movs	r5, #0
+ 403 0006 0DE0     		b	.L27
+ 404              	.LVL29:
+ 405              	.L29:
+ 406              	.LBB7:
+  56:User/HydroUnderwaterManipulator.cpp **** 	{
+  57:User/HydroUnderwaterManipulator.cpp **** 		for (int i = 0; i < ACTNUM; i++)
+  58:User/HydroUnderwaterManipulator.cpp **** 		{
+ARM GAS  /tmp/ccsz8two.s 			page 9
+
+
+  59:User/HydroUnderwaterManipulator.cpp **** 			actuators[j][i].readPressure();
+ 407              		.loc 1 59 4 is_stmt 1 discriminator 2 view .LVU65
+ 408              		.loc 1 59 32 is_stmt 0 discriminator 2 view .LVU66
+ 409 0008 C4EB0413 		rsb	r3, r4, r4, lsl #4
+ 410 000c C5EB0510 		rsb	r0, r5, r5, lsl #4
+ 411 0010 0001     		lsls	r0, r0, #4
+ 412 0012 00EB8300 		add	r0, r0, r3, lsl #2
+ 413 0016 3044     		add	r0, r0, r6
+ 414 0018 FFF7FEFF 		bl	_ZN7CHAMBER12readPressureEv
+ 415              	.LVL30:
+  57:User/HydroUnderwaterManipulator.cpp **** 		{
+ 416              		.loc 1 57 3 is_stmt 1 discriminator 2 view .LVU67
+ 417 001c 0134     		adds	r4, r4, #1
+ 418              	.LVL31:
+ 419              	.L26:
+  57:User/HydroUnderwaterManipulator.cpp **** 		{
+ 420              		.loc 1 57 21 discriminator 3 view .LVU68
+ 421 001e 032C     		cmp	r4, #3
+ 422 0020 F2DD     		ble	.L29
+ 423              	.LBE7:
+  55:User/HydroUnderwaterManipulator.cpp **** 	for (int j = 0; j < SEGNUM; j++)
+ 424              		.loc 1 55 2 discriminator 2 view .LVU69
+ 425 0022 0135     		adds	r5, r5, #1
+ 426              	.LVL32:
+ 427              	.L27:
+  55:User/HydroUnderwaterManipulator.cpp **** 	for (int j = 0; j < SEGNUM; j++)
+ 428              		.loc 1 55 20 discriminator 1 view .LVU70
+ 429 0024 022D     		cmp	r5, #2
+ 430 0026 01DC     		bgt	.L23
+ 431              	.LBB8:
+  57:User/HydroUnderwaterManipulator.cpp **** 		{
+ 432              		.loc 1 57 12 is_stmt 0 view .LVU71
+ 433 0028 0024     		movs	r4, #0
+ 434 002a F8E7     		b	.L26
+ 435              	.L23:
+ 436              	.LBE8:
+ 437              	.LBE6:
+  60:User/HydroUnderwaterManipulator.cpp **** 		}
+  61:User/HydroUnderwaterManipulator.cpp **** 	}
+  62:User/HydroUnderwaterManipulator.cpp **** }
+ 438              		.loc 1 62 1 view .LVU72
+ 439 002c 70BD     		pop	{r4, r5, r6, pc}
+ 440              		.loc 1 62 1 view .LVU73
+ 441              		.cfi_endproc
+ 442              	.LFE73:
+ 443              		.fnend
+ 445              		.section	.text._ZN26HydroUnderwaterManipulator15zeroPressureAllEv,"ax",%progbits
+ 446              		.align	1
+ 447              		.global	_ZN26HydroUnderwaterManipulator15zeroPressureAllEv
+ 448              		.syntax unified
+ 449              		.thumb
+ 450              		.thumb_func
+ 451              		.fpu softvfp
+ 453              	_ZN26HydroUnderwaterManipulator15zeroPressureAllEv:
+ 454              		.fnstart
+ 455              	.LVL33:
+ 456              	.LFB74:
+ARM GAS  /tmp/ccsz8two.s 			page 10
+
+
+  63:User/HydroUnderwaterManipulator.cpp **** 
+  64:User/HydroUnderwaterManipulator.cpp **** void HydroUnderwaterManipulator::zeroPressureAll()
+  65:User/HydroUnderwaterManipulator.cpp **** {
+ 457              		.loc 1 65 1 is_stmt 1 view -0
+ 458              		.cfi_startproc
+ 459              		@ args = 0, pretend = 0, frame = 0
+ 460              		@ frame_needed = 0, uses_anonymous_args = 0
+ 461              		.loc 1 65 1 is_stmt 0 view .LVU75
+ 462 0000 70B5     		push	{r4, r5, r6, lr}
+ 463              		.save {r4, r5, r6, lr}
+ 464              	.LCFI9:
+ 465              		.cfi_def_cfa_offset 16
+ 466              		.cfi_offset 4, -16
+ 467              		.cfi_offset 5, -12
+ 468              		.cfi_offset 6, -8
+ 469              		.cfi_offset 14, -4
+ 470 0002 0646     		mov	r6, r0
+  66:User/HydroUnderwaterManipulator.cpp **** 	for (int j = 0; j < SEGNUM; j++)
+ 471              		.loc 1 66 2 is_stmt 1 view .LVU76
+ 472              	.LVL34:
+ 473              	.LBB9:
+ 474              		.loc 1 66 11 is_stmt 0 view .LVU77
+ 475 0004 0025     		movs	r5, #0
+ 476 0006 0DE0     		b	.L34
+ 477              	.LVL35:
+ 478              	.L36:
+ 479              	.LBB10:
+  67:User/HydroUnderwaterManipulator.cpp **** 	{
+  68:User/HydroUnderwaterManipulator.cpp **** 		for (int i = 0; i < ACTNUM; i++)
+  69:User/HydroUnderwaterManipulator.cpp **** 		{
+  70:User/HydroUnderwaterManipulator.cpp **** 			actuators[j][i].zeroPressure();
+ 480              		.loc 1 70 4 is_stmt 1 discriminator 2 view .LVU78
+ 481              		.loc 1 70 32 is_stmt 0 discriminator 2 view .LVU79
+ 482 0008 C4EB0413 		rsb	r3, r4, r4, lsl #4
+ 483 000c C5EB0510 		rsb	r0, r5, r5, lsl #4
+ 484 0010 0001     		lsls	r0, r0, #4
+ 485 0012 00EB8300 		add	r0, r0, r3, lsl #2
+ 486 0016 3044     		add	r0, r0, r6
+ 487 0018 FFF7FEFF 		bl	_ZN7CHAMBER12zeroPressureEv
+ 488              	.LVL36:
+  68:User/HydroUnderwaterManipulator.cpp **** 		{
+ 489              		.loc 1 68 3 is_stmt 1 discriminator 2 view .LVU80
+ 490 001c 0134     		adds	r4, r4, #1
+ 491              	.LVL37:
+ 492              	.L33:
+  68:User/HydroUnderwaterManipulator.cpp **** 		{
+ 493              		.loc 1 68 21 discriminator 3 view .LVU81
+ 494 001e 032C     		cmp	r4, #3
+ 495 0020 F2DD     		ble	.L36
+ 496              	.LBE10:
+  66:User/HydroUnderwaterManipulator.cpp **** 	for (int j = 0; j < SEGNUM; j++)
+ 497              		.loc 1 66 2 discriminator 2 view .LVU82
+ 498 0022 0135     		adds	r5, r5, #1
+ 499              	.LVL38:
+ 500              	.L34:
+  66:User/HydroUnderwaterManipulator.cpp **** 	for (int j = 0; j < SEGNUM; j++)
+ 501              		.loc 1 66 20 discriminator 1 view .LVU83
+ARM GAS  /tmp/ccsz8two.s 			page 11
+
+
+ 502 0024 022D     		cmp	r5, #2
+ 503 0026 01DC     		bgt	.L30
+ 504              	.LBB11:
+  68:User/HydroUnderwaterManipulator.cpp **** 		{
+ 505              		.loc 1 68 12 is_stmt 0 view .LVU84
+ 506 0028 0024     		movs	r4, #0
+ 507 002a F8E7     		b	.L33
+ 508              	.L30:
+ 509              	.LBE11:
+ 510              	.LBE9:
+  71:User/HydroUnderwaterManipulator.cpp **** 		}
+  72:User/HydroUnderwaterManipulator.cpp **** 	}
+  73:User/HydroUnderwaterManipulator.cpp **** }
+ 511              		.loc 1 73 1 view .LVU85
+ 512 002c 70BD     		pop	{r4, r5, r6, pc}
+ 513              		.loc 1 73 1 view .LVU86
+ 514              		.cfi_endproc
+ 515              	.LFE74:
+ 516              		.fnend
+ 518              		.section	.text._ZN26HydroUnderwaterManipulator16writePressureAllEPl,"ax",%progbits
+ 519              		.align	1
+ 520              		.global	_ZN26HydroUnderwaterManipulator16writePressureAllEPl
+ 521              		.syntax unified
+ 522              		.thumb
+ 523              		.thumb_func
+ 524              		.fpu softvfp
+ 526              	_ZN26HydroUnderwaterManipulator16writePressureAllEPl:
+ 527              		.fnstart
+ 528              	.LVL39:
+ 529              	.LFB75:
+  74:User/HydroUnderwaterManipulator.cpp **** 
+  75:User/HydroUnderwaterManipulator.cpp **** void HydroUnderwaterManipulator::writePressureAll(int32_t *pCommand)
+  76:User/HydroUnderwaterManipulator.cpp **** {
+ 530              		.loc 1 76 1 is_stmt 1 view -0
+ 531              		.cfi_startproc
+ 532              		@ args = 0, pretend = 0, frame = 0
+ 533              		@ frame_needed = 0, uses_anonymous_args = 0
+ 534              		.loc 1 76 1 is_stmt 0 view .LVU88
+ 535 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 536              		.save {r3, r4, r5, r6, r7, lr}
+ 537              	.LCFI10:
+ 538              		.cfi_def_cfa_offset 24
+ 539              		.cfi_offset 3, -24
+ 540              		.cfi_offset 4, -20
+ 541              		.cfi_offset 5, -16
+ 542              		.cfi_offset 6, -12
+ 543              		.cfi_offset 7, -8
+ 544              		.cfi_offset 14, -4
+ 545 0002 0746     		mov	r7, r0
+ 546 0004 0E46     		mov	r6, r1
+  77:User/HydroUnderwaterManipulator.cpp **** 	for (int j = 0; j < SEGNUM; j++)
+ 547              		.loc 1 77 2 is_stmt 1 view .LVU89
+ 548              	.LVL40:
+ 549              	.LBB12:
+ 550              		.loc 1 77 11 is_stmt 0 view .LVU90
+ 551 0006 0025     		movs	r5, #0
+ 552 0008 11E0     		b	.L41
+ARM GAS  /tmp/ccsz8two.s 			page 12
+
+
+ 553              	.LVL41:
+ 554              	.L43:
+ 555              	.LBB13:
+  78:User/HydroUnderwaterManipulator.cpp **** 	{
+  79:User/HydroUnderwaterManipulator.cpp **** 		for (int i = 0; i < ACTNUM; i++)
+  80:User/HydroUnderwaterManipulator.cpp **** 		{
+  81:User/HydroUnderwaterManipulator.cpp **** 			actuators[j][i].writePressure(pCommand[j*ACTNUM+i]);
+ 556              		.loc 1 81 4 is_stmt 1 discriminator 2 view .LVU91
+ 557              		.loc 1 81 51 is_stmt 0 discriminator 2 view .LVU92
+ 558 000a 04EB8503 		add	r3, r4, r5, lsl #2
+ 559              		.loc 1 81 33 discriminator 2 view .LVU93
+ 560 000e C4EB0412 		rsb	r2, r4, r4, lsl #4
+ 561 0012 C5EB0510 		rsb	r0, r5, r5, lsl #4
+ 562 0016 0001     		lsls	r0, r0, #4
+ 563 0018 00EB8200 		add	r0, r0, r2, lsl #2
+ 564 001c 56F82310 		ldr	r1, [r6, r3, lsl #2]
+ 565 0020 3844     		add	r0, r0, r7
+ 566 0022 FFF7FEFF 		bl	_ZN7CHAMBER13writePressureEl
+ 567              	.LVL42:
+  79:User/HydroUnderwaterManipulator.cpp **** 		{
+ 568              		.loc 1 79 3 is_stmt 1 discriminator 2 view .LVU94
+ 569 0026 0134     		adds	r4, r4, #1
+ 570              	.LVL43:
+ 571              	.L40:
+  79:User/HydroUnderwaterManipulator.cpp **** 		{
+ 572              		.loc 1 79 21 discriminator 3 view .LVU95
+ 573 0028 032C     		cmp	r4, #3
+ 574 002a EEDD     		ble	.L43
+ 575              	.LBE13:
+  77:User/HydroUnderwaterManipulator.cpp **** 	for (int j = 0; j < SEGNUM; j++)
+ 576              		.loc 1 77 2 discriminator 2 view .LVU96
+ 577 002c 0135     		adds	r5, r5, #1
+ 578              	.LVL44:
+ 579              	.L41:
+  77:User/HydroUnderwaterManipulator.cpp **** 	for (int j = 0; j < SEGNUM; j++)
+ 580              		.loc 1 77 20 discriminator 1 view .LVU97
+ 581 002e 022D     		cmp	r5, #2
+ 582 0030 01DC     		bgt	.L37
+ 583              	.LBB14:
+  79:User/HydroUnderwaterManipulator.cpp **** 		{
+ 584              		.loc 1 79 12 is_stmt 0 view .LVU98
+ 585 0032 0024     		movs	r4, #0
+ 586 0034 F8E7     		b	.L40
+ 587              	.L37:
+ 588              	.LBE14:
+ 589              	.LBE12:
+  82:User/HydroUnderwaterManipulator.cpp **** 		}
+  83:User/HydroUnderwaterManipulator.cpp **** 	}
+  84:User/HydroUnderwaterManipulator.cpp **** }
+ 590              		.loc 1 84 1 view .LVU99
+ 591 0036 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 592              		.loc 1 84 1 view .LVU100
+ 593              		.cfi_endproc
+ 594              	.LFE75:
+ 595              		.fnend
+ 597              		.section	.text._ZN26HydroUnderwaterManipulator12writeOpeningEs,"ax",%progbits
+ 598              		.align	1
+ARM GAS  /tmp/ccsz8two.s 			page 13
+
+
+ 599              		.global	_ZN26HydroUnderwaterManipulator12writeOpeningEs
+ 600              		.syntax unified
+ 601              		.thumb
+ 602              		.thumb_func
+ 603              		.fpu softvfp
+ 605              	_ZN26HydroUnderwaterManipulator12writeOpeningEs:
+ 606              		.fnstart
+ 607              	.LVL45:
+ 608              	.LFB76:
+  85:User/HydroUnderwaterManipulator.cpp **** 
+  86:User/HydroUnderwaterManipulator.cpp **** void HydroUnderwaterManipulator::writeOpening(int16_t op)
+  87:User/HydroUnderwaterManipulator.cpp **** {
+ 609              		.loc 1 87 1 is_stmt 1 view -0
+ 610              		.cfi_startproc
+ 611              		@ args = 0, pretend = 0, frame = 0
+ 612              		@ frame_needed = 0, uses_anonymous_args = 0
+ 613              		.loc 1 87 1 is_stmt 0 view .LVU102
+ 614 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 615              		.save {r3, r4, r5, r6, r7, lr}
+ 616              	.LCFI11:
+ 617              		.cfi_def_cfa_offset 24
+ 618              		.cfi_offset 3, -24
+ 619              		.cfi_offset 4, -20
+ 620              		.cfi_offset 5, -16
+ 621              		.cfi_offset 6, -12
+ 622              		.cfi_offset 7, -8
+ 623              		.cfi_offset 14, -4
+ 624 0002 0746     		mov	r7, r0
+ 625 0004 0E46     		mov	r6, r1
+  88:User/HydroUnderwaterManipulator.cpp **** 
+  89:User/HydroUnderwaterManipulator.cpp **** 	for (int j = 0; j < SEGNUM; j++)
+ 626              		.loc 1 89 2 is_stmt 1 view .LVU103
+ 627              	.LVL46:
+ 628              	.LBB15:
+ 629              		.loc 1 89 11 is_stmt 0 view .LVU104
+ 630 0006 0025     		movs	r5, #0
+ 631 0008 0EE0     		b	.L48
+ 632              	.LVL47:
+ 633              	.L50:
+ 634              	.LBB16:
+  90:User/HydroUnderwaterManipulator.cpp **** 	{
+  91:User/HydroUnderwaterManipulator.cpp **** 		for (int i = 0; i < ACTNUM; i++)
+  92:User/HydroUnderwaterManipulator.cpp **** 		{
+  93:User/HydroUnderwaterManipulator.cpp **** 			actuators[j][i].writeOpening(op);
+ 635              		.loc 1 93 4 is_stmt 1 discriminator 2 view .LVU105
+ 636              		.loc 1 93 32 is_stmt 0 discriminator 2 view .LVU106
+ 637 000a C4EB0413 		rsb	r3, r4, r4, lsl #4
+ 638 000e C5EB0510 		rsb	r0, r5, r5, lsl #4
+ 639 0012 0001     		lsls	r0, r0, #4
+ 640 0014 00EB8300 		add	r0, r0, r3, lsl #2
+ 641 0018 3146     		mov	r1, r6
+ 642 001a 3844     		add	r0, r0, r7
+ 643 001c FFF7FEFF 		bl	_ZN7CHAMBER12writeOpeningEs
+ 644              	.LVL48:
+  91:User/HydroUnderwaterManipulator.cpp **** 		{
+ 645              		.loc 1 91 3 is_stmt 1 discriminator 2 view .LVU107
+ 646 0020 0134     		adds	r4, r4, #1
+ARM GAS  /tmp/ccsz8two.s 			page 14
+
+
+ 647              	.LVL49:
+ 648              	.L47:
+  91:User/HydroUnderwaterManipulator.cpp **** 		{
+ 649              		.loc 1 91 21 discriminator 3 view .LVU108
+ 650 0022 032C     		cmp	r4, #3
+ 651 0024 F1DD     		ble	.L50
+ 652              	.LBE16:
+  89:User/HydroUnderwaterManipulator.cpp **** 	{
+ 653              		.loc 1 89 2 discriminator 2 view .LVU109
+ 654 0026 0135     		adds	r5, r5, #1
+ 655              	.LVL50:
+ 656              	.L48:
+  89:User/HydroUnderwaterManipulator.cpp **** 	{
+ 657              		.loc 1 89 20 discriminator 1 view .LVU110
+ 658 0028 022D     		cmp	r5, #2
+ 659 002a 01DC     		bgt	.L44
+ 660              	.LBB17:
+  91:User/HydroUnderwaterManipulator.cpp **** 		{
+ 661              		.loc 1 91 12 is_stmt 0 view .LVU111
+ 662 002c 0024     		movs	r4, #0
+ 663 002e F8E7     		b	.L47
+ 664              	.L44:
+ 665              	.LBE17:
+ 666              	.LBE15:
+  94:User/HydroUnderwaterManipulator.cpp **** 		}
+  95:User/HydroUnderwaterManipulator.cpp **** 	}
+  96:User/HydroUnderwaterManipulator.cpp **** }
+ 667              		.loc 1 96 1 view .LVU112
+ 668 0030 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 669              		.loc 1 96 1 view .LVU113
+ 670              		.cfi_endproc
+ 671              	.LFE76:
+ 672              		.fnend
+ 674              		.section	.text._ZN26HydroUnderwaterManipulator15writeOpeningAllEPs,"ax",%progbits
+ 675              		.align	1
+ 676              		.global	_ZN26HydroUnderwaterManipulator15writeOpeningAllEPs
+ 677              		.syntax unified
+ 678              		.thumb
+ 679              		.thumb_func
+ 680              		.fpu softvfp
+ 682              	_ZN26HydroUnderwaterManipulator15writeOpeningAllEPs:
+ 683              		.fnstart
+ 684              	.LVL51:
+ 685              	.LFB77:
+  97:User/HydroUnderwaterManipulator.cpp **** 
+  98:User/HydroUnderwaterManipulator.cpp **** void HydroUnderwaterManipulator::writeOpeningAll(int16_t *op)
+  99:User/HydroUnderwaterManipulator.cpp **** {
+ 686              		.loc 1 99 1 is_stmt 1 view -0
+ 687              		.cfi_startproc
+ 688              		@ args = 0, pretend = 0, frame = 0
+ 689              		@ frame_needed = 0, uses_anonymous_args = 0
+ 690              		.loc 1 99 1 is_stmt 0 view .LVU115
+ 691 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 692              		.save {r3, r4, r5, r6, r7, lr}
+ 693              	.LCFI12:
+ 694              		.cfi_def_cfa_offset 24
+ 695              		.cfi_offset 3, -24
+ARM GAS  /tmp/ccsz8two.s 			page 15
+
+
+ 696              		.cfi_offset 4, -20
+ 697              		.cfi_offset 5, -16
+ 698              		.cfi_offset 6, -12
+ 699              		.cfi_offset 7, -8
+ 700              		.cfi_offset 14, -4
+ 701 0002 0746     		mov	r7, r0
+ 702 0004 0E46     		mov	r6, r1
+ 100:User/HydroUnderwaterManipulator.cpp **** 
+ 101:User/HydroUnderwaterManipulator.cpp **** 	for (int j = 0; j < SEGNUM; j++)
+ 703              		.loc 1 101 2 is_stmt 1 view .LVU116
+ 704              	.LVL52:
+ 705              	.LBB18:
+ 706              		.loc 1 101 11 is_stmt 0 view .LVU117
+ 707 0006 0025     		movs	r5, #0
+ 708 0008 11E0     		b	.L55
+ 709              	.LVL53:
+ 710              	.L57:
+ 711              	.LBB19:
+ 102:User/HydroUnderwaterManipulator.cpp **** 	{
+ 103:User/HydroUnderwaterManipulator.cpp **** 		for (int i = 0; i < ACTNUM; i++)
+ 104:User/HydroUnderwaterManipulator.cpp **** 		{
+ 105:User/HydroUnderwaterManipulator.cpp **** 			actuators[j][i].writeOpening(op[j*ACTNUM+i]);
+ 712              		.loc 1 105 4 is_stmt 1 discriminator 2 view .LVU118
+ 713              		.loc 1 105 44 is_stmt 0 discriminator 2 view .LVU119
+ 714 000a 04EB8503 		add	r3, r4, r5, lsl #2
+ 715              		.loc 1 105 32 discriminator 2 view .LVU120
+ 716 000e C4EB0412 		rsb	r2, r4, r4, lsl #4
+ 717 0012 C5EB0510 		rsb	r0, r5, r5, lsl #4
+ 718 0016 0001     		lsls	r0, r0, #4
+ 719 0018 00EB8200 		add	r0, r0, r2, lsl #2
+ 720 001c 36F91310 		ldrsh	r1, [r6, r3, lsl #1]
+ 721 0020 3844     		add	r0, r0, r7
+ 722 0022 FFF7FEFF 		bl	_ZN7CHAMBER12writeOpeningEs
+ 723              	.LVL54:
+ 103:User/HydroUnderwaterManipulator.cpp **** 		{
+ 724              		.loc 1 103 3 is_stmt 1 discriminator 2 view .LVU121
+ 725 0026 0134     		adds	r4, r4, #1
+ 726              	.LVL55:
+ 727              	.L54:
+ 103:User/HydroUnderwaterManipulator.cpp **** 		{
+ 728              		.loc 1 103 21 discriminator 3 view .LVU122
+ 729 0028 032C     		cmp	r4, #3
+ 730 002a EEDD     		ble	.L57
+ 731              	.LBE19:
+ 101:User/HydroUnderwaterManipulator.cpp **** 	{
+ 732              		.loc 1 101 2 discriminator 2 view .LVU123
+ 733 002c 0135     		adds	r5, r5, #1
+ 734              	.LVL56:
+ 735              	.L55:
+ 101:User/HydroUnderwaterManipulator.cpp **** 	{
+ 736              		.loc 1 101 20 discriminator 1 view .LVU124
+ 737 002e 022D     		cmp	r5, #2
+ 738 0030 01DC     		bgt	.L51
+ 739              	.LBB20:
+ 103:User/HydroUnderwaterManipulator.cpp **** 		{
+ 740              		.loc 1 103 12 is_stmt 0 view .LVU125
+ 741 0032 0024     		movs	r4, #0
+ARM GAS  /tmp/ccsz8two.s 			page 16
+
+
+ 742 0034 F8E7     		b	.L54
+ 743              	.L51:
+ 744              	.LBE20:
+ 745              	.LBE18:
+ 106:User/HydroUnderwaterManipulator.cpp **** 		}
+ 107:User/HydroUnderwaterManipulator.cpp **** 	}
+ 108:User/HydroUnderwaterManipulator.cpp **** }
+ 746              		.loc 1 108 1 view .LVU126
+ 747 0036 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 748              		.loc 1 108 1 view .LVU127
+ 749              		.cfi_endproc
+ 750              	.LFE77:
+ 751              		.fnend
+ 753              		.section	.text._ZN26HydroUnderwaterManipulator11startPumpInEv,"ax",%progbits
+ 754              		.align	1
+ 755              		.global	_ZN26HydroUnderwaterManipulator11startPumpInEv
+ 756              		.syntax unified
+ 757              		.thumb
+ 758              		.thumb_func
+ 759              		.fpu softvfp
+ 761              	_ZN26HydroUnderwaterManipulator11startPumpInEv:
+ 762              		.fnstart
+ 763              	.LVL57:
+ 764              	.LFB78:
+ 109:User/HydroUnderwaterManipulator.cpp **** 
+ 110:User/HydroUnderwaterManipulator.cpp **** void HydroUnderwaterManipulator::startPumpIn()
+ 111:User/HydroUnderwaterManipulator.cpp **** {
+ 765              		.loc 1 111 1 is_stmt 1 view -0
+ 766              		.cfi_startproc
+ 767              		@ args = 0, pretend = 0, frame = 0
+ 768              		@ frame_needed = 0, uses_anonymous_args = 0
+ 769              		.loc 1 111 1 is_stmt 0 view .LVU129
+ 770 0000 08B5     		push	{r3, lr}
+ 771              		.save {r3, lr}
+ 772              	.LCFI13:
+ 773              		.cfi_def_cfa_offset 8
+ 774              		.cfi_offset 3, -8
+ 775              		.cfi_offset 14, -4
+ 112:User/HydroUnderwaterManipulator.cpp **** 	pSource.start();
+ 776              		.loc 1 112 2 is_stmt 1 view .LVU130
+ 777              		.loc 1 112 15 is_stmt 0 view .LVU131
+ 778 0002 00F54370 		add	r0, r0, #780
+ 779              	.LVL58:
+ 780              		.loc 1 112 15 view .LVU132
+ 781 0006 FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE5startEv
+ 782              	.LVL59:
+ 113:User/HydroUnderwaterManipulator.cpp **** }
+ 783              		.loc 1 113 1 view .LVU133
+ 784 000a 08BD     		pop	{r3, pc}
+ 785              		.cfi_endproc
+ 786              	.LFE78:
+ 787              		.fnend
+ 789              		.section	.text._ZN26HydroUnderwaterManipulator10stopPumpInEv,"ax",%progbits
+ 790              		.align	1
+ 791              		.global	_ZN26HydroUnderwaterManipulator10stopPumpInEv
+ 792              		.syntax unified
+ 793              		.thumb
+ARM GAS  /tmp/ccsz8two.s 			page 17
+
+
+ 794              		.thumb_func
+ 795              		.fpu softvfp
+ 797              	_ZN26HydroUnderwaterManipulator10stopPumpInEv:
+ 798              		.fnstart
+ 799              	.LVL60:
+ 800              	.LFB79:
+ 114:User/HydroUnderwaterManipulator.cpp **** void HydroUnderwaterManipulator::stopPumpIn()
+ 115:User/HydroUnderwaterManipulator.cpp **** {
+ 801              		.loc 1 115 1 is_stmt 1 view -0
+ 802              		.cfi_startproc
+ 803              		@ args = 0, pretend = 0, frame = 0
+ 804              		@ frame_needed = 0, uses_anonymous_args = 0
+ 805              		.loc 1 115 1 is_stmt 0 view .LVU135
+ 806 0000 08B5     		push	{r3, lr}
+ 807              		.save {r3, lr}
+ 808              	.LCFI14:
+ 809              		.cfi_def_cfa_offset 8
+ 810              		.cfi_offset 3, -8
+ 811              		.cfi_offset 14, -4
+ 116:User/HydroUnderwaterManipulator.cpp **** 	pSource.stop();
+ 812              		.loc 1 116 2 is_stmt 1 view .LVU136
+ 813              		.loc 1 116 14 is_stmt 0 view .LVU137
+ 814 0002 00F54370 		add	r0, r0, #780
+ 815              	.LVL61:
+ 816              		.loc 1 116 14 view .LVU138
+ 817 0006 FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE4stopEv
+ 818              	.LVL62:
+ 117:User/HydroUnderwaterManipulator.cpp **** }
+ 819              		.loc 1 117 1 view .LVU139
+ 820 000a 08BD     		pop	{r3, pc}
+ 821              		.cfi_endproc
+ 822              	.LFE79:
+ 823              		.fnend
+ 825              		.section	.text._ZN26HydroUnderwaterManipulator12startPumpOutEv,"ax",%progbits
+ 826              		.align	1
+ 827              		.global	_ZN26HydroUnderwaterManipulator12startPumpOutEv
+ 828              		.syntax unified
+ 829              		.thumb
+ 830              		.thumb_func
+ 831              		.fpu softvfp
+ 833              	_ZN26HydroUnderwaterManipulator12startPumpOutEv:
+ 834              		.fnstart
+ 835              	.LVL63:
+ 836              	.LFB80:
+ 118:User/HydroUnderwaterManipulator.cpp **** void HydroUnderwaterManipulator::startPumpOut()
+ 119:User/HydroUnderwaterManipulator.cpp **** {
+ 837              		.loc 1 119 1 is_stmt 1 view -0
+ 838              		.cfi_startproc
+ 839              		@ args = 0, pretend = 0, frame = 0
+ 840              		@ frame_needed = 0, uses_anonymous_args = 0
+ 841              		.loc 1 119 1 is_stmt 0 view .LVU141
+ 842 0000 08B5     		push	{r3, lr}
+ 843              		.save {r3, lr}
+ 844              	.LCFI15:
+ 845              		.cfi_def_cfa_offset 8
+ 846              		.cfi_offset 3, -8
+ 847              		.cfi_offset 14, -4
+ARM GAS  /tmp/ccsz8two.s 			page 18
+
+
+ 120:User/HydroUnderwaterManipulator.cpp **** 	pSink.start();
+ 848              		.loc 1 120 2 is_stmt 1 view .LVU142
+ 849              		.loc 1 120 13 is_stmt 0 view .LVU143
+ 850 0002 00F55070 		add	r0, r0, #832
+ 851              	.LVL64:
+ 852              		.loc 1 120 13 view .LVU144
+ 853 0006 FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE5startEv
+ 854              	.LVL65:
+ 121:User/HydroUnderwaterManipulator.cpp **** }
+ 855              		.loc 1 121 1 view .LVU145
+ 856 000a 08BD     		pop	{r3, pc}
+ 857              		.cfi_endproc
+ 858              	.LFE80:
+ 859              		.fnend
+ 861              		.section	.text._ZN26HydroUnderwaterManipulator11stopPumpOutEv,"ax",%progbits
+ 862              		.align	1
+ 863              		.global	_ZN26HydroUnderwaterManipulator11stopPumpOutEv
+ 864              		.syntax unified
+ 865              		.thumb
+ 866              		.thumb_func
+ 867              		.fpu softvfp
+ 869              	_ZN26HydroUnderwaterManipulator11stopPumpOutEv:
+ 870              		.fnstart
+ 871              	.LVL66:
+ 872              	.LFB81:
+ 122:User/HydroUnderwaterManipulator.cpp **** void HydroUnderwaterManipulator::stopPumpOut()
+ 123:User/HydroUnderwaterManipulator.cpp **** {
+ 873              		.loc 1 123 1 is_stmt 1 view -0
+ 874              		.cfi_startproc
+ 875              		@ args = 0, pretend = 0, frame = 0
+ 876              		@ frame_needed = 0, uses_anonymous_args = 0
+ 877              		.loc 1 123 1 is_stmt 0 view .LVU147
+ 878 0000 08B5     		push	{r3, lr}
+ 879              		.save {r3, lr}
+ 880              	.LCFI16:
+ 881              		.cfi_def_cfa_offset 8
+ 882              		.cfi_offset 3, -8
+ 883              		.cfi_offset 14, -4
+ 124:User/HydroUnderwaterManipulator.cpp **** 	pSink.stop();
+ 884              		.loc 1 124 2 is_stmt 1 view .LVU148
+ 885              		.loc 1 124 12 is_stmt 0 view .LVU149
+ 886 0002 00F55070 		add	r0, r0, #832
+ 887              	.LVL67:
+ 888              		.loc 1 124 12 view .LVU150
+ 889 0006 FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE4stopEv
+ 890              	.LVL68:
+ 125:User/HydroUnderwaterManipulator.cpp **** }
+ 891              		.loc 1 125 1 view .LVU151
+ 892 000a 08BD     		pop	{r3, pc}
+ 893              		.cfi_endproc
+ 894              	.LFE81:
+ 895              		.fnend
+ 897              		.section	.text._ZN26HydroUnderwaterManipulator15execInfoCommandEPc,"ax",%progbits
+ 898              		.align	1
+ 899              		.global	_ZN26HydroUnderwaterManipulator15execInfoCommandEPc
+ 900              		.syntax unified
+ 901              		.thumb
+ARM GAS  /tmp/ccsz8two.s 			page 19
+
+
+ 902              		.thumb_func
+ 903              		.fpu softvfp
+ 905              	_ZN26HydroUnderwaterManipulator15execInfoCommandEPc:
+ 906              		.fnstart
+ 907              	.LVL69:
+ 908              	.LFB82:
+ 126:User/HydroUnderwaterManipulator.cpp **** 
+ 127:User/HydroUnderwaterManipulator.cpp **** 
+ 128:User/HydroUnderwaterManipulator.cpp **** void HydroUnderwaterManipulator::execInfoCommand(char *infoBuf)
+ 129:User/HydroUnderwaterManipulator.cpp **** {
+ 909              		.loc 1 129 1 is_stmt 1 view -0
+ 910              		.cfi_startproc
+ 911              		@ args = 0, pretend = 0, frame = 0
+ 912              		@ frame_needed = 0, uses_anonymous_args = 0
+ 913              		@ link register save eliminated.
+ 130:User/HydroUnderwaterManipulator.cpp **** 	if (infoBuf[0] == 'z')
+ 914              		.loc 1 130 2 view .LVU153
+ 131:User/HydroUnderwaterManipulator.cpp **** 	{
+ 132:User/HydroUnderwaterManipulator.cpp **** 	}
+ 133:User/HydroUnderwaterManipulator.cpp **** 	if (infoBuf[0] == 'o')
+ 915              		.loc 1 133 2 view .LVU154
+ 134:User/HydroUnderwaterManipulator.cpp **** 	{
+ 135:User/HydroUnderwaterManipulator.cpp **** 	}
+ 136:User/HydroUnderwaterManipulator.cpp **** }
+ 916              		.loc 1 136 1 is_stmt 0 view .LVU155
+ 917 0000 7047     		bx	lr
+ 918              		.cfi_endproc
+ 919              	.LFE82:
+ 920              		.cantunwind
+ 921              		.fnend
+ 923              		.text
+ 924              	.Letext0:
+ 925              		.file 2 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-n
+ 926              		.file 3 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-n
+ 927              		.file 4 "User/Inc/PRESSURESENSOR.h"
+ 928              		.file 5 "User/Inc/SOLENOIDVALVE.h"
+ 929              		.file 6 "User/Inc/CHAMBER.h"
+ 930              		.file 7 "User/Inc/PUMP.h"
+ 931              		.file 8 "User/Inc/PRESSURESOURCE.h"
+ 932              		.file 9 "User/Inc/HydroUnderwaterManipulator.h"
+ARM GAS  /tmp/ccsz8two.s 			page 20
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 HydroUnderwaterManipulator.cpp
+     /tmp/ccsz8two.s:16     .text._ZN26HydroUnderwaterManipulatorC2Ev:0000000000000000 $t
+     /tmp/ccsz8two.s:24     .text._ZN26HydroUnderwaterManipulatorC2Ev:0000000000000000 _ZN26HydroUnderwaterManipulatorC2Ev
+.ARM.exidx.text._ZN26HydroUnderwaterManipulatorC2Ev:0000000000000000 $d
+     /tmp/ccsz8two.s:24     .text._ZN26HydroUnderwaterManipulatorC2Ev:0000000000000000 _ZN26HydroUnderwaterManipulatorC1Ev
+     /tmp/ccsz8two.s:121    .text._ZN26HydroUnderwaterManipulator15setupValvePortsEPh:0000000000000000 $t
+     /tmp/ccsz8two.s:128    .text._ZN26HydroUnderwaterManipulator15setupValvePortsEPh:0000000000000000 _ZN26HydroUnderwaterManipulator15setupValvePortsEPh
+.ARM.exidx.text._ZN26HydroUnderwaterManipulator15setupValvePortsEPh:0000000000000000 $d
+     /tmp/ccsz8two.s:211    .text._ZN26HydroUnderwaterManipulator17setupGripperPortsEhh:0000000000000000 $t
+     /tmp/ccsz8two.s:218    .text._ZN26HydroUnderwaterManipulator17setupGripperPortsEhh:0000000000000000 _ZN26HydroUnderwaterManipulator17setupGripperPortsEhh
+.ARM.exidx.text._ZN26HydroUnderwaterManipulator17setupGripperPortsEhh:0000000000000000 $d
+     /tmp/ccsz8two.s:255    .text._ZN26HydroUnderwaterManipulator14setupPumpPortsEhhhhhh:0000000000000000 $t
+     /tmp/ccsz8two.s:262    .text._ZN26HydroUnderwaterManipulator14setupPumpPortsEhhhhhh:0000000000000000 _ZN26HydroUnderwaterManipulator14setupPumpPortsEhhhhhh
+.ARM.exidx.text._ZN26HydroUnderwaterManipulator14setupPumpPortsEhhhhhh:0000000000000000 $d
+     /tmp/ccsz8two.s:301    .text._ZN26HydroUnderwaterManipulator18maintainUpPressureEll:0000000000000000 $t
+     /tmp/ccsz8two.s:308    .text._ZN26HydroUnderwaterManipulator18maintainUpPressureEll:0000000000000000 _ZN26HydroUnderwaterManipulator18maintainUpPressureEll
+.ARM.extab.text._ZN26HydroUnderwaterManipulator18maintainUpPressureEll:0000000000000000 $d
+.ARM.exidx.text._ZN26HydroUnderwaterManipulator18maintainUpPressureEll:0000000000000000 $d
+     /tmp/ccsz8two.s:337    .text._ZN26HydroUnderwaterManipulator20maintainDownPressureEll:0000000000000000 $t
+     /tmp/ccsz8two.s:344    .text._ZN26HydroUnderwaterManipulator20maintainDownPressureEll:0000000000000000 _ZN26HydroUnderwaterManipulator20maintainDownPressureEll
+.ARM.extab.text._ZN26HydroUnderwaterManipulator20maintainDownPressureEll:0000000000000000 $d
+.ARM.exidx.text._ZN26HydroUnderwaterManipulator20maintainDownPressureEll:0000000000000000 $d
+     /tmp/ccsz8two.s:373    .text._ZN26HydroUnderwaterManipulator15readPressureAllEv:0000000000000000 $t
+     /tmp/ccsz8two.s:380    .text._ZN26HydroUnderwaterManipulator15readPressureAllEv:0000000000000000 _ZN26HydroUnderwaterManipulator15readPressureAllEv
+.ARM.exidx.text._ZN26HydroUnderwaterManipulator15readPressureAllEv:0000000000000000 $d
+     /tmp/ccsz8two.s:446    .text._ZN26HydroUnderwaterManipulator15zeroPressureAllEv:0000000000000000 $t
+     /tmp/ccsz8two.s:453    .text._ZN26HydroUnderwaterManipulator15zeroPressureAllEv:0000000000000000 _ZN26HydroUnderwaterManipulator15zeroPressureAllEv
+.ARM.exidx.text._ZN26HydroUnderwaterManipulator15zeroPressureAllEv:0000000000000000 $d
+     /tmp/ccsz8two.s:519    .text._ZN26HydroUnderwaterManipulator16writePressureAllEPl:0000000000000000 $t
+     /tmp/ccsz8two.s:526    .text._ZN26HydroUnderwaterManipulator16writePressureAllEPl:0000000000000000 _ZN26HydroUnderwaterManipulator16writePressureAllEPl
+.ARM.exidx.text._ZN26HydroUnderwaterManipulator16writePressureAllEPl:0000000000000000 $d
+     /tmp/ccsz8two.s:598    .text._ZN26HydroUnderwaterManipulator12writeOpeningEs:0000000000000000 $t
+     /tmp/ccsz8two.s:605    .text._ZN26HydroUnderwaterManipulator12writeOpeningEs:0000000000000000 _ZN26HydroUnderwaterManipulator12writeOpeningEs
+.ARM.exidx.text._ZN26HydroUnderwaterManipulator12writeOpeningEs:0000000000000000 $d
+     /tmp/ccsz8two.s:675    .text._ZN26HydroUnderwaterManipulator15writeOpeningAllEPs:0000000000000000 $t
+     /tmp/ccsz8two.s:682    .text._ZN26HydroUnderwaterManipulator15writeOpeningAllEPs:0000000000000000 _ZN26HydroUnderwaterManipulator15writeOpeningAllEPs
+.ARM.exidx.text._ZN26HydroUnderwaterManipulator15writeOpeningAllEPs:0000000000000000 $d
+     /tmp/ccsz8two.s:754    .text._ZN26HydroUnderwaterManipulator11startPumpInEv:0000000000000000 $t
+     /tmp/ccsz8two.s:761    .text._ZN26HydroUnderwaterManipulator11startPumpInEv:0000000000000000 _ZN26HydroUnderwaterManipulator11startPumpInEv
+.ARM.extab.text._ZN26HydroUnderwaterManipulator11startPumpInEv:0000000000000000 $d
+.ARM.exidx.text._ZN26HydroUnderwaterManipulator11startPumpInEv:0000000000000000 $d
+     /tmp/ccsz8two.s:790    .text._ZN26HydroUnderwaterManipulator10stopPumpInEv:0000000000000000 $t
+     /tmp/ccsz8two.s:797    .text._ZN26HydroUnderwaterManipulator10stopPumpInEv:0000000000000000 _ZN26HydroUnderwaterManipulator10stopPumpInEv
+.ARM.extab.text._ZN26HydroUnderwaterManipulator10stopPumpInEv:0000000000000000 $d
+.ARM.exidx.text._ZN26HydroUnderwaterManipulator10stopPumpInEv:0000000000000000 $d
+     /tmp/ccsz8two.s:826    .text._ZN26HydroUnderwaterManipulator12startPumpOutEv:0000000000000000 $t
+     /tmp/ccsz8two.s:833    .text._ZN26HydroUnderwaterManipulator12startPumpOutEv:0000000000000000 _ZN26HydroUnderwaterManipulator12startPumpOutEv
+.ARM.extab.text._ZN26HydroUnderwaterManipulator12startPumpOutEv:0000000000000000 $d
+.ARM.exidx.text._ZN26HydroUnderwaterManipulator12startPumpOutEv:0000000000000000 $d
+     /tmp/ccsz8two.s:862    .text._ZN26HydroUnderwaterManipulator11stopPumpOutEv:0000000000000000 $t
+     /tmp/ccsz8two.s:869    .text._ZN26HydroUnderwaterManipulator11stopPumpOutEv:0000000000000000 _ZN26HydroUnderwaterManipulator11stopPumpOutEv
+.ARM.extab.text._ZN26HydroUnderwaterManipulator11stopPumpOutEv:0000000000000000 $d
+.ARM.exidx.text._ZN26HydroUnderwaterManipulator11stopPumpOutEv:0000000000000000 $d
+     /tmp/ccsz8two.s:898    .text._ZN26HydroUnderwaterManipulator15execInfoCommandEPc:0000000000000000 $t
+     /tmp/ccsz8two.s:905    .text._ZN26HydroUnderwaterManipulator15execInfoCommandEPc:0000000000000000 _ZN26HydroUnderwaterManipulator15execInfoCommandEPc
+.ARM.exidx.text._ZN26HydroUnderwaterManipulator15execInfoCommandEPc:0000000000000000 $d
+ARM GAS  /tmp/ccsz8two.s 			page 21
+
+
+
+UNDEFINED SYMBOLS
+_ZN7CHAMBERC1Eiii
+_ZN15PRESSURE_SOURCEC1Ehhhh
+__aeabi_unwind_cpp_pr0
+_ZN7CHAMBER9attachPWMEii
+_ZN7CHAMBER12writeOpeningEs
+_ZN15PRESSURE_SOURCE6attachEhhh
+_ZN15PRESSURE_SOURCE16maintainPressureEll
+__aeabi_unwind_cpp_pr1
+_ZN7CHAMBER12readPressureEv
+_ZN7CHAMBER12zeroPressureEv
+_ZN7CHAMBER13writePressureEl
+_ZN15PRESSURE_SOURCE5startEv
+_ZN15PRESSURE_SOURCE4stopEv

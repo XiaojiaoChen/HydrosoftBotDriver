@@ -1,0 +1,238 @@
+ARM GAS  /tmp/ccFErdT3.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"SOLENOIDVALVE.cpp"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text._ZN14SOLENOID_VALVE6attachEh,"ax",%progbits
+  16              		.align	1
+  17              		.global	_ZN14SOLENOID_VALVE6attachEh
+  18              		.arch armv7-m
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu softvfp
+  24              	_ZN14SOLENOID_VALVE6attachEh:
+  25              		.fnstart
+  26              	.LVL0:
+  27              	.LFB68:
+  28              		.file 1 "User/SOLENOIDVALVE.cpp"
+   1:User/SOLENOIDVALVE.cpp **** /*
+   2:User/SOLENOIDVALVE.cpp ****  * SOLENOIDVALVE.cpp
+   3:User/SOLENOIDVALVE.cpp ****  *
+   4:User/SOLENOIDVALVE.cpp ****  *  Created on: Jun 15, 2018
+   5:User/SOLENOIDVALVE.cpp ****  *      Author: Xiaojiao Chen
+   6:User/SOLENOIDVALVE.cpp ****  *		 Email: chen2014@connect.hku.hk
+   7:User/SOLENOIDVALVE.cpp ****  *	Laboratory: Bio-Control Lab
+   8:User/SOLENOIDVALVE.cpp ****  * Orgnization: the University of Hong Kong
+   9:User/SOLENOIDVALVE.cpp ****  */
+  10:User/SOLENOIDVALVE.cpp **** 
+  11:User/SOLENOIDVALVE.cpp **** #include "main.h"
+  12:User/SOLENOIDVALVE.cpp **** #include "HydroDriveLL.h"
+  13:User/SOLENOIDVALVE.cpp **** #include "SOLENOIDVALVE.h"
+  14:User/SOLENOIDVALVE.cpp **** 
+  15:User/SOLENOIDVALVE.cpp **** 
+  16:User/SOLENOIDVALVE.cpp **** SOLENOID_VALVE::SOLENOID_VALVE(uint8_t num){
+  17:User/SOLENOIDVALVE.cpp **** 
+  18:User/SOLENOIDVALVE.cpp **** 	_duty=0;
+  19:User/SOLENOIDVALVE.cpp **** 	duty=(PWM_DIGITAL_OUTPUT_REVERSED == 0)?_duty:(1-_duty);
+  20:User/SOLENOIDVALVE.cpp **** 	dutyMin = 0;
+  21:User/SOLENOIDVALVE.cpp **** 	dutyMax = 1;
+  22:User/SOLENOIDVALVE.cpp **** 	attach(num);
+  23:User/SOLENOIDVALVE.cpp **** }
+  24:User/SOLENOIDVALVE.cpp **** 
+  25:User/SOLENOIDVALVE.cpp **** void SOLENOID_VALVE::attach(uint8_t num)
+  26:User/SOLENOIDVALVE.cpp **** {
+  29              		.loc 1 26 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  /tmp/ccFErdT3.s 			page 2
+
+
+  33              		@ link register save eliminated.
+  27:User/SOLENOIDVALVE.cpp **** 	PWMPort = num;
+  34              		.loc 1 27 2 view .LVU1
+  35              		.loc 1 27 10 is_stmt 0 view .LVU2
+  36 0000 0170     		strb	r1, [r0]
+  28:User/SOLENOIDVALVE.cpp **** }
+  37              		.loc 1 28 1 view .LVU3
+  38 0002 7047     		bx	lr
+  39              		.cfi_endproc
+  40              	.LFE68:
+  41              		.cantunwind
+  42              		.fnend
+  44              		.section	.text._ZN14SOLENOID_VALVEC2Eh,"ax",%progbits
+  45              		.align	1
+  46              		.global	_ZN14SOLENOID_VALVEC2Eh
+  47              		.syntax unified
+  48              		.thumb
+  49              		.thumb_func
+  50              		.fpu softvfp
+  52              	_ZN14SOLENOID_VALVEC2Eh:
+  53              		.fnstart
+  54              	.LVL1:
+  55              	.LFB66:
+  16:User/SOLENOIDVALVE.cpp **** 
+  56              		.loc 1 16 1 is_stmt 1 view -0
+  57              		.cfi_startproc
+  58              		@ args = 0, pretend = 0, frame = 0
+  59              		@ frame_needed = 0, uses_anonymous_args = 0
+  16:User/SOLENOIDVALVE.cpp **** 
+  60              		.loc 1 16 1 is_stmt 0 view .LVU5
+  61 0000 10B5     		push	{r4, lr}
+  62              	.LCFI0:
+  63              		.cfi_def_cfa_offset 8
+  64              		.cfi_offset 4, -8
+  65              		.cfi_offset 14, -4
+  66 0002 0446     		mov	r4, r0
+  67              	.LBB2:
+  18:User/SOLENOIDVALVE.cpp **** 	duty=(PWM_DIGITAL_OUTPUT_REVERSED == 0)?_duty:(1-_duty);
+  68              		.loc 1 18 2 is_stmt 1 view .LVU6
+  18:User/SOLENOIDVALVE.cpp **** 	duty=(PWM_DIGITAL_OUTPUT_REVERSED == 0)?_duty:(1-_duty);
+  69              		.loc 1 18 7 is_stmt 0 view .LVU7
+  70 0004 0022     		movs	r2, #0
+  71 0006 8280     		strh	r2, [r0, #4]	@ movhi
+  19:User/SOLENOIDVALVE.cpp **** 	dutyMin = 0;
+  72              		.loc 1 19 2 is_stmt 1 view .LVU8
+  19:User/SOLENOIDVALVE.cpp **** 	dutyMin = 0;
+  73              		.loc 1 19 6 is_stmt 0 view .LVU9
+  74 0008 0123     		movs	r3, #1
+  75 000a 4380     		strh	r3, [r0, #2]	@ movhi
+  20:User/SOLENOIDVALVE.cpp **** 	dutyMax = 1;
+  76              		.loc 1 20 2 is_stmt 1 view .LVU10
+  20:User/SOLENOIDVALVE.cpp **** 	dutyMax = 1;
+  77              		.loc 1 20 10 is_stmt 0 view .LVU11
+  78 000c C280     		strh	r2, [r0, #6]	@ movhi
+  21:User/SOLENOIDVALVE.cpp **** 	attach(num);
+  79              		.loc 1 21 2 is_stmt 1 view .LVU12
+  21:User/SOLENOIDVALVE.cpp **** 	attach(num);
+ARM GAS  /tmp/ccFErdT3.s 			page 3
+
+
+  80              		.loc 1 21 10 is_stmt 0 view .LVU13
+  81 000e 0381     		strh	r3, [r0, #8]	@ movhi
+  22:User/SOLENOIDVALVE.cpp **** }
+  82              		.loc 1 22 2 is_stmt 1 view .LVU14
+  22:User/SOLENOIDVALVE.cpp **** }
+  83              		.loc 1 22 8 is_stmt 0 view .LVU15
+  84 0010 FFF7FEFF 		bl	_ZN14SOLENOID_VALVE6attachEh
+  85              	.LVL2:
+  22:User/SOLENOIDVALVE.cpp **** }
+  86              		.loc 1 22 8 view .LVU16
+  87              	.LBE2:
+  23:User/SOLENOIDVALVE.cpp **** 
+  88              		.loc 1 23 1 view .LVU17
+  89 0014 2046     		mov	r0, r4
+  90 0016 10BD     		pop	{r4, pc}
+  23:User/SOLENOIDVALVE.cpp **** 
+  91              		.loc 1 23 1 view .LVU18
+  92              		.cfi_endproc
+  93              	.LFE66:
+  94              		.cantunwind
+  95              		.fnend
+  97              		.global	_ZN14SOLENOID_VALVEC1Eh
+  98              		.thumb_set _ZN14SOLENOID_VALVEC1Eh,_ZN14SOLENOID_VALVEC2Eh
+  99              		.global	__aeabi_i2f
+ 100              		.section	.text._ZN14SOLENOID_VALVE9writeDutyEs,"ax",%progbits
+ 101              		.align	1
+ 102              		.global	_ZN14SOLENOID_VALVE9writeDutyEs
+ 103              		.syntax unified
+ 104              		.thumb
+ 105              		.thumb_func
+ 106              		.fpu softvfp
+ 108              	_ZN14SOLENOID_VALVE9writeDutyEs:
+ 109              		.fnstart
+ 110              	.LVL3:
+ 111              	.LFB69:
+  29:User/SOLENOIDVALVE.cpp **** 
+  30:User/SOLENOIDVALVE.cpp **** void SOLENOID_VALVE::writeDuty(int16_t dut)
+  31:User/SOLENOIDVALVE.cpp **** {
+ 112              		.loc 1 31 1 is_stmt 1 view -0
+ 113              		.cfi_startproc
+ 114              		@ args = 0, pretend = 0, frame = 0
+ 115              		@ frame_needed = 0, uses_anonymous_args = 0
+ 116              		.loc 1 31 1 is_stmt 0 view .LVU20
+ 117 0000 10B5     		push	{r4, lr}
+ 118              		.save {r4, lr}
+ 119              	.LCFI1:
+ 120              		.cfi_def_cfa_offset 8
+ 121              		.cfi_offset 4, -8
+ 122              		.cfi_offset 14, -4
+ 123 0002 0346     		mov	r3, r0
+  32:User/SOLENOIDVALVE.cpp **** 	 duty = dut;
+ 124              		.loc 1 32 3 is_stmt 1 view .LVU21
+ 125              		.loc 1 32 8 is_stmt 0 view .LVU22
+ 126 0004 4180     		strh	r1, [r0, #2]	@ movhi
+  33:User/SOLENOIDVALVE.cpp **** 	_duty= (PWM_DIGITAL_OUTPUT_REVERSED == 0)?duty:(1-duty);
+ 127              		.loc 1 33 2 is_stmt 1 view .LVU23
+ 128              		.loc 1 33 52 is_stmt 0 view .LVU24
+ARM GAS  /tmp/ccFErdT3.s 			page 4
+
+
+ 129 0006 89B2     		uxth	r1, r1
+ 130              	.LVL4:
+ 131              		.loc 1 33 51 view .LVU25
+ 132 0008 C1F10101 		rsb	r1, r1, #1
+ 133 000c 08B2     		sxth	r0, r1
+ 134              	.LVL5:
+ 135              		.loc 1 33 7 view .LVU26
+ 136 000e 9880     		strh	r0, [r3, #4]	@ movhi
+  34:User/SOLENOIDVALVE.cpp **** 
+  35:User/SOLENOIDVALVE.cpp **** 	PWMWriteDuty(PWMPort,_duty);
+ 137              		.loc 1 35 2 is_stmt 1 view .LVU27
+ 138              		.loc 1 35 15 is_stmt 0 view .LVU28
+ 139 0010 1C78     		ldrb	r4, [r3]	@ zero_extendqisi2
+ 140              		.loc 1 35 14 view .LVU29
+ 141 0012 FFF7FEFF 		bl	__aeabi_i2f
+ 142              	.LVL6:
+ 143              		.loc 1 35 14 view .LVU30
+ 144 0016 0146     		mov	r1, r0
+ 145 0018 2046     		mov	r0, r4
+ 146 001a FFF7FEFF 		bl	PWMWriteDuty
+ 147              	.LVL7:
+  36:User/SOLENOIDVALVE.cpp **** 
+  37:User/SOLENOIDVALVE.cpp **** 
+  38:User/SOLENOIDVALVE.cpp **** }
+ 148              		.loc 1 38 1 view .LVU31
+ 149 001e 10BD     		pop	{r4, pc}
+ 150              		.cfi_endproc
+ 151              	.LFE69:
+ 152              		.fnend
+ 154              		.text
+ 155              	.Letext0:
+ 156              		.file 2 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-n
+ 157              		.file 3 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-n
+ 158              		.file 4 "User/Inc/SOLENOIDVALVE.h"
+ 159              		.file 5 "User/Inc/HydroDriveLL.h"
+ARM GAS  /tmp/ccFErdT3.s 			page 5
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 SOLENOIDVALVE.cpp
+     /tmp/ccFErdT3.s:16     .text._ZN14SOLENOID_VALVE6attachEh:0000000000000000 $t
+     /tmp/ccFErdT3.s:24     .text._ZN14SOLENOID_VALVE6attachEh:0000000000000000 _ZN14SOLENOID_VALVE6attachEh
+.ARM.exidx.text._ZN14SOLENOID_VALVE6attachEh:0000000000000000 $d
+     /tmp/ccFErdT3.s:45     .text._ZN14SOLENOID_VALVEC2Eh:0000000000000000 $t
+     /tmp/ccFErdT3.s:52     .text._ZN14SOLENOID_VALVEC2Eh:0000000000000000 _ZN14SOLENOID_VALVEC2Eh
+.ARM.exidx.text._ZN14SOLENOID_VALVEC2Eh:0000000000000000 $d
+     /tmp/ccFErdT3.s:52     .text._ZN14SOLENOID_VALVEC2Eh:0000000000000000 _ZN14SOLENOID_VALVEC1Eh
+     /tmp/ccFErdT3.s:101    .text._ZN14SOLENOID_VALVE9writeDutyEs:0000000000000000 $t
+     /tmp/ccFErdT3.s:108    .text._ZN14SOLENOID_VALVE9writeDutyEs:0000000000000000 _ZN14SOLENOID_VALVE9writeDutyEs
+.ARM.exidx.text._ZN14SOLENOID_VALVE9writeDutyEs:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+__aeabi_i2f
+PWMWriteDuty
+__aeabi_unwind_cpp_pr0

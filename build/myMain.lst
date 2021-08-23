@@ -1,0 +1,1452 @@
+ARM GAS  /tmp/ccWjRumA.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"myMain.cpp"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text._Z41__static_initialization_and_destruction_0ii,"ax",%progbits
+  16              		.align	1
+  17              		.arch armv7-m
+  18              		.syntax unified
+  19              		.thumb
+  20              		.thumb_func
+  21              		.fpu softvfp
+  23              	_Z41__static_initialization_and_destruction_0ii:
+  24              		.fnstart
+  25              	.LVL0:
+  26              	.LFB442:
+  27              		.file 1 "User/myMain.cpp"
+   1:User/myMain.cpp **** /*
+   2:User/myMain.cpp ****  * myMain.cpp
+   3:User/myMain.cpp ****  *
+   4:User/myMain.cpp ****  *  Created on: Aug 19, 2021
+   5:User/myMain.cpp ****  *      Author: Xiaojiao Chen
+   6:User/myMain.cpp ****  */
+   7:User/myMain.cpp **** 
+   8:User/myMain.cpp **** #include "myMain.h"
+   9:User/myMain.cpp **** #include "messages.h"
+  10:User/myMain.cpp **** #include "ros.h"
+  11:User/myMain.cpp **** #include "CANbus.h"
+  12:User/myMain.cpp **** #include "LED_Driver.h"
+  13:User/myMain.cpp **** #include "ads1115.h"
+  14:User/myMain.cpp **** #include "HydroUnderwaterManipulator.h"
+  15:User/myMain.cpp **** #define ACTNUM 4
+  16:User/myMain.cpp **** #define ACTALLNUM 8
+  17:User/myMain.cpp **** 
+  18:User/myMain.cpp **** #define MANNUALMASK (0x0001)
+  19:User/myMain.cpp **** #define PUMPOUTMASK (0x0002)
+  20:User/myMain.cpp **** #define PUMPINMASK (0x0004)
+  21:User/myMain.cpp **** #define VALVEOUTMASK (0x0008)
+  22:User/myMain.cpp **** #define VALVEINMASK (0x0010)
+  23:User/myMain.cpp **** #define PUMPINVALVEMASK (0x0020)
+  24:User/myMain.cpp **** #define PUMPOUTVALVEMASK (0x0040)
+  25:User/myMain.cpp **** 
+  26:User/myMain.cpp **** #define __SET_BIT(__VALUE__, __BITMASK__) ((__VALUE__) |= (__BITMASK__))
+  27:User/myMain.cpp **** #define __RESET_BIT(__VALUE__, __BITMASK__) ((__VALUE__) &= ~(__BITMASK__))
+  28:User/myMain.cpp **** #define __TOGGLE_BIT(__VALUE__, __BITMASK__) ((__VALUE__) ^= (__BITMASK__))
+  29:User/myMain.cpp **** #define __GET_BIT(__VALUE__, __BITMASK__) (((__VALUE__) & (__BITMASK__)) != 0)
+  30:User/myMain.cpp **** 
+  31:User/myMain.cpp **** uint8_t valveControlPorts[2 * ACTALLNUM] =
+ARM GAS  /tmp/ccWjRumA.s 			page 2
+
+
+  32:User/myMain.cpp ****     // Act1      Act2       Act3      Act4
+  33:User/myMain.cpp ****     //In,Out,   In,Out,   In,Out,   In,Out,
+  34:User/myMain.cpp ****     {
+  35:User/myMain.cpp ****         0, 1, 2, 3, 4, 5, 6, 7, //Seg 1  (Root segment)
+  36:User/myMain.cpp ****         8, 9, 10, 11, 12, 13, 14, 15  //Seg 2y
+  37:User/myMain.cpp **** };
+  38:User/myMain.cpp **** uint8_t PumpInControlPorts = 41;
+  39:User/myMain.cpp **** uint8_t PumpInValveControlPorts = 43;
+  40:User/myMain.cpp **** 
+  41:User/myMain.cpp **** uint8_t PumpOutControlPorts =  25;
+  42:User/myMain.cpp **** uint8_t PumpOutValveControlPorts = 27;
+  43:User/myMain.cpp **** 
+  44:User/myMain.cpp **** uint8_t gripperControlPorts[2] = {
+  45:User/myMain.cpp ****     // gripperIn      gripperOut
+  46:User/myMain.cpp ****     29, 45};
+  47:User/myMain.cpp **** 
+  48:User/myMain.cpp **** uint8_t PumpSensorPorts[2] = {
+  49:User/myMain.cpp ****     // PumpHigh      PumpLow
+  50:User/myMain.cpp ****     54, 55}; //A0 A1
+  51:User/myMain.cpp **** 
+  52:User/myMain.cpp **** 
+  53:User/myMain.cpp **** class CommandTypeDef
+  54:User/myMain.cpp **** {
+  55:User/myMain.cpp **** public:
+  56:User/myMain.cpp ****   uint16_t mannual_control; //0:auto control   1: mannual control
+  57:User/myMain.cpp ****   uint16_t pumpIn;          //0:Force Off    1:Force On    ,only effecive when mannual_control==1;
+  58:User/myMain.cpp ****   uint16_t pumpOut;         //0:Force Off    1:Force On  ,only effecive when mannual_control==1;
+  59:User/myMain.cpp ****   uint16_t valveIn;         //0:Force Close    1:Force Open  ,only effecive when mannual_control==1
+  60:User/myMain.cpp ****   uint16_t valveOut;        //0:Force Close    1:Force Open  ,only effecive when mannual_control==1
+  61:User/myMain.cpp ****   uint16_t pumpInValve;
+  62:User/myMain.cpp ****   uint16_t pumpOutValve;
+  63:User/myMain.cpp ****   int16_t gripper;
+  64:User/myMain.cpp **** };
+  65:User/myMain.cpp **** CommandTypeDef host_command;
+  66:User/myMain.cpp **** 
+  67:User/myMain.cpp **** 
+  68:User/myMain.cpp **** int32_t pressureUp = 30000;   //30,000Pa limit  for positive pressure
+  69:User/myMain.cpp **** int32_t pressureDown =  -30000; //-30,000Pa limit for negative pressure
+  70:User/myMain.cpp **** 
+  71:User/myMain.cpp **** /*********** transfer in KPa, otherwise all in Pa ******************/
+  72:User/myMain.cpp **** 
+  73:User/myMain.cpp **** /*********** in Pa ******************/
+  74:User/myMain.cpp **** int16_t sensorActuatorBuffer[ACTALLNUM]; //sensor buffer in KPa to store the sensor message
+  75:User/myMain.cpp **** int16_t commandActuator[ACTALLNUM]; //translated command in Pa
+  76:User/myMain.cpp **** 
+  77:User/myMain.cpp **** int32_t globalSensorTaskPeriod = 10;      //10 ms period for loop()  (100Hz)
+  78:User/myMain.cpp **** int32_t globalCommunicationTaskPeriod = 5;     //5 ms period for loop2()  (200Hz)
+  79:User/myMain.cpp **** 
+  80:User/myMain.cpp **** 
+  81:User/myMain.cpp **** HydroUnderwaterManipulator uwManipulator;
+  82:User/myMain.cpp **** 
+  83:User/myMain.cpp **** void setup(){
+  84:User/myMain.cpp **** 
+  85:User/myMain.cpp **** 	LED_Driver_Setup();
+  86:User/myMain.cpp **** 	ADS1115_Setup();
+  87:User/myMain.cpp **** 
+  88:User/myMain.cpp **** 	canConfig();
+ARM GAS  /tmp/ccWjRumA.s 			page 3
+
+
+  89:User/myMain.cpp **** 
+  90:User/myMain.cpp **** 	/*soft arm Valves' port mapping*/
+  91:User/myMain.cpp **** 	uwManipulator.setupValvePorts(valveControlPorts);
+  92:User/myMain.cpp **** 
+  93:User/myMain.cpp **** 	/*soft arm Valves' port mapping*/
+  94:User/myMain.cpp **** 	uwManipulator.setupGripperPorts(gripperControlPorts[0], gripperControlPorts[1]);
+  95:User/myMain.cpp **** 
+  96:User/myMain.cpp **** 	/*soft arm Pumps' port mapping*/
+  97:User/myMain.cpp **** 	uwManipulator.setupPumpPorts(PumpInControlPorts, PumpInValveControlPorts, PumpSensorPorts[0], Pump
+  98:User/myMain.cpp **** 
+  99:User/myMain.cpp **** 	/*setup buffer pointer and length*/
+ 100:User/myMain.cpp **** 	rosserialNode.sensor_msg.actuator = sensorActuatorBuffer;
+ 101:User/myMain.cpp **** 	rosserialNode.sensor_msg.actuator_length = ACTALLNUM;
+ 102:User/myMain.cpp **** 
+ 103:User/myMain.cpp **** }
+ 104:User/myMain.cpp **** 
+ 105:User/myMain.cpp **** 
+ 106:User/myMain.cpp **** /***********Only transfer in KPa, otherwise all in Pa ******************/
+ 107:User/myMain.cpp **** void loop()
+ 108:User/myMain.cpp **** {
+ 109:User/myMain.cpp ****   //automatic switch. Press g to start and press s to stop.
+ 110:User/myMain.cpp ****   if (!host_command.mannual_control)
+ 111:User/myMain.cpp ****   {
+ 112:User/myMain.cpp ****     /*Maintain the up and down pressure from Host command*/
+ 113:User/myMain.cpp ****     //uwManipulator.maintainUpPressure(pressureUp, pressureUp + 10000);
+ 114:User/myMain.cpp ****     //uwManipulator.maintainDownPressure(pressureDown - 10000, pressureDown);
+ 115:User/myMain.cpp ****     if (pressureUp)
+ 116:User/myMain.cpp ****     {
+ 117:User/myMain.cpp ****       uwManipulator.pSource.openValve();
+ 118:User/myMain.cpp ****       uwManipulator.pSource.start(); /*soft arm Pumps' port mapping*/
+ 119:User/myMain.cpp ****     }
+ 120:User/myMain.cpp ****     else
+ 121:User/myMain.cpp ****     {
+ 122:User/myMain.cpp ****       uwManipulator.pSource.stop();
+ 123:User/myMain.cpp ****       uwManipulator.pSource.closeValve();
+ 124:User/myMain.cpp ****     }
+ 125:User/myMain.cpp **** 
+ 126:User/myMain.cpp ****     if (pressureDown)
+ 127:User/myMain.cpp ****     {
+ 128:User/myMain.cpp ****       uwManipulator.pSink.openValve();
+ 129:User/myMain.cpp ****       uwManipulator.pSink.start();
+ 130:User/myMain.cpp ****     }
+ 131:User/myMain.cpp ****     else
+ 132:User/myMain.cpp ****     {
+ 133:User/myMain.cpp ****       uwManipulator.pSink.stop();
+ 134:User/myMain.cpp ****       uwManipulator.pSink.closeValve();
+ 135:User/myMain.cpp ****     }
+ 136:User/myMain.cpp **** 
+ 137:User/myMain.cpp ****     /*If actuators have sensors*/
+ 138:User/myMain.cpp ****     //uwManipulator.readPressureAll();
+ 139:User/myMain.cpp **** 
+ 140:User/myMain.cpp ****     //uwManipulator.writePressureAll(commandActuator);
+ 141:User/myMain.cpp ****      uwManipulator.writeOpeningAll(commandActuator);
+ 142:User/myMain.cpp ****   }
+ 143:User/myMain.cpp ****   else
+ 144:User/myMain.cpp ****   {
+ 145:User/myMain.cpp ****     if (host_command.pumpIn)
+ARM GAS  /tmp/ccWjRumA.s 			page 4
+
+
+ 146:User/myMain.cpp ****     {
+ 147:User/myMain.cpp ****       uwManipulator.startPumpIn();
+ 148:User/myMain.cpp ****     }
+ 149:User/myMain.cpp ****     else
+ 150:User/myMain.cpp ****     {
+ 151:User/myMain.cpp ****       uwManipulator.stopPumpIn();
+ 152:User/myMain.cpp ****     }
+ 153:User/myMain.cpp **** 
+ 154:User/myMain.cpp ****     if (host_command.pumpOut)
+ 155:User/myMain.cpp ****     {
+ 156:User/myMain.cpp ****       uwManipulator.startPumpOut();
+ 157:User/myMain.cpp ****     }
+ 158:User/myMain.cpp ****     else
+ 159:User/myMain.cpp ****     {
+ 160:User/myMain.cpp ****       uwManipulator.stopPumpOut();
+ 161:User/myMain.cpp ****     }
+ 162:User/myMain.cpp **** 
+ 163:User/myMain.cpp ****     if (host_command.pumpInValve)
+ 164:User/myMain.cpp ****     {
+ 165:User/myMain.cpp ****       uwManipulator.pSource.openValve();
+ 166:User/myMain.cpp ****     }
+ 167:User/myMain.cpp ****     else
+ 168:User/myMain.cpp ****     {
+ 169:User/myMain.cpp ****       uwManipulator.pSource.closeValve();
+ 170:User/myMain.cpp ****     }
+ 171:User/myMain.cpp **** 
+ 172:User/myMain.cpp ****     if (host_command.pumpOutValve)
+ 173:User/myMain.cpp ****     {
+ 174:User/myMain.cpp ****       uwManipulator.pSink.openValve();
+ 175:User/myMain.cpp ****     }
+ 176:User/myMain.cpp ****     else
+ 177:User/myMain.cpp ****     {
+ 178:User/myMain.cpp ****       uwManipulator.pSink.closeValve();
+ 179:User/myMain.cpp ****     }
+ 180:User/myMain.cpp **** 
+ 181:User/myMain.cpp ****     //
+ 182:User/myMain.cpp ****     if ((!host_command.valveIn) && (!host_command.valveOut))
+ 183:User/myMain.cpp ****     {
+ 184:User/myMain.cpp ****       uwManipulator.writeOpening(0);
+ 185:User/myMain.cpp ****     }
+ 186:User/myMain.cpp ****     else if ((!host_command.valveIn) && (host_command.valveOut))
+ 187:User/myMain.cpp ****     {
+ 188:User/myMain.cpp ****       uwManipulator.writeOpening(-1);
+ 189:User/myMain.cpp ****     }
+ 190:User/myMain.cpp ****     else if ((host_command.valveIn) && (!host_command.valveOut))
+ 191:User/myMain.cpp ****     {
+ 192:User/myMain.cpp ****       uwManipulator.writeOpening(1);
+ 193:User/myMain.cpp ****     }
+ 194:User/myMain.cpp ****     else if ((host_command.valveIn) && (host_command.valveOut))
+ 195:User/myMain.cpp ****     {
+ 196:User/myMain.cpp ****       uwManipulator.writeOpening(2);
+ 197:User/myMain.cpp ****     }
+ 198:User/myMain.cpp ****   }
+ 199:User/myMain.cpp **** 
+ 200:User/myMain.cpp ****   uwManipulator.gripper.writeOpening(host_command.gripper);
+ 201:User/myMain.cpp **** 
+ 202:User/myMain.cpp ****   /*Filling the pump message, in KPa*/
+ARM GAS  /tmp/ccWjRumA.s 			page 5
+
+
+ 203:User/myMain.cpp ****   rosserialNode.sensor_msg.pumpIn = uwManipulator.pSource.pump.status;
+ 204:User/myMain.cpp ****   rosserialNode.sensor_msg.pumpOut = uwManipulator.pSink.pump.status;
+ 205:User/myMain.cpp ****   rosserialNode.sensor_msg.gripper = uwManipulator.gripper.opening;
+ 206:User/myMain.cpp ****   /*Filling the valve message, in [-1, 0, 1]*/
+ 207:User/myMain.cpp ****   for (int i = 0; i < 2; i++)
+ 208:User/myMain.cpp ****   {
+ 209:User/myMain.cpp ****     for (int j = 0; j < 4; j++)
+ 210:User/myMain.cpp ****     {
+ 211:User/myMain.cpp ****     	rosserialNode.sensor_msg.actuator[4 * i + j] = (int16_t)(uwManipulator.actuators[i][j].opening
+ 212:User/myMain.cpp ****     }
+ 213:User/myMain.cpp ****   }
+ 214:User/myMain.cpp ****   rosserialNode.publisher1.publish(&rosserialNode.sensor_msg);
+ 215:User/myMain.cpp **** 
+ 216:User/myMain.cpp ****   rosserialNode.spinOnce();
+ 217:User/myMain.cpp **** }
+ 218:User/myMain.cpp **** 
+ 219:User/myMain.cpp **** 
+ 220:User/myMain.cpp **** 
+ 221:User/myMain.cpp **** //200Hz loop2
+ 222:User/myMain.cpp **** void loop2(){
+ 223:User/myMain.cpp **** 
+ 224:User/myMain.cpp **** }
+ 225:User/myMain.cpp **** 
+ 226:User/myMain.cpp **** void sub1Callback(const hydrosoft_ros::Command_Arm &cmd_msg)
+ 227:User/myMain.cpp **** {
+ 228:User/myMain.cpp **** 	 // for (int i = 0; i < ACTALLNUM; i++)
+ 229:User/myMain.cpp **** 	  // {
+ 230:User/myMain.cpp **** 	  //   commandActuator[i] = ((int32_t)cmd_msg.actuator[i]) * 1000;
+ 231:User/myMain.cpp **** 	  // }
+ 232:User/myMain.cpp **** 	  // pressureUp = ((int32_t)cmd_msg.pumpIn) * 1000;    //transfer in KPa, local in Pa
+ 233:User/myMain.cpp **** 	  // pressureDown = ((int32_t)cmd_msg.pumpOut) * 1000; //transfer in KPa, local In Pa
+ 234:User/myMain.cpp **** 	  for (int i = 0; i < ACTALLNUM; i++)
+ 235:User/myMain.cpp **** 	  {
+ 236:User/myMain.cpp **** 		commandActuator[i] = cmd_msg.actuator[i];
+ 237:User/myMain.cpp **** 	  }
+ 238:User/myMain.cpp **** 	  pressureUp = (cmd_msg.pumpIn);
+ 239:User/myMain.cpp **** 	  pressureDown = (cmd_msg.pumpOut);
+ 240:User/myMain.cpp **** 	  host_command.mannual_control = __GET_BIT(cmd_msg.cmd, MANNUALMASK);
+ 241:User/myMain.cpp **** 	  host_command.pumpIn = __GET_BIT(cmd_msg.cmd, PUMPINMASK);
+ 242:User/myMain.cpp **** 	  host_command.pumpOut = __GET_BIT(cmd_msg.cmd, PUMPOUTMASK);
+ 243:User/myMain.cpp **** 	  host_command.valveIn = __GET_BIT(cmd_msg.cmd, VALVEINMASK);
+ 244:User/myMain.cpp **** 	  host_command.valveOut = __GET_BIT(cmd_msg.cmd, VALVEOUTMASK);
+ 245:User/myMain.cpp **** 	  host_command.pumpInValve = __GET_BIT(cmd_msg.cmd, PUMPINVALVEMASK);
+ 246:User/myMain.cpp **** 	  host_command.pumpOutValve = __GET_BIT(cmd_msg.cmd, PUMPOUTVALVEMASK);
+ 247:User/myMain.cpp **** 	  host_command.gripper = cmd_msg.gripper;
+ 248:User/myMain.cpp **** }
+  28              		.loc 1 248 1 view -0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		.loc 1 248 1 is_stmt 0 view .LVU1
+  33 0000 0128     		cmp	r0, #1
+  34 0002 00D0     		beq	.L7
+  35 0004 7047     		bx	lr
+  36              	.L7:
+  37              		.loc 1 248 1 discriminator 1 view .LVU2
+  38 0006 08B5     		push	{r3, lr}
+ARM GAS  /tmp/ccWjRumA.s 			page 6
+
+
+  39              	.LCFI0:
+  40              		.cfi_def_cfa_offset 8
+  41              		.cfi_offset 3, -8
+  42              		.cfi_offset 14, -4
+  43              		.loc 1 248 1 discriminator 1 view .LVU3
+  44 0008 4FF6FF73 		movw	r3, #65535
+  45 000c 9942     		cmp	r1, r3
+  46 000e 00D0     		beq	.L8
+  47              	.LVL1:
+  48              	.L1:
+  49              		.loc 1 248 1 view .LVU4
+  50 0010 08BD     		pop	{r3, pc}
+  51              	.LVL2:
+  52              	.L8:
+  81:User/myMain.cpp **** 
+  53              		.loc 1 81 28 view .LVU5
+  54 0012 0248     		ldr	r0, .L9
+  55              	.LVL3:
+  81:User/myMain.cpp **** 
+  56              		.loc 1 81 28 view .LVU6
+  57 0014 FFF7FEFF 		bl	_ZN26HydroUnderwaterManipulatorC1Ev
+  58              	.LVL4:
+  59              		.loc 1 248 1 view .LVU7
+  60 0018 FAE7     		b	.L1
+  61              	.L10:
+  62 001a 00BF     		.align	2
+  63              	.L9:
+  64 001c 00000000 		.word	.LANCHOR0
+  65              		.cfi_endproc
+  66              	.LFE442:
+  67              		.cantunwind
+  68              		.fnend
+  70              		.section	.text.setup,"ax",%progbits
+  71              		.align	1
+  72              		.global	setup
+  73              		.syntax unified
+  74              		.thumb
+  75              		.thumb_func
+  76              		.fpu softvfp
+  78              	setup:
+  79              		.fnstart
+  80              	.LFB436:
+  83:User/myMain.cpp **** 
+  81              		.loc 1 83 13 is_stmt 1 view -0
+  82              		.cfi_startproc
+  83              		@ args = 0, pretend = 0, frame = 0
+  84              		@ frame_needed = 0, uses_anonymous_args = 0
+  85 0000 10B5     		push	{r4, lr}
+  86              		.save {r4, lr}
+  87              	.LCFI1:
+  88              		.cfi_def_cfa_offset 8
+  89              		.cfi_offset 4, -8
+  90              		.cfi_offset 14, -4
+  91              		.pad #16
+  92 0002 84B0     		sub	sp, sp, #16
+  93              	.LCFI2:
+  94              		.cfi_def_cfa_offset 24
+ARM GAS  /tmp/ccWjRumA.s 			page 7
+
+
+  85:User/myMain.cpp **** 	ADS1115_Setup();
+  95              		.loc 1 85 2 view .LVU9
+  85:User/myMain.cpp **** 	ADS1115_Setup();
+  96              		.loc 1 85 18 is_stmt 0 view .LVU10
+  97 0004 FFF7FEFF 		bl	LED_Driver_Setup
+  98              	.LVL5:
+  86:User/myMain.cpp **** 
+  99              		.loc 1 86 2 is_stmt 1 view .LVU11
+  86:User/myMain.cpp **** 
+ 100              		.loc 1 86 15 is_stmt 0 view .LVU12
+ 101 0008 FFF7FEFF 		bl	ADS1115_Setup
+ 102              	.LVL6:
+  88:User/myMain.cpp **** 
+ 103              		.loc 1 88 2 is_stmt 1 view .LVU13
+  88:User/myMain.cpp **** 
+ 104              		.loc 1 88 11 is_stmt 0 view .LVU14
+ 105 000c FFF7FEFF 		bl	canConfig
+ 106              	.LVL7:
+  91:User/myMain.cpp **** 
+ 107              		.loc 1 91 2 is_stmt 1 view .LVU15
+  91:User/myMain.cpp **** 
+ 108              		.loc 1 91 31 is_stmt 0 view .LVU16
+ 109 0010 114C     		ldr	r4, .L13
+ 110 0012 1249     		ldr	r1, .L13+4
+ 111 0014 2046     		mov	r0, r4
+ 112 0016 FFF7FEFF 		bl	_ZN26HydroUnderwaterManipulator15setupValvePortsEPh
+ 113              	.LVL8:
+  94:User/myMain.cpp **** 
+ 114              		.loc 1 94 2 is_stmt 1 view .LVU17
+  94:User/myMain.cpp **** 
+ 115              		.loc 1 94 33 is_stmt 0 view .LVU18
+ 116 001a 114B     		ldr	r3, .L13+8
+ 117 001c 5A78     		ldrb	r2, [r3, #1]	@ zero_extendqisi2
+ 118 001e 1978     		ldrb	r1, [r3]	@ zero_extendqisi2
+ 119 0020 2046     		mov	r0, r4
+ 120 0022 FFF7FEFF 		bl	_ZN26HydroUnderwaterManipulator17setupGripperPortsEhh
+ 121              	.LVL9:
+  97:User/myMain.cpp **** 
+ 122              		.loc 1 97 2 is_stmt 1 view .LVU19
+  97:User/myMain.cpp **** 
+ 123              		.loc 1 97 30 is_stmt 0 view .LVU20
+ 124 0026 0F4B     		ldr	r3, .L13+12
+ 125 0028 5A78     		ldrb	r2, [r3, #1]	@ zero_extendqisi2
+ 126 002a 0292     		str	r2, [sp, #8]
+ 127 002c 0E4A     		ldr	r2, .L13+16
+ 128 002e 1278     		ldrb	r2, [r2]	@ zero_extendqisi2
+ 129 0030 0192     		str	r2, [sp, #4]
+ 130 0032 0E4A     		ldr	r2, .L13+20
+ 131 0034 1278     		ldrb	r2, [r2]	@ zero_extendqisi2
+ 132 0036 0092     		str	r2, [sp]
+ 133 0038 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 134 003a 0D4A     		ldr	r2, .L13+24
+ 135 003c 1278     		ldrb	r2, [r2]	@ zero_extendqisi2
+ 136 003e 0D49     		ldr	r1, .L13+28
+ 137 0040 0978     		ldrb	r1, [r1]	@ zero_extendqisi2
+ 138 0042 2046     		mov	r0, r4
+ 139 0044 FFF7FEFF 		bl	_ZN26HydroUnderwaterManipulator14setupPumpPortsEhhhhhh
+ARM GAS  /tmp/ccWjRumA.s 			page 8
+
+
+ 140              	.LVL10:
+ 100:User/myMain.cpp **** 	rosserialNode.sensor_msg.actuator_length = ACTALLNUM;
+ 141              		.loc 1 100 2 is_stmt 1 view .LVU21
+ 100:User/myMain.cpp **** 	rosserialNode.sensor_msg.actuator_length = ACTALLNUM;
+ 142              		.loc 1 100 36 is_stmt 0 view .LVU22
+ 143 0048 0B4B     		ldr	r3, .L13+32
+ 144 004a 0C4A     		ldr	r2, .L13+36
+ 145 004c DA60     		str	r2, [r3, #12]
+ 101:User/myMain.cpp **** 
+ 146              		.loc 1 101 2 is_stmt 1 view .LVU23
+ 101:User/myMain.cpp **** 
+ 147              		.loc 1 101 43 is_stmt 0 view .LVU24
+ 148 004e 0822     		movs	r2, #8
+ 149 0050 5A60     		str	r2, [r3, #4]
+ 103:User/myMain.cpp **** 
+ 150              		.loc 1 103 1 view .LVU25
+ 151 0052 04B0     		add	sp, sp, #16
+ 152              	.LCFI3:
+ 153              		.cfi_def_cfa_offset 8
+ 154              		@ sp needed
+ 155 0054 10BD     		pop	{r4, pc}
+ 156              	.L14:
+ 157 0056 00BF     		.align	2
+ 158              	.L13:
+ 159 0058 00000000 		.word	.LANCHOR0
+ 160 005c 00000000 		.word	.LANCHOR1
+ 161 0060 00000000 		.word	.LANCHOR2
+ 162 0064 00000000 		.word	.LANCHOR3
+ 163 0068 00000000 		.word	.LANCHOR6
+ 164 006c 00000000 		.word	.LANCHOR7
+ 165 0070 00000000 		.word	.LANCHOR4
+ 166 0074 00000000 		.word	.LANCHOR5
+ 167 0078 00000000 		.word	rosserialNode
+ 168 007c 00000000 		.word	.LANCHOR8
+ 169              		.cfi_endproc
+ 170              	.LFE436:
+ 171              		.fnend
+ 173              		.section	.text.loop,"ax",%progbits
+ 174              		.align	1
+ 175              		.global	loop
+ 176              		.syntax unified
+ 177              		.thumb
+ 178              		.thumb_func
+ 179              		.fpu softvfp
+ 181              	loop:
+ 182              		.fnstart
+ 183              	.LFB437:
+ 108:User/myMain.cpp ****   //automatic switch. Press g to start and press s to stop.
+ 184              		.loc 1 108 1 is_stmt 1 view -0
+ 185              		.cfi_startproc
+ 186              		@ args = 0, pretend = 0, frame = 0
+ 187              		@ frame_needed = 0, uses_anonymous_args = 0
+ 188 0000 10B5     		push	{r4, lr}
+ 189              		.save {r4, lr}
+ 190              	.LCFI4:
+ 191              		.cfi_def_cfa_offset 8
+ 192              		.cfi_offset 4, -8
+ARM GAS  /tmp/ccWjRumA.s 			page 9
+
+
+ 193              		.cfi_offset 14, -4
+ 110:User/myMain.cpp ****   {
+ 194              		.loc 1 110 3 view .LVU27
+ 110:User/myMain.cpp ****   {
+ 195              		.loc 1 110 21 is_stmt 0 view .LVU28
+ 196 0002 5D4B     		ldr	r3, .L43
+ 197 0004 1B88     		ldrh	r3, [r3]
+ 110:User/myMain.cpp ****   {
+ 198              		.loc 1 110 3 view .LVU29
+ 199 0006 002B     		cmp	r3, #0
+ 200 0008 35D0     		beq	.L38
+ 145:User/myMain.cpp ****     {
+ 201              		.loc 1 145 5 is_stmt 1 view .LVU30
+ 145:User/myMain.cpp ****     {
+ 202              		.loc 1 145 22 is_stmt 0 view .LVU31
+ 203 000a 5B4B     		ldr	r3, .L43
+ 204 000c 5B88     		ldrh	r3, [r3, #2]
+ 145:User/myMain.cpp ****     {
+ 205              		.loc 1 145 5 view .LVU32
+ 206 000e 002B     		cmp	r3, #0
+ 207 0010 6DD0     		beq	.L22
+ 147:User/myMain.cpp ****     }
+ 208              		.loc 1 147 7 is_stmt 1 view .LVU33
+ 147:User/myMain.cpp ****     }
+ 209              		.loc 1 147 32 is_stmt 0 view .LVU34
+ 210 0012 5A48     		ldr	r0, .L43+4
+ 211 0014 FFF7FEFF 		bl	_ZN26HydroUnderwaterManipulator11startPumpInEv
+ 212              	.LVL11:
+ 213              	.L23:
+ 154:User/myMain.cpp ****     {
+ 214              		.loc 1 154 5 is_stmt 1 view .LVU35
+ 154:User/myMain.cpp ****     {
+ 215              		.loc 1 154 22 is_stmt 0 view .LVU36
+ 216 0018 574B     		ldr	r3, .L43
+ 217 001a 9B88     		ldrh	r3, [r3, #4]
+ 154:User/myMain.cpp ****     {
+ 218              		.loc 1 154 5 view .LVU37
+ 219 001c 002B     		cmp	r3, #0
+ 220 001e 6AD0     		beq	.L24
+ 156:User/myMain.cpp ****     }
+ 221              		.loc 1 156 7 is_stmt 1 view .LVU38
+ 156:User/myMain.cpp ****     }
+ 222              		.loc 1 156 33 is_stmt 0 view .LVU39
+ 223 0020 5648     		ldr	r0, .L43+4
+ 224 0022 FFF7FEFF 		bl	_ZN26HydroUnderwaterManipulator12startPumpOutEv
+ 225              	.LVL12:
+ 226              	.L25:
+ 163:User/myMain.cpp ****     {
+ 227              		.loc 1 163 5 is_stmt 1 view .LVU40
+ 163:User/myMain.cpp ****     {
+ 228              		.loc 1 163 22 is_stmt 0 view .LVU41
+ 229 0026 544B     		ldr	r3, .L43
+ 230 0028 5B89     		ldrh	r3, [r3, #10]
+ 163:User/myMain.cpp ****     {
+ 231              		.loc 1 163 5 view .LVU42
+ 232 002a 002B     		cmp	r3, #0
+ 233 002c 67D0     		beq	.L26
+ARM GAS  /tmp/ccWjRumA.s 			page 10
+
+
+ 165:User/myMain.cpp ****     }
+ 234              		.loc 1 165 7 is_stmt 1 view .LVU43
+ 165:User/myMain.cpp ****     }
+ 235              		.loc 1 165 38 is_stmt 0 view .LVU44
+ 236 002e 5448     		ldr	r0, .L43+8
+ 237 0030 FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE9openValveEv
+ 238              	.LVL13:
+ 239              	.L27:
+ 172:User/myMain.cpp ****     {
+ 240              		.loc 1 172 5 is_stmt 1 view .LVU45
+ 172:User/myMain.cpp ****     {
+ 241              		.loc 1 172 22 is_stmt 0 view .LVU46
+ 242 0034 504B     		ldr	r3, .L43
+ 243 0036 9B89     		ldrh	r3, [r3, #12]
+ 172:User/myMain.cpp ****     {
+ 244              		.loc 1 172 5 view .LVU47
+ 245 0038 002B     		cmp	r3, #0
+ 246 003a 64D0     		beq	.L28
+ 174:User/myMain.cpp ****     }
+ 247              		.loc 1 174 7 is_stmt 1 view .LVU48
+ 174:User/myMain.cpp ****     }
+ 248              		.loc 1 174 36 is_stmt 0 view .LVU49
+ 249 003c 5148     		ldr	r0, .L43+12
+ 250 003e FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE9openValveEv
+ 251              	.LVL14:
+ 252              	.L29:
+ 182:User/myMain.cpp ****     {
+ 253              		.loc 1 182 5 is_stmt 1 view .LVU50
+ 182:User/myMain.cpp ****     {
+ 254              		.loc 1 182 24 is_stmt 0 view .LVU51
+ 255 0042 4D4B     		ldr	r3, .L43
+ 256 0044 DB88     		ldrh	r3, [r3, #6]
+ 182:User/myMain.cpp ****     {
+ 257              		.loc 1 182 5 view .LVU52
+ 258 0046 1BB9     		cbnz	r3, .L30
+ 182:User/myMain.cpp ****     {
+ 259              		.loc 1 182 51 discriminator 1 view .LVU53
+ 260 0048 4B4A     		ldr	r2, .L43
+ 261 004a 1289     		ldrh	r2, [r2, #8]
+ 182:User/myMain.cpp ****     {
+ 262              		.loc 1 182 33 discriminator 1 view .LVU54
+ 263 004c 002A     		cmp	r2, #0
+ 264 004e 5ED0     		beq	.L39
+ 265              	.L30:
+ 186:User/myMain.cpp ****     {
+ 266              		.loc 1 186 10 is_stmt 1 view .LVU55
+ 267 0050 1BB9     		cbnz	r3, .L31
+ 186:User/myMain.cpp ****     {
+ 268              		.loc 1 186 55 is_stmt 0 discriminator 1 view .LVU56
+ 269 0052 494A     		ldr	r2, .L43
+ 270 0054 1289     		ldrh	r2, [r2, #8]
+ 186:User/myMain.cpp ****     {
+ 271              		.loc 1 186 38 discriminator 1 view .LVU57
+ 272 0056 002A     		cmp	r2, #0
+ 273 0058 5ED1     		bne	.L40
+ 274              	.L31:
+ 190:User/myMain.cpp ****     {
+ARM GAS  /tmp/ccWjRumA.s 			page 11
+
+
+ 275              		.loc 1 190 10 is_stmt 1 view .LVU58
+ 276 005a 1BB1     		cbz	r3, .L32
+ 190:User/myMain.cpp ****     {
+ 277              		.loc 1 190 55 is_stmt 0 discriminator 1 view .LVU59
+ 278 005c 464A     		ldr	r2, .L43
+ 279 005e 1289     		ldrh	r2, [r2, #8]
+ 190:User/myMain.cpp ****     {
+ 280              		.loc 1 190 37 discriminator 1 view .LVU60
+ 281 0060 002A     		cmp	r2, #0
+ 282 0062 5FD0     		beq	.L41
+ 283              	.L32:
+ 194:User/myMain.cpp ****     {
+ 284              		.loc 1 194 10 is_stmt 1 view .LVU61
+ 285 0064 FBB1     		cbz	r3, .L21
+ 194:User/myMain.cpp ****     {
+ 286              		.loc 1 194 54 is_stmt 0 discriminator 1 view .LVU62
+ 287 0066 444B     		ldr	r3, .L43
+ 288 0068 1B89     		ldrh	r3, [r3, #8]
+ 194:User/myMain.cpp ****     {
+ 289              		.loc 1 194 37 discriminator 1 view .LVU63
+ 290 006a E3B1     		cbz	r3, .L21
+ 196:User/myMain.cpp ****     }
+ 291              		.loc 1 196 7 is_stmt 1 view .LVU64
+ 196:User/myMain.cpp ****     }
+ 292              		.loc 1 196 33 is_stmt 0 view .LVU65
+ 293 006c 0221     		movs	r1, #2
+ 294 006e 4348     		ldr	r0, .L43+4
+ 295 0070 FFF7FEFF 		bl	_ZN26HydroUnderwaterManipulator12writeOpeningEs
+ 296              	.LVL15:
+ 297 0074 17E0     		b	.L21
+ 298              	.L38:
+ 115:User/myMain.cpp ****     {
+ 299              		.loc 1 115 5 is_stmt 1 view .LVU66
+ 115:User/myMain.cpp ****     {
+ 300              		.loc 1 115 9 is_stmt 0 view .LVU67
+ 301 0076 444B     		ldr	r3, .L43+16
+ 302 0078 1B68     		ldr	r3, [r3]
+ 115:User/myMain.cpp ****     {
+ 303              		.loc 1 115 5 view .LVU68
+ 304 007a 43B3     		cbz	r3, .L17
+ 117:User/myMain.cpp ****       uwManipulator.pSource.start(); /*soft arm Pumps' port mapping*/
+ 305              		.loc 1 117 7 is_stmt 1 view .LVU69
+ 117:User/myMain.cpp ****       uwManipulator.pSource.start(); /*soft arm Pumps' port mapping*/
+ 306              		.loc 1 117 38 is_stmt 0 view .LVU70
+ 307 007c 404C     		ldr	r4, .L43+8
+ 308 007e 2046     		mov	r0, r4
+ 309 0080 FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE9openValveEv
+ 310              	.LVL16:
+ 118:User/myMain.cpp ****     }
+ 311              		.loc 1 118 7 is_stmt 1 view .LVU71
+ 118:User/myMain.cpp ****     }
+ 312              		.loc 1 118 34 is_stmt 0 view .LVU72
+ 313 0084 2046     		mov	r0, r4
+ 314 0086 FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE5startEv
+ 315              	.LVL17:
+ 316              	.L18:
+ 126:User/myMain.cpp ****     {
+ARM GAS  /tmp/ccWjRumA.s 			page 12
+
+
+ 317              		.loc 1 126 5 is_stmt 1 view .LVU73
+ 126:User/myMain.cpp ****     {
+ 318              		.loc 1 126 9 is_stmt 0 view .LVU74
+ 319 008a 404B     		ldr	r3, .L43+20
+ 320 008c 1B68     		ldr	r3, [r3]
+ 126:User/myMain.cpp ****     {
+ 321              		.loc 1 126 5 view .LVU75
+ 322 008e 33B3     		cbz	r3, .L19
+ 128:User/myMain.cpp ****       uwManipulator.pSink.start();
+ 323              		.loc 1 128 7 is_stmt 1 view .LVU76
+ 128:User/myMain.cpp ****       uwManipulator.pSink.start();
+ 324              		.loc 1 128 36 is_stmt 0 view .LVU77
+ 325 0090 3C4C     		ldr	r4, .L43+12
+ 326 0092 2046     		mov	r0, r4
+ 327 0094 FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE9openValveEv
+ 328              	.LVL18:
+ 129:User/myMain.cpp ****     }
+ 329              		.loc 1 129 7 is_stmt 1 view .LVU78
+ 129:User/myMain.cpp ****     }
+ 330              		.loc 1 129 32 is_stmt 0 view .LVU79
+ 331 0098 2046     		mov	r0, r4
+ 332 009a FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE5startEv
+ 333              	.LVL19:
+ 334              	.L20:
+ 141:User/myMain.cpp ****   }
+ 335              		.loc 1 141 6 is_stmt 1 view .LVU80
+ 141:User/myMain.cpp ****   }
+ 336              		.loc 1 141 35 is_stmt 0 view .LVU81
+ 337 009e 3C49     		ldr	r1, .L43+24
+ 338 00a0 3648     		ldr	r0, .L43+4
+ 339 00a2 FFF7FEFF 		bl	_ZN26HydroUnderwaterManipulator15writeOpeningAllEPs
+ 340              	.LVL20:
+ 341              	.L21:
+ 200:User/myMain.cpp **** 
+ 342              		.loc 1 200 3 is_stmt 1 view .LVU82
+ 200:User/myMain.cpp **** 
+ 343              		.loc 1 200 37 is_stmt 0 view .LVU83
+ 344 00a6 354C     		ldr	r4, .L43+4
+ 345 00a8 334B     		ldr	r3, .L43
+ 346 00aa B3F90E10 		ldrsh	r1, [r3, #14]
+ 347 00ae 04F53470 		add	r0, r4, #720
+ 348 00b2 FFF7FEFF 		bl	_ZN7CHAMBER12writeOpeningEs
+ 349              	.LVL21:
+ 203:User/myMain.cpp ****   rosserialNode.sensor_msg.pumpOut = uwManipulator.pSink.pump.status;
+ 350              		.loc 1 203 3 is_stmt 1 view .LVU84
+ 203:User/myMain.cpp ****   rosserialNode.sensor_msg.pumpOut = uwManipulator.pSink.pump.status;
+ 351              		.loc 1 203 64 is_stmt 0 view .LVU85
+ 352 00b6 B4F91223 		ldrsh	r2, [r4, #786]
+ 203:User/myMain.cpp ****   rosserialNode.sensor_msg.pumpOut = uwManipulator.pSink.pump.status;
+ 353              		.loc 1 203 35 view .LVU86
+ 354 00ba 364B     		ldr	r3, .L43+28
+ 355 00bc 1A82     		strh	r2, [r3, #16]	@ movhi
+ 204:User/myMain.cpp ****   rosserialNode.sensor_msg.gripper = uwManipulator.gripper.opening;
+ 356              		.loc 1 204 3 is_stmt 1 view .LVU87
+ 204:User/myMain.cpp ****   rosserialNode.sensor_msg.gripper = uwManipulator.gripper.opening;
+ 357              		.loc 1 204 63 is_stmt 0 view .LVU88
+ 358 00be B4F94623 		ldrsh	r2, [r4, #838]
+ARM GAS  /tmp/ccWjRumA.s 			page 13
+
+
+ 204:User/myMain.cpp ****   rosserialNode.sensor_msg.gripper = uwManipulator.gripper.opening;
+ 359              		.loc 1 204 36 view .LVU89
+ 360 00c2 5A82     		strh	r2, [r3, #18]	@ movhi
+ 205:User/myMain.cpp ****   /*Filling the valve message, in [-1, 0, 1]*/
+ 361              		.loc 1 205 3 is_stmt 1 view .LVU90
+ 205:User/myMain.cpp ****   /*Filling the valve message, in [-1, 0, 1]*/
+ 362              		.loc 1 205 60 is_stmt 0 view .LVU91
+ 363 00c4 B4F90823 		ldrsh	r2, [r4, #776]
+ 205:User/myMain.cpp ****   /*Filling the valve message, in [-1, 0, 1]*/
+ 364              		.loc 1 205 36 view .LVU92
+ 365 00c8 9A82     		strh	r2, [r3, #20]	@ movhi
+ 207:User/myMain.cpp ****   {
+ 366              		.loc 1 207 3 is_stmt 1 view .LVU93
+ 367              	.LVL22:
+ 368              	.LBB6:
+ 207:User/myMain.cpp ****   {
+ 369              		.loc 1 207 12 is_stmt 0 view .LVU94
+ 370 00ca 0021     		movs	r1, #0
+ 371 00cc 45E0     		b	.L36
+ 372              	.LVL23:
+ 373              	.L17:
+ 207:User/myMain.cpp ****   {
+ 374              		.loc 1 207 12 view .LVU95
+ 375              	.LBE6:
+ 122:User/myMain.cpp ****       uwManipulator.pSource.closeValve();
+ 376              		.loc 1 122 7 is_stmt 1 view .LVU96
+ 122:User/myMain.cpp ****       uwManipulator.pSource.closeValve();
+ 377              		.loc 1 122 33 is_stmt 0 view .LVU97
+ 378 00ce 2C4C     		ldr	r4, .L43+8
+ 379 00d0 2046     		mov	r0, r4
+ 380 00d2 FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE4stopEv
+ 381              	.LVL24:
+ 123:User/myMain.cpp ****     }
+ 382              		.loc 1 123 7 is_stmt 1 view .LVU98
+ 123:User/myMain.cpp ****     }
+ 383              		.loc 1 123 39 is_stmt 0 view .LVU99
+ 384 00d6 2046     		mov	r0, r4
+ 385 00d8 FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE10closeValveEv
+ 386              	.LVL25:
+ 387 00dc D5E7     		b	.L18
+ 388              	.L19:
+ 133:User/myMain.cpp ****       uwManipulator.pSink.closeValve();
+ 389              		.loc 1 133 7 is_stmt 1 view .LVU100
+ 133:User/myMain.cpp ****       uwManipulator.pSink.closeValve();
+ 390              		.loc 1 133 31 is_stmt 0 view .LVU101
+ 391 00de 294C     		ldr	r4, .L43+12
+ 392 00e0 2046     		mov	r0, r4
+ 393 00e2 FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE4stopEv
+ 394              	.LVL26:
+ 134:User/myMain.cpp ****     }
+ 395              		.loc 1 134 7 is_stmt 1 view .LVU102
+ 134:User/myMain.cpp ****     }
+ 396              		.loc 1 134 37 is_stmt 0 view .LVU103
+ 397 00e6 2046     		mov	r0, r4
+ 398 00e8 FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE10closeValveEv
+ 399              	.LVL27:
+ 400 00ec D7E7     		b	.L20
+ARM GAS  /tmp/ccWjRumA.s 			page 14
+
+
+ 401              	.L22:
+ 151:User/myMain.cpp ****     }
+ 402              		.loc 1 151 7 is_stmt 1 view .LVU104
+ 151:User/myMain.cpp ****     }
+ 403              		.loc 1 151 31 is_stmt 0 view .LVU105
+ 404 00ee 2348     		ldr	r0, .L43+4
+ 405 00f0 FFF7FEFF 		bl	_ZN26HydroUnderwaterManipulator10stopPumpInEv
+ 406              	.LVL28:
+ 407 00f4 90E7     		b	.L23
+ 408              	.L24:
+ 160:User/myMain.cpp ****     }
+ 409              		.loc 1 160 7 is_stmt 1 view .LVU106
+ 160:User/myMain.cpp ****     }
+ 410              		.loc 1 160 32 is_stmt 0 view .LVU107
+ 411 00f6 2148     		ldr	r0, .L43+4
+ 412 00f8 FFF7FEFF 		bl	_ZN26HydroUnderwaterManipulator11stopPumpOutEv
+ 413              	.LVL29:
+ 414 00fc 93E7     		b	.L25
+ 415              	.L26:
+ 169:User/myMain.cpp ****     }
+ 416              		.loc 1 169 7 is_stmt 1 view .LVU108
+ 169:User/myMain.cpp ****     }
+ 417              		.loc 1 169 39 is_stmt 0 view .LVU109
+ 418 00fe 2048     		ldr	r0, .L43+8
+ 419 0100 FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE10closeValveEv
+ 420              	.LVL30:
+ 421 0104 96E7     		b	.L27
+ 422              	.L28:
+ 178:User/myMain.cpp ****     }
+ 423              		.loc 1 178 7 is_stmt 1 view .LVU110
+ 178:User/myMain.cpp ****     }
+ 424              		.loc 1 178 37 is_stmt 0 view .LVU111
+ 425 0106 1F48     		ldr	r0, .L43+12
+ 426 0108 FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE10closeValveEv
+ 427              	.LVL31:
+ 428 010c 99E7     		b	.L29
+ 429              	.L39:
+ 184:User/myMain.cpp ****     }
+ 430              		.loc 1 184 7 is_stmt 1 view .LVU112
+ 184:User/myMain.cpp ****     }
+ 431              		.loc 1 184 33 is_stmt 0 view .LVU113
+ 432 010e 0021     		movs	r1, #0
+ 433 0110 1A48     		ldr	r0, .L43+4
+ 434 0112 FFF7FEFF 		bl	_ZN26HydroUnderwaterManipulator12writeOpeningEs
+ 435              	.LVL32:
+ 436 0116 C6E7     		b	.L21
+ 437              	.L40:
+ 188:User/myMain.cpp ****     }
+ 438              		.loc 1 188 7 is_stmt 1 view .LVU114
+ 188:User/myMain.cpp ****     }
+ 439              		.loc 1 188 33 is_stmt 0 view .LVU115
+ 440 0118 4FF0FF31 		mov	r1, #-1
+ 441 011c 1748     		ldr	r0, .L43+4
+ 442 011e FFF7FEFF 		bl	_ZN26HydroUnderwaterManipulator12writeOpeningEs
+ 443              	.LVL33:
+ 444 0122 C0E7     		b	.L21
+ 445              	.L41:
+ARM GAS  /tmp/ccWjRumA.s 			page 15
+
+
+ 192:User/myMain.cpp ****     }
+ 446              		.loc 1 192 7 is_stmt 1 view .LVU116
+ 192:User/myMain.cpp ****     }
+ 447              		.loc 1 192 33 is_stmt 0 view .LVU117
+ 448 0124 0121     		movs	r1, #1
+ 449 0126 1548     		ldr	r0, .L43+4
+ 450 0128 FFF7FEFF 		bl	_ZN26HydroUnderwaterManipulator12writeOpeningEs
+ 451              	.LVL34:
+ 452 012c BBE7     		b	.L21
+ 453              	.LVL35:
+ 454              	.L42:
+ 455              	.LBB9:
+ 456              	.LBB7:
+ 211:User/myMain.cpp ****     }
+ 457              		.loc 1 211 6 is_stmt 1 discriminator 2 view .LVU118
+ 211:User/myMain.cpp ****     }
+ 458              		.loc 1 211 31 is_stmt 0 discriminator 2 view .LVU119
+ 459 012e 194A     		ldr	r2, .L43+28
+ 460 0130 D468     		ldr	r4, [r2, #12]
+ 211:User/myMain.cpp ****     }
+ 461              		.loc 1 211 46 discriminator 2 view .LVU120
+ 462 0132 03EB810E 		add	lr, r3, r1, lsl #2
+ 211:User/myMain.cpp ****     }
+ 463              		.loc 1 211 93 discriminator 2 view .LVU121
+ 464 0136 C3EB0310 		rsb	r0, r3, r3, lsl #4
+ 465 013a 8200     		lsls	r2, r0, #2
+ 466 013c C1EB011C 		rsb	ip, r1, r1, lsl #4
+ 467 0140 4FEA0C10 		lsl	r0, ip, #4
+ 468 0144 0244     		add	r2, r2, r0
+ 469 0146 0D48     		ldr	r0, .L43+4
+ 470 0148 0244     		add	r2, r2, r0
+ 471 014a B2F93820 		ldrsh	r2, [r2, #56]
+ 211:User/myMain.cpp ****     }
+ 472              		.loc 1 211 51 discriminator 2 view .LVU122
+ 473 014e 24F81E20 		strh	r2, [r4, lr, lsl #1]	@ movhi
+ 209:User/myMain.cpp ****     {
+ 474              		.loc 1 209 5 is_stmt 1 discriminator 2 view .LVU123
+ 475 0152 0133     		adds	r3, r3, #1
+ 476              	.LVL36:
+ 477              	.L35:
+ 209:User/myMain.cpp ****     {
+ 478              		.loc 1 209 23 discriminator 3 view .LVU124
+ 479 0154 032B     		cmp	r3, #3
+ 480 0156 EADD     		ble	.L42
+ 481              	.LBE7:
+ 207:User/myMain.cpp ****   {
+ 482              		.loc 1 207 3 discriminator 2 view .LVU125
+ 483 0158 0131     		adds	r1, r1, #1
+ 484              	.LVL37:
+ 485              	.L36:
+ 207:User/myMain.cpp ****   {
+ 486              		.loc 1 207 21 discriminator 1 view .LVU126
+ 487 015a 0129     		cmp	r1, #1
+ 488 015c 01DC     		bgt	.L33
+ 489              	.LBB8:
+ 209:User/myMain.cpp ****     {
+ 490              		.loc 1 209 14 is_stmt 0 view .LVU127
+ARM GAS  /tmp/ccWjRumA.s 			page 16
+
+
+ 491 015e 0023     		movs	r3, #0
+ 492 0160 F8E7     		b	.L35
+ 493              	.L33:
+ 494              	.LBE8:
+ 495              	.LBE9:
+ 214:User/myMain.cpp **** 
+ 496              		.loc 1 214 3 is_stmt 1 view .LVU128
+ 497              	.LVL38:
+ 498              	.LBB10:
+ 499              	.LBI10:
+ 500              		.file 2 "User/Inc/rosserialInc/ros/publisher.h"
+   1:User/Inc/rosserialInc/ros/publisher.h **** /*
+   2:User/Inc/rosserialInc/ros/publisher.h ****  * Software License Agreement (BSD License)
+   3:User/Inc/rosserialInc/ros/publisher.h ****  *
+   4:User/Inc/rosserialInc/ros/publisher.h ****  * Copyright (c) 2011, Willow Garage, Inc.
+   5:User/Inc/rosserialInc/ros/publisher.h ****  * All rights reserved.
+   6:User/Inc/rosserialInc/ros/publisher.h ****  *
+   7:User/Inc/rosserialInc/ros/publisher.h ****  * Redistribution and use in source and binary forms, with or without
+   8:User/Inc/rosserialInc/ros/publisher.h ****  * modification, are permitted provided that the following conditions
+   9:User/Inc/rosserialInc/ros/publisher.h ****  * are met:
+  10:User/Inc/rosserialInc/ros/publisher.h ****  *
+  11:User/Inc/rosserialInc/ros/publisher.h ****  *  * Redistributions of source code must retain the above copyright
+  12:User/Inc/rosserialInc/ros/publisher.h ****  *    notice, this list of conditions and the following disclaimer.
+  13:User/Inc/rosserialInc/ros/publisher.h ****  *  * Redistributions in binary form must reproduce the above
+  14:User/Inc/rosserialInc/ros/publisher.h ****  *    copyright notice, this list of conditions and the following
+  15:User/Inc/rosserialInc/ros/publisher.h ****  *    disclaimer in the documentation and/or other materials provided
+  16:User/Inc/rosserialInc/ros/publisher.h ****  *    with the distribution.
+  17:User/Inc/rosserialInc/ros/publisher.h ****  *  * Neither the name of Willow Garage, Inc. nor the names of its
+  18:User/Inc/rosserialInc/ros/publisher.h ****  *    contributors may be used to endorse or promote prducts derived
+  19:User/Inc/rosserialInc/ros/publisher.h ****  *    from this software without specific prior written permission.
+  20:User/Inc/rosserialInc/ros/publisher.h ****  *
+  21:User/Inc/rosserialInc/ros/publisher.h ****  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+  22:User/Inc/rosserialInc/ros/publisher.h ****  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+  23:User/Inc/rosserialInc/ros/publisher.h ****  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+  24:User/Inc/rosserialInc/ros/publisher.h ****  * FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+  25:User/Inc/rosserialInc/ros/publisher.h ****  * COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+  26:User/Inc/rosserialInc/ros/publisher.h ****  * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+  27:User/Inc/rosserialInc/ros/publisher.h ****  * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  28:User/Inc/rosserialInc/ros/publisher.h ****  * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+  29:User/Inc/rosserialInc/ros/publisher.h ****  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+  30:User/Inc/rosserialInc/ros/publisher.h ****  * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+  31:User/Inc/rosserialInc/ros/publisher.h ****  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+  32:User/Inc/rosserialInc/ros/publisher.h ****  * POSSIBILITY OF SUCH DAMAGE.
+  33:User/Inc/rosserialInc/ros/publisher.h ****  */
+  34:User/Inc/rosserialInc/ros/publisher.h **** 
+  35:User/Inc/rosserialInc/ros/publisher.h **** #ifndef _ROS_PUBLISHER_H_
+  36:User/Inc/rosserialInc/ros/publisher.h **** #define _ROS_PUBLISHER_H_
+  37:User/Inc/rosserialInc/ros/publisher.h **** 
+  38:User/Inc/rosserialInc/ros/publisher.h **** #include "rosserial_msgs/TopicInfo.h"
+  39:User/Inc/rosserialInc/ros/publisher.h **** #include "ros/node_handle.h"
+  40:User/Inc/rosserialInc/ros/publisher.h **** 
+  41:User/Inc/rosserialInc/ros/publisher.h **** namespace ros
+  42:User/Inc/rosserialInc/ros/publisher.h **** {
+  43:User/Inc/rosserialInc/ros/publisher.h **** 
+  44:User/Inc/rosserialInc/ros/publisher.h **** /* Generic Publisher */
+  45:User/Inc/rosserialInc/ros/publisher.h **** class Publisher
+  46:User/Inc/rosserialInc/ros/publisher.h **** {
+ARM GAS  /tmp/ccWjRumA.s 			page 17
+
+
+  47:User/Inc/rosserialInc/ros/publisher.h **** public:
+  48:User/Inc/rosserialInc/ros/publisher.h ****   Publisher(const char * topic_name, Msg * msg, int endpoint = rosserial_msgs::TopicInfo::ID_PUBLIS
+  49:User/Inc/rosserialInc/ros/publisher.h ****     topic_(topic_name),
+  50:User/Inc/rosserialInc/ros/publisher.h ****     msg_(msg),
+  51:User/Inc/rosserialInc/ros/publisher.h ****     endpoint_(endpoint) {};
+  52:User/Inc/rosserialInc/ros/publisher.h **** 
+  53:User/Inc/rosserialInc/ros/publisher.h ****   int publish(const Msg * msg)
+ 501              		.loc 2 53 7 view .LVU129
+ 502              	.LBB11:
+  54:User/Inc/rosserialInc/ros/publisher.h ****   {
+  55:User/Inc/rosserialInc/ros/publisher.h ****     return nh_->publish(id_, msg);
+ 503              		.loc 2 55 5 view .LVU130
+ 504              		.loc 2 55 12 is_stmt 0 view .LVU131
+ 505 0162 0C4C     		ldr	r4, .L43+28
+ 506 0164 606A     		ldr	r0, [r4, #36]
+ 507              		.loc 2 55 33 view .LVU132
+ 508 0166 0368     		ldr	r3, [r0]
+ 509 0168 1B68     		ldr	r3, [r3]
+ 510              		.loc 2 55 24 view .LVU133
+ 511 016a 2246     		mov	r2, r4
+ 512 016c 216A     		ldr	r1, [r4, #32]
+ 513              	.LVL39:
+ 514              		.loc 2 55 24 view .LVU134
+ 515 016e 9847     		blx	r3
+ 516              	.LVL40:
+ 517              		.loc 2 55 24 view .LVU135
+ 518              	.LBE11:
+ 519              	.LBE10:
+ 216:User/myMain.cpp **** }
+ 520              		.loc 1 216 3 is_stmt 1 view .LVU136
+ 216:User/myMain.cpp **** }
+ 521              		.loc 1 216 25 is_stmt 0 view .LVU137
+ 522 0170 2046     		mov	r0, r4
+ 523 0172 FFF7FEFF 		bl	_ZN13RosserialNode8spinOnceEv
+ 524              	.LVL41:
+ 217:User/myMain.cpp **** 
+ 525              		.loc 1 217 1 view .LVU138
+ 526 0176 10BD     		pop	{r4, pc}
+ 527              	.L44:
+ 528              		.align	2
+ 529              	.L43:
+ 530 0178 00000000 		.word	.LANCHOR9
+ 531 017c 00000000 		.word	.LANCHOR0
+ 532 0180 0C030000 		.word	.LANCHOR0+780
+ 533 0184 40030000 		.word	.LANCHOR0+832
+ 534 0188 00000000 		.word	.LANCHOR10
+ 535 018c 00000000 		.word	.LANCHOR11
+ 536 0190 00000000 		.word	.LANCHOR12
+ 537 0194 00000000 		.word	rosserialNode
+ 538              		.cfi_endproc
+ 539              	.LFE437:
+ 540              		.fnend
+ 542              		.section	.text.loop2,"ax",%progbits
+ 543              		.align	1
+ 544              		.global	loop2
+ 545              		.syntax unified
+ 546              		.thumb
+ARM GAS  /tmp/ccWjRumA.s 			page 18
+
+
+ 547              		.thumb_func
+ 548              		.fpu softvfp
+ 550              	loop2:
+ 551              		.fnstart
+ 552              	.LFB438:
+ 222:User/myMain.cpp **** 
+ 553              		.loc 1 222 13 is_stmt 1 view -0
+ 554              		.cfi_startproc
+ 555              		@ args = 0, pretend = 0, frame = 0
+ 556              		@ frame_needed = 0, uses_anonymous_args = 0
+ 557              		@ link register save eliminated.
+ 224:User/myMain.cpp **** 
+ 558              		.loc 1 224 1 is_stmt 0 view .LVU140
+ 559 0000 7047     		bx	lr
+ 560              		.cfi_endproc
+ 561              	.LFE438:
+ 562              		.cantunwind
+ 563              		.fnend
+ 565              		.section	.text._Z12sub1CallbackRKN13hydrosoft_ros11Command_ArmE,"ax",%progbits
+ 566              		.align	1
+ 567              		.global	_Z12sub1CallbackRKN13hydrosoft_ros11Command_ArmE
+ 568              		.syntax unified
+ 569              		.thumb
+ 570              		.thumb_func
+ 571              		.fpu softvfp
+ 573              	_Z12sub1CallbackRKN13hydrosoft_ros11Command_ArmE:
+ 574              		.fnstart
+ 575              	.LVL42:
+ 576              	.LFB439:
+ 227:User/myMain.cpp **** 	 // for (int i = 0; i < ACTALLNUM; i++)
+ 577              		.loc 1 227 1 is_stmt 1 view -0
+ 578              		.cfi_startproc
+ 579              		@ args = 0, pretend = 0, frame = 0
+ 580              		@ frame_needed = 0, uses_anonymous_args = 0
+ 581              		@ link register save eliminated.
+ 234:User/myMain.cpp **** 	  {
+ 582              		.loc 1 234 4 view .LVU142
+ 583              	.LBB12:
+ 234:User/myMain.cpp **** 	  {
+ 584              		.loc 1 234 13 is_stmt 0 view .LVU143
+ 585 0000 0023     		movs	r3, #0
+ 586 0002 06E0     		b	.L48
+ 587              	.LVL43:
+ 588              	.L49:
+ 236:User/myMain.cpp **** 	  }
+ 589              		.loc 1 236 3 is_stmt 1 discriminator 2 view .LVU144
+ 236:User/myMain.cpp **** 	  }
+ 590              		.loc 1 236 32 is_stmt 0 discriminator 2 view .LVU145
+ 591 0004 C268     		ldr	r2, [r0, #12]
+ 236:User/myMain.cpp **** 	  }
+ 592              		.loc 1 236 42 discriminator 2 view .LVU146
+ 593 0006 32F91310 		ldrsh	r1, [r2, r3, lsl #1]
+ 236:User/myMain.cpp **** 	  }
+ 594              		.loc 1 236 22 discriminator 2 view .LVU147
+ 595 000a 144A     		ldr	r2, .L50
+ 596 000c 22F81310 		strh	r1, [r2, r3, lsl #1]	@ movhi
+ 234:User/myMain.cpp **** 	  {
+ARM GAS  /tmp/ccWjRumA.s 			page 19
+
+
+ 597              		.loc 1 234 4 is_stmt 1 discriminator 2 view .LVU148
+ 598 0010 0133     		adds	r3, r3, #1
+ 599              	.LVL44:
+ 600              	.L48:
+ 234:User/myMain.cpp **** 	  {
+ 601              		.loc 1 234 22 discriminator 3 view .LVU149
+ 602 0012 072B     		cmp	r3, #7
+ 603 0014 F6DD     		ble	.L49
+ 604              	.LBE12:
+ 238:User/myMain.cpp **** 	  pressureDown = (cmd_msg.pumpOut);
+ 605              		.loc 1 238 4 view .LVU150
+ 238:User/myMain.cpp **** 	  pressureDown = (cmd_msg.pumpOut);
+ 606              		.loc 1 238 26 is_stmt 0 view .LVU151
+ 607 0016 B0F91020 		ldrsh	r2, [r0, #16]
+ 238:User/myMain.cpp **** 	  pressureDown = (cmd_msg.pumpOut);
+ 608              		.loc 1 238 15 view .LVU152
+ 609 001a 114B     		ldr	r3, .L50+4
+ 610              	.LVL45:
+ 238:User/myMain.cpp **** 	  pressureDown = (cmd_msg.pumpOut);
+ 611              		.loc 1 238 15 view .LVU153
+ 612 001c 1A60     		str	r2, [r3]
+ 239:User/myMain.cpp **** 	  host_command.mannual_control = __GET_BIT(cmd_msg.cmd, MANNUALMASK);
+ 613              		.loc 1 239 4 is_stmt 1 view .LVU154
+ 239:User/myMain.cpp **** 	  host_command.mannual_control = __GET_BIT(cmd_msg.cmd, MANNUALMASK);
+ 614              		.loc 1 239 28 is_stmt 0 view .LVU155
+ 615 001e B0F91220 		ldrsh	r2, [r0, #18]
+ 239:User/myMain.cpp **** 	  host_command.mannual_control = __GET_BIT(cmd_msg.cmd, MANNUALMASK);
+ 616              		.loc 1 239 17 view .LVU156
+ 617 0022 104B     		ldr	r3, .L50+8
+ 618 0024 1A60     		str	r2, [r3]
+ 240:User/myMain.cpp **** 	  host_command.pumpIn = __GET_BIT(cmd_msg.cmd, PUMPINMASK);
+ 619              		.loc 1 240 4 is_stmt 1 view .LVU157
+ 240:User/myMain.cpp **** 	  host_command.pumpIn = __GET_BIT(cmd_msg.cmd, PUMPINMASK);
+ 620              		.loc 1 240 35 is_stmt 0 view .LVU158
+ 621 0026 C38A     		ldrh	r3, [r0, #22]
+ 622 0028 03F00101 		and	r1, r3, #1
+ 240:User/myMain.cpp **** 	  host_command.pumpIn = __GET_BIT(cmd_msg.cmd, PUMPINMASK);
+ 623              		.loc 1 240 33 view .LVU159
+ 624 002c 0E4A     		ldr	r2, .L50+12
+ 625 002e 1180     		strh	r1, [r2]	@ movhi
+ 241:User/myMain.cpp **** 	  host_command.pumpOut = __GET_BIT(cmd_msg.cmd, PUMPOUTMASK);
+ 626              		.loc 1 241 4 is_stmt 1 view .LVU160
+ 241:User/myMain.cpp **** 	  host_command.pumpOut = __GET_BIT(cmd_msg.cmd, PUMPOUTMASK);
+ 627              		.loc 1 241 26 is_stmt 0 view .LVU161
+ 628 0030 C3F38001 		ubfx	r1, r3, #2, #1
+ 241:User/myMain.cpp **** 	  host_command.pumpOut = __GET_BIT(cmd_msg.cmd, PUMPOUTMASK);
+ 629              		.loc 1 241 24 view .LVU162
+ 630 0034 5180     		strh	r1, [r2, #2]	@ movhi
+ 242:User/myMain.cpp **** 	  host_command.valveIn = __GET_BIT(cmd_msg.cmd, VALVEINMASK);
+ 631              		.loc 1 242 4 is_stmt 1 view .LVU163
+ 242:User/myMain.cpp **** 	  host_command.valveIn = __GET_BIT(cmd_msg.cmd, VALVEINMASK);
+ 632              		.loc 1 242 27 is_stmt 0 view .LVU164
+ 633 0036 C3F34001 		ubfx	r1, r3, #1, #1
+ 242:User/myMain.cpp **** 	  host_command.valveIn = __GET_BIT(cmd_msg.cmd, VALVEINMASK);
+ 634              		.loc 1 242 25 view .LVU165
+ 635 003a 9180     		strh	r1, [r2, #4]	@ movhi
+ 243:User/myMain.cpp **** 	  host_command.valveOut = __GET_BIT(cmd_msg.cmd, VALVEOUTMASK);
+ARM GAS  /tmp/ccWjRumA.s 			page 20
+
+
+ 636              		.loc 1 243 4 is_stmt 1 view .LVU166
+ 243:User/myMain.cpp **** 	  host_command.valveOut = __GET_BIT(cmd_msg.cmd, VALVEOUTMASK);
+ 637              		.loc 1 243 27 is_stmt 0 view .LVU167
+ 638 003c C3F30011 		ubfx	r1, r3, #4, #1
+ 243:User/myMain.cpp **** 	  host_command.valveOut = __GET_BIT(cmd_msg.cmd, VALVEOUTMASK);
+ 639              		.loc 1 243 25 view .LVU168
+ 640 0040 D180     		strh	r1, [r2, #6]	@ movhi
+ 244:User/myMain.cpp **** 	  host_command.pumpInValve = __GET_BIT(cmd_msg.cmd, PUMPINVALVEMASK);
+ 641              		.loc 1 244 4 is_stmt 1 view .LVU169
+ 244:User/myMain.cpp **** 	  host_command.pumpInValve = __GET_BIT(cmd_msg.cmd, PUMPINVALVEMASK);
+ 642              		.loc 1 244 28 is_stmt 0 view .LVU170
+ 643 0042 C3F3C001 		ubfx	r1, r3, #3, #1
+ 244:User/myMain.cpp **** 	  host_command.pumpInValve = __GET_BIT(cmd_msg.cmd, PUMPINVALVEMASK);
+ 644              		.loc 1 244 26 view .LVU171
+ 645 0046 1181     		strh	r1, [r2, #8]	@ movhi
+ 245:User/myMain.cpp **** 	  host_command.pumpOutValve = __GET_BIT(cmd_msg.cmd, PUMPOUTVALVEMASK);
+ 646              		.loc 1 245 4 is_stmt 1 view .LVU172
+ 245:User/myMain.cpp **** 	  host_command.pumpOutValve = __GET_BIT(cmd_msg.cmd, PUMPOUTVALVEMASK);
+ 647              		.loc 1 245 31 is_stmt 0 view .LVU173
+ 648 0048 C3F34011 		ubfx	r1, r3, #5, #1
+ 245:User/myMain.cpp **** 	  host_command.pumpOutValve = __GET_BIT(cmd_msg.cmd, PUMPOUTVALVEMASK);
+ 649              		.loc 1 245 29 view .LVU174
+ 650 004c 5181     		strh	r1, [r2, #10]	@ movhi
+ 246:User/myMain.cpp **** 	  host_command.gripper = cmd_msg.gripper;
+ 651              		.loc 1 246 4 is_stmt 1 view .LVU175
+ 246:User/myMain.cpp **** 	  host_command.gripper = cmd_msg.gripper;
+ 652              		.loc 1 246 32 is_stmt 0 view .LVU176
+ 653 004e C3F38013 		ubfx	r3, r3, #6, #1
+ 246:User/myMain.cpp **** 	  host_command.gripper = cmd_msg.gripper;
+ 654              		.loc 1 246 30 view .LVU177
+ 655 0052 9381     		strh	r3, [r2, #12]	@ movhi
+ 247:User/myMain.cpp **** }
+ 656              		.loc 1 247 4 is_stmt 1 view .LVU178
+ 247:User/myMain.cpp **** }
+ 657              		.loc 1 247 35 is_stmt 0 view .LVU179
+ 658 0054 B0F91430 		ldrsh	r3, [r0, #20]
+ 247:User/myMain.cpp **** }
+ 659              		.loc 1 247 25 view .LVU180
+ 660 0058 D381     		strh	r3, [r2, #14]	@ movhi
+ 661              		.loc 1 248 1 view .LVU181
+ 662 005a 7047     		bx	lr
+ 663              	.L51:
+ 664              		.align	2
+ 665              	.L50:
+ 666 005c 00000000 		.word	.LANCHOR12
+ 667 0060 00000000 		.word	.LANCHOR10
+ 668 0064 00000000 		.word	.LANCHOR11
+ 669 0068 00000000 		.word	.LANCHOR9
+ 670              		.cfi_endproc
+ 671              	.LFE439:
+ 672              		.cantunwind
+ 673              		.fnend
+ 675              		.section	.text._GLOBAL__sub_I_valveControlPorts,"ax",%progbits
+ 676              		.align	1
+ 677              		.syntax unified
+ 678              		.thumb
+ 679              		.thumb_func
+ARM GAS  /tmp/ccWjRumA.s 			page 21
+
+
+ 680              		.fpu softvfp
+ 682              	_GLOBAL__sub_I_valveControlPorts:
+ 683              		.fnstart
+ 684              	.LFB443:
+ 685              		.loc 1 248 1 is_stmt 1 view -0
+ 686              		.cfi_startproc
+ 687              		@ args = 0, pretend = 0, frame = 0
+ 688              		@ frame_needed = 0, uses_anonymous_args = 0
+ 689 0000 08B5     		push	{r3, lr}
+ 690              	.LCFI5:
+ 691              		.cfi_def_cfa_offset 8
+ 692              		.cfi_offset 3, -8
+ 693              		.cfi_offset 14, -4
+ 694              		.loc 1 248 1 is_stmt 0 view .LVU183
+ 695 0002 4FF6FF71 		movw	r1, #65535
+ 696 0006 0120     		movs	r0, #1
+ 697 0008 FFF7FEFF 		bl	_Z41__static_initialization_and_destruction_0ii
+ 698              	.LVL46:
+ 699 000c 08BD     		pop	{r3, pc}
+ 700              		.cfi_endproc
+ 701              	.LFE443:
+ 702              		.cantunwind
+ 703              		.fnend
+ 705              		.section	.init_array,"aw",%init_array
+ 706              		.align	2
+ 707 0000 00000000 		.word	_GLOBAL__sub_I_valveControlPorts(target1)
+ 708              		.global	uwManipulator
+ 709              		.global	globalCommunicationTaskPeriod
+ 710              		.global	globalSensorTaskPeriod
+ 711              		.global	commandActuator
+ 712              		.global	sensorActuatorBuffer
+ 713              		.global	pressureDown
+ 714              		.global	pressureUp
+ 715              		.global	host_command
+ 716              		.global	PumpSensorPorts
+ 717              		.global	gripperControlPorts
+ 718              		.global	PumpOutValveControlPorts
+ 719              		.global	PumpOutControlPorts
+ 720              		.global	PumpInValveControlPorts
+ 721              		.global	PumpInControlPorts
+ 722              		.global	valveControlPorts
+ 723              		.section	.bss.commandActuator,"aw",%nobits
+ 724              		.align	2
+ 725              		.set	.LANCHOR12,. + 0
+ 728              	commandActuator:
+ 729 0000 00000000 		.space	16
+ 729      00000000 
+ 729      00000000 
+ 729      00000000 
+ 730              		.section	.bss.host_command,"aw",%nobits
+ 731              		.align	2
+ 732              		.set	.LANCHOR9,. + 0
+ 735              	host_command:
+ 736 0000 00000000 		.space	16
+ 736      00000000 
+ 736      00000000 
+ 736      00000000 
+ARM GAS  /tmp/ccWjRumA.s 			page 22
+
+
+ 737              		.section	.bss.sensorActuatorBuffer,"aw",%nobits
+ 738              		.align	2
+ 739              		.set	.LANCHOR8,. + 0
+ 742              	sensorActuatorBuffer:
+ 743 0000 00000000 		.space	16
+ 743      00000000 
+ 743      00000000 
+ 743      00000000 
+ 744              		.section	.bss.uwManipulator,"aw",%nobits
+ 745              		.align	2
+ 746              		.set	.LANCHOR0,. + 0
+ 749              	uwManipulator:
+ 750 0000 00000000 		.space	884
+ 750      00000000 
+ 750      00000000 
+ 750      00000000 
+ 750      00000000 
+ 751              		.section	.data.PumpInControlPorts,"aw"
+ 752              		.set	.LANCHOR5,. + 0
+ 755              	PumpInControlPorts:
+ 756 0000 29       		.byte	41
+ 757              		.section	.data.PumpInValveControlPorts,"aw"
+ 758              		.set	.LANCHOR4,. + 0
+ 761              	PumpInValveControlPorts:
+ 762 0000 2B       		.byte	43
+ 763              		.section	.data.PumpOutControlPorts,"aw"
+ 764              		.set	.LANCHOR7,. + 0
+ 767              	PumpOutControlPorts:
+ 768 0000 19       		.byte	25
+ 769              		.section	.data.PumpOutValveControlPorts,"aw"
+ 770              		.set	.LANCHOR6,. + 0
+ 773              	PumpOutValveControlPorts:
+ 774 0000 1B       		.byte	27
+ 775              		.section	.data.PumpSensorPorts,"aw"
+ 776              		.align	2
+ 777              		.set	.LANCHOR3,. + 0
+ 780              	PumpSensorPorts:
+ 781 0000 3637     		.ascii	"67"
+ 782              		.section	.data.globalCommunicationTaskPeriod,"aw"
+ 783              		.align	2
+ 786              	globalCommunicationTaskPeriod:
+ 787 0000 05000000 		.word	5
+ 788              		.section	.data.globalSensorTaskPeriod,"aw"
+ 789              		.align	2
+ 792              	globalSensorTaskPeriod:
+ 793 0000 0A000000 		.word	10
+ 794              		.section	.data.gripperControlPorts,"aw"
+ 795              		.align	2
+ 796              		.set	.LANCHOR2,. + 0
+ 799              	gripperControlPorts:
+ 800 0000 1D2D     		.ascii	"\035-"
+ 801              		.section	.data.pressureDown,"aw"
+ 802              		.align	2
+ 803              		.set	.LANCHOR11,. + 0
+ 806              	pressureDown:
+ 807 0000 D08AFFFF 		.word	-30000
+ 808              		.section	.data.pressureUp,"aw"
+ARM GAS  /tmp/ccWjRumA.s 			page 23
+
+
+ 809              		.align	2
+ 810              		.set	.LANCHOR10,. + 0
+ 813              	pressureUp:
+ 814 0000 30750000 		.word	30000
+ 815              		.section	.data.valveControlPorts,"aw"
+ 816              		.align	2
+ 817              		.set	.LANCHOR1,. + 0
+ 820              	valveControlPorts:
+ 821 0000 00010203 		.ascii	"\000\001\002\003\004\005\006\007\010\011\012\013\014"
+ 821      04050607 
+ 821      08090A0B 
+ 821      0C
+ 822 000d 0D0E0F   		.ascii	"\015\016\017"
+ 823              		.text
+ 824              	.Letext0:
+ 825              		.file 3 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-n
+ 826              		.file 4 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-n
+ 827              		.file 5 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h"
+ 828              		.file 6 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-n
+ 829              		.file 7 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
+ 830              		.file 8 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
+ 831              		.file 9 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h"
+ 832              		.file 10 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-
+ 833              		.file 11 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-
+ 834              		.file 12 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-
+ 835              		.file 13 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-
+ 836              		.file 14 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-
+ 837              		.file 15 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-
+ 838              		.file 16 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-
+ 839              		.file 17 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-
+ 840              		.file 18 "User/Inc/rosserialInc/ros/msg.h"
+ 841              		.file 19 "User/Inc/rosserialInc/ros/node_handle.h"
+ 842              		.file 20 "User/Inc/rosserialInc/ros.h"
+ 843              		.file 21 "User/Inc/rosserialInc/rosserial_msgs/TopicInfo.h"
+ 844              		.file 22 "User/Inc/rosserialInc/rosserial_msgs/RequestParam.h"
+ 845              		.file 23 "User/Inc/rosserialInc/STM32Hardware.h"
+ 846              		.file 24 "User/Inc/rosserialInc/hydrosoft_ros/Command_Arm.h"
+ 847              		.file 25 "User/Inc/rosserialInc/hydrosoft_ros/Sensor_Arm.h"
+ 848              		.file 26 "User/Inc/PRESSURESENSOR.h"
+ 849              		.file 27 "User/Inc/SOLENOIDVALVE.h"
+ 850              		.file 28 "User/Inc/CHAMBER.h"
+ 851              		.file 29 "User/Inc/PUMP.h"
+ 852              		.file 30 "User/Inc/PRESSURESOURCE.h"
+ 853              		.file 31 "User/Inc/HydroUnderwaterManipulator.h"
+ 854              		.file 32 "User/Inc/LED_Driver.h"
+ 855              		.file 33 "User/Inc/ads1115.h"
+ 856              		.file 34 "User/Inc/CANbus.h"
+ 857              		.file 35 "<built-in>"
+ 858              		.file 36 "User/Inc/rosserialInc/std_msgs/Time.h"
+ARM GAS  /tmp/ccWjRumA.s 			page 24
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 myMain.cpp
+     /tmp/ccWjRumA.s:16     .text._Z41__static_initialization_and_destruction_0ii:0000000000000000 $t
+     /tmp/ccWjRumA.s:23     .text._Z41__static_initialization_and_destruction_0ii:0000000000000000 _Z41__static_initialization_and_destruction_0ii
+     /tmp/ccWjRumA.s:64     .text._Z41__static_initialization_and_destruction_0ii:000000000000001c $d
+.ARM.exidx.text._Z41__static_initialization_and_destruction_0ii:0000000000000000 $d
+     /tmp/ccWjRumA.s:71     .text.setup:0000000000000000 $t
+     /tmp/ccWjRumA.s:78     .text.setup:0000000000000000 setup
+     /tmp/ccWjRumA.s:159    .text.setup:0000000000000058 $d
+            .ARM.exidx.text.setup:0000000000000000 $d
+     /tmp/ccWjRumA.s:174    .text.loop:0000000000000000 $t
+     /tmp/ccWjRumA.s:181    .text.loop:0000000000000000 loop
+     /tmp/ccWjRumA.s:530    .text.loop:0000000000000178 $d
+             .ARM.exidx.text.loop:0000000000000000 $d
+     /tmp/ccWjRumA.s:543    .text.loop2:0000000000000000 $t
+     /tmp/ccWjRumA.s:550    .text.loop2:0000000000000000 loop2
+            .ARM.exidx.text.loop2:0000000000000000 $d
+     /tmp/ccWjRumA.s:566    .text._Z12sub1CallbackRKN13hydrosoft_ros11Command_ArmE:0000000000000000 $t
+     /tmp/ccWjRumA.s:573    .text._Z12sub1CallbackRKN13hydrosoft_ros11Command_ArmE:0000000000000000 _Z12sub1CallbackRKN13hydrosoft_ros11Command_ArmE
+     /tmp/ccWjRumA.s:666    .text._Z12sub1CallbackRKN13hydrosoft_ros11Command_ArmE:000000000000005c $d
+.ARM.exidx.text._Z12sub1CallbackRKN13hydrosoft_ros11Command_ArmE:0000000000000000 $d
+     /tmp/ccWjRumA.s:676    .text._GLOBAL__sub_I_valveControlPorts:0000000000000000 $t
+     /tmp/ccWjRumA.s:682    .text._GLOBAL__sub_I_valveControlPorts:0000000000000000 _GLOBAL__sub_I_valveControlPorts
+.ARM.exidx.text._GLOBAL__sub_I_valveControlPorts:0000000000000000 $d
+     /tmp/ccWjRumA.s:706    .init_array:0000000000000000 $d
+     /tmp/ccWjRumA.s:749    .bss.uwManipulator:0000000000000000 uwManipulator
+     /tmp/ccWjRumA.s:786    .data.globalCommunicationTaskPeriod:0000000000000000 globalCommunicationTaskPeriod
+     /tmp/ccWjRumA.s:792    .data.globalSensorTaskPeriod:0000000000000000 globalSensorTaskPeriod
+     /tmp/ccWjRumA.s:728    .bss.commandActuator:0000000000000000 commandActuator
+     /tmp/ccWjRumA.s:742    .bss.sensorActuatorBuffer:0000000000000000 sensorActuatorBuffer
+     /tmp/ccWjRumA.s:806    .data.pressureDown:0000000000000000 pressureDown
+     /tmp/ccWjRumA.s:813    .data.pressureUp:0000000000000000 pressureUp
+     /tmp/ccWjRumA.s:735    .bss.host_command:0000000000000000 host_command
+     /tmp/ccWjRumA.s:780    .data.PumpSensorPorts:0000000000000000 PumpSensorPorts
+     /tmp/ccWjRumA.s:799    .data.gripperControlPorts:0000000000000000 gripperControlPorts
+     /tmp/ccWjRumA.s:773    .data.PumpOutValveControlPorts:0000000000000000 PumpOutValveControlPorts
+     /tmp/ccWjRumA.s:767    .data.PumpOutControlPorts:0000000000000000 PumpOutControlPorts
+     /tmp/ccWjRumA.s:761    .data.PumpInValveControlPorts:0000000000000000 PumpInValveControlPorts
+     /tmp/ccWjRumA.s:755    .data.PumpInControlPorts:0000000000000000 PumpInControlPorts
+     /tmp/ccWjRumA.s:820    .data.valveControlPorts:0000000000000000 valveControlPorts
+     /tmp/ccWjRumA.s:724    .bss.commandActuator:0000000000000000 $d
+     /tmp/ccWjRumA.s:731    .bss.host_command:0000000000000000 $d
+     /tmp/ccWjRumA.s:738    .bss.sensorActuatorBuffer:0000000000000000 $d
+     /tmp/ccWjRumA.s:745    .bss.uwManipulator:0000000000000000 $d
+     /tmp/ccWjRumA.s:776    .data.PumpSensorPorts:0000000000000000 $d
+     /tmp/ccWjRumA.s:783    .data.globalCommunicationTaskPeriod:0000000000000000 $d
+     /tmp/ccWjRumA.s:789    .data.globalSensorTaskPeriod:0000000000000000 $d
+     /tmp/ccWjRumA.s:795    .data.gripperControlPorts:0000000000000000 $d
+     /tmp/ccWjRumA.s:802    .data.pressureDown:0000000000000000 $d
+     /tmp/ccWjRumA.s:809    .data.pressureUp:0000000000000000 $d
+     /tmp/ccWjRumA.s:816    .data.valveControlPorts:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+_ZN26HydroUnderwaterManipulatorC1Ev
+LED_Driver_Setup
+ADS1115_Setup
+canConfig
+ARM GAS  /tmp/ccWjRumA.s 			page 25
+
+
+_ZN26HydroUnderwaterManipulator15setupValvePortsEPh
+_ZN26HydroUnderwaterManipulator17setupGripperPortsEhh
+_ZN26HydroUnderwaterManipulator14setupPumpPortsEhhhhhh
+rosserialNode
+__aeabi_unwind_cpp_pr0
+_ZN26HydroUnderwaterManipulator11startPumpInEv
+_ZN26HydroUnderwaterManipulator12startPumpOutEv
+_ZN15PRESSURE_SOURCE9openValveEv
+_ZN26HydroUnderwaterManipulator12writeOpeningEs
+_ZN15PRESSURE_SOURCE5startEv
+_ZN26HydroUnderwaterManipulator15writeOpeningAllEPs
+_ZN7CHAMBER12writeOpeningEs
+_ZN15PRESSURE_SOURCE4stopEv
+_ZN15PRESSURE_SOURCE10closeValveEv
+_ZN26HydroUnderwaterManipulator10stopPumpInEv
+_ZN26HydroUnderwaterManipulator11stopPumpOutEv
+_ZN13RosserialNode8spinOnceEv

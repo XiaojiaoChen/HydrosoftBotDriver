@@ -1,0 +1,424 @@
+ARM GAS  /tmp/ccPXKLGQ.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"duration.cpp"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text._ZN3ros22normalizeSecNSecSignedERlS0_,"ax",%progbits
+  16              		.align	1
+  17              		.global	_ZN3ros22normalizeSecNSecSignedERlS0_
+  18              		.arch armv7-m
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu softvfp
+  24              	_ZN3ros22normalizeSecNSecSignedERlS0_:
+  25              		.fnstart
+  26              	.LVL0:
+  27              	.LFB232:
+  28              		.file 1 "User/Inc/rosserialInc/duration.cpp"
+   1:User/Inc/rosserialInc/duration.cpp **** /*
+   2:User/Inc/rosserialInc/duration.cpp ****  * Software License Agreement (BSD License)
+   3:User/Inc/rosserialInc/duration.cpp ****  *
+   4:User/Inc/rosserialInc/duration.cpp ****  * Copyright (c) 2011, Willow Garage, Inc.
+   5:User/Inc/rosserialInc/duration.cpp ****  * All rights reserved.
+   6:User/Inc/rosserialInc/duration.cpp ****  *
+   7:User/Inc/rosserialInc/duration.cpp ****  * Redistribution and use in source and binary forms, with or without
+   8:User/Inc/rosserialInc/duration.cpp ****  * modification, are permitted provided that the following conditions
+   9:User/Inc/rosserialInc/duration.cpp ****  * are met:
+  10:User/Inc/rosserialInc/duration.cpp ****  *
+  11:User/Inc/rosserialInc/duration.cpp ****  *  * Redistributions of source code must retain the above copyright
+  12:User/Inc/rosserialInc/duration.cpp ****  *    notice, this list of conditions and the following disclaimer.
+  13:User/Inc/rosserialInc/duration.cpp ****  *  * Redistributions in binary form must reproduce the above
+  14:User/Inc/rosserialInc/duration.cpp ****  *    copyright notice, this list of conditions and the following
+  15:User/Inc/rosserialInc/duration.cpp ****  *    disclaimer in the documentation and/or other materials provided
+  16:User/Inc/rosserialInc/duration.cpp ****  *    with the distribution.
+  17:User/Inc/rosserialInc/duration.cpp ****  *  * Neither the name of Willow Garage, Inc. nor the names of its
+  18:User/Inc/rosserialInc/duration.cpp ****  *    contributors may be used to endorse or promote prducts derived
+  19:User/Inc/rosserialInc/duration.cpp ****  *    from this software without specific prior written permission.
+  20:User/Inc/rosserialInc/duration.cpp ****  *
+  21:User/Inc/rosserialInc/duration.cpp ****  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+  22:User/Inc/rosserialInc/duration.cpp ****  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+  23:User/Inc/rosserialInc/duration.cpp ****  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+  24:User/Inc/rosserialInc/duration.cpp ****  * FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+  25:User/Inc/rosserialInc/duration.cpp ****  * COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+  26:User/Inc/rosserialInc/duration.cpp ****  * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+  27:User/Inc/rosserialInc/duration.cpp ****  * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  28:User/Inc/rosserialInc/duration.cpp ****  * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+  29:User/Inc/rosserialInc/duration.cpp ****  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+  30:User/Inc/rosserialInc/duration.cpp ****  * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+ARM GAS  /tmp/ccPXKLGQ.s 			page 2
+
+
+  31:User/Inc/rosserialInc/duration.cpp ****  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+  32:User/Inc/rosserialInc/duration.cpp ****  * POSSIBILITY OF SUCH DAMAGE.
+  33:User/Inc/rosserialInc/duration.cpp ****  */
+  34:User/Inc/rosserialInc/duration.cpp **** 
+  35:User/Inc/rosserialInc/duration.cpp **** #include <math.h>
+  36:User/Inc/rosserialInc/duration.cpp **** #include "ros/duration.h"
+  37:User/Inc/rosserialInc/duration.cpp **** 
+  38:User/Inc/rosserialInc/duration.cpp **** namespace ros
+  39:User/Inc/rosserialInc/duration.cpp **** {
+  40:User/Inc/rosserialInc/duration.cpp **** void normalizeSecNSecSigned(int32_t &sec, int32_t &nsec)
+  41:User/Inc/rosserialInc/duration.cpp **** {
+  29              		.loc 1 41 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              		@ link register save eliminated.
+  34              		.loc 1 41 1 is_stmt 0 view .LVU1
+  35 0000 10B4     		push	{r4}
+  36              	.LCFI0:
+  37              		.cfi_def_cfa_offset 4
+  38              		.cfi_offset 4, -4
+  42:User/Inc/rosserialInc/duration.cpp ****   int32_t nsec_part = nsec;
+  39              		.loc 1 42 3 is_stmt 1 view .LVU2
+  40              		.loc 1 42 11 is_stmt 0 view .LVU3
+  41 0002 0B68     		ldr	r3, [r1]
+  42              	.LVL1:
+  43:User/Inc/rosserialInc/duration.cpp ****   int32_t sec_part = sec;
+  43              		.loc 1 43 3 is_stmt 1 view .LVU4
+  44              		.loc 1 43 11 is_stmt 0 view .LVU5
+  45 0004 0268     		ldr	r2, [r0]
+  46              	.LVL2:
+  47              		.loc 1 43 11 view .LVU6
+  48 0006 06E0     		b	.L3
+  49              	.L6:
+  44:User/Inc/rosserialInc/duration.cpp **** 
+  45:User/Inc/rosserialInc/duration.cpp ****   while (nsec_part > 1000000000L)
+  46:User/Inc/rosserialInc/duration.cpp ****   {
+  47:User/Inc/rosserialInc/duration.cpp ****     nsec_part -= 1000000000L;
+  50              		.loc 1 47 5 is_stmt 1 view .LVU7
+  51              		.loc 1 47 15 is_stmt 0 view .LVU8
+  52 0008 03F14443 		add	r3, r3, #-1006632960
+  53              	.LVL3:
+  54              		.loc 1 47 15 view .LVU9
+  55 000c 03F5CA03 		add	r3, r3, #6619136
+  56              	.LVL4:
+  57              		.loc 1 47 15 view .LVU10
+  58 0010 03F55853 		add	r3, r3, #13824
+  59              	.LVL5:
+  48:User/Inc/rosserialInc/duration.cpp ****     ++sec_part;
+  60              		.loc 1 48 5 is_stmt 1 view .LVU11
+  61 0014 0132     		adds	r2, r2, #1
+  62              	.LVL6:
+  63              	.L3:
+  45:User/Inc/rosserialInc/duration.cpp ****   {
+  64              		.loc 1 45 3 view .LVU12
+  45:User/Inc/rosserialInc/duration.cpp ****   {
+  65              		.loc 1 45 20 view .LVU13
+ARM GAS  /tmp/ccPXKLGQ.s 			page 3
+
+
+  66 0016 084C     		ldr	r4, .L8
+  67 0018 A342     		cmp	r3, r4
+  68 001a F5DC     		bgt	.L6
+  45:User/Inc/rosserialInc/duration.cpp ****   {
+  69              		.loc 1 45 20 is_stmt 0 view .LVU14
+  70 001c 06E0     		b	.L2
+  71              	.L7:
+  49:User/Inc/rosserialInc/duration.cpp ****   }
+  50:User/Inc/rosserialInc/duration.cpp ****   while (nsec_part < 0)
+  51:User/Inc/rosserialInc/duration.cpp ****   {
+  52:User/Inc/rosserialInc/duration.cpp ****     nsec_part += 1000000000L;
+  72              		.loc 1 52 5 is_stmt 1 view .LVU15
+  73              		.loc 1 52 15 is_stmt 0 view .LVU16
+  74 001e 03F16E53 		add	r3, r3, #998244352
+  75              	.LVL7:
+  76              		.loc 1 52 15 view .LVU17
+  77 0022 03F5D613 		add	r3, r3, #1753088
+  78              	.LVL8:
+  79              		.loc 1 52 15 view .LVU18
+  80 0026 03F52063 		add	r3, r3, #2560
+  81              	.LVL9:
+  53:User/Inc/rosserialInc/duration.cpp ****     --sec_part;
+  82              		.loc 1 53 5 is_stmt 1 view .LVU19
+  83 002a 013A     		subs	r2, r2, #1
+  84              	.LVL10:
+  85              	.L2:
+  50:User/Inc/rosserialInc/duration.cpp ****   {
+  86              		.loc 1 50 3 view .LVU20
+  50:User/Inc/rosserialInc/duration.cpp ****   {
+  87              		.loc 1 50 20 view .LVU21
+  88 002c 002B     		cmp	r3, #0
+  89 002e F6DB     		blt	.L7
+  54:User/Inc/rosserialInc/duration.cpp ****   }
+  55:User/Inc/rosserialInc/duration.cpp ****   sec = sec_part;
+  90              		.loc 1 55 3 view .LVU22
+  91              		.loc 1 55 7 is_stmt 0 view .LVU23
+  92 0030 0260     		str	r2, [r0]
+  56:User/Inc/rosserialInc/duration.cpp ****   nsec = nsec_part;
+  93              		.loc 1 56 3 is_stmt 1 view .LVU24
+  94              		.loc 1 56 8 is_stmt 0 view .LVU25
+  95 0032 0B60     		str	r3, [r1]
+  57:User/Inc/rosserialInc/duration.cpp **** }
+  96              		.loc 1 57 1 view .LVU26
+  97 0034 10BC     		pop	{r4}
+  98              	.LCFI1:
+  99              		.cfi_restore 4
+ 100              		.cfi_def_cfa_offset 0
+ 101 0036 7047     		bx	lr
+ 102              	.L9:
+ 103              		.align	2
+ 104              	.L8:
+ 105 0038 00CA9A3B 		.word	1000000000
+ 106              		.cfi_endproc
+ 107              	.LFE232:
+ 108              		.cantunwind
+ 109              		.fnend
+ 111              		.section	.text._ZN3ros8DurationpLERKS0_,"ax",%progbits
+ARM GAS  /tmp/ccPXKLGQ.s 			page 4
+
+
+ 112              		.align	1
+ 113              		.global	_ZN3ros8DurationpLERKS0_
+ 114              		.syntax unified
+ 115              		.thumb
+ 116              		.thumb_func
+ 117              		.fpu softvfp
+ 119              	_ZN3ros8DurationpLERKS0_:
+ 120              		.fnstart
+ 121              	.LVL11:
+ 122              	.LFB233:
+  58:User/Inc/rosserialInc/duration.cpp **** 
+  59:User/Inc/rosserialInc/duration.cpp **** Duration& Duration::operator+=(const Duration &rhs)
+  60:User/Inc/rosserialInc/duration.cpp **** {
+ 123              		.loc 1 60 1 is_stmt 1 view -0
+ 124              		.cfi_startproc
+ 125              		@ args = 0, pretend = 0, frame = 0
+ 126              		@ frame_needed = 0, uses_anonymous_args = 0
+ 127              		.loc 1 60 1 is_stmt 0 view .LVU28
+ 128 0000 10B5     		push	{r4, lr}
+ 129              	.LCFI2:
+ 130              		.cfi_def_cfa_offset 8
+ 131              		.cfi_offset 4, -8
+ 132              		.cfi_offset 14, -4
+ 133 0002 0446     		mov	r4, r0
+  61:User/Inc/rosserialInc/duration.cpp ****   sec += rhs.sec;
+ 134              		.loc 1 61 3 is_stmt 1 view .LVU29
+ 135              		.loc 1 61 14 is_stmt 0 view .LVU30
+ 136 0004 0A68     		ldr	r2, [r1]
+ 137              		.loc 1 61 7 view .LVU31
+ 138 0006 0368     		ldr	r3, [r0]
+ 139 0008 1344     		add	r3, r3, r2
+ 140 000a 0360     		str	r3, [r0]
+  62:User/Inc/rosserialInc/duration.cpp ****   nsec += rhs.nsec;
+ 141              		.loc 1 62 3 is_stmt 1 view .LVU32
+ 142              		.loc 1 62 15 is_stmt 0 view .LVU33
+ 143 000c 4A68     		ldr	r2, [r1, #4]
+ 144              		.loc 1 62 8 view .LVU34
+ 145 000e 4368     		ldr	r3, [r0, #4]
+ 146 0010 1344     		add	r3, r3, r2
+ 147 0012 0146     		mov	r1, r0
+ 148              	.LVL12:
+ 149              		.loc 1 62 8 view .LVU35
+ 150 0014 41F8043F 		str	r3, [r1, #4]!
+  63:User/Inc/rosserialInc/duration.cpp ****   normalizeSecNSecSigned(sec, nsec);
+ 151              		.loc 1 63 3 is_stmt 1 view .LVU36
+ 152              		.loc 1 63 25 is_stmt 0 view .LVU37
+ 153 0018 FFF7FEFF 		bl	_ZN3ros22normalizeSecNSecSignedERlS0_
+ 154              	.LVL13:
+  64:User/Inc/rosserialInc/duration.cpp ****   return *this;
+ 155              		.loc 1 64 3 is_stmt 1 view .LVU38
+  65:User/Inc/rosserialInc/duration.cpp **** }
+ 156              		.loc 1 65 1 is_stmt 0 view .LVU39
+ 157 001c 2046     		mov	r0, r4
+ 158 001e 10BD     		pop	{r4, pc}
+ 159              		.loc 1 65 1 view .LVU40
+ 160              		.cfi_endproc
+ 161              	.LFE233:
+ARM GAS  /tmp/ccPXKLGQ.s 			page 5
+
+
+ 162              		.cantunwind
+ 163              		.fnend
+ 165              		.section	.text._ZN3ros8DurationmIERKS0_,"ax",%progbits
+ 166              		.align	1
+ 167              		.global	_ZN3ros8DurationmIERKS0_
+ 168              		.syntax unified
+ 169              		.thumb
+ 170              		.thumb_func
+ 171              		.fpu softvfp
+ 173              	_ZN3ros8DurationmIERKS0_:
+ 174              		.fnstart
+ 175              	.LVL14:
+ 176              	.LFB234:
+  66:User/Inc/rosserialInc/duration.cpp **** 
+  67:User/Inc/rosserialInc/duration.cpp **** Duration& Duration::operator-=(const Duration &rhs)
+  68:User/Inc/rosserialInc/duration.cpp **** {
+ 177              		.loc 1 68 1 is_stmt 1 view -0
+ 178              		.cfi_startproc
+ 179              		@ args = 0, pretend = 0, frame = 0
+ 180              		@ frame_needed = 0, uses_anonymous_args = 0
+ 181              		.loc 1 68 1 is_stmt 0 view .LVU42
+ 182 0000 10B5     		push	{r4, lr}
+ 183              	.LCFI3:
+ 184              		.cfi_def_cfa_offset 8
+ 185              		.cfi_offset 4, -8
+ 186              		.cfi_offset 14, -4
+ 187 0002 0446     		mov	r4, r0
+  69:User/Inc/rosserialInc/duration.cpp ****   sec += -rhs.sec;
+ 188              		.loc 1 69 3 is_stmt 1 view .LVU43
+ 189              		.loc 1 69 15 is_stmt 0 view .LVU44
+ 190 0004 0A68     		ldr	r2, [r1]
+ 191              		.loc 1 69 7 view .LVU45
+ 192 0006 0368     		ldr	r3, [r0]
+ 193 0008 9B1A     		subs	r3, r3, r2
+ 194 000a 0360     		str	r3, [r0]
+  70:User/Inc/rosserialInc/duration.cpp ****   nsec += -rhs.nsec;
+ 195              		.loc 1 70 3 is_stmt 1 view .LVU46
+ 196              		.loc 1 70 16 is_stmt 0 view .LVU47
+ 197 000c 4A68     		ldr	r2, [r1, #4]
+ 198              		.loc 1 70 8 view .LVU48
+ 199 000e 4368     		ldr	r3, [r0, #4]
+ 200 0010 9B1A     		subs	r3, r3, r2
+ 201 0012 0146     		mov	r1, r0
+ 202              	.LVL15:
+ 203              		.loc 1 70 8 view .LVU49
+ 204 0014 41F8043F 		str	r3, [r1, #4]!
+  71:User/Inc/rosserialInc/duration.cpp ****   normalizeSecNSecSigned(sec, nsec);
+ 205              		.loc 1 71 3 is_stmt 1 view .LVU50
+ 206              		.loc 1 71 25 is_stmt 0 view .LVU51
+ 207 0018 FFF7FEFF 		bl	_ZN3ros22normalizeSecNSecSignedERlS0_
+ 208              	.LVL16:
+  72:User/Inc/rosserialInc/duration.cpp ****   return *this;
+ 209              		.loc 1 72 3 is_stmt 1 view .LVU52
+  73:User/Inc/rosserialInc/duration.cpp **** }
+ 210              		.loc 1 73 1 is_stmt 0 view .LVU53
+ 211 001c 2046     		mov	r0, r4
+ 212 001e 10BD     		pop	{r4, pc}
+ARM GAS  /tmp/ccPXKLGQ.s 			page 6
+
+
+ 213              		.loc 1 73 1 view .LVU54
+ 214              		.cfi_endproc
+ 215              	.LFE234:
+ 216              		.cantunwind
+ 217              		.fnend
+ 219              		.global	__aeabi_i2d
+ 220              		.global	__aeabi_dmul
+ 221              		.global	__aeabi_d2iz
+ 222              		.section	.text._ZN3ros8DurationmLEd,"ax",%progbits
+ 223              		.align	1
+ 224              		.global	_ZN3ros8DurationmLEd
+ 225              		.syntax unified
+ 226              		.thumb
+ 227              		.thumb_func
+ 228              		.fpu softvfp
+ 230              	_ZN3ros8DurationmLEd:
+ 231              		.fnstart
+ 232              	.LVL17:
+ 233              	.LFB235:
+  74:User/Inc/rosserialInc/duration.cpp **** 
+  75:User/Inc/rosserialInc/duration.cpp **** Duration& Duration::operator*=(double scale)
+  76:User/Inc/rosserialInc/duration.cpp **** {
+ 234              		.loc 1 76 1 is_stmt 1 view -0
+ 235              		.cfi_startproc
+ 236              		@ args = 0, pretend = 0, frame = 0
+ 237              		@ frame_needed = 0, uses_anonymous_args = 0
+ 238              		.loc 1 76 1 is_stmt 0 view .LVU56
+ 239 0000 D0B5     		push	{r4, r6, r7, lr}
+ 240              	.LCFI4:
+ 241              		.cfi_def_cfa_offset 16
+ 242              		.cfi_offset 4, -16
+ 243              		.cfi_offset 6, -12
+ 244              		.cfi_offset 7, -8
+ 245              		.cfi_offset 14, -4
+ 246 0002 0446     		mov	r4, r0
+ 247 0004 1646     		mov	r6, r2
+ 248 0006 1F46     		mov	r7, r3
+  77:User/Inc/rosserialInc/duration.cpp ****   sec *= scale;
+ 249              		.loc 1 77 3 is_stmt 1 view .LVU57
+ 250              		.loc 1 77 7 is_stmt 0 view .LVU58
+ 251 0008 0068     		ldr	r0, [r0]
+ 252              	.LVL18:
+ 253              		.loc 1 77 7 view .LVU59
+ 254 000a FFF7FEFF 		bl	__aeabi_i2d
+ 255              	.LVL19:
+ 256              		.loc 1 77 7 view .LVU60
+ 257 000e 3246     		mov	r2, r6
+ 258 0010 3B46     		mov	r3, r7
+ 259 0012 FFF7FEFF 		bl	__aeabi_dmul
+ 260              	.LVL20:
+ 261 0016 FFF7FEFF 		bl	__aeabi_d2iz
+ 262              	.LVL21:
+ 263 001a 2060     		str	r0, [r4]
+  78:User/Inc/rosserialInc/duration.cpp ****   nsec *= scale;
+ 264              		.loc 1 78 3 is_stmt 1 view .LVU61
+ 265              		.loc 1 78 8 is_stmt 0 view .LVU62
+ 266 001c 6068     		ldr	r0, [r4, #4]
+ARM GAS  /tmp/ccPXKLGQ.s 			page 7
+
+
+ 267 001e FFF7FEFF 		bl	__aeabi_i2d
+ 268              	.LVL22:
+ 269 0022 3246     		mov	r2, r6
+ 270 0024 3B46     		mov	r3, r7
+ 271 0026 FFF7FEFF 		bl	__aeabi_dmul
+ 272              	.LVL23:
+ 273 002a FFF7FEFF 		bl	__aeabi_d2iz
+ 274              	.LVL24:
+ 275 002e 2146     		mov	r1, r4
+ 276 0030 41F8040F 		str	r0, [r1, #4]!
+  79:User/Inc/rosserialInc/duration.cpp ****   normalizeSecNSecSigned(sec, nsec);
+ 277              		.loc 1 79 3 is_stmt 1 view .LVU63
+ 278              		.loc 1 79 25 is_stmt 0 view .LVU64
+ 279 0034 2046     		mov	r0, r4
+ 280 0036 FFF7FEFF 		bl	_ZN3ros22normalizeSecNSecSignedERlS0_
+ 281              	.LVL25:
+  80:User/Inc/rosserialInc/duration.cpp ****   return *this;
+ 282              		.loc 1 80 3 is_stmt 1 view .LVU65
+  81:User/Inc/rosserialInc/duration.cpp **** }
+ 283              		.loc 1 81 1 is_stmt 0 view .LVU66
+ 284 003a 2046     		mov	r0, r4
+ 285 003c D0BD     		pop	{r4, r6, r7, pc}
+ 286              		.loc 1 81 1 view .LVU67
+ 287              		.cfi_endproc
+ 288              	.LFE235:
+ 289              		.cantunwind
+ 290              		.fnend
+ 292              		.text
+ 293              	.Letext0:
+ 294              		.file 2 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-n
+ 295              		.file 3 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-n
+ 296              		.file 4 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-n
+ 297              		.file 5 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-n
+ 298              		.file 6 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-n
+ 299              		.file 7 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-n
+ 300              		.file 8 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-n
+ 301              		.file 9 "User/Inc/rosserialInc/ros/duration.h"
+ 302              		.file 10 "<built-in>"
+ARM GAS  /tmp/ccPXKLGQ.s 			page 8
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 duration.cpp
+     /tmp/ccPXKLGQ.s:16     .text._ZN3ros22normalizeSecNSecSignedERlS0_:0000000000000000 $t
+     /tmp/ccPXKLGQ.s:24     .text._ZN3ros22normalizeSecNSecSignedERlS0_:0000000000000000 _ZN3ros22normalizeSecNSecSignedERlS0_
+     /tmp/ccPXKLGQ.s:105    .text._ZN3ros22normalizeSecNSecSignedERlS0_:0000000000000038 $d
+.ARM.exidx.text._ZN3ros22normalizeSecNSecSignedERlS0_:0000000000000000 $d
+     /tmp/ccPXKLGQ.s:112    .text._ZN3ros8DurationpLERKS0_:0000000000000000 $t
+     /tmp/ccPXKLGQ.s:119    .text._ZN3ros8DurationpLERKS0_:0000000000000000 _ZN3ros8DurationpLERKS0_
+.ARM.exidx.text._ZN3ros8DurationpLERKS0_:0000000000000000 $d
+     /tmp/ccPXKLGQ.s:166    .text._ZN3ros8DurationmIERKS0_:0000000000000000 $t
+     /tmp/ccPXKLGQ.s:173    .text._ZN3ros8DurationmIERKS0_:0000000000000000 _ZN3ros8DurationmIERKS0_
+.ARM.exidx.text._ZN3ros8DurationmIERKS0_:0000000000000000 $d
+     /tmp/ccPXKLGQ.s:223    .text._ZN3ros8DurationmLEd:0000000000000000 $t
+     /tmp/ccPXKLGQ.s:230    .text._ZN3ros8DurationmLEd:0000000000000000 _ZN3ros8DurationmLEd
+.ARM.exidx.text._ZN3ros8DurationmLEd:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+__aeabi_i2d
+__aeabi_dmul
+__aeabi_d2iz

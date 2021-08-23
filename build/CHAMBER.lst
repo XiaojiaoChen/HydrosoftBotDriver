@@ -1,0 +1,701 @@
+ARM GAS  /tmp/ccRoLU4b.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"CHAMBER.cpp"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text._ZN7CHAMBERC2Eiii,"ax",%progbits
+  16              		.align	1
+  17              		.global	_ZN7CHAMBERC2Eiii
+  18              		.arch armv7-m
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu softvfp
+  24              	_ZN7CHAMBERC2Eiii:
+  25              		.fnstart
+  26              	.LVL0:
+  27              	.LFB66:
+  28              		.file 1 "User/CHAMBER.cpp"
+   1:User/CHAMBER.cpp **** /*
+   2:User/CHAMBER.cpp ****  * CHAMBER.cpp
+   3:User/CHAMBER.cpp ****  *
+   4:User/CHAMBER.cpp ****  *  Created on: Jun 15, 2018
+   5:User/CHAMBER.cpp ****  *      Author: Xiaojiao Chen
+   6:User/CHAMBER.cpp ****  *		 Email: chen2014@connect.hku.hk
+   7:User/CHAMBER.cpp ****  *	Laboratory: Bio-Control Lab
+   8:User/CHAMBER.cpp ****  * Orgnization: the University of Hong Kong
+   9:User/CHAMBER.cpp ****  */
+  10:User/CHAMBER.cpp **** #include "main.h"
+  11:User/CHAMBER.cpp **** #include "CHAMBER.h"
+  12:User/CHAMBER.cpp **** 
+  13:User/CHAMBER.cpp **** const int32_t CHAMBER::pressureMin= -100000;
+  14:User/CHAMBER.cpp **** const int32_t CHAMBER::pressureMax=350000;
+  15:User/CHAMBER.cpp **** 
+  16:User/CHAMBER.cpp **** 
+  17:User/CHAMBER.cpp **** CHAMBER::CHAMBER(int PWMPort1,int PWMPort2,int PressurePort):
+  29              		.loc 1 17 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              		.loc 1 17 1 is_stmt 0 view .LVU1
+  34 0000 70B5     		push	{r4, r5, r6, lr}
+  35              		.save {r4, r5, r6, lr}
+  36              	.LCFI0:
+  37              		.cfi_def_cfa_offset 16
+  38              		.cfi_offset 4, -16
+  39              		.cfi_offset 5, -12
+  40              		.cfi_offset 6, -8
+  41              		.cfi_offset 14, -4
+ARM GAS  /tmp/ccRoLU4b.s 			page 2
+
+
+  42 0002 0446     		mov	r4, r0
+  43 0004 1646     		mov	r6, r2
+  44 0006 1D46     		mov	r5, r3
+  45              	.LBB2:
+  18:User/CHAMBER.cpp **** valves{PWMPort1,PWMPort2},
+  19:User/CHAMBER.cpp **** pressureSensor(PressurePort)
+  46              		.loc 1 19 28 view .LVU2
+  47 0008 C9B2     		uxtb	r1, r1
+  48              	.LVL1:
+  49              		.loc 1 19 28 view .LVU3
+  50 000a FFF7FEFF 		bl	_ZN14SOLENOID_VALVEC1Eh
+  51              	.LVL2:
+  52              		.loc 1 19 28 view .LVU4
+  53 000e F1B2     		uxtb	r1, r6
+  54 0010 04F10A00 		add	r0, r4, #10
+  55 0014 FFF7FEFF 		bl	_ZN14SOLENOID_VALVEC1Eh
+  56              	.LVL3:
+  57 0018 E9B2     		uxtb	r1, r5
+  58 001a 04F11400 		add	r0, r4, #20
+  59 001e FFF7FEFF 		bl	_ZN15PRESSURE_SENSORC1Eh
+  60              	.LVL4:
+  20:User/CHAMBER.cpp **** {
+  21:User/CHAMBER.cpp **** 	pressure=0;
+  61              		.loc 1 21 2 is_stmt 1 view .LVU5
+  62              		.loc 1 21 10 is_stmt 0 view .LVU6
+  63 0022 0023     		movs	r3, #0
+  64 0024 6362     		str	r3, [r4, #36]
+  22:User/CHAMBER.cpp **** 	pressureRaw=0;
+  65              		.loc 1 22 2 is_stmt 1 view .LVU7
+  66              		.loc 1 22 13 is_stmt 0 view .LVU8
+  67 0026 A362     		str	r3, [r4, #40]
+  23:User/CHAMBER.cpp **** 	pressureCommand=pressure;
+  68              		.loc 1 23 2 is_stmt 1 view .LVU9
+  69              		.loc 1 23 17 is_stmt 0 view .LVU10
+  70 0028 2363     		str	r3, [r4, #48]
+  24:User/CHAMBER.cpp **** 	pressureDeadZone = 2000;
+  71              		.loc 1 24 2 is_stmt 1 view .LVU11
+  72              		.loc 1 24 19 is_stmt 0 view .LVU12
+  73 002a 4FF4FA62 		mov	r2, #2000
+  74 002e 6263     		str	r2, [r4, #52]
+  25:User/CHAMBER.cpp **** 	opening = 0;
+  75              		.loc 1 25 2 is_stmt 1 view .LVU13
+  76              		.loc 1 25 10 is_stmt 0 view .LVU14
+  77 0030 2387     		strh	r3, [r4, #56]	@ movhi
+  26:User/CHAMBER.cpp **** 	pressureOffset=0;
+  78              		.loc 1 26 2 is_stmt 1 view .LVU15
+  79              		.loc 1 26 16 is_stmt 0 view .LVU16
+  80 0032 E362     		str	r3, [r4, #44]
+  81              	.LBE2:
+  27:User/CHAMBER.cpp **** }
+  82              		.loc 1 27 1 view .LVU17
+  83 0034 2046     		mov	r0, r4
+  84 0036 70BD     		pop	{r4, r5, r6, pc}
+  85              		.loc 1 27 1 view .LVU18
+  86              		.cfi_endproc
+  87              	.LFE66:
+  88              		.fnend
+ARM GAS  /tmp/ccRoLU4b.s 			page 3
+
+
+  90              		.global	_ZN7CHAMBERC1Eiii
+  91              		.thumb_set _ZN7CHAMBERC1Eiii,_ZN7CHAMBERC2Eiii
+  92              		.section	.text._ZN7CHAMBER6attachEiii,"ax",%progbits
+  93              		.align	1
+  94              		.global	_ZN7CHAMBER6attachEiii
+  95              		.syntax unified
+  96              		.thumb
+  97              		.thumb_func
+  98              		.fpu softvfp
+ 100              	_ZN7CHAMBER6attachEiii:
+ 101              		.fnstart
+ 102              	.LVL5:
+ 103              	.LFB68:
+  28:User/CHAMBER.cpp **** 
+  29:User/CHAMBER.cpp **** 
+  30:User/CHAMBER.cpp **** void CHAMBER::attach(int PWMPort1,int PWMPort2,int AnalogPort)
+  31:User/CHAMBER.cpp **** {
+ 104              		.loc 1 31 1 is_stmt 1 view -0
+ 105              		.cfi_startproc
+ 106              		@ args = 0, pretend = 0, frame = 0
+ 107              		@ frame_needed = 0, uses_anonymous_args = 0
+ 108              		.loc 1 31 1 is_stmt 0 view .LVU20
+ 109 0000 70B5     		push	{r4, r5, r6, lr}
+ 110              		.save {r4, r5, r6, lr}
+ 111              	.LCFI1:
+ 112              		.cfi_def_cfa_offset 16
+ 113              		.cfi_offset 4, -16
+ 114              		.cfi_offset 5, -12
+ 115              		.cfi_offset 6, -8
+ 116              		.cfi_offset 14, -4
+ 117 0002 0446     		mov	r4, r0
+ 118 0004 1646     		mov	r6, r2
+ 119 0006 1D46     		mov	r5, r3
+  32:User/CHAMBER.cpp **** 	valves[0].attach(PWMPort1);
+ 120              		.loc 1 32 2 is_stmt 1 view .LVU21
+ 121              		.loc 1 32 18 is_stmt 0 view .LVU22
+ 122 0008 C9B2     		uxtb	r1, r1
+ 123              	.LVL6:
+ 124              		.loc 1 32 18 view .LVU23
+ 125 000a FFF7FEFF 		bl	_ZN14SOLENOID_VALVE6attachEh
+ 126              	.LVL7:
+  33:User/CHAMBER.cpp **** 	valves[1].attach(PWMPort2);
+ 127              		.loc 1 33 2 is_stmt 1 view .LVU24
+ 128              		.loc 1 33 18 is_stmt 0 view .LVU25
+ 129 000e F1B2     		uxtb	r1, r6
+ 130 0010 04F10A00 		add	r0, r4, #10
+ 131 0014 FFF7FEFF 		bl	_ZN14SOLENOID_VALVE6attachEh
+ 132              	.LVL8:
+  34:User/CHAMBER.cpp **** 	pressureSensor.attach(AnalogPort);
+ 133              		.loc 1 34 2 is_stmt 1 view .LVU26
+ 134              		.loc 1 34 23 is_stmt 0 view .LVU27
+ 135 0018 E9B2     		uxtb	r1, r5
+ 136 001a 04F11400 		add	r0, r4, #20
+ 137 001e FFF7FEFF 		bl	_ZN15PRESSURE_SENSOR6attachEh
+ 138              	.LVL9:
+  35:User/CHAMBER.cpp **** }
+ 139              		.loc 1 35 1 view .LVU28
+ARM GAS  /tmp/ccRoLU4b.s 			page 4
+
+
+ 140 0022 70BD     		pop	{r4, r5, r6, pc}
+ 141              		.loc 1 35 1 view .LVU29
+ 142              		.cfi_endproc
+ 143              	.LFE68:
+ 144              		.fnend
+ 146              		.section	.text._ZN7CHAMBER9attachPWMEii,"ax",%progbits
+ 147              		.align	1
+ 148              		.global	_ZN7CHAMBER9attachPWMEii
+ 149              		.syntax unified
+ 150              		.thumb
+ 151              		.thumb_func
+ 152              		.fpu softvfp
+ 154              	_ZN7CHAMBER9attachPWMEii:
+ 155              		.fnstart
+ 156              	.LVL10:
+ 157              	.LFB69:
+  36:User/CHAMBER.cpp **** 
+  37:User/CHAMBER.cpp **** 
+  38:User/CHAMBER.cpp **** void CHAMBER::attachPWM(int PWMPort1,int PWMPort2)
+  39:User/CHAMBER.cpp **** {
+ 158              		.loc 1 39 1 is_stmt 1 view -0
+ 159              		.cfi_startproc
+ 160              		@ args = 0, pretend = 0, frame = 0
+ 161              		@ frame_needed = 0, uses_anonymous_args = 0
+ 162              		.loc 1 39 1 is_stmt 0 view .LVU31
+ 163 0000 38B5     		push	{r3, r4, r5, lr}
+ 164              		.save {r3, r4, r5, lr}
+ 165              	.LCFI2:
+ 166              		.cfi_def_cfa_offset 16
+ 167              		.cfi_offset 3, -16
+ 168              		.cfi_offset 4, -12
+ 169              		.cfi_offset 5, -8
+ 170              		.cfi_offset 14, -4
+ 171 0002 0446     		mov	r4, r0
+ 172 0004 1546     		mov	r5, r2
+  40:User/CHAMBER.cpp **** 	valves[0].attach(PWMPort1);
+ 173              		.loc 1 40 2 is_stmt 1 view .LVU32
+ 174              		.loc 1 40 18 is_stmt 0 view .LVU33
+ 175 0006 C9B2     		uxtb	r1, r1
+ 176              	.LVL11:
+ 177              		.loc 1 40 18 view .LVU34
+ 178 0008 FFF7FEFF 		bl	_ZN14SOLENOID_VALVE6attachEh
+ 179              	.LVL12:
+  41:User/CHAMBER.cpp **** 	valves[1].attach(PWMPort2);
+ 180              		.loc 1 41 2 is_stmt 1 view .LVU35
+ 181              		.loc 1 41 18 is_stmt 0 view .LVU36
+ 182 000c E9B2     		uxtb	r1, r5
+ 183 000e 04F10A00 		add	r0, r4, #10
+ 184 0012 FFF7FEFF 		bl	_ZN14SOLENOID_VALVE6attachEh
+ 185              	.LVL13:
+  42:User/CHAMBER.cpp **** }
+ 186              		.loc 1 42 1 view .LVU37
+ 187 0016 38BD     		pop	{r3, r4, r5, pc}
+ 188              		.loc 1 42 1 view .LVU38
+ 189              		.cfi_endproc
+ 190              	.LFE69:
+ 191              		.fnend
+ARM GAS  /tmp/ccRoLU4b.s 			page 5
+
+
+ 193              		.section	.text._ZN7CHAMBER12attachSensorEi,"ax",%progbits
+ 194              		.align	1
+ 195              		.global	_ZN7CHAMBER12attachSensorEi
+ 196              		.syntax unified
+ 197              		.thumb
+ 198              		.thumb_func
+ 199              		.fpu softvfp
+ 201              	_ZN7CHAMBER12attachSensorEi:
+ 202              		.fnstart
+ 203              	.LVL14:
+ 204              	.LFB70:
+  43:User/CHAMBER.cpp **** void CHAMBER::attachSensor(int AnalogPort)
+  44:User/CHAMBER.cpp **** {
+ 205              		.loc 1 44 1 is_stmt 1 view -0
+ 206              		.cfi_startproc
+ 207              		@ args = 0, pretend = 0, frame = 0
+ 208              		@ frame_needed = 0, uses_anonymous_args = 0
+ 209              		.loc 1 44 1 is_stmt 0 view .LVU40
+ 210 0000 08B5     		push	{r3, lr}
+ 211              		.save {r3, lr}
+ 212              	.LCFI3:
+ 213              		.cfi_def_cfa_offset 8
+ 214              		.cfi_offset 3, -8
+ 215              		.cfi_offset 14, -4
+  45:User/CHAMBER.cpp **** 	pressureSensor.attach(AnalogPort);
+ 216              		.loc 1 45 2 is_stmt 1 view .LVU41
+ 217              		.loc 1 45 23 is_stmt 0 view .LVU42
+ 218 0002 C9B2     		uxtb	r1, r1
+ 219              	.LVL15:
+ 220              		.loc 1 45 23 view .LVU43
+ 221 0004 1430     		adds	r0, r0, #20
+ 222              	.LVL16:
+ 223              		.loc 1 45 23 view .LVU44
+ 224 0006 FFF7FEFF 		bl	_ZN15PRESSURE_SENSOR6attachEh
+ 225              	.LVL17:
+  46:User/CHAMBER.cpp **** }
+ 226              		.loc 1 46 1 view .LVU45
+ 227 000a 08BD     		pop	{r3, pc}
+ 228              		.cfi_endproc
+ 229              	.LFE70:
+ 230              		.fnend
+ 232              		.section	.text._ZN7CHAMBER12zeroPressureEv,"ax",%progbits
+ 233              		.align	1
+ 234              		.global	_ZN7CHAMBER12zeroPressureEv
+ 235              		.syntax unified
+ 236              		.thumb
+ 237              		.thumb_func
+ 238              		.fpu softvfp
+ 240              	_ZN7CHAMBER12zeroPressureEv:
+ 241              		.fnstart
+ 242              	.LVL18:
+ 243              	.LFB71:
+  47:User/CHAMBER.cpp **** void CHAMBER::zeroPressure(){
+ 244              		.loc 1 47 29 is_stmt 1 view -0
+ 245              		.cfi_startproc
+ 246              		@ args = 0, pretend = 0, frame = 0
+ 247              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  /tmp/ccRoLU4b.s 			page 6
+
+
+ 248              		@ link register save eliminated.
+  48:User/CHAMBER.cpp **** 	pressureOffset = pressureRaw;
+ 249              		.loc 1 48 2 view .LVU47
+ 250              		.loc 1 48 19 is_stmt 0 view .LVU48
+ 251 0000 836A     		ldr	r3, [r0, #40]
+ 252              		.loc 1 48 17 view .LVU49
+ 253 0002 C362     		str	r3, [r0, #44]
+  49:User/CHAMBER.cpp **** }
+ 254              		.loc 1 49 1 view .LVU50
+ 255 0004 7047     		bx	lr
+ 256              		.cfi_endproc
+ 257              	.LFE71:
+ 258              		.cantunwind
+ 259              		.fnend
+ 261              		.section	.text._ZN7CHAMBER12readPressureEv,"ax",%progbits
+ 262              		.align	1
+ 263              		.global	_ZN7CHAMBER12readPressureEv
+ 264              		.syntax unified
+ 265              		.thumb
+ 266              		.thumb_func
+ 267              		.fpu softvfp
+ 269              	_ZN7CHAMBER12readPressureEv:
+ 270              		.fnstart
+ 271              	.LVL19:
+ 272              	.LFB72:
+  50:User/CHAMBER.cpp **** 
+  51:User/CHAMBER.cpp **** int32_t CHAMBER::readPressure(){
+ 273              		.loc 1 51 32 is_stmt 1 view -0
+ 274              		.cfi_startproc
+ 275              		@ args = 0, pretend = 0, frame = 0
+ 276              		@ frame_needed = 0, uses_anonymous_args = 0
+ 277              		.loc 1 51 32 is_stmt 0 view .LVU52
+ 278 0000 10B5     		push	{r4, lr}
+ 279              		.save {r4, lr}
+ 280              	.LCFI4:
+ 281              		.cfi_def_cfa_offset 8
+ 282              		.cfi_offset 4, -8
+ 283              		.cfi_offset 14, -4
+ 284 0002 0446     		mov	r4, r0
+  52:User/CHAMBER.cpp **** 	pressureRaw = pressureSensor.read();
+ 285              		.loc 1 52 2 is_stmt 1 view .LVU53
+ 286              		.loc 1 52 35 is_stmt 0 view .LVU54
+ 287 0004 1430     		adds	r0, r0, #20
+ 288              	.LVL20:
+ 289              		.loc 1 52 35 view .LVU55
+ 290 0006 FFF7FEFF 		bl	_ZN15PRESSURE_SENSOR4readEv
+ 291              	.LVL21:
+ 292              		.loc 1 52 14 view .LVU56
+ 293 000a A062     		str	r0, [r4, #40]
+  53:User/CHAMBER.cpp **** 	pressure=pressureRaw-pressureOffset;
+ 294              		.loc 1 53 2 is_stmt 1 view .LVU57
+ 295              		.loc 1 53 23 is_stmt 0 view .LVU58
+ 296 000c E36A     		ldr	r3, [r4, #44]
+ 297              		.loc 1 53 22 view .LVU59
+ 298 000e C01A     		subs	r0, r0, r3
+ 299              		.loc 1 53 10 view .LVU60
+ 300 0010 6062     		str	r0, [r4, #36]
+ARM GAS  /tmp/ccRoLU4b.s 			page 7
+
+
+  54:User/CHAMBER.cpp **** 	return pressure;
+ 301              		.loc 1 54 2 is_stmt 1 view .LVU61
+  55:User/CHAMBER.cpp **** }
+ 302              		.loc 1 55 1 is_stmt 0 view .LVU62
+ 303 0012 10BD     		pop	{r4, pc}
+ 304              		.loc 1 55 1 view .LVU63
+ 305              		.cfi_endproc
+ 306              	.LFE72:
+ 307              		.fnend
+ 309              		.section	.text._ZN7CHAMBER12writeOpeningEs,"ax",%progbits
+ 310              		.align	1
+ 311              		.global	_ZN7CHAMBER12writeOpeningEs
+ 312              		.syntax unified
+ 313              		.thumb
+ 314              		.thumb_func
+ 315              		.fpu softvfp
+ 317              	_ZN7CHAMBER12writeOpeningEs:
+ 318              		.fnstart
+ 319              	.LVL22:
+ 320              	.LFB74:
+  56:User/CHAMBER.cpp **** 
+  57:User/CHAMBER.cpp **** void CHAMBER::writePressure(int32_t pNom)//Pa
+  58:User/CHAMBER.cpp **** {
+  59:User/CHAMBER.cpp **** 	pressureCommand=pNom;
+  60:User/CHAMBER.cpp **** 	int32_t pErr = pressureCommand-pressure;
+  61:User/CHAMBER.cpp **** 	if(pErr>pressureDeadZone)
+  62:User/CHAMBER.cpp **** 	{
+  63:User/CHAMBER.cpp **** 		opening=1;
+  64:User/CHAMBER.cpp **** 	}
+  65:User/CHAMBER.cpp **** 	else if(pErr<-pressureDeadZone)
+  66:User/CHAMBER.cpp **** 	{
+  67:User/CHAMBER.cpp **** 		opening=-1;
+  68:User/CHAMBER.cpp **** 	}
+  69:User/CHAMBER.cpp **** 	else
+  70:User/CHAMBER.cpp **** 	{
+  71:User/CHAMBER.cpp **** 		opening=0;
+  72:User/CHAMBER.cpp **** 	}
+  73:User/CHAMBER.cpp **** 
+  74:User/CHAMBER.cpp **** 	writeOpening(opening);
+  75:User/CHAMBER.cpp **** }
+  76:User/CHAMBER.cpp **** void CHAMBER::writeOpening(int16_t op){
+ 321              		.loc 1 76 39 is_stmt 1 view -0
+ 322              		.cfi_startproc
+ 323              		@ args = 0, pretend = 0, frame = 0
+ 324              		@ frame_needed = 0, uses_anonymous_args = 0
+ 325              		.loc 1 76 39 is_stmt 0 view .LVU65
+ 326 0000 10B5     		push	{r4, lr}
+ 327              		.save {r4, lr}
+ 328              	.LCFI5:
+ 329              		.cfi_def_cfa_offset 8
+ 330              		.cfi_offset 4, -8
+ 331              		.cfi_offset 14, -4
+ 332 0002 0446     		mov	r4, r0
+  77:User/CHAMBER.cpp **** 	opening=op;
+ 333              		.loc 1 77 2 is_stmt 1 view .LVU66
+ 334              		.loc 1 77 9 is_stmt 0 view .LVU67
+ 335 0004 0187     		strh	r1, [r0, #56]	@ movhi
+ARM GAS  /tmp/ccRoLU4b.s 			page 8
+
+
+  78:User/CHAMBER.cpp **** 	if(op==0){
+ 336              		.loc 1 78 2 is_stmt 1 view .LVU68
+ 337 0006 59B1     		cbz	r1, .L18
+  79:User/CHAMBER.cpp **** 		valves[0].writeDuty(0);
+  80:User/CHAMBER.cpp **** 		valves[1].writeDuty(0);
+  81:User/CHAMBER.cpp **** 	}
+  82:User/CHAMBER.cpp **** 	else if(op==2){
+ 338              		.loc 1 82 7 view .LVU69
+ 339 0008 0229     		cmp	r1, #2
+ 340 000a 11D0     		beq	.L19
+  83:User/CHAMBER.cpp **** 		valves[0].writeDuty(1);
+  84:User/CHAMBER.cpp **** 		valves[1].writeDuty(1);
+  85:User/CHAMBER.cpp **** 	}
+  86:User/CHAMBER.cpp **** 	else if(op>0){
+ 341              		.loc 1 86 7 view .LVU70
+ 342 000c 0029     		cmp	r1, #0
+ 343 000e 18DD     		ble	.L16
+  87:User/CHAMBER.cpp **** 
+  88:User/CHAMBER.cpp **** 		valves[0].writeDuty(opening);
+ 344              		.loc 1 88 3 view .LVU71
+ 345              		.loc 1 88 22 is_stmt 0 view .LVU72
+ 346 0010 FFF7FEFF 		bl	_ZN14SOLENOID_VALVE9writeDutyEs
+ 347              	.LVL23:
+  89:User/CHAMBER.cpp **** 		valves[1].writeDuty(0);
+ 348              		.loc 1 89 3 is_stmt 1 view .LVU73
+ 349              		.loc 1 89 22 is_stmt 0 view .LVU74
+ 350 0014 0021     		movs	r1, #0
+ 351 0016 04F10A00 		add	r0, r4, #10
+ 352 001a FFF7FEFF 		bl	_ZN14SOLENOID_VALVE9writeDutyEs
+ 353              	.LVL24:
+ 354 001e 06E0     		b	.L12
+ 355              	.LVL25:
+ 356              	.L18:
+  79:User/CHAMBER.cpp **** 		valves[1].writeDuty(0);
+ 357              		.loc 1 79 3 is_stmt 1 view .LVU75
+  79:User/CHAMBER.cpp **** 		valves[1].writeDuty(0);
+ 358              		.loc 1 79 22 is_stmt 0 view .LVU76
+ 359 0020 FFF7FEFF 		bl	_ZN14SOLENOID_VALVE9writeDutyEs
+ 360              	.LVL26:
+  80:User/CHAMBER.cpp **** 	}
+ 361              		.loc 1 80 3 is_stmt 1 view .LVU77
+  80:User/CHAMBER.cpp **** 	}
+ 362              		.loc 1 80 22 is_stmt 0 view .LVU78
+ 363 0024 0021     		movs	r1, #0
+ 364 0026 04F10A00 		add	r0, r4, #10
+ 365 002a FFF7FEFF 		bl	_ZN14SOLENOID_VALVE9writeDutyEs
+ 366              	.LVL27:
+ 367              	.L12:
+  90:User/CHAMBER.cpp **** 	}
+  91:User/CHAMBER.cpp **** 	else
+  92:User/CHAMBER.cpp **** 	{
+  93:User/CHAMBER.cpp **** 		valves[0].writeDuty(0);
+  94:User/CHAMBER.cpp **** 		valves[1].writeDuty(-opening);
+  95:User/CHAMBER.cpp **** 	}
+  96:User/CHAMBER.cpp **** 
+  97:User/CHAMBER.cpp **** }
+ 368              		.loc 1 97 1 view .LVU79
+ARM GAS  /tmp/ccRoLU4b.s 			page 9
+
+
+ 369 002e 10BD     		pop	{r4, pc}
+ 370              	.LVL28:
+ 371              	.L19:
+  83:User/CHAMBER.cpp **** 		valves[1].writeDuty(1);
+ 372              		.loc 1 83 3 is_stmt 1 view .LVU80
+  83:User/CHAMBER.cpp **** 		valves[1].writeDuty(1);
+ 373              		.loc 1 83 22 is_stmt 0 view .LVU81
+ 374 0030 0121     		movs	r1, #1
+ 375              	.LVL29:
+  83:User/CHAMBER.cpp **** 		valves[1].writeDuty(1);
+ 376              		.loc 1 83 22 view .LVU82
+ 377 0032 FFF7FEFF 		bl	_ZN14SOLENOID_VALVE9writeDutyEs
+ 378              	.LVL30:
+  84:User/CHAMBER.cpp **** 	}
+ 379              		.loc 1 84 3 is_stmt 1 view .LVU83
+  84:User/CHAMBER.cpp **** 	}
+ 380              		.loc 1 84 22 is_stmt 0 view .LVU84
+ 381 0036 0121     		movs	r1, #1
+ 382 0038 04F10A00 		add	r0, r4, #10
+ 383 003c FFF7FEFF 		bl	_ZN14SOLENOID_VALVE9writeDutyEs
+ 384              	.LVL31:
+ 385 0040 F5E7     		b	.L12
+ 386              	.LVL32:
+ 387              	.L16:
+  93:User/CHAMBER.cpp **** 		valves[1].writeDuty(-opening);
+ 388              		.loc 1 93 3 is_stmt 1 view .LVU85
+  93:User/CHAMBER.cpp **** 		valves[1].writeDuty(-opening);
+ 389              		.loc 1 93 22 is_stmt 0 view .LVU86
+ 390 0042 0021     		movs	r1, #0
+ 391              	.LVL33:
+  93:User/CHAMBER.cpp **** 		valves[1].writeDuty(-opening);
+ 392              		.loc 1 93 22 view .LVU87
+ 393 0044 FFF7FEFF 		bl	_ZN14SOLENOID_VALVE9writeDutyEs
+ 394              	.LVL34:
+  94:User/CHAMBER.cpp **** 	}
+ 395              		.loc 1 94 3 is_stmt 1 view .LVU88
+  94:User/CHAMBER.cpp **** 	}
+ 396              		.loc 1 94 24 is_stmt 0 view .LVU89
+ 397 0048 218F     		ldrh	r1, [r4, #56]
+  94:User/CHAMBER.cpp **** 	}
+ 398              		.loc 1 94 22 view .LVU90
+ 399 004a 4942     		rsbs	r1, r1, #0
+ 400 004c 09B2     		sxth	r1, r1
+ 401 004e 04F10A00 		add	r0, r4, #10
+ 402 0052 FFF7FEFF 		bl	_ZN14SOLENOID_VALVE9writeDutyEs
+ 403              	.LVL35:
+ 404              		.loc 1 97 1 view .LVU91
+ 405 0056 EAE7     		b	.L12
+ 406              		.cfi_endproc
+ 407              	.LFE74:
+ 408              		.fnend
+ 410              		.section	.text._ZN7CHAMBER13writePressureEl,"ax",%progbits
+ 411              		.align	1
+ 412              		.global	_ZN7CHAMBER13writePressureEl
+ 413              		.syntax unified
+ 414              		.thumb
+ 415              		.thumb_func
+ARM GAS  /tmp/ccRoLU4b.s 			page 10
+
+
+ 416              		.fpu softvfp
+ 418              	_ZN7CHAMBER13writePressureEl:
+ 419              		.fnstart
+ 420              	.LVL36:
+ 421              	.LFB73:
+  58:User/CHAMBER.cpp **** 	pressureCommand=pNom;
+ 422              		.loc 1 58 1 is_stmt 1 view -0
+ 423              		.cfi_startproc
+ 424              		@ args = 0, pretend = 0, frame = 0
+ 425              		@ frame_needed = 0, uses_anonymous_args = 0
+  58:User/CHAMBER.cpp **** 	pressureCommand=pNom;
+ 426              		.loc 1 58 1 is_stmt 0 view .LVU93
+ 427 0000 08B5     		push	{r3, lr}
+ 428              		.save {r3, lr}
+ 429              	.LCFI6:
+ 430              		.cfi_def_cfa_offset 8
+ 431              		.cfi_offset 3, -8
+ 432              		.cfi_offset 14, -4
+  59:User/CHAMBER.cpp **** 	int32_t pErr = pressureCommand-pressure;
+ 433              		.loc 1 59 2 is_stmt 1 view .LVU94
+  59:User/CHAMBER.cpp **** 	int32_t pErr = pressureCommand-pressure;
+ 434              		.loc 1 59 17 is_stmt 0 view .LVU95
+ 435 0002 0163     		str	r1, [r0, #48]
+  60:User/CHAMBER.cpp **** 	if(pErr>pressureDeadZone)
+ 436              		.loc 1 60 2 is_stmt 1 view .LVU96
+  60:User/CHAMBER.cpp **** 	if(pErr>pressureDeadZone)
+ 437              		.loc 1 60 33 is_stmt 0 view .LVU97
+ 438 0004 436A     		ldr	r3, [r0, #36]
+  60:User/CHAMBER.cpp **** 	if(pErr>pressureDeadZone)
+ 439              		.loc 1 60 10 view .LVU98
+ 440 0006 C91A     		subs	r1, r1, r3
+ 441              	.LVL37:
+  61:User/CHAMBER.cpp **** 	{
+ 442              		.loc 1 61 2 is_stmt 1 view .LVU99
+  61:User/CHAMBER.cpp **** 	{
+ 443              		.loc 1 61 10 is_stmt 0 view .LVU100
+ 444 0008 436B     		ldr	r3, [r0, #52]
+  61:User/CHAMBER.cpp **** 	{
+ 445              		.loc 1 61 2 view .LVU101
+ 446 000a 8B42     		cmp	r3, r1
+ 447 000c 06DA     		bge	.L21
+  63:User/CHAMBER.cpp **** 	}
+ 448              		.loc 1 63 3 is_stmt 1 view .LVU102
+  63:User/CHAMBER.cpp **** 	}
+ 449              		.loc 1 63 10 is_stmt 0 view .LVU103
+ 450 000e 0123     		movs	r3, #1
+ 451 0010 0387     		strh	r3, [r0, #56]	@ movhi
+ 452              	.L22:
+  74:User/CHAMBER.cpp **** }
+ 453              		.loc 1 74 2 is_stmt 1 view .LVU104
+  74:User/CHAMBER.cpp **** }
+ 454              		.loc 1 74 14 is_stmt 0 view .LVU105
+ 455 0012 B0F93810 		ldrsh	r1, [r0, #56]
+ 456              	.LVL38:
+  74:User/CHAMBER.cpp **** }
+ 457              		.loc 1 74 14 view .LVU106
+ 458 0016 FFF7FEFF 		bl	_ZN7CHAMBER12writeOpeningEs
+ARM GAS  /tmp/ccRoLU4b.s 			page 11
+
+
+ 459              	.LVL39:
+  75:User/CHAMBER.cpp **** void CHAMBER::writeOpening(int16_t op){
+ 460              		.loc 1 75 1 view .LVU107
+ 461 001a 08BD     		pop	{r3, pc}
+ 462              	.LVL40:
+ 463              	.L21:
+  65:User/CHAMBER.cpp **** 	{
+ 464              		.loc 1 65 7 is_stmt 1 view .LVU108
+  65:User/CHAMBER.cpp **** 	{
+ 465              		.loc 1 65 15 is_stmt 0 view .LVU109
+ 466 001c 5B42     		rsbs	r3, r3, #0
+  65:User/CHAMBER.cpp **** 	{
+ 467              		.loc 1 65 7 view .LVU110
+ 468 001e 8B42     		cmp	r3, r1
+ 469 0020 03DD     		ble	.L23
+  67:User/CHAMBER.cpp **** 	}
+ 470              		.loc 1 67 3 is_stmt 1 view .LVU111
+  67:User/CHAMBER.cpp **** 	}
+ 471              		.loc 1 67 10 is_stmt 0 view .LVU112
+ 472 0022 4FF6FF73 		movw	r3, #65535
+ 473 0026 0387     		strh	r3, [r0, #56]	@ movhi
+ 474 0028 F3E7     		b	.L22
+ 475              	.L23:
+  71:User/CHAMBER.cpp **** 	}
+ 476              		.loc 1 71 3 is_stmt 1 view .LVU113
+  71:User/CHAMBER.cpp **** 	}
+ 477              		.loc 1 71 10 is_stmt 0 view .LVU114
+ 478 002a 0023     		movs	r3, #0
+ 479 002c 0387     		strh	r3, [r0, #56]	@ movhi
+ 480 002e F0E7     		b	.L22
+ 481              		.cfi_endproc
+ 482              	.LFE73:
+ 483              		.fnend
+ 485              		.global	_ZN7CHAMBER11pressureMaxE
+ 486              		.global	_ZN7CHAMBER11pressureMinE
+ 487              		.section	.rodata._ZN7CHAMBER11pressureMaxE,"a"
+ 488              		.align	2
+ 491              	_ZN7CHAMBER11pressureMaxE:
+ 492 0000 30570500 		.word	350000
+ 493              		.section	.rodata._ZN7CHAMBER11pressureMinE,"a"
+ 494              		.align	2
+ 497              	_ZN7CHAMBER11pressureMinE:
+ 498 0000 6079FEFF 		.word	-100000
+ 499              		.text
+ 500              	.Letext0:
+ 501              		.file 2 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-n
+ 502              		.file 3 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-n
+ 503              		.file 4 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h"
+ 504              		.file 5 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
+ 505              		.file 6 "User/Inc/PRESSURESENSOR.h"
+ 506              		.file 7 "User/Inc/SOLENOIDVALVE.h"
+ 507              		.file 8 "User/Inc/CHAMBER.h"
+ARM GAS  /tmp/ccRoLU4b.s 			page 12
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 CHAMBER.cpp
+     /tmp/ccRoLU4b.s:16     .text._ZN7CHAMBERC2Eiii:0000000000000000 $t
+     /tmp/ccRoLU4b.s:24     .text._ZN7CHAMBERC2Eiii:0000000000000000 _ZN7CHAMBERC2Eiii
+.ARM.exidx.text._ZN7CHAMBERC2Eiii:0000000000000000 $d
+     /tmp/ccRoLU4b.s:24     .text._ZN7CHAMBERC2Eiii:0000000000000000 _ZN7CHAMBERC1Eiii
+     /tmp/ccRoLU4b.s:93     .text._ZN7CHAMBER6attachEiii:0000000000000000 $t
+     /tmp/ccRoLU4b.s:100    .text._ZN7CHAMBER6attachEiii:0000000000000000 _ZN7CHAMBER6attachEiii
+.ARM.exidx.text._ZN7CHAMBER6attachEiii:0000000000000000 $d
+     /tmp/ccRoLU4b.s:147    .text._ZN7CHAMBER9attachPWMEii:0000000000000000 $t
+     /tmp/ccRoLU4b.s:154    .text._ZN7CHAMBER9attachPWMEii:0000000000000000 _ZN7CHAMBER9attachPWMEii
+.ARM.exidx.text._ZN7CHAMBER9attachPWMEii:0000000000000000 $d
+     /tmp/ccRoLU4b.s:194    .text._ZN7CHAMBER12attachSensorEi:0000000000000000 $t
+     /tmp/ccRoLU4b.s:201    .text._ZN7CHAMBER12attachSensorEi:0000000000000000 _ZN7CHAMBER12attachSensorEi
+.ARM.extab.text._ZN7CHAMBER12attachSensorEi:0000000000000000 $d
+.ARM.exidx.text._ZN7CHAMBER12attachSensorEi:0000000000000000 $d
+     /tmp/ccRoLU4b.s:233    .text._ZN7CHAMBER12zeroPressureEv:0000000000000000 $t
+     /tmp/ccRoLU4b.s:240    .text._ZN7CHAMBER12zeroPressureEv:0000000000000000 _ZN7CHAMBER12zeroPressureEv
+.ARM.exidx.text._ZN7CHAMBER12zeroPressureEv:0000000000000000 $d
+     /tmp/ccRoLU4b.s:262    .text._ZN7CHAMBER12readPressureEv:0000000000000000 $t
+     /tmp/ccRoLU4b.s:269    .text._ZN7CHAMBER12readPressureEv:0000000000000000 _ZN7CHAMBER12readPressureEv
+.ARM.exidx.text._ZN7CHAMBER12readPressureEv:0000000000000000 $d
+     /tmp/ccRoLU4b.s:310    .text._ZN7CHAMBER12writeOpeningEs:0000000000000000 $t
+     /tmp/ccRoLU4b.s:317    .text._ZN7CHAMBER12writeOpeningEs:0000000000000000 _ZN7CHAMBER12writeOpeningEs
+.ARM.exidx.text._ZN7CHAMBER12writeOpeningEs:0000000000000000 $d
+     /tmp/ccRoLU4b.s:411    .text._ZN7CHAMBER13writePressureEl:0000000000000000 $t
+     /tmp/ccRoLU4b.s:418    .text._ZN7CHAMBER13writePressureEl:0000000000000000 _ZN7CHAMBER13writePressureEl
+.ARM.extab.text._ZN7CHAMBER13writePressureEl:0000000000000000 $d
+.ARM.exidx.text._ZN7CHAMBER13writePressureEl:0000000000000000 $d
+     /tmp/ccRoLU4b.s:491    .rodata._ZN7CHAMBER11pressureMaxE:0000000000000000 _ZN7CHAMBER11pressureMaxE
+     /tmp/ccRoLU4b.s:497    .rodata._ZN7CHAMBER11pressureMinE:0000000000000000 _ZN7CHAMBER11pressureMinE
+     /tmp/ccRoLU4b.s:488    .rodata._ZN7CHAMBER11pressureMaxE:0000000000000000 $d
+     /tmp/ccRoLU4b.s:494    .rodata._ZN7CHAMBER11pressureMinE:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+_ZN14SOLENOID_VALVEC1Eh
+_ZN15PRESSURE_SENSORC1Eh
+__aeabi_unwind_cpp_pr0
+_ZN14SOLENOID_VALVE6attachEh
+_ZN15PRESSURE_SENSOR6attachEh
+__aeabi_unwind_cpp_pr1
+_ZN15PRESSURE_SENSOR4readEv
+_ZN14SOLENOID_VALVE9writeDutyEs

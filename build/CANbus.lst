@@ -1,0 +1,1163 @@
+ARM GAS  /tmp/ccn4J718.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"CANbus.cpp"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text._ZL23my_HAL_CAN_GetRxMessageP19__CAN_HandleTypeDefmP19CAN_RxHeaderTypeDefPh,"ax",%p
+  16              		.align	1
+  17              		.arch armv7-m
+  18              		.syntax unified
+  19              		.thumb
+  20              		.thumb_func
+  21              		.fpu softvfp
+  23              	_ZL23my_HAL_CAN_GetRxMessageP19__CAN_HandleTypeDefmP19CAN_RxHeaderTypeDefPh:
+  24              		.fnstart
+  25              	.LVL0:
+  26              	.LFB440:
+  27              		.file 1 "User/CANbus.cpp"
+   1:User/CANbus.cpp **** /*
+   2:User/CANbus.cpp ****  * myCanbus.c
+   3:User/CANbus.cpp ****  *
+   4:User/CANbus.cpp ****  *  Created on: 2020年1月7日
+   5:User/CANbus.cpp ****  *      Author: Xiaojiao Chen
+   6:User/CANbus.cpp ****  *       Email: yii402072495@gmail.com
+   7:User/CANbus.cpp ****  */
+   8:User/CANbus.cpp **** 
+   9:User/CANbus.cpp **** #include <CANbus.h>
+  10:User/CANbus.cpp **** struct CANBUS_HANDLE canbus;
+  11:User/CANbus.cpp **** #include "messages.h"
+  12:User/CANbus.cpp **** #include "can.h"
+  13:User/CANbus.cpp **** #include <inttypes.h>
+  14:User/CANbus.cpp **** #include "ros.h"
+  15:User/CANbus.cpp **** static HAL_StatusTypeDef my_HAL_CAN_GetRxMessage(CAN_HandleTypeDef *hcan, uint32_t RxFifo, CAN_RxHe
+  16:User/CANbus.cpp **** /***************************     Can bus        ***************************/
+  17:User/CANbus.cpp **** /***************************                     ***************************/
+  18:User/CANbus.cpp **** /**************************************************************************/
+  19:User/CANbus.cpp **** /**************************************************************************/
+  20:User/CANbus.cpp **** /**************************************************************************/
+  21:User/CANbus.cpp **** /**************************************************************************/
+  22:User/CANbus.cpp **** /**************************************************************************/
+  23:User/CANbus.cpp **** 
+  24:User/CANbus.cpp **** static SENSORDATACOMPACT botNodeDataBuffer[4];
+  25:User/CANbus.cpp **** static SENSORDATA botNodeData[4];
+  26:User/CANbus.cpp **** 
+  27:User/CANbus.cpp **** void canConfig(){
+  28:User/CANbus.cpp **** 	canbus.CanHandle=hcan;
+  29:User/CANbus.cpp **** 	CAN_FilterTypeDef  sFilterConfig;
+  30:User/CANbus.cpp **** 	/*##-2- Configure the CAN Filter ###########################################*/
+  31:User/CANbus.cpp **** 	/*For single CAN instance(14 dedicated filter banks)*/
+ARM GAS  /tmp/ccn4J718.s 			page 2
+
+
+  32:User/CANbus.cpp **** 	for(int i=0;i<14;i++){
+  33:User/CANbus.cpp **** 		sFilterConfig.FilterBank = i;
+  34:User/CANbus.cpp **** 		sFilterConfig.FilterMode = CAN_FILTERMODE_IDLIST;
+  35:User/CANbus.cpp **** 		sFilterConfig.FilterScale = CAN_FILTERSCALE_16BIT;
+  36:User/CANbus.cpp **** 		sFilterConfig.FilterIdHigh = (uint16_t)((uint16_t)(4*i))<<5;
+  37:User/CANbus.cpp **** 		sFilterConfig.FilterIdLow = (uint16_t)((uint16_t)(4*i+1))<<5;
+  38:User/CANbus.cpp **** 		sFilterConfig.FilterMaskIdHigh = (uint16_t)((uint16_t)(4*i+2))<<5;
+  39:User/CANbus.cpp **** 		sFilterConfig.FilterMaskIdLow = (uint16_t)((uint16_t)(4*i+3))<<5;
+  40:User/CANbus.cpp **** 		sFilterConfig.FilterFIFOAssignment = i%2;//CAN_RX_FIFO0=0; CAN_RX_FIFO1=1
+  41:User/CANbus.cpp **** 		sFilterConfig.FilterActivation = ENABLE;
+  42:User/CANbus.cpp **** 		sFilterConfig.SlaveStartFilterBank = 14;
+  43:User/CANbus.cpp **** 
+  44:User/CANbus.cpp **** //		sFilterConfig.FilterBank = 0;
+  45:User/CANbus.cpp **** //		sFilterConfig.FilterMode = CAN_FILTERMODE_IDMASK;
+  46:User/CANbus.cpp **** //		sFilterConfig.FilterScale = CAN_FILTERSCALE_32BIT;
+  47:User/CANbus.cpp **** //		sFilterConfig.FilterIdHigh = 0x0000;
+  48:User/CANbus.cpp **** //		sFilterConfig.FilterIdLow = 0x0000;
+  49:User/CANbus.cpp **** //		sFilterConfig.FilterMaskIdHigh = 0x0000;
+  50:User/CANbus.cpp **** //		sFilterConfig.FilterMaskIdLow = 0x0000;
+  51:User/CANbus.cpp **** //		sFilterConfig.FilterFIFOAssignment = CAN_RX_FIFO0;
+  52:User/CANbus.cpp **** //		sFilterConfig.FilterActivation = ENABLE;
+  53:User/CANbus.cpp **** //		sFilterConfig.SlaveStartFilterBank = 14;
+  54:User/CANbus.cpp **** 
+  55:User/CANbus.cpp **** 		if (HAL_CAN_ConfigFilter(&canbus.CanHandle, &sFilterConfig) != HAL_OK)
+  56:User/CANbus.cpp **** 		{
+  57:User/CANbus.cpp **** 			/* Filter configuration Error */
+  58:User/CANbus.cpp **** 			Error_Handler();
+  59:User/CANbus.cpp **** 		}
+  60:User/CANbus.cpp **** 	}
+  61:User/CANbus.cpp **** 
+  62:User/CANbus.cpp **** 
+  63:User/CANbus.cpp **** 	/*##-3- Start the CAN peripheral ###########################################*/
+  64:User/CANbus.cpp **** 	if (HAL_CAN_Start(&canbus.CanHandle) != HAL_OK)
+  65:User/CANbus.cpp **** 	{
+  66:User/CANbus.cpp **** 		/* Start Error */
+  67:User/CANbus.cpp **** 		Error_Handler();
+  68:User/CANbus.cpp **** 	}
+  69:User/CANbus.cpp **** 
+  70:User/CANbus.cpp **** 	/*##-4- Activate CAN RX notification #######################################*/
+  71:User/CANbus.cpp **** 	if (HAL_CAN_ActivateNotification(&canbus.CanHandle, CAN_IT_RX_FIFO0_MSG_PENDING|CAN_IT_RX_FIFO1_MS
+  72:User/CANbus.cpp **** 	{
+  73:User/CANbus.cpp **** 		/* Notification Error */
+  74:User/CANbus.cpp **** 		Error_Handler();
+  75:User/CANbus.cpp **** 	}
+  76:User/CANbus.cpp **** 
+  77:User/CANbus.cpp **** 
+  78:User/CANbus.cpp **** }
+  79:User/CANbus.cpp **** /*No need to use this right now, left for sending commands to nodes in the future*/
+  80:User/CANbus.cpp **** void canSend()
+  81:User/CANbus.cpp **** {
+  82:User/CANbus.cpp **** 	/*##-Configure Transmission Packet #####################################*/
+  83:User/CANbus.cpp **** 	canbus.TxHeader.StdId = 0x400;
+  84:User/CANbus.cpp **** 	canbus.TxHeader.ExtId = 0x01;
+  85:User/CANbus.cpp **** 	canbus.TxHeader.RTR = CAN_RTR_DATA;
+  86:User/CANbus.cpp **** 	canbus.TxHeader.IDE = CAN_ID_STD;
+  87:User/CANbus.cpp **** 	canbus.TxHeader.TransmitGlobalTime = DISABLE;
+  88:User/CANbus.cpp **** 
+ARM GAS  /tmp/ccn4J718.s 			page 3
+
+
+  89:User/CANbus.cpp **** //	canbus.TxData=(uint8_t *)(&sensorData);
+  90:User/CANbus.cpp **** //	canbus.TxHeader.DLC = sizeof(sensorData);
+  91:User/CANbus.cpp **** 
+  92:User/CANbus.cpp **** 	/* Start the Transmission process */
+  93:User/CANbus.cpp **** 	if (HAL_CAN_AddTxMessage(&canbus.CanHandle, &canbus.TxHeader, canbus.TxData, &canbus.TxMailbox) !=
+  94:User/CANbus.cpp **** 	{
+  95:User/CANbus.cpp **** 	  /* Transmission request Error */
+  96:User/CANbus.cpp **** 	  Error_Handler();
+  97:User/CANbus.cpp **** 	}
+  98:User/CANbus.cpp **** 
+  99:User/CANbus.cpp **** 	//printf("Send Can Tx %d\r\n",canbus.TxHeader.StdId);
+ 100:User/CANbus.cpp **** }
+ 101:User/CANbus.cpp **** 
+ 102:User/CANbus.cpp **** 
+ 103:User/CANbus.cpp **** 
+ 104:User/CANbus.cpp **** /*Automatically called when can bus RxFiFo get message. Move the received message to corresponding 
+ 105:User/CANbus.cpp **** void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
+ 106:User/CANbus.cpp **** {
+ 107:User/CANbus.cpp ****   /* Get RX message */
+ 108:User/CANbus.cpp **** 
+ 109:User/CANbus.cpp ****   if (my_HAL_CAN_GetRxMessage(&canbus.CanHandle, CAN_RX_FIFO0, &canbus.RxHeader, canbus.RxData) != 
+ 110:User/CANbus.cpp ****   {
+ 111:User/CANbus.cpp ****     /* Reception Error */
+ 112:User/CANbus.cpp ****     Error_Handler();
+ 113:User/CANbus.cpp ****   }
+ 114:User/CANbus.cpp ****   //printf("Get Can Rx %d\r\n",canbus.RxHeader.StdId);
+ 115:User/CANbus.cpp ****   //printf("ID[%d]: %x %x %x %x %x %x %x %x\r\n", canbus.RxHeader.StdId, canbus.RxData[0], canbus.R
+ 116:User/CANbus.cpp ****   //printf("FIFO0: ID[%d]\r\n", canbus.RxHeader.StdId, canbus.RxData);
+ 117:User/CANbus.cpp **** }
+ 118:User/CANbus.cpp **** 
+ 119:User/CANbus.cpp **** /*Automatically called when can bus RxFiFo get message. Move the received message to corresponding 
+ 120:User/CANbus.cpp **** void HAL_CAN_RxFifo1MsgPendingCallback(CAN_HandleTypeDef *hcan)
+ 121:User/CANbus.cpp **** {
+ 122:User/CANbus.cpp ****   /* Get RX message */
+ 123:User/CANbus.cpp **** 
+ 124:User/CANbus.cpp **** 
+ 125:User/CANbus.cpp ****   if (my_HAL_CAN_GetRxMessage(&canbus.CanHandle, CAN_RX_FIFO1, &canbus.RxHeader, canbus.RxData) != 
+ 126:User/CANbus.cpp ****   {
+ 127:User/CANbus.cpp ****     /* Reception Error */
+ 128:User/CANbus.cpp ****     Error_Handler();
+ 129:User/CANbus.cpp ****   }
+ 130:User/CANbus.cpp ****   //printf("FIFO1: ID[%d]\r\n", canbus.RxHeader.StdId);
+ 131:User/CANbus.cpp **** 
+ 132:User/CANbus.cpp ****   //printf("Get Can Rx %d\r\n",canbus.RxHeader.StdId);
+ 133:User/CANbus.cpp **** }
+ 134:User/CANbus.cpp **** 
+ 135:User/CANbus.cpp **** static HAL_StatusTypeDef my_HAL_CAN_GetRxMessage(CAN_HandleTypeDef *hcan, uint32_t RxFifo, CAN_RxHe
+ 136:User/CANbus.cpp **** {
+  28              		.loc 1 136 1 view -0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		.loc 1 136 1 is_stmt 0 view .LVU1
+  33 0000 38B5     		push	{r3, r4, r5, lr}
+  34              		.save {r3, r4, r5, lr}
+  35              	.LCFI0:
+  36              		.cfi_def_cfa_offset 16
+ARM GAS  /tmp/ccn4J718.s 			page 4
+
+
+  37              		.cfi_offset 3, -16
+  38              		.cfi_offset 4, -12
+  39              		.cfi_offset 5, -8
+  40              		.cfi_offset 14, -4
+  41 0002 0446     		mov	r4, r0
+ 137:User/CANbus.cpp ****   HAL_CAN_StateTypeDef state = hcan->State;
+  42              		.loc 1 137 3 is_stmt 1 view .LVU2
+  43              		.loc 1 137 38 is_stmt 0 view .LVU3
+  44 0004 90F82030 		ldrb	r3, [r0, #32]	@ zero_extendqisi2
+  45              	.LVL1:
+ 138:User/CANbus.cpp **** 
+ 139:User/CANbus.cpp ****   assert_param(IS_CAN_RX_FIFO(RxFifo));
+  46              		.loc 1 139 3 is_stmt 1 view .LVU4
+ 140:User/CANbus.cpp **** 
+ 141:User/CANbus.cpp ****   if ((state == HAL_CAN_STATE_READY) ||
+  47              		.loc 1 141 3 view .LVU5
+  48              	.LBB2:
+  49              		.loc 1 141 38 is_stmt 0 view .LVU6
+  50 0008 013B     		subs	r3, r3, #1
+  51              	.LVL2:
+  52              		.loc 1 141 38 view .LVU7
+  53 000a DBB2     		uxtb	r3, r3
+  54              		.loc 1 141 3 view .LVU8
+  55 000c 012B     		cmp	r3, #1
+  56 000e 00F29B80 		bhi	.L2
+  57 0012 0D46     		mov	r5, r1
+  58              	.LBB3:
+ 142:User/CANbus.cpp ****       (state == HAL_CAN_STATE_LISTENING))
+ 143:User/CANbus.cpp ****   {
+ 144:User/CANbus.cpp ****     /* Check the Rx FIFO */
+ 145:User/CANbus.cpp ****     if (RxFifo == CAN_RX_FIFO0) /* Rx element is assigned to Rx FIFO 0 */
+  59              		.loc 1 145 5 is_stmt 1 view .LVU9
+  60 0014 51B9     		cbnz	r1, .L3
+ 146:User/CANbus.cpp ****     {
+ 147:User/CANbus.cpp ****       /* Check that the Rx FIFO 0 is not empty */
+ 148:User/CANbus.cpp ****       if ((hcan->Instance->RF0R & CAN_RF0R_FMP0) == 0U)
+  61              		.loc 1 148 7 view .LVU10
+  62              		.loc 1 148 18 is_stmt 0 view .LVU11
+  63 0016 0368     		ldr	r3, [r0]
+  64              		.loc 1 148 28 view .LVU12
+  65 0018 DB68     		ldr	r3, [r3, #12]
+  66              		.loc 1 148 7 view .LVU13
+  67 001a 13F0030F 		tst	r3, #3
+  68 001e 10D1     		bne	.L4
+ 149:User/CANbus.cpp ****       {
+ 150:User/CANbus.cpp ****         /* Update error code */
+ 151:User/CANbus.cpp ****         hcan->ErrorCode |= HAL_CAN_ERROR_PARAM;
+  69              		.loc 1 151 9 is_stmt 1 view .LVU14
+  70              		.loc 1 151 25 is_stmt 0 view .LVU15
+  71 0020 436A     		ldr	r3, [r0, #36]
+  72 0022 43F40013 		orr	r3, r3, #2097152
+  73 0026 4362     		str	r3, [r0, #36]
+ 152:User/CANbus.cpp **** 
+ 153:User/CANbus.cpp ****         return HAL_ERROR;
+  74              		.loc 1 153 9 is_stmt 1 view .LVU16
+  75              		.loc 1 153 16 is_stmt 0 view .LVU17
+  76 0028 0120     		movs	r0, #1
+ARM GAS  /tmp/ccn4J718.s 			page 5
+
+
+  77              	.LVL3:
+  78              		.loc 1 153 16 view .LVU18
+  79 002a 92E0     		b	.L5
+  80              	.LVL4:
+  81              	.L3:
+ 154:User/CANbus.cpp ****       }
+ 155:User/CANbus.cpp ****     }
+ 156:User/CANbus.cpp ****     else /* Rx element is assigned to Rx FIFO 1 */
+ 157:User/CANbus.cpp ****     {
+ 158:User/CANbus.cpp ****       /* Check that the Rx FIFO 1 is not empty */
+ 159:User/CANbus.cpp ****       if ((hcan->Instance->RF1R & CAN_RF1R_FMP1) == 0U)
+  82              		.loc 1 159 7 is_stmt 1 view .LVU19
+  83              		.loc 1 159 18 is_stmt 0 view .LVU20
+  84 002c 0368     		ldr	r3, [r0]
+  85              		.loc 1 159 28 view .LVU21
+  86 002e 1B69     		ldr	r3, [r3, #16]
+  87              		.loc 1 159 7 view .LVU22
+  88 0030 13F0030F 		tst	r3, #3
+  89 0034 05D1     		bne	.L4
+ 160:User/CANbus.cpp ****       {
+ 161:User/CANbus.cpp ****         /* Update error code */
+ 162:User/CANbus.cpp ****         hcan->ErrorCode |= HAL_CAN_ERROR_PARAM;
+  90              		.loc 1 162 9 is_stmt 1 view .LVU23
+  91              		.loc 1 162 25 is_stmt 0 view .LVU24
+  92 0036 436A     		ldr	r3, [r0, #36]
+  93 0038 43F40013 		orr	r3, r3, #2097152
+  94 003c 4362     		str	r3, [r0, #36]
+ 163:User/CANbus.cpp **** 
+ 164:User/CANbus.cpp ****         return HAL_ERROR;
+  95              		.loc 1 164 9 is_stmt 1 view .LVU25
+  96              		.loc 1 164 16 is_stmt 0 view .LVU26
+  97 003e 0120     		movs	r0, #1
+  98              	.LVL5:
+  99              		.loc 1 164 16 view .LVU27
+ 100 0040 87E0     		b	.L5
+ 101              	.LVL6:
+ 102              	.L4:
+ 165:User/CANbus.cpp ****       }
+ 166:User/CANbus.cpp ****     }
+ 167:User/CANbus.cpp **** 
+ 168:User/CANbus.cpp ****     /* Get the header */
+ 169:User/CANbus.cpp ****     pHeader->IDE = CAN_RI0R_IDE & hcan->Instance->sFIFOMailBox[RxFifo].RIR;
+ 103              		.loc 1 169 5 is_stmt 1 view .LVU28
+ 104              		.loc 1 169 41 is_stmt 0 view .LVU29
+ 105 0042 2168     		ldr	r1, [r4]
+ 106              	.LVL7:
+ 107              		.loc 1 169 72 view .LVU30
+ 108 0044 05F11B03 		add	r3, r5, #27
+ 109 0048 1B01     		lsls	r3, r3, #4
+ 110 004a CB58     		ldr	r3, [r1, r3]
+ 111              		.loc 1 169 33 view .LVU31
+ 112 004c 03F00403 		and	r3, r3, #4
+ 113              		.loc 1 169 18 view .LVU32
+ 114 0050 9360     		str	r3, [r2, #8]
+ 170:User/CANbus.cpp ****     if (pHeader->IDE == CAN_ID_STD)
+ 115              		.loc 1 170 5 is_stmt 1 view .LVU33
+ 116 0052 002B     		cmp	r3, #0
+ARM GAS  /tmp/ccn4J718.s 			page 6
+
+
+ 117 0054 6AD1     		bne	.L6
+ 171:User/CANbus.cpp ****     {
+ 172:User/CANbus.cpp ****       pHeader->StdId = (CAN_RI0R_STID & hcan->Instance->sFIFOMailBox[RxFifo].RIR) >> CAN_TI0R_STID_
+ 118              		.loc 1 172 7 view .LVU34
+ 119              		.loc 1 172 47 is_stmt 0 view .LVU35
+ 120 0056 2168     		ldr	r1, [r4]
+ 121              		.loc 1 172 78 view .LVU36
+ 122 0058 05F11B03 		add	r3, r5, #27
+ 123 005c 1B01     		lsls	r3, r3, #4
+ 124 005e CB58     		ldr	r3, [r1, r3]
+ 125              		.loc 1 172 83 view .LVU37
+ 126 0060 5B0D     		lsrs	r3, r3, #21
+ 127              		.loc 1 172 22 view .LVU38
+ 128 0062 1360     		str	r3, [r2]
+ 129              	.L7:
+ 173:User/CANbus.cpp ****     }
+ 174:User/CANbus.cpp ****     else
+ 175:User/CANbus.cpp ****     {
+ 176:User/CANbus.cpp ****       pHeader->ExtId = ((CAN_RI0R_EXID | CAN_RI0R_STID) & hcan->Instance->sFIFOMailBox[RxFifo].RIR)
+ 177:User/CANbus.cpp ****     }
+ 178:User/CANbus.cpp ****     pHeader->RTR = (CAN_RI0R_RTR & hcan->Instance->sFIFOMailBox[RxFifo].RIR);
+ 130              		.loc 1 178 5 is_stmt 1 view .LVU39
+ 131              		.loc 1 178 42 is_stmt 0 view .LVU40
+ 132 0064 2168     		ldr	r1, [r4]
+ 133              		.loc 1 178 73 view .LVU41
+ 134 0066 05F11B03 		add	r3, r5, #27
+ 135 006a 1B01     		lsls	r3, r3, #4
+ 136 006c C958     		ldr	r1, [r1, r3]
+ 137              		.loc 1 178 34 view .LVU42
+ 138 006e 01F00201 		and	r1, r1, #2
+ 139              		.loc 1 178 18 view .LVU43
+ 140 0072 D160     		str	r1, [r2, #12]
+ 179:User/CANbus.cpp ****     pHeader->DLC = (CAN_RDT0R_DLC & hcan->Instance->sFIFOMailBox[RxFifo].RDTR) >> CAN_RDT0R_DLC_Pos
+ 141              		.loc 1 179 5 is_stmt 1 view .LVU44
+ 142              		.loc 1 179 43 is_stmt 0 view .LVU45
+ 143 0074 2168     		ldr	r1, [r4]
+ 144              		.loc 1 179 74 view .LVU46
+ 145 0076 1944     		add	r1, r1, r3
+ 146 0078 4968     		ldr	r1, [r1, #4]
+ 147              		.loc 1 179 35 view .LVU47
+ 148 007a 01F00F01 		and	r1, r1, #15
+ 149              		.loc 1 179 18 view .LVU48
+ 150 007e 1161     		str	r1, [r2, #16]
+ 180:User/CANbus.cpp ****     pHeader->FilterMatchIndex = (CAN_RDT0R_FMI & hcan->Instance->sFIFOMailBox[RxFifo].RDTR) >> CAN_
+ 151              		.loc 1 180 5 is_stmt 1 view .LVU49
+ 152              		.loc 1 180 56 is_stmt 0 view .LVU50
+ 153 0080 2168     		ldr	r1, [r4]
+ 154              		.loc 1 180 87 view .LVU51
+ 155 0082 1944     		add	r1, r1, r3
+ 156 0084 4968     		ldr	r1, [r1, #4]
+ 157              		.loc 1 180 93 view .LVU52
+ 158 0086 C1F30721 		ubfx	r1, r1, #8, #8
+ 159              		.loc 1 180 31 view .LVU53
+ 160 008a 9161     		str	r1, [r2, #24]
+ 181:User/CANbus.cpp ****     pHeader->Timestamp = (CAN_RDT0R_TIME & hcan->Instance->sFIFOMailBox[RxFifo].RDTR) >> CAN_RDT0R_
+ 161              		.loc 1 181 5 is_stmt 1 view .LVU54
+ 162              		.loc 1 181 50 is_stmt 0 view .LVU55
+ARM GAS  /tmp/ccn4J718.s 			page 7
+
+
+ 163 008c 2168     		ldr	r1, [r4]
+ 164              		.loc 1 181 81 view .LVU56
+ 165 008e 0B44     		add	r3, r3, r1
+ 166 0090 5B68     		ldr	r3, [r3, #4]
+ 167              		.loc 1 181 87 view .LVU57
+ 168 0092 1B0C     		lsrs	r3, r3, #16
+ 169              		.loc 1 181 24 view .LVU58
+ 170 0094 5361     		str	r3, [r2, #20]
+ 182:User/CANbus.cpp **** 
+ 183:User/CANbus.cpp **** 
+ 184:User/CANbus.cpp **** 
+ 185:User/CANbus.cpp ****     /**********************  added  ******************************************/
+ 186:User/CANbus.cpp **** 	//int i = pHeader->StdId/4;
+ 187:User/CANbus.cpp ****     int j = pHeader->StdId%4;
+ 171              		.loc 1 187 5 is_stmt 1 view .LVU59
+ 172              		.loc 1 187 22 is_stmt 0 view .LVU60
+ 173 0096 1068     		ldr	r0, [r2]
+ 174              	.LVL8:
+ 175              		.loc 1 187 9 view .LVU61
+ 176 0098 00F00300 		and	r0, r0, #3
+ 177              	.LVL9:
+ 188:User/CANbus.cpp **** 
+ 189:User/CANbus.cpp ****     aData=(uint8_t *)(botNodeDataBuffer);
+ 178              		.loc 1 189 5 is_stmt 1 view .LVU62
+ 190:User/CANbus.cpp ****     /****************************************************************/
+ 191:User/CANbus.cpp **** 
+ 192:User/CANbus.cpp ****     /* Get the data */
+ 193:User/CANbus.cpp ****     aData[0] = (uint8_t)((CAN_RDL0R_DATA0 & hcan->Instance->sFIFOMailBox[RxFifo].RDLR) >> CAN_RDL0R
+ 179              		.loc 1 193 5 view .LVU63
+ 180              		.loc 1 193 51 is_stmt 0 view .LVU64
+ 181 009c 2368     		ldr	r3, [r4]
+ 182              		.loc 1 193 82 view .LVU65
+ 183 009e 03EB0513 		add	r3, r3, r5, lsl #4
+ 184 00a2 D3F8B821 		ldr	r2, [r3, #440]
+ 185              	.LVL10:
+ 186              		.loc 1 193 14 view .LVU66
+ 187 00a6 2B4B     		ldr	r3, .L11
+ 188 00a8 1A70     		strb	r2, [r3]
+ 194:User/CANbus.cpp ****     aData[1] = (uint8_t)((CAN_RDL0R_DATA1 & hcan->Instance->sFIFOMailBox[RxFifo].RDLR) >> CAN_RDL0R
+ 189              		.loc 1 194 5 is_stmt 1 view .LVU67
+ 190              		.loc 1 194 51 is_stmt 0 view .LVU68
+ 191 00aa 2268     		ldr	r2, [r4]
+ 192              		.loc 1 194 82 view .LVU69
+ 193 00ac 02EB0512 		add	r2, r2, r5, lsl #4
+ 194 00b0 D2F8B821 		ldr	r2, [r2, #440]
+ 195              		.loc 1 194 88 view .LVU70
+ 196 00b4 120A     		lsrs	r2, r2, #8
+ 197              		.loc 1 194 14 view .LVU71
+ 198 00b6 5A70     		strb	r2, [r3, #1]
+ 195:User/CANbus.cpp ****     aData[2] = (uint8_t)((CAN_RDL0R_DATA2 & hcan->Instance->sFIFOMailBox[RxFifo].RDLR) >> CAN_RDL0R
+ 199              		.loc 1 195 5 is_stmt 1 view .LVU72
+ 200              		.loc 1 195 51 is_stmt 0 view .LVU73
+ 201 00b8 2268     		ldr	r2, [r4]
+ 202              		.loc 1 195 82 view .LVU74
+ 203 00ba 02EB0512 		add	r2, r2, r5, lsl #4
+ 204 00be D2F8B821 		ldr	r2, [r2, #440]
+ 205              		.loc 1 195 88 view .LVU75
+ARM GAS  /tmp/ccn4J718.s 			page 8
+
+
+ 206 00c2 120C     		lsrs	r2, r2, #16
+ 207              		.loc 1 195 14 view .LVU76
+ 208 00c4 9A70     		strb	r2, [r3, #2]
+ 196:User/CANbus.cpp ****     aData[3] = (uint8_t)((CAN_RDL0R_DATA3 & hcan->Instance->sFIFOMailBox[RxFifo].RDLR) >> CAN_RDL0R
+ 209              		.loc 1 196 5 is_stmt 1 view .LVU77
+ 210              		.loc 1 196 51 is_stmt 0 view .LVU78
+ 211 00c6 2268     		ldr	r2, [r4]
+ 212              		.loc 1 196 82 view .LVU79
+ 213 00c8 02EB0512 		add	r2, r2, r5, lsl #4
+ 214 00cc D2F8B821 		ldr	r2, [r2, #440]
+ 215              		.loc 1 196 88 view .LVU80
+ 216 00d0 120E     		lsrs	r2, r2, #24
+ 217              		.loc 1 196 14 view .LVU81
+ 218 00d2 DA70     		strb	r2, [r3, #3]
+ 197:User/CANbus.cpp ****     aData[4] = (uint8_t)((CAN_RDH0R_DATA4 & hcan->Instance->sFIFOMailBox[RxFifo].RDHR) >> CAN_RDH0R
+ 219              		.loc 1 197 5 is_stmt 1 view .LVU82
+ 220              		.loc 1 197 51 is_stmt 0 view .LVU83
+ 221 00d4 2268     		ldr	r2, [r4]
+ 222              		.loc 1 197 82 view .LVU84
+ 223 00d6 02EB0512 		add	r2, r2, r5, lsl #4
+ 224 00da D2F8BC21 		ldr	r2, [r2, #444]
+ 225              		.loc 1 197 14 view .LVU85
+ 226 00de 1A71     		strb	r2, [r3, #4]
+ 198:User/CANbus.cpp ****     aData[5] = (uint8_t)((CAN_RDH0R_DATA5 & hcan->Instance->sFIFOMailBox[RxFifo].RDHR) >> CAN_RDH0R
+ 227              		.loc 1 198 5 is_stmt 1 view .LVU86
+ 228              		.loc 1 198 51 is_stmt 0 view .LVU87
+ 229 00e0 2268     		ldr	r2, [r4]
+ 230              		.loc 1 198 82 view .LVU88
+ 231 00e2 02EB0512 		add	r2, r2, r5, lsl #4
+ 232 00e6 D2F8BC21 		ldr	r2, [r2, #444]
+ 233              		.loc 1 198 88 view .LVU89
+ 234 00ea 120A     		lsrs	r2, r2, #8
+ 235              		.loc 1 198 14 view .LVU90
+ 236 00ec 5A71     		strb	r2, [r3, #5]
+ 199:User/CANbus.cpp ****     aData[6] = (uint8_t)((CAN_RDH0R_DATA6 & hcan->Instance->sFIFOMailBox[RxFifo].RDHR) >> CAN_RDH0R
+ 237              		.loc 1 199 5 is_stmt 1 view .LVU91
+ 238              		.loc 1 199 51 is_stmt 0 view .LVU92
+ 239 00ee 2268     		ldr	r2, [r4]
+ 240              		.loc 1 199 82 view .LVU93
+ 241 00f0 02EB0512 		add	r2, r2, r5, lsl #4
+ 242 00f4 D2F8BC21 		ldr	r2, [r2, #444]
+ 243              		.loc 1 199 88 view .LVU94
+ 244 00f8 120C     		lsrs	r2, r2, #16
+ 245              		.loc 1 199 14 view .LVU95
+ 246 00fa 9A71     		strb	r2, [r3, #6]
+ 200:User/CANbus.cpp ****     aData[7] = (uint8_t)((CAN_RDH0R_DATA7 & hcan->Instance->sFIFOMailBox[RxFifo].RDHR) >> CAN_RDH0R
+ 247              		.loc 1 200 5 is_stmt 1 view .LVU96
+ 248              		.loc 1 200 51 is_stmt 0 view .LVU97
+ 249 00fc 2268     		ldr	r2, [r4]
+ 250              		.loc 1 200 82 view .LVU98
+ 251 00fe 02EB0512 		add	r2, r2, r5, lsl #4
+ 252 0102 D2F8BC21 		ldr	r2, [r2, #444]
+ 253              		.loc 1 200 88 view .LVU99
+ 254 0106 120E     		lsrs	r2, r2, #24
+ 255              		.loc 1 200 14 view .LVU100
+ 256 0108 DA71     		strb	r2, [r3, #7]
+ 201:User/CANbus.cpp **** 
+ARM GAS  /tmp/ccn4J718.s 			page 9
+
+
+ 202:User/CANbus.cpp **** 
+ 203:User/CANbus.cpp ****     /**********************  Added Docode the compact sensor Data to complete sensor data**********
+ 204:User/CANbus.cpp **** 
+ 205:User/CANbus.cpp ****     decodeSensorData(&(botNodeDataBuffer[j]),&(botNodeData[j]));
+ 257              		.loc 1 205 5 is_stmt 1 view .LVU101
+ 258              		.loc 1 205 21 is_stmt 0 view .LVU102
+ 259 010a 00EB4001 		add	r1, r0, r0, lsl #1
+ 260 010e 124A     		ldr	r2, .L11+4
+ 261 0110 02EB8101 		add	r1, r2, r1, lsl #2
+ 262 0114 03EBC000 		add	r0, r3, r0, lsl #3
+ 263              	.LVL11:
+ 264              		.loc 1 205 21 view .LVU103
+ 265 0118 FFF7FEFF 		bl	decodeSensorData
+ 266              	.LVL12:
+ 206:User/CANbus.cpp ****     /*******************************************************************/
+ 207:User/CANbus.cpp **** 
+ 208:User/CANbus.cpp **** 
+ 209:User/CANbus.cpp ****     /********************** update the content of rosserial.pubdata*******************************/
+ 210:User/CANbus.cpp ****     // sensor_msg.data. =  rosserialNode.pubData
+ 211:User/CANbus.cpp **** 
+ 212:User/CANbus.cpp **** 
+ 213:User/CANbus.cpp **** 
+ 214:User/CANbus.cpp ****     /* Release the FIFO */
+ 215:User/CANbus.cpp ****     if (RxFifo == CAN_RX_FIFO0) /* Rx element is assigned to Rx FIFO 0 */
+ 267              		.loc 1 215 5 is_stmt 1 view .LVU104
+ 268 011c 75B9     		cbnz	r5, .L8
+ 216:User/CANbus.cpp ****     {
+ 217:User/CANbus.cpp ****       /* Release RX FIFO 0 */
+ 218:User/CANbus.cpp ****       SET_BIT(hcan->Instance->RF0R, CAN_RF0R_RFOM0);
+ 269              		.loc 1 218 7 view .LVU105
+ 270 011e 2268     		ldr	r2, [r4]
+ 271 0120 D368     		ldr	r3, [r2, #12]
+ 272 0122 43F02003 		orr	r3, r3, #32
+ 273 0126 D360     		str	r3, [r2, #12]
+ 274              	.L9:
+ 219:User/CANbus.cpp ****     }
+ 220:User/CANbus.cpp ****     else /* Rx element is assigned to Rx FIFO 1 */
+ 221:User/CANbus.cpp ****     {
+ 222:User/CANbus.cpp ****       /* Release RX FIFO 1 */
+ 223:User/CANbus.cpp ****       SET_BIT(hcan->Instance->RF1R, CAN_RF1R_RFOM1);
+ 224:User/CANbus.cpp ****     }
+ 225:User/CANbus.cpp **** 
+ 226:User/CANbus.cpp ****     /* Return function status */
+ 227:User/CANbus.cpp ****     //printf("sensor[%d]: %hu\r\n", pHeader->StdId, softArm.sensorData[i][j].pressure);
+ 228:User/CANbus.cpp **** 
+ 229:User/CANbus.cpp ****     return HAL_OK;
+ 275              		.loc 1 229 5 view .LVU106
+ 276              		.loc 1 229 12 is_stmt 0 view .LVU107
+ 277 0128 0020     		movs	r0, #0
+ 278 012a 12E0     		b	.L5
+ 279              	.LVL13:
+ 280              	.L6:
+ 176:User/CANbus.cpp ****     }
+ 281              		.loc 1 176 7 is_stmt 1 view .LVU108
+ 176:User/CANbus.cpp ****     }
+ 282              		.loc 1 176 65 is_stmt 0 view .LVU109
+ 283 012c 2168     		ldr	r1, [r4]
+ARM GAS  /tmp/ccn4J718.s 			page 10
+
+
+ 176:User/CANbus.cpp ****     }
+ 284              		.loc 1 176 96 view .LVU110
+ 285 012e 05F11B03 		add	r3, r5, #27
+ 286 0132 1B01     		lsls	r3, r3, #4
+ 287 0134 CB58     		ldr	r3, [r1, r3]
+ 176:User/CANbus.cpp ****     }
+ 288              		.loc 1 176 101 view .LVU111
+ 289 0136 DB08     		lsrs	r3, r3, #3
+ 176:User/CANbus.cpp ****     }
+ 290              		.loc 1 176 22 view .LVU112
+ 291 0138 5360     		str	r3, [r2, #4]
+ 292 013a 93E7     		b	.L7
+ 293              	.LVL14:
+ 294              	.L8:
+ 223:User/CANbus.cpp ****     }
+ 295              		.loc 1 223 7 is_stmt 1 view .LVU113
+ 296 013c 2268     		ldr	r2, [r4]
+ 297 013e 1369     		ldr	r3, [r2, #16]
+ 298 0140 43F02003 		orr	r3, r3, #32
+ 299 0144 1361     		str	r3, [r2, #16]
+ 300 0146 EFE7     		b	.L9
+ 301              	.LVL15:
+ 302              	.L2:
+ 223:User/CANbus.cpp ****     }
+ 303              		.loc 1 223 7 is_stmt 0 view .LVU114
+ 304              	.LBE3:
+ 230:User/CANbus.cpp ****   }
+ 231:User/CANbus.cpp ****   else
+ 232:User/CANbus.cpp ****   {
+ 233:User/CANbus.cpp ****     /* Update error code */
+ 234:User/CANbus.cpp ****     hcan->ErrorCode |= HAL_CAN_ERROR_NOT_INITIALIZED;
+ 305              		.loc 1 234 5 is_stmt 1 view .LVU115
+ 306              		.loc 1 234 21 is_stmt 0 view .LVU116
+ 307 0148 436A     		ldr	r3, [r0, #36]
+ 308 014a 43F48023 		orr	r3, r3, #262144
+ 309 014e 4362     		str	r3, [r0, #36]
+ 235:User/CANbus.cpp **** 
+ 236:User/CANbus.cpp ****     return HAL_ERROR;
+ 310              		.loc 1 236 5 is_stmt 1 view .LVU117
+ 311              		.loc 1 236 12 is_stmt 0 view .LVU118
+ 312 0150 0120     		movs	r0, #1
+ 313              	.LVL16:
+ 314              	.L5:
+ 315              		.loc 1 236 12 view .LVU119
+ 316              	.LBE2:
+ 237:User/CANbus.cpp ****   }
+ 238:User/CANbus.cpp **** }
+ 317              		.loc 1 238 1 view .LVU120
+ 318 0152 38BD     		pop	{r3, r4, r5, pc}
+ 319              	.LVL17:
+ 320              	.L12:
+ 321              		.loc 1 238 1 view .LVU121
+ 322              		.align	2
+ 323              	.L11:
+ 324 0154 00000000 		.word	.LANCHOR0
+ 325 0158 00000000 		.word	.LANCHOR1
+ 326              		.cfi_endproc
+ARM GAS  /tmp/ccn4J718.s 			page 11
+
+
+ 327              	.LFE440:
+ 328              		.fnend
+ 330              		.section	.text.canConfig,"ax",%progbits
+ 331              		.align	1
+ 332              		.global	canConfig
+ 333              		.syntax unified
+ 334              		.thumb
+ 335              		.thumb_func
+ 336              		.fpu softvfp
+ 338              	canConfig:
+ 339              		.fnstart
+ 340              	.LFB436:
+  27:User/CANbus.cpp **** 	canbus.CanHandle=hcan;
+ 341              		.loc 1 27 17 is_stmt 1 view -0
+ 342              		.cfi_startproc
+ 343              		@ args = 0, pretend = 0, frame = 40
+ 344              		@ frame_needed = 0, uses_anonymous_args = 0
+ 345 0000 30B5     		push	{r4, r5, lr}
+ 346              		.save {r4, r5, lr}
+ 347              	.LCFI1:
+ 348              		.cfi_def_cfa_offset 12
+ 349              		.cfi_offset 4, -12
+ 350              		.cfi_offset 5, -8
+ 351              		.cfi_offset 14, -4
+ 352              		.pad #44
+ 353 0002 8BB0     		sub	sp, sp, #44
+ 354              	.LCFI2:
+ 355              		.cfi_def_cfa_offset 56
+  28:User/CANbus.cpp **** 	CAN_FilterTypeDef  sFilterConfig;
+ 356              		.loc 1 28 2 view .LVU123
+  28:User/CANbus.cpp **** 	CAN_FilterTypeDef  sFilterConfig;
+ 357              		.loc 1 28 18 is_stmt 0 view .LVU124
+ 358 0004 234C     		ldr	r4, .L22
+ 359 0006 244D     		ldr	r5, .L22+4
+ 360 0008 0FCD     		ldmia	r5!, {r0, r1, r2, r3}
+ 361 000a 0FC4     		stmia	r4!, {r0, r1, r2, r3}
+ 362 000c 0FCD     		ldmia	r5!, {r0, r1, r2, r3}
+ 363 000e 0FC4     		stmia	r4!, {r0, r1, r2, r3}
+ 364 0010 95E80300 		ldm	r5, {r0, r1}
+ 365 0014 84E80300 		stm	r4, {r0, r1}
+  29:User/CANbus.cpp **** 	/*##-2- Configure the CAN Filter ###########################################*/
+ 366              		.loc 1 29 2 is_stmt 1 view .LVU125
+  32:User/CANbus.cpp **** 		sFilterConfig.FilterBank = i;
+ 367              		.loc 1 32 2 view .LVU126
+ 368              	.LVL18:
+ 369              	.LBB4:
+  32:User/CANbus.cpp **** 		sFilterConfig.FilterBank = i;
+ 370              		.loc 1 32 10 is_stmt 0 view .LVU127
+ 371 0018 0024     		movs	r4, #0
+ 372 001a 00E0     		b	.L16
+ 373              	.LVL19:
+ 374              	.L15:
+  32:User/CANbus.cpp **** 		sFilterConfig.FilterBank = i;
+ 375              		.loc 1 32 2 is_stmt 1 discriminator 2 view .LVU128
+ 376 001c 0134     		adds	r4, r4, #1
+ 377              	.LVL20:
+ 378              	.L16:
+ARM GAS  /tmp/ccn4J718.s 			page 12
+
+
+  32:User/CANbus.cpp **** 		sFilterConfig.FilterBank = i;
+ 379              		.loc 1 32 15 discriminator 1 view .LVU129
+ 380 001e 0D2C     		cmp	r4, #13
+ 381 0020 26DC     		bgt	.L14
+  33:User/CANbus.cpp **** 		sFilterConfig.FilterMode = CAN_FILTERMODE_IDLIST;
+ 382              		.loc 1 33 3 view .LVU130
+  33:User/CANbus.cpp **** 		sFilterConfig.FilterMode = CAN_FILTERMODE_IDLIST;
+ 383              		.loc 1 33 28 is_stmt 0 view .LVU131
+ 384 0022 0594     		str	r4, [sp, #20]
+  34:User/CANbus.cpp **** 		sFilterConfig.FilterScale = CAN_FILTERSCALE_16BIT;
+ 385              		.loc 1 34 3 is_stmt 1 view .LVU132
+  34:User/CANbus.cpp **** 		sFilterConfig.FilterScale = CAN_FILTERSCALE_16BIT;
+ 386              		.loc 1 34 28 is_stmt 0 view .LVU133
+ 387 0024 0121     		movs	r1, #1
+ 388 0026 0691     		str	r1, [sp, #24]
+  35:User/CANbus.cpp **** 		sFilterConfig.FilterIdHigh = (uint16_t)((uint16_t)(4*i))<<5;
+ 389              		.loc 1 35 3 is_stmt 1 view .LVU134
+  35:User/CANbus.cpp **** 		sFilterConfig.FilterIdHigh = (uint16_t)((uint16_t)(4*i))<<5;
+ 390              		.loc 1 35 29 is_stmt 0 view .LVU135
+ 391 0028 0023     		movs	r3, #0
+ 392 002a 0793     		str	r3, [sp, #28]
+  36:User/CANbus.cpp **** 		sFilterConfig.FilterIdLow = (uint16_t)((uint16_t)(4*i+1))<<5;
+ 393              		.loc 1 36 3 is_stmt 1 view .LVU136
+  36:User/CANbus.cpp **** 		sFilterConfig.FilterIdLow = (uint16_t)((uint16_t)(4*i+1))<<5;
+ 394              		.loc 1 36 32 is_stmt 0 view .LVU137
+ 395 002c A300     		lsls	r3, r4, #2
+ 396 002e 9BB2     		uxth	r3, r3
+  36:User/CANbus.cpp **** 		sFilterConfig.FilterIdLow = (uint16_t)((uint16_t)(4*i+1))<<5;
+ 397              		.loc 1 36 59 view .LVU138
+ 398 0030 5A01     		lsls	r2, r3, #5
+  36:User/CANbus.cpp **** 		sFilterConfig.FilterIdLow = (uint16_t)((uint16_t)(4*i+1))<<5;
+ 399              		.loc 1 36 30 view .LVU139
+ 400 0032 0092     		str	r2, [sp]
+  37:User/CANbus.cpp **** 		sFilterConfig.FilterMaskIdHigh = (uint16_t)((uint16_t)(4*i+2))<<5;
+ 401              		.loc 1 37 3 is_stmt 1 view .LVU140
+  37:User/CANbus.cpp **** 		sFilterConfig.FilterMaskIdHigh = (uint16_t)((uint16_t)(4*i+2))<<5;
+ 402              		.loc 1 37 56 is_stmt 0 view .LVU141
+ 403 0034 5A18     		adds	r2, r3, r1
+ 404 0036 92B2     		uxth	r2, r2
+  37:User/CANbus.cpp **** 		sFilterConfig.FilterMaskIdHigh = (uint16_t)((uint16_t)(4*i+2))<<5;
+ 405              		.loc 1 37 60 view .LVU142
+ 406 0038 5201     		lsls	r2, r2, #5
+  37:User/CANbus.cpp **** 		sFilterConfig.FilterMaskIdHigh = (uint16_t)((uint16_t)(4*i+2))<<5;
+ 407              		.loc 1 37 29 view .LVU143
+ 408 003a 0192     		str	r2, [sp, #4]
+  38:User/CANbus.cpp **** 		sFilterConfig.FilterMaskIdLow = (uint16_t)((uint16_t)(4*i+3))<<5;
+ 409              		.loc 1 38 3 is_stmt 1 view .LVU144
+  38:User/CANbus.cpp **** 		sFilterConfig.FilterMaskIdLow = (uint16_t)((uint16_t)(4*i+3))<<5;
+ 410              		.loc 1 38 61 is_stmt 0 view .LVU145
+ 411 003c 9A1C     		adds	r2, r3, #2
+ 412 003e 92B2     		uxth	r2, r2
+  38:User/CANbus.cpp **** 		sFilterConfig.FilterMaskIdLow = (uint16_t)((uint16_t)(4*i+3))<<5;
+ 413              		.loc 1 38 65 view .LVU146
+ 414 0040 5201     		lsls	r2, r2, #5
+  38:User/CANbus.cpp **** 		sFilterConfig.FilterMaskIdLow = (uint16_t)((uint16_t)(4*i+3))<<5;
+ 415              		.loc 1 38 34 view .LVU147
+ 416 0042 0292     		str	r2, [sp, #8]
+ARM GAS  /tmp/ccn4J718.s 			page 13
+
+
+  39:User/CANbus.cpp **** 		sFilterConfig.FilterFIFOAssignment = i%2;//CAN_RX_FIFO0=0; CAN_RX_FIFO1=1
+ 417              		.loc 1 39 3 is_stmt 1 view .LVU148
+  39:User/CANbus.cpp **** 		sFilterConfig.FilterFIFOAssignment = i%2;//CAN_RX_FIFO0=0; CAN_RX_FIFO1=1
+ 418              		.loc 1 39 60 is_stmt 0 view .LVU149
+ 419 0044 0333     		adds	r3, r3, #3
+ 420 0046 9BB2     		uxth	r3, r3
+  39:User/CANbus.cpp **** 		sFilterConfig.FilterFIFOAssignment = i%2;//CAN_RX_FIFO0=0; CAN_RX_FIFO1=1
+ 421              		.loc 1 39 64 view .LVU150
+ 422 0048 5B01     		lsls	r3, r3, #5
+  39:User/CANbus.cpp **** 		sFilterConfig.FilterFIFOAssignment = i%2;//CAN_RX_FIFO0=0; CAN_RX_FIFO1=1
+ 423              		.loc 1 39 33 view .LVU151
+ 424 004a 0393     		str	r3, [sp, #12]
+  40:User/CANbus.cpp **** 		sFilterConfig.FilterActivation = ENABLE;
+ 425              		.loc 1 40 3 is_stmt 1 view .LVU152
+  40:User/CANbus.cpp **** 		sFilterConfig.FilterActivation = ENABLE;
+ 426              		.loc 1 40 41 is_stmt 0 view .LVU153
+ 427 004c 002C     		cmp	r4, #0
+ 428 004e 04EA0103 		and	r3, r4, r1
+ 429 0052 B8BF     		it	lt
+ 430 0054 5B42     		rsblt	r3, r3, #0
+  40:User/CANbus.cpp **** 		sFilterConfig.FilterActivation = ENABLE;
+ 431              		.loc 1 40 38 view .LVU154
+ 432 0056 0493     		str	r3, [sp, #16]
+  41:User/CANbus.cpp **** 		sFilterConfig.SlaveStartFilterBank = 14;
+ 433              		.loc 1 41 3 is_stmt 1 view .LVU155
+  41:User/CANbus.cpp **** 		sFilterConfig.SlaveStartFilterBank = 14;
+ 434              		.loc 1 41 34 is_stmt 0 view .LVU156
+ 435 0058 0891     		str	r1, [sp, #32]
+  42:User/CANbus.cpp **** 
+ 436              		.loc 1 42 3 is_stmt 1 view .LVU157
+  42:User/CANbus.cpp **** 
+ 437              		.loc 1 42 38 is_stmt 0 view .LVU158
+ 438 005a 0E23     		movs	r3, #14
+ 439 005c 0993     		str	r3, [sp, #36]
+  55:User/CANbus.cpp **** 		{
+ 440              		.loc 1 55 3 is_stmt 1 view .LVU159
+  55:User/CANbus.cpp **** 		{
+ 441              		.loc 1 55 27 is_stmt 0 view .LVU160
+ 442 005e 6946     		mov	r1, sp
+ 443 0060 0C48     		ldr	r0, .L22
+ 444 0062 FFF7FEFF 		bl	HAL_CAN_ConfigFilter
+ 445              	.LVL21:
+  55:User/CANbus.cpp **** 		{
+ 446              		.loc 1 55 3 view .LVU161
+ 447 0066 0028     		cmp	r0, #0
+ 448 0068 D8D0     		beq	.L15
+  58:User/CANbus.cpp **** 		}
+ 449              		.loc 1 58 4 is_stmt 1 view .LVU162
+  58:User/CANbus.cpp **** 		}
+ 450              		.loc 1 58 17 is_stmt 0 view .LVU163
+ 451 006a FFF7FEFF 		bl	Error_Handler
+ 452              	.LVL22:
+ 453 006e D5E7     		b	.L15
+ 454              	.L14:
+ 455              	.LBE4:
+  64:User/CANbus.cpp **** 	{
+ 456              		.loc 1 64 2 is_stmt 1 view .LVU164
+ARM GAS  /tmp/ccn4J718.s 			page 14
+
+
+  64:User/CANbus.cpp **** 	{
+ 457              		.loc 1 64 19 is_stmt 0 view .LVU165
+ 458 0070 0848     		ldr	r0, .L22
+ 459 0072 FFF7FEFF 		bl	HAL_CAN_Start
+ 460              	.LVL23:
+  64:User/CANbus.cpp **** 	{
+ 461              		.loc 1 64 2 view .LVU166
+ 462 0076 30B9     		cbnz	r0, .L20
+ 463              	.L17:
+  71:User/CANbus.cpp **** 	{
+ 464              		.loc 1 71 2 is_stmt 1 view .LVU167
+  71:User/CANbus.cpp **** 	{
+ 465              		.loc 1 71 34 is_stmt 0 view .LVU168
+ 466 0078 1221     		movs	r1, #18
+ 467 007a 0648     		ldr	r0, .L22
+ 468 007c FFF7FEFF 		bl	HAL_CAN_ActivateNotification
+ 469              	.LVL24:
+  71:User/CANbus.cpp **** 	{
+ 470              		.loc 1 71 2 view .LVU169
+ 471 0080 20B9     		cbnz	r0, .L21
+ 472              	.L13:
+  78:User/CANbus.cpp **** /*No need to use this right now, left for sending commands to nodes in the future*/
+ 473              		.loc 1 78 1 view .LVU170
+ 474 0082 0BB0     		add	sp, sp, #44
+ 475              	.LCFI3:
+ 476              		.cfi_remember_state
+ 477              		.cfi_def_cfa_offset 12
+ 478              		@ sp needed
+ 479 0084 30BD     		pop	{r4, r5, pc}
+ 480              	.LVL25:
+ 481              	.L20:
+ 482              	.LCFI4:
+ 483              		.cfi_restore_state
+  67:User/CANbus.cpp **** 	}
+ 484              		.loc 1 67 3 is_stmt 1 view .LVU171
+  67:User/CANbus.cpp **** 	}
+ 485              		.loc 1 67 16 is_stmt 0 view .LVU172
+ 486 0086 FFF7FEFF 		bl	Error_Handler
+ 487              	.LVL26:
+ 488 008a F5E7     		b	.L17
+ 489              	.L21:
+  74:User/CANbus.cpp **** 	}
+ 490              		.loc 1 74 3 is_stmt 1 view .LVU173
+  74:User/CANbus.cpp **** 	}
+ 491              		.loc 1 74 16 is_stmt 0 view .LVU174
+ 492 008c FFF7FEFF 		bl	Error_Handler
+ 493              	.LVL27:
+  78:User/CANbus.cpp **** /*No need to use this right now, left for sending commands to nodes in the future*/
+ 494              		.loc 1 78 1 view .LVU175
+ 495 0090 F7E7     		b	.L13
+ 496              	.L23:
+ 497 0092 00BF     		.align	2
+ 498              	.L22:
+ 499 0094 00000000 		.word	.LANCHOR2
+ 500 0098 00000000 		.word	hcan
+ 501              		.cfi_endproc
+ 502              	.LFE436:
+ARM GAS  /tmp/ccn4J718.s 			page 15
+
+
+ 503              		.fnend
+ 505              		.section	.text.canSend,"ax",%progbits
+ 506              		.align	1
+ 507              		.global	canSend
+ 508              		.syntax unified
+ 509              		.thumb
+ 510              		.thumb_func
+ 511              		.fpu softvfp
+ 513              	canSend:
+ 514              		.fnstart
+ 515              	.LFB437:
+  81:User/CANbus.cpp **** 	/*##-Configure Transmission Packet #####################################*/
+ 516              		.loc 1 81 1 is_stmt 1 view -0
+ 517              		.cfi_startproc
+ 518              		@ args = 0, pretend = 0, frame = 0
+ 519              		@ frame_needed = 0, uses_anonymous_args = 0
+ 520 0000 08B5     		push	{r3, lr}
+ 521              		.save {r3, lr}
+ 522              	.LCFI5:
+ 523              		.cfi_def_cfa_offset 8
+ 524              		.cfi_offset 3, -8
+ 525              		.cfi_offset 14, -4
+  83:User/CANbus.cpp **** 	canbus.TxHeader.ExtId = 0x01;
+ 526              		.loc 1 83 2 view .LVU177
+  83:User/CANbus.cpp **** 	canbus.TxHeader.ExtId = 0x01;
+ 527              		.loc 1 83 24 is_stmt 0 view .LVU178
+ 528 0002 0B48     		ldr	r0, .L28
+ 529 0004 4FF48063 		mov	r3, #1024
+ 530 0008 8362     		str	r3, [r0, #40]
+  84:User/CANbus.cpp **** 	canbus.TxHeader.RTR = CAN_RTR_DATA;
+ 531              		.loc 1 84 2 is_stmt 1 view .LVU179
+  84:User/CANbus.cpp **** 	canbus.TxHeader.RTR = CAN_RTR_DATA;
+ 532              		.loc 1 84 24 is_stmt 0 view .LVU180
+ 533 000a 0123     		movs	r3, #1
+ 534 000c C362     		str	r3, [r0, #44]
+  85:User/CANbus.cpp **** 	canbus.TxHeader.IDE = CAN_ID_STD;
+ 535              		.loc 1 85 2 is_stmt 1 view .LVU181
+  85:User/CANbus.cpp **** 	canbus.TxHeader.IDE = CAN_ID_STD;
+ 536              		.loc 1 85 22 is_stmt 0 view .LVU182
+ 537 000e 0023     		movs	r3, #0
+ 538 0010 4363     		str	r3, [r0, #52]
+  86:User/CANbus.cpp **** 	canbus.TxHeader.TransmitGlobalTime = DISABLE;
+ 539              		.loc 1 86 2 is_stmt 1 view .LVU183
+  86:User/CANbus.cpp **** 	canbus.TxHeader.TransmitGlobalTime = DISABLE;
+ 540              		.loc 1 86 22 is_stmt 0 view .LVU184
+ 541 0012 0363     		str	r3, [r0, #48]
+  87:User/CANbus.cpp **** 
+ 542              		.loc 1 87 2 is_stmt 1 view .LVU185
+  87:User/CANbus.cpp **** 
+ 543              		.loc 1 87 37 is_stmt 0 view .LVU186
+ 544 0014 80F83C30 		strb	r3, [r0, #60]
+  93:User/CANbus.cpp **** 	{
+ 545              		.loc 1 93 2 is_stmt 1 view .LVU187
+  93:User/CANbus.cpp **** 	{
+ 546              		.loc 1 93 26 is_stmt 0 view .LVU188
+ 547 0018 00F16403 		add	r3, r0, #100
+ 548 001c C26D     		ldr	r2, [r0, #92]
+ARM GAS  /tmp/ccn4J718.s 			page 16
+
+
+ 549 001e 00F12801 		add	r1, r0, #40
+ 550 0022 FFF7FEFF 		bl	HAL_CAN_AddTxMessage
+ 551              	.LVL28:
+  93:User/CANbus.cpp **** 	{
+ 552              		.loc 1 93 2 view .LVU189
+ 553 0026 00B9     		cbnz	r0, .L27
+ 554              	.L24:
+ 100:User/CANbus.cpp **** 
+ 555              		.loc 1 100 1 view .LVU190
+ 556 0028 08BD     		pop	{r3, pc}
+ 557              	.L27:
+  96:User/CANbus.cpp **** 	}
+ 558              		.loc 1 96 4 is_stmt 1 view .LVU191
+  96:User/CANbus.cpp **** 	}
+ 559              		.loc 1 96 17 is_stmt 0 view .LVU192
+ 560 002a FFF7FEFF 		bl	Error_Handler
+ 561              	.LVL29:
+ 100:User/CANbus.cpp **** 
+ 562              		.loc 1 100 1 view .LVU193
+ 563 002e FBE7     		b	.L24
+ 564              	.L29:
+ 565              		.align	2
+ 566              	.L28:
+ 567 0030 00000000 		.word	.LANCHOR2
+ 568              		.cfi_endproc
+ 569              	.LFE437:
+ 570              		.fnend
+ 572              		.section	.text.HAL_CAN_RxFifo0MsgPendingCallback,"ax",%progbits
+ 573              		.align	1
+ 574              		.global	HAL_CAN_RxFifo0MsgPendingCallback
+ 575              		.syntax unified
+ 576              		.thumb
+ 577              		.thumb_func
+ 578              		.fpu softvfp
+ 580              	HAL_CAN_RxFifo0MsgPendingCallback:
+ 581              		.fnstart
+ 582              	.LVL30:
+ 583              	.LFB438:
+ 106:User/CANbus.cpp ****   /* Get RX message */
+ 584              		.loc 1 106 1 is_stmt 1 view -0
+ 585              		.cfi_startproc
+ 586              		@ args = 0, pretend = 0, frame = 0
+ 587              		@ frame_needed = 0, uses_anonymous_args = 0
+ 106:User/CANbus.cpp ****   /* Get RX message */
+ 588              		.loc 1 106 1 is_stmt 0 view .LVU195
+ 589 0000 08B5     		push	{r3, lr}
+ 590              		.save {r3, lr}
+ 591              	.LCFI6:
+ 592              		.cfi_def_cfa_offset 8
+ 593              		.cfi_offset 3, -8
+ 594              		.cfi_offset 14, -4
+ 109:User/CANbus.cpp ****   {
+ 595              		.loc 1 109 3 is_stmt 1 view .LVU196
+ 109:User/CANbus.cpp ****   {
+ 596              		.loc 1 109 30 is_stmt 0 view .LVU197
+ 597 0002 0648     		ldr	r0, .L34
+ 598              	.LVL31:
+ARM GAS  /tmp/ccn4J718.s 			page 17
+
+
+ 109:User/CANbus.cpp ****   {
+ 599              		.loc 1 109 30 view .LVU198
+ 600 0004 036E     		ldr	r3, [r0, #96]
+ 601 0006 00F14002 		add	r2, r0, #64
+ 602 000a 0021     		movs	r1, #0
+ 603 000c FFF7FEFF 		bl	_ZL23my_HAL_CAN_GetRxMessageP19__CAN_HandleTypeDefmP19CAN_RxHeaderTypeDefPh
+ 604              	.LVL32:
+ 109:User/CANbus.cpp ****   {
+ 605              		.loc 1 109 3 view .LVU199
+ 606 0010 00B9     		cbnz	r0, .L33
+ 607              	.L30:
+ 117:User/CANbus.cpp **** 
+ 608              		.loc 1 117 1 view .LVU200
+ 609 0012 08BD     		pop	{r3, pc}
+ 610              	.L33:
+ 112:User/CANbus.cpp ****   }
+ 611              		.loc 1 112 5 is_stmt 1 view .LVU201
+ 112:User/CANbus.cpp ****   }
+ 612              		.loc 1 112 18 is_stmt 0 view .LVU202
+ 613 0014 FFF7FEFF 		bl	Error_Handler
+ 614              	.LVL33:
+ 117:User/CANbus.cpp **** 
+ 615              		.loc 1 117 1 view .LVU203
+ 616 0018 FBE7     		b	.L30
+ 617              	.L35:
+ 618 001a 00BF     		.align	2
+ 619              	.L34:
+ 620 001c 00000000 		.word	.LANCHOR2
+ 621              		.cfi_endproc
+ 622              	.LFE438:
+ 623              		.fnend
+ 625              		.section	.text.HAL_CAN_RxFifo1MsgPendingCallback,"ax",%progbits
+ 626              		.align	1
+ 627              		.global	HAL_CAN_RxFifo1MsgPendingCallback
+ 628              		.syntax unified
+ 629              		.thumb
+ 630              		.thumb_func
+ 631              		.fpu softvfp
+ 633              	HAL_CAN_RxFifo1MsgPendingCallback:
+ 634              		.fnstart
+ 635              	.LVL34:
+ 636              	.LFB439:
+ 121:User/CANbus.cpp ****   /* Get RX message */
+ 637              		.loc 1 121 1 is_stmt 1 view -0
+ 638              		.cfi_startproc
+ 639              		@ args = 0, pretend = 0, frame = 0
+ 640              		@ frame_needed = 0, uses_anonymous_args = 0
+ 121:User/CANbus.cpp ****   /* Get RX message */
+ 641              		.loc 1 121 1 is_stmt 0 view .LVU205
+ 642 0000 08B5     		push	{r3, lr}
+ 643              		.save {r3, lr}
+ 644              	.LCFI7:
+ 645              		.cfi_def_cfa_offset 8
+ 646              		.cfi_offset 3, -8
+ 647              		.cfi_offset 14, -4
+ 125:User/CANbus.cpp ****   {
+ 648              		.loc 1 125 3 is_stmt 1 view .LVU206
+ARM GAS  /tmp/ccn4J718.s 			page 18
+
+
+ 125:User/CANbus.cpp ****   {
+ 649              		.loc 1 125 30 is_stmt 0 view .LVU207
+ 650 0002 0648     		ldr	r0, .L40
+ 651              	.LVL35:
+ 125:User/CANbus.cpp ****   {
+ 652              		.loc 1 125 30 view .LVU208
+ 653 0004 036E     		ldr	r3, [r0, #96]
+ 654 0006 00F14002 		add	r2, r0, #64
+ 655 000a 0121     		movs	r1, #1
+ 656 000c FFF7FEFF 		bl	_ZL23my_HAL_CAN_GetRxMessageP19__CAN_HandleTypeDefmP19CAN_RxHeaderTypeDefPh
+ 657              	.LVL36:
+ 125:User/CANbus.cpp ****   {
+ 658              		.loc 1 125 3 view .LVU209
+ 659 0010 00B9     		cbnz	r0, .L39
+ 660              	.L36:
+ 133:User/CANbus.cpp **** 
+ 661              		.loc 1 133 1 view .LVU210
+ 662 0012 08BD     		pop	{r3, pc}
+ 663              	.L39:
+ 128:User/CANbus.cpp ****   }
+ 664              		.loc 1 128 5 is_stmt 1 view .LVU211
+ 128:User/CANbus.cpp ****   }
+ 665              		.loc 1 128 18 is_stmt 0 view .LVU212
+ 666 0014 FFF7FEFF 		bl	Error_Handler
+ 667              	.LVL37:
+ 133:User/CANbus.cpp **** 
+ 668              		.loc 1 133 1 view .LVU213
+ 669 0018 FBE7     		b	.L36
+ 670              	.L41:
+ 671 001a 00BF     		.align	2
+ 672              	.L40:
+ 673 001c 00000000 		.word	.LANCHOR2
+ 674              		.cfi_endproc
+ 675              	.LFE439:
+ 676              		.fnend
+ 678              		.global	canbus
+ 679              		.section	.bss._ZL11botNodeData,"aw",%nobits
+ 680              		.align	2
+ 681              		.set	.LANCHOR1,. + 0
+ 684              	_ZL11botNodeData:
+ 685 0000 00000000 		.space	48
+ 685      00000000 
+ 685      00000000 
+ 685      00000000 
+ 685      00000000 
+ 686              		.section	.bss._ZL17botNodeDataBuffer,"aw",%nobits
+ 687              		.align	2
+ 688              		.set	.LANCHOR0,. + 0
+ 691              	_ZL17botNodeDataBuffer:
+ 692 0000 00000000 		.space	32
+ 692      00000000 
+ 692      00000000 
+ 692      00000000 
+ 692      00000000 
+ 693              		.section	.bss.canbus,"aw",%nobits
+ 694              		.align	2
+ 695              		.set	.LANCHOR2,. + 0
+ARM GAS  /tmp/ccn4J718.s 			page 19
+
+
+ 698              	canbus:
+ 699 0000 00000000 		.space	104
+ 699      00000000 
+ 699      00000000 
+ 699      00000000 
+ 699      00000000 
+ 700              		.text
+ 701              	.Letext0:
+ 702              		.file 2 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-n
+ 703              		.file 3 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-n
+ 704              		.file 4 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h"
+ 705              		.file 5 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h"
+ 706              		.file 6 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-n
+ 707              		.file 7 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
+ 708              		.file 8 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_can.h"
+ 709              		.file 9 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
+ 710              		.file 10 "User/Inc/CANbus.h"
+ 711              		.file 11 "User/Inc/messages.h"
+ 712              		.file 12 "Core/Inc/can.h"
+ 713              		.file 13 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-
+ 714              		.file 14 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-
+ 715              		.file 15 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-
+ 716              		.file 16 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-
+ 717              		.file 17 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-
+ 718              		.file 18 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-
+ 719              		.file 19 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-
+ 720              		.file 20 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-
+ 721              		.file 21 "User/Inc/rosserialInc/ros/msg.h"
+ 722              		.file 22 "User/Inc/rosserialInc/ros/node_handle.h"
+ 723              		.file 23 "User/Inc/rosserialInc/rosserial_msgs/TopicInfo.h"
+ 724              		.file 24 "User/Inc/rosserialInc/rosserial_msgs/RequestParam.h"
+ 725              		.file 25 "User/Inc/rosserialInc/hydrosoft_ros/Command_Arm.h"
+ 726              		.file 26 "User/Inc/rosserialInc/std_msgs/Time.h"
+ 727              		.file 27 "Core/Inc/main.h"
+ 728              		.file 28 "<built-in>"
+ARM GAS  /tmp/ccn4J718.s 			page 20
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 CANbus.cpp
+     /tmp/ccn4J718.s:16     .text._ZL23my_HAL_CAN_GetRxMessageP19__CAN_HandleTypeDefmP19CAN_RxHeaderTypeDefPh:0000000000000000 $t
+     /tmp/ccn4J718.s:23     .text._ZL23my_HAL_CAN_GetRxMessageP19__CAN_HandleTypeDefmP19CAN_RxHeaderTypeDefPh:0000000000000000 _ZL23my_HAL_CAN_GetRxMessageP19__CAN_HandleTypeDefmP19CAN_RxHeaderTypeDefPh
+     /tmp/ccn4J718.s:324    .text._ZL23my_HAL_CAN_GetRxMessageP19__CAN_HandleTypeDefmP19CAN_RxHeaderTypeDefPh:0000000000000154 $d
+.ARM.exidx.text._ZL23my_HAL_CAN_GetRxMessageP19__CAN_HandleTypeDefmP19CAN_RxHeaderTypeDefPh:0000000000000000 $d
+     /tmp/ccn4J718.s:331    .text.canConfig:0000000000000000 $t
+     /tmp/ccn4J718.s:338    .text.canConfig:0000000000000000 canConfig
+     /tmp/ccn4J718.s:499    .text.canConfig:0000000000000094 $d
+        .ARM.exidx.text.canConfig:0000000000000000 $d
+     /tmp/ccn4J718.s:506    .text.canSend:0000000000000000 $t
+     /tmp/ccn4J718.s:513    .text.canSend:0000000000000000 canSend
+     /tmp/ccn4J718.s:567    .text.canSend:0000000000000030 $d
+          .ARM.extab.text.canSend:0000000000000000 $d
+          .ARM.exidx.text.canSend:0000000000000000 $d
+     /tmp/ccn4J718.s:573    .text.HAL_CAN_RxFifo0MsgPendingCallback:0000000000000000 $t
+     /tmp/ccn4J718.s:580    .text.HAL_CAN_RxFifo0MsgPendingCallback:0000000000000000 HAL_CAN_RxFifo0MsgPendingCallback
+     /tmp/ccn4J718.s:620    .text.HAL_CAN_RxFifo0MsgPendingCallback:000000000000001c $d
+.ARM.extab.text.HAL_CAN_RxFifo0MsgPendingCallback:0000000000000000 $d
+.ARM.exidx.text.HAL_CAN_RxFifo0MsgPendingCallback:0000000000000000 $d
+     /tmp/ccn4J718.s:626    .text.HAL_CAN_RxFifo1MsgPendingCallback:0000000000000000 $t
+     /tmp/ccn4J718.s:633    .text.HAL_CAN_RxFifo1MsgPendingCallback:0000000000000000 HAL_CAN_RxFifo1MsgPendingCallback
+     /tmp/ccn4J718.s:673    .text.HAL_CAN_RxFifo1MsgPendingCallback:000000000000001c $d
+.ARM.extab.text.HAL_CAN_RxFifo1MsgPendingCallback:0000000000000000 $d
+.ARM.exidx.text.HAL_CAN_RxFifo1MsgPendingCallback:0000000000000000 $d
+     /tmp/ccn4J718.s:698    .bss.canbus:0000000000000000 canbus
+     /tmp/ccn4J718.s:680    .bss._ZL11botNodeData:0000000000000000 $d
+     /tmp/ccn4J718.s:684    .bss._ZL11botNodeData:0000000000000000 _ZL11botNodeData
+     /tmp/ccn4J718.s:687    .bss._ZL17botNodeDataBuffer:0000000000000000 $d
+     /tmp/ccn4J718.s:691    .bss._ZL17botNodeDataBuffer:0000000000000000 _ZL17botNodeDataBuffer
+     /tmp/ccn4J718.s:694    .bss.canbus:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+decodeSensorData
+__aeabi_unwind_cpp_pr0
+HAL_CAN_ConfigFilter
+Error_Handler
+HAL_CAN_Start
+HAL_CAN_ActivateNotification
+hcan
+HAL_CAN_AddTxMessage
+__aeabi_unwind_cpp_pr1
