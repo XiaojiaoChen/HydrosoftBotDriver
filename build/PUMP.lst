@@ -1,4 +1,4 @@
-ARM GAS  /tmp/ccgauwxM.s 			page 1
+ARM GAS  /tmp/cc4HsajT.s 			page 1
 
 
    1              		.cpu cortex-m3
@@ -58,7 +58,7 @@ ARM GAS  /tmp/ccgauwxM.s 			page 1
   23:User/PUMP.cpp **** 	DigitalPort = num;
   34              		.loc 1 23 2 view .LVU1
   35              		.loc 1 23 14 is_stmt 0 view .LVU2
-ARM GAS  /tmp/ccgauwxM.s 			page 2
+ARM GAS  /tmp/cc4HsajT.s 			page 2
 
 
   36 0000 0170     		strb	r1, [r0]
@@ -118,7 +118,7 @@ ARM GAS  /tmp/ccgauwxM.s 			page 1
   82              		.cfi_endproc
   83              	.LFE66:
   84              		.cantunwind
-ARM GAS  /tmp/ccgauwxM.s 			page 3
+ARM GAS  /tmp/cc4HsajT.s 			page 3
 
 
   85              		.fnend
@@ -178,7 +178,7 @@ ARM GAS  /tmp/ccgauwxM.s 			page 1
  134              		.global	_ZN4PUMP4stopEv
  135              		.syntax unified
  136              		.thumb
-ARM GAS  /tmp/ccgauwxM.s 			page 4
+ARM GAS  /tmp/cc4HsajT.s 			page 4
 
 
  137              		.thumb_func
@@ -230,23 +230,23 @@ ARM GAS  /tmp/ccgauwxM.s 			page 1
  178              		.file 3 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-n
  179              		.file 4 "User/Inc/PUMP.h"
  180              		.file 5 "User/Inc/HydroDriveLL.h"
-ARM GAS  /tmp/ccgauwxM.s 			page 5
+ARM GAS  /tmp/cc4HsajT.s 			page 5
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 PUMP.cpp
-     /tmp/ccgauwxM.s:16     .text._ZN4PUMP6attachEh:0000000000000000 $t
-     /tmp/ccgauwxM.s:24     .text._ZN4PUMP6attachEh:0000000000000000 _ZN4PUMP6attachEh
+     /tmp/cc4HsajT.s:16     .text._ZN4PUMP6attachEh:0000000000000000 $t
+     /tmp/cc4HsajT.s:24     .text._ZN4PUMP6attachEh:0000000000000000 _ZN4PUMP6attachEh
 .ARM.exidx.text._ZN4PUMP6attachEh:0000000000000000 $d
-     /tmp/ccgauwxM.s:45     .text._ZN4PUMPC2Eh:0000000000000000 $t
-     /tmp/ccgauwxM.s:52     .text._ZN4PUMPC2Eh:0000000000000000 _ZN4PUMPC2Eh
+     /tmp/cc4HsajT.s:45     .text._ZN4PUMPC2Eh:0000000000000000 $t
+     /tmp/cc4HsajT.s:52     .text._ZN4PUMPC2Eh:0000000000000000 _ZN4PUMPC2Eh
      .ARM.exidx.text._ZN4PUMPC2Eh:0000000000000000 $d
-     /tmp/ccgauwxM.s:52     .text._ZN4PUMPC2Eh:0000000000000000 _ZN4PUMPC1Eh
-     /tmp/ccgauwxM.s:90     .text._ZN4PUMP5startEv:0000000000000000 $t
-     /tmp/ccgauwxM.s:97     .text._ZN4PUMP5startEv:0000000000000000 _ZN4PUMP5startEv
+     /tmp/cc4HsajT.s:52     .text._ZN4PUMPC2Eh:0000000000000000 _ZN4PUMPC1Eh
+     /tmp/cc4HsajT.s:90     .text._ZN4PUMP5startEv:0000000000000000 $t
+     /tmp/cc4HsajT.s:97     .text._ZN4PUMP5startEv:0000000000000000 _ZN4PUMP5startEv
  .ARM.exidx.text._ZN4PUMP5startEv:0000000000000000 $d
-     /tmp/ccgauwxM.s:133    .text._ZN4PUMP4stopEv:0000000000000000 $t
-     /tmp/ccgauwxM.s:140    .text._ZN4PUMP4stopEv:0000000000000000 _ZN4PUMP4stopEv
+     /tmp/cc4HsajT.s:133    .text._ZN4PUMP4stopEv:0000000000000000 $t
+     /tmp/cc4HsajT.s:140    .text._ZN4PUMP4stopEv:0000000000000000 _ZN4PUMP4stopEv
   .ARM.exidx.text._ZN4PUMP4stopEv:0000000000000000 $d
 
 UNDEFINED SYMBOLS

@@ -12,125 +12,185 @@ namespace hydrosoft_ros
   class Sensor_Arm : public ros::Msg
   {
     public:
-      uint32_t actuator_length;
-      typedef int16_t _actuator_type;
-      _actuator_type st_actuator;
-      _actuator_type * actuator;
-      typedef int16_t _pumpIn_type;
-      _pumpIn_type pumpIn;
-      typedef int16_t _pumpOut_type;
-      _pumpOut_type pumpOut;
-      typedef int16_t _gripper_type;
-      _gripper_type gripper;
+      typedef int16_t _controlModeStatus_type;
+      _controlModeStatus_type controlModeStatus;
+      uint32_t actuatorStatus_length;
+      typedef int16_t _actuatorStatus_type;
+      _actuatorStatus_type st_actuatorStatus;
+      _actuatorStatus_type * actuatorStatus;
+      typedef int16_t _gripperStatus_type;
+      _gripperStatus_type gripperStatus;
+      typedef int16_t _pSourceStatus_type;
+      _pSourceStatus_type pSourceStatus;
+      typedef int16_t _pSinkStatus_type;
+      _pSinkStatus_type pSinkStatus;
+      uint32_t quaternions_length;
+      typedef int16_t _quaternions_type;
+      _quaternions_type st_quaternions;
+      _quaternions_type * quaternions;
 
     Sensor_Arm():
-      actuator_length(0), st_actuator(), actuator(nullptr),
-      pumpIn(0),
-      pumpOut(0),
-      gripper(0)
+      controlModeStatus(0),
+      actuatorStatus_length(0), st_actuatorStatus(), actuatorStatus(nullptr),
+      gripperStatus(0),
+      pSourceStatus(0),
+      pSinkStatus(0),
+      quaternions_length(0), st_quaternions(), quaternions(nullptr)
     {
     }
 
     virtual int serialize(unsigned char *outbuffer) const override
     {
       int offset = 0;
-      *(outbuffer + offset + 0) = (this->actuator_length >> (8 * 0)) & 0xFF;
-      *(outbuffer + offset + 1) = (this->actuator_length >> (8 * 1)) & 0xFF;
-      *(outbuffer + offset + 2) = (this->actuator_length >> (8 * 2)) & 0xFF;
-      *(outbuffer + offset + 3) = (this->actuator_length >> (8 * 3)) & 0xFF;
-      offset += sizeof(this->actuator_length);
-      for( uint32_t i = 0; i < actuator_length; i++){
       union {
         int16_t real;
         uint16_t base;
-      } u_actuatori;
-      u_actuatori.real = this->actuator[i];
-      *(outbuffer + offset + 0) = (u_actuatori.base >> (8 * 0)) & 0xFF;
-      *(outbuffer + offset + 1) = (u_actuatori.base >> (8 * 1)) & 0xFF;
-      offset += sizeof(this->actuator[i]);
+      } u_controlModeStatus;
+      u_controlModeStatus.real = this->controlModeStatus;
+      *(outbuffer + offset + 0) = (u_controlModeStatus.base >> (8 * 0)) & 0xFF;
+      *(outbuffer + offset + 1) = (u_controlModeStatus.base >> (8 * 1)) & 0xFF;
+      offset += sizeof(this->controlModeStatus);
+      *(outbuffer + offset + 0) = (this->actuatorStatus_length >> (8 * 0)) & 0xFF;
+      *(outbuffer + offset + 1) = (this->actuatorStatus_length >> (8 * 1)) & 0xFF;
+      *(outbuffer + offset + 2) = (this->actuatorStatus_length >> (8 * 2)) & 0xFF;
+      *(outbuffer + offset + 3) = (this->actuatorStatus_length >> (8 * 3)) & 0xFF;
+      offset += sizeof(this->actuatorStatus_length);
+      for( uint32_t i = 0; i < actuatorStatus_length; i++){
+      union {
+        int16_t real;
+        uint16_t base;
+      } u_actuatorStatusi;
+      u_actuatorStatusi.real = this->actuatorStatus[i];
+      *(outbuffer + offset + 0) = (u_actuatorStatusi.base >> (8 * 0)) & 0xFF;
+      *(outbuffer + offset + 1) = (u_actuatorStatusi.base >> (8 * 1)) & 0xFF;
+      offset += sizeof(this->actuatorStatus[i]);
       }
       union {
         int16_t real;
         uint16_t base;
-      } u_pumpIn;
-      u_pumpIn.real = this->pumpIn;
-      *(outbuffer + offset + 0) = (u_pumpIn.base >> (8 * 0)) & 0xFF;
-      *(outbuffer + offset + 1) = (u_pumpIn.base >> (8 * 1)) & 0xFF;
-      offset += sizeof(this->pumpIn);
+      } u_gripperStatus;
+      u_gripperStatus.real = this->gripperStatus;
+      *(outbuffer + offset + 0) = (u_gripperStatus.base >> (8 * 0)) & 0xFF;
+      *(outbuffer + offset + 1) = (u_gripperStatus.base >> (8 * 1)) & 0xFF;
+      offset += sizeof(this->gripperStatus);
       union {
         int16_t real;
         uint16_t base;
-      } u_pumpOut;
-      u_pumpOut.real = this->pumpOut;
-      *(outbuffer + offset + 0) = (u_pumpOut.base >> (8 * 0)) & 0xFF;
-      *(outbuffer + offset + 1) = (u_pumpOut.base >> (8 * 1)) & 0xFF;
-      offset += sizeof(this->pumpOut);
+      } u_pSourceStatus;
+      u_pSourceStatus.real = this->pSourceStatus;
+      *(outbuffer + offset + 0) = (u_pSourceStatus.base >> (8 * 0)) & 0xFF;
+      *(outbuffer + offset + 1) = (u_pSourceStatus.base >> (8 * 1)) & 0xFF;
+      offset += sizeof(this->pSourceStatus);
       union {
         int16_t real;
         uint16_t base;
-      } u_gripper;
-      u_gripper.real = this->gripper;
-      *(outbuffer + offset + 0) = (u_gripper.base >> (8 * 0)) & 0xFF;
-      *(outbuffer + offset + 1) = (u_gripper.base >> (8 * 1)) & 0xFF;
-      offset += sizeof(this->gripper);
+      } u_pSinkStatus;
+      u_pSinkStatus.real = this->pSinkStatus;
+      *(outbuffer + offset + 0) = (u_pSinkStatus.base >> (8 * 0)) & 0xFF;
+      *(outbuffer + offset + 1) = (u_pSinkStatus.base >> (8 * 1)) & 0xFF;
+      offset += sizeof(this->pSinkStatus);
+      *(outbuffer + offset + 0) = (this->quaternions_length >> (8 * 0)) & 0xFF;
+      *(outbuffer + offset + 1) = (this->quaternions_length >> (8 * 1)) & 0xFF;
+      *(outbuffer + offset + 2) = (this->quaternions_length >> (8 * 2)) & 0xFF;
+      *(outbuffer + offset + 3) = (this->quaternions_length >> (8 * 3)) & 0xFF;
+      offset += sizeof(this->quaternions_length);
+      for( uint32_t i = 0; i < quaternions_length; i++){
+      union {
+        int16_t real;
+        uint16_t base;
+      } u_quaternionsi;
+      u_quaternionsi.real = this->quaternions[i];
+      *(outbuffer + offset + 0) = (u_quaternionsi.base >> (8 * 0)) & 0xFF;
+      *(outbuffer + offset + 1) = (u_quaternionsi.base >> (8 * 1)) & 0xFF;
+      offset += sizeof(this->quaternions[i]);
+      }
       return offset;
     }
 
     virtual int deserialize(unsigned char *inbuffer) override
     {
       int offset = 0;
-      uint32_t actuator_lengthT = ((uint32_t) (*(inbuffer + offset))); 
-      actuator_lengthT |= ((uint32_t) (*(inbuffer + offset + 1))) << (8 * 1); 
-      actuator_lengthT |= ((uint32_t) (*(inbuffer + offset + 2))) << (8 * 2); 
-      actuator_lengthT |= ((uint32_t) (*(inbuffer + offset + 3))) << (8 * 3); 
-      offset += sizeof(this->actuator_length);
-      if(actuator_lengthT > actuator_length)
-        this->actuator = (int16_t*)realloc(this->actuator, actuator_lengthT * sizeof(int16_t));
-      actuator_length = actuator_lengthT;
-      for( uint32_t i = 0; i < actuator_length; i++){
       union {
         int16_t real;
         uint16_t base;
-      } u_st_actuator;
-      u_st_actuator.base = 0;
-      u_st_actuator.base |= ((uint16_t) (*(inbuffer + offset + 0))) << (8 * 0);
-      u_st_actuator.base |= ((uint16_t) (*(inbuffer + offset + 1))) << (8 * 1);
-      this->st_actuator = u_st_actuator.real;
-      offset += sizeof(this->st_actuator);
-        memcpy( &(this->actuator[i]), &(this->st_actuator), sizeof(int16_t));
+      } u_controlModeStatus;
+      u_controlModeStatus.base = 0;
+      u_controlModeStatus.base |= ((uint16_t) (*(inbuffer + offset + 0))) << (8 * 0);
+      u_controlModeStatus.base |= ((uint16_t) (*(inbuffer + offset + 1))) << (8 * 1);
+      this->controlModeStatus = u_controlModeStatus.real;
+      offset += sizeof(this->controlModeStatus);
+      uint32_t actuatorStatus_lengthT = ((uint32_t) (*(inbuffer + offset))); 
+      actuatorStatus_lengthT |= ((uint32_t) (*(inbuffer + offset + 1))) << (8 * 1); 
+      actuatorStatus_lengthT |= ((uint32_t) (*(inbuffer + offset + 2))) << (8 * 2); 
+      actuatorStatus_lengthT |= ((uint32_t) (*(inbuffer + offset + 3))) << (8 * 3); 
+      offset += sizeof(this->actuatorStatus_length);
+      if(actuatorStatus_lengthT > actuatorStatus_length)
+        this->actuatorStatus = (int16_t*)realloc(this->actuatorStatus, actuatorStatus_lengthT * sizeof(int16_t));
+      actuatorStatus_length = actuatorStatus_lengthT;
+      for( uint32_t i = 0; i < actuatorStatus_length; i++){
+      union {
+        int16_t real;
+        uint16_t base;
+      } u_st_actuatorStatus;
+      u_st_actuatorStatus.base = 0;
+      u_st_actuatorStatus.base |= ((uint16_t) (*(inbuffer + offset + 0))) << (8 * 0);
+      u_st_actuatorStatus.base |= ((uint16_t) (*(inbuffer + offset + 1))) << (8 * 1);
+      this->st_actuatorStatus = u_st_actuatorStatus.real;
+      offset += sizeof(this->st_actuatorStatus);
+        memcpy( &(this->actuatorStatus[i]), &(this->st_actuatorStatus), sizeof(int16_t));
       }
       union {
         int16_t real;
         uint16_t base;
-      } u_pumpIn;
-      u_pumpIn.base = 0;
-      u_pumpIn.base |= ((uint16_t) (*(inbuffer + offset + 0))) << (8 * 0);
-      u_pumpIn.base |= ((uint16_t) (*(inbuffer + offset + 1))) << (8 * 1);
-      this->pumpIn = u_pumpIn.real;
-      offset += sizeof(this->pumpIn);
+      } u_gripperStatus;
+      u_gripperStatus.base = 0;
+      u_gripperStatus.base |= ((uint16_t) (*(inbuffer + offset + 0))) << (8 * 0);
+      u_gripperStatus.base |= ((uint16_t) (*(inbuffer + offset + 1))) << (8 * 1);
+      this->gripperStatus = u_gripperStatus.real;
+      offset += sizeof(this->gripperStatus);
       union {
         int16_t real;
         uint16_t base;
-      } u_pumpOut;
-      u_pumpOut.base = 0;
-      u_pumpOut.base |= ((uint16_t) (*(inbuffer + offset + 0))) << (8 * 0);
-      u_pumpOut.base |= ((uint16_t) (*(inbuffer + offset + 1))) << (8 * 1);
-      this->pumpOut = u_pumpOut.real;
-      offset += sizeof(this->pumpOut);
+      } u_pSourceStatus;
+      u_pSourceStatus.base = 0;
+      u_pSourceStatus.base |= ((uint16_t) (*(inbuffer + offset + 0))) << (8 * 0);
+      u_pSourceStatus.base |= ((uint16_t) (*(inbuffer + offset + 1))) << (8 * 1);
+      this->pSourceStatus = u_pSourceStatus.real;
+      offset += sizeof(this->pSourceStatus);
       union {
         int16_t real;
         uint16_t base;
-      } u_gripper;
-      u_gripper.base = 0;
-      u_gripper.base |= ((uint16_t) (*(inbuffer + offset + 0))) << (8 * 0);
-      u_gripper.base |= ((uint16_t) (*(inbuffer + offset + 1))) << (8 * 1);
-      this->gripper = u_gripper.real;
-      offset += sizeof(this->gripper);
+      } u_pSinkStatus;
+      u_pSinkStatus.base = 0;
+      u_pSinkStatus.base |= ((uint16_t) (*(inbuffer + offset + 0))) << (8 * 0);
+      u_pSinkStatus.base |= ((uint16_t) (*(inbuffer + offset + 1))) << (8 * 1);
+      this->pSinkStatus = u_pSinkStatus.real;
+      offset += sizeof(this->pSinkStatus);
+      uint32_t quaternions_lengthT = ((uint32_t) (*(inbuffer + offset))); 
+      quaternions_lengthT |= ((uint32_t) (*(inbuffer + offset + 1))) << (8 * 1); 
+      quaternions_lengthT |= ((uint32_t) (*(inbuffer + offset + 2))) << (8 * 2); 
+      quaternions_lengthT |= ((uint32_t) (*(inbuffer + offset + 3))) << (8 * 3); 
+      offset += sizeof(this->quaternions_length);
+      if(quaternions_lengthT > quaternions_length)
+        this->quaternions = (int16_t*)realloc(this->quaternions, quaternions_lengthT * sizeof(int16_t));
+      quaternions_length = quaternions_lengthT;
+      for( uint32_t i = 0; i < quaternions_length; i++){
+      union {
+        int16_t real;
+        uint16_t base;
+      } u_st_quaternions;
+      u_st_quaternions.base = 0;
+      u_st_quaternions.base |= ((uint16_t) (*(inbuffer + offset + 0))) << (8 * 0);
+      u_st_quaternions.base |= ((uint16_t) (*(inbuffer + offset + 1))) << (8 * 1);
+      this->st_quaternions = u_st_quaternions.real;
+      offset += sizeof(this->st_quaternions);
+        memcpy( &(this->quaternions[i]), &(this->st_quaternions), sizeof(int16_t));
+      }
      return offset;
     }
 
     virtual const char * getType() override { return "hydrosoft_ros/Sensor_Arm"; };
-    virtual const char * getMD5() override { return "ed569f403289db092257a47e5e6b668d"; };
+    virtual const char * getMD5() override { return "bc428f4929dae1c25e71344937e9850d"; };
 
   };
 

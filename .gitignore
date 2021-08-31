@@ -1,2 +1,4 @@
-Debug
-/Debug
+Debug/
+debug/
+Build/
+build/

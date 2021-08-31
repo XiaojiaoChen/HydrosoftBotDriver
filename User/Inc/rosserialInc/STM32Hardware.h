@@ -75,6 +75,10 @@ class STM32Hardware {
       reset_rbuf();
     }
 
+    void init(char *huart_){
+    	roshuart = (UART_HandleTypeDef *)huart_;
+    	init();
+    }
     void reset_rbuf(void){
       HAL_UART_Receive_DMA(roshuart, rbuf, rbuflen);
     }
@@ -118,10 +122,7 @@ class STM32Hardware {
       flush();
     }
 
-    void setPort(UART_HandleTypeDef *huart_){
-    	roshuart = huart_;
-    	init();
-    }
+
 
 
 

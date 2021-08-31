@@ -23,7 +23,7 @@ public:
 
 	void writeDuty(int16_t dut);
 
-
+	int16_t getDuty(){return duty;};
 
 private:
 	uint8_t PWMPort;

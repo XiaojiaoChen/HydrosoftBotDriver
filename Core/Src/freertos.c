@@ -27,6 +27,9 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "myMain.h"
+int32_t globalSensorTaskPeriod = 10;      //10 ms period for loop()  (100Hz)
+int32_t globalCommunicationTaskPeriod = 5;     //5 ms period for loop2()  (200Hz)
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -135,7 +138,7 @@ void sensorTaskFunc(void const * argument)
 	TickType_t xLastWakeTime = xTaskGetTickCount();
 	TickType_t sensorTaskPeriod = pdMS_TO_TICKS(1);
 	static int32_t loopTick = 0;
-	extern int32_t globalSensorTaskPeriod;
+
 	/* Infinite loop */
 	for (;;) {
 
@@ -162,7 +165,7 @@ void communicationTaskFunc(void const * argument)
 	TickType_t xLastWakeTime = xTaskGetTickCount();
 	TickType_t communicationTaskPeriod = pdMS_TO_TICKS(1);
 	static int32_t loopTick = 0;
-	extern int32_t globalCommunicationTaskPeriod;
+
 	/* Infinite loop */
 	for (;;) {
 

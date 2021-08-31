@@ -12,134 +12,145 @@ namespace hydrosoft_ros
   class Command_Arm : public ros::Msg
   {
     public:
-      uint32_t actuator_length;
-      typedef int16_t _actuator_type;
-      _actuator_type st_actuator;
-      _actuator_type * actuator;
-      typedef int16_t _pumpIn_type;
-      _pumpIn_type pumpIn;
-      typedef int16_t _pumpOut_type;
-      _pumpOut_type pumpOut;
-      typedef int16_t _gripper_type;
-      _gripper_type gripper;
-      typedef uint16_t _cmd_type;
-      _cmd_type cmd;
+      typedef int16_t _controlModeCommand_type;
+      _controlModeCommand_type controlModeCommand;
+      uint32_t actuatorCommand_length;
+      typedef int16_t _actuatorCommand_type;
+      _actuatorCommand_type st_actuatorCommand;
+      _actuatorCommand_type * actuatorCommand;
+      typedef int16_t _gripperCommand_type;
+      _gripperCommand_type gripperCommand;
+      typedef int16_t _pSourceCommand_type;
+      _pSourceCommand_type pSourceCommand;
+      typedef int16_t _pSinkCommand_type;
+      _pSinkCommand_type pSinkCommand;
 
     Command_Arm():
-      actuator_length(0), st_actuator(), actuator(nullptr),
-      pumpIn(0),
-      pumpOut(0),
-      gripper(0),
-      cmd(0)
+      controlModeCommand(0),
+      actuatorCommand_length(0), st_actuatorCommand(), actuatorCommand(nullptr),
+      gripperCommand(0),
+      pSourceCommand(0),
+      pSinkCommand(0)
     {
     }
 
     virtual int serialize(unsigned char *outbuffer) const override
     {
       int offset = 0;
-      *(outbuffer + offset + 0) = (this->actuator_length >> (8 * 0)) & 0xFF;
-      *(outbuffer + offset + 1) = (this->actuator_length >> (8 * 1)) & 0xFF;
-      *(outbuffer + offset + 2) = (this->actuator_length >> (8 * 2)) & 0xFF;
-      *(outbuffer + offset + 3) = (this->actuator_length >> (8 * 3)) & 0xFF;
-      offset += sizeof(this->actuator_length);
-      for( uint32_t i = 0; i < actuator_length; i++){
       union {
         int16_t real;
         uint16_t base;
-      } u_actuatori;
-      u_actuatori.real = this->actuator[i];
-      *(outbuffer + offset + 0) = (u_actuatori.base >> (8 * 0)) & 0xFF;
-      *(outbuffer + offset + 1) = (u_actuatori.base >> (8 * 1)) & 0xFF;
-      offset += sizeof(this->actuator[i]);
+      } u_controlModeCommand;
+      u_controlModeCommand.real = this->controlModeCommand;
+      *(outbuffer + offset + 0) = (u_controlModeCommand.base >> (8 * 0)) & 0xFF;
+      *(outbuffer + offset + 1) = (u_controlModeCommand.base >> (8 * 1)) & 0xFF;
+      offset += sizeof(this->controlModeCommand);
+      *(outbuffer + offset + 0) = (this->actuatorCommand_length >> (8 * 0)) & 0xFF;
+      *(outbuffer + offset + 1) = (this->actuatorCommand_length >> (8 * 1)) & 0xFF;
+      *(outbuffer + offset + 2) = (this->actuatorCommand_length >> (8 * 2)) & 0xFF;
+      *(outbuffer + offset + 3) = (this->actuatorCommand_length >> (8 * 3)) & 0xFF;
+      offset += sizeof(this->actuatorCommand_length);
+      for( uint32_t i = 0; i < actuatorCommand_length; i++){
+      union {
+        int16_t real;
+        uint16_t base;
+      } u_actuatorCommandi;
+      u_actuatorCommandi.real = this->actuatorCommand[i];
+      *(outbuffer + offset + 0) = (u_actuatorCommandi.base >> (8 * 0)) & 0xFF;
+      *(outbuffer + offset + 1) = (u_actuatorCommandi.base >> (8 * 1)) & 0xFF;
+      offset += sizeof(this->actuatorCommand[i]);
       }
       union {
         int16_t real;
         uint16_t base;
-      } u_pumpIn;
-      u_pumpIn.real = this->pumpIn;
-      *(outbuffer + offset + 0) = (u_pumpIn.base >> (8 * 0)) & 0xFF;
-      *(outbuffer + offset + 1) = (u_pumpIn.base >> (8 * 1)) & 0xFF;
-      offset += sizeof(this->pumpIn);
+      } u_gripperCommand;
+      u_gripperCommand.real = this->gripperCommand;
+      *(outbuffer + offset + 0) = (u_gripperCommand.base >> (8 * 0)) & 0xFF;
+      *(outbuffer + offset + 1) = (u_gripperCommand.base >> (8 * 1)) & 0xFF;
+      offset += sizeof(this->gripperCommand);
       union {
         int16_t real;
         uint16_t base;
-      } u_pumpOut;
-      u_pumpOut.real = this->pumpOut;
-      *(outbuffer + offset + 0) = (u_pumpOut.base >> (8 * 0)) & 0xFF;
-      *(outbuffer + offset + 1) = (u_pumpOut.base >> (8 * 1)) & 0xFF;
-      offset += sizeof(this->pumpOut);
+      } u_pSourceCommand;
+      u_pSourceCommand.real = this->pSourceCommand;
+      *(outbuffer + offset + 0) = (u_pSourceCommand.base >> (8 * 0)) & 0xFF;
+      *(outbuffer + offset + 1) = (u_pSourceCommand.base >> (8 * 1)) & 0xFF;
+      offset += sizeof(this->pSourceCommand);
       union {
         int16_t real;
         uint16_t base;
-      } u_gripper;
-      u_gripper.real = this->gripper;
-      *(outbuffer + offset + 0) = (u_gripper.base >> (8 * 0)) & 0xFF;
-      *(outbuffer + offset + 1) = (u_gripper.base >> (8 * 1)) & 0xFF;
-      offset += sizeof(this->gripper);
-      *(outbuffer + offset + 0) = (this->cmd >> (8 * 0)) & 0xFF;
-      *(outbuffer + offset + 1) = (this->cmd >> (8 * 1)) & 0xFF;
-      offset += sizeof(this->cmd);
+      } u_pSinkCommand;
+      u_pSinkCommand.real = this->pSinkCommand;
+      *(outbuffer + offset + 0) = (u_pSinkCommand.base >> (8 * 0)) & 0xFF;
+      *(outbuffer + offset + 1) = (u_pSinkCommand.base >> (8 * 1)) & 0xFF;
+      offset += sizeof(this->pSinkCommand);
       return offset;
     }
 
     virtual int deserialize(unsigned char *inbuffer) override
     {
       int offset = 0;
-      uint32_t actuator_lengthT = ((uint32_t) (*(inbuffer + offset))); 
-      actuator_lengthT |= ((uint32_t) (*(inbuffer + offset + 1))) << (8 * 1); 
-      actuator_lengthT |= ((uint32_t) (*(inbuffer + offset + 2))) << (8 * 2); 
-      actuator_lengthT |= ((uint32_t) (*(inbuffer + offset + 3))) << (8 * 3); 
-      offset += sizeof(this->actuator_length);
-      if(actuator_lengthT > actuator_length)
-        this->actuator = (int16_t*)realloc(this->actuator, actuator_lengthT * sizeof(int16_t));
-      actuator_length = actuator_lengthT;
-      for( uint32_t i = 0; i < actuator_length; i++){
       union {
         int16_t real;
         uint16_t base;
-      } u_st_actuator;
-      u_st_actuator.base = 0;
-      u_st_actuator.base |= ((uint16_t) (*(inbuffer + offset + 0))) << (8 * 0);
-      u_st_actuator.base |= ((uint16_t) (*(inbuffer + offset + 1))) << (8 * 1);
-      this->st_actuator = u_st_actuator.real;
-      offset += sizeof(this->st_actuator);
-        memcpy( &(this->actuator[i]), &(this->st_actuator), sizeof(int16_t));
+      } u_controlModeCommand;
+      u_controlModeCommand.base = 0;
+      u_controlModeCommand.base |= ((uint16_t) (*(inbuffer + offset + 0))) << (8 * 0);
+      u_controlModeCommand.base |= ((uint16_t) (*(inbuffer + offset + 1))) << (8 * 1);
+      this->controlModeCommand = u_controlModeCommand.real;
+      offset += sizeof(this->controlModeCommand);
+      uint32_t actuatorCommand_lengthT = ((uint32_t) (*(inbuffer + offset))); 
+      actuatorCommand_lengthT |= ((uint32_t) (*(inbuffer + offset + 1))) << (8 * 1); 
+      actuatorCommand_lengthT |= ((uint32_t) (*(inbuffer + offset + 2))) << (8 * 2); 
+      actuatorCommand_lengthT |= ((uint32_t) (*(inbuffer + offset + 3))) << (8 * 3); 
+      offset += sizeof(this->actuatorCommand_length);
+      if(actuatorCommand_lengthT > actuatorCommand_length)
+        this->actuatorCommand = (int16_t*)realloc(this->actuatorCommand, actuatorCommand_lengthT * sizeof(int16_t));
+      actuatorCommand_length = actuatorCommand_lengthT;
+      for( uint32_t i = 0; i < actuatorCommand_length; i++){
+      union {
+        int16_t real;
+        uint16_t base;
+      } u_st_actuatorCommand;
+      u_st_actuatorCommand.base = 0;
+      u_st_actuatorCommand.base |= ((uint16_t) (*(inbuffer + offset + 0))) << (8 * 0);
+      u_st_actuatorCommand.base |= ((uint16_t) (*(inbuffer + offset + 1))) << (8 * 1);
+      this->st_actuatorCommand = u_st_actuatorCommand.real;
+      offset += sizeof(this->st_actuatorCommand);
+        memcpy( &(this->actuatorCommand[i]), &(this->st_actuatorCommand), sizeof(int16_t));
       }
       union {
         int16_t real;
         uint16_t base;
-      } u_pumpIn;
-      u_pumpIn.base = 0;
-      u_pumpIn.base |= ((uint16_t) (*(inbuffer + offset + 0))) << (8 * 0);
-      u_pumpIn.base |= ((uint16_t) (*(inbuffer + offset + 1))) << (8 * 1);
-      this->pumpIn = u_pumpIn.real;
-      offset += sizeof(this->pumpIn);
+      } u_gripperCommand;
+      u_gripperCommand.base = 0;
+      u_gripperCommand.base |= ((uint16_t) (*(inbuffer + offset + 0))) << (8 * 0);
+      u_gripperCommand.base |= ((uint16_t) (*(inbuffer + offset + 1))) << (8 * 1);
+      this->gripperCommand = u_gripperCommand.real;
+      offset += sizeof(this->gripperCommand);
       union {
         int16_t real;
         uint16_t base;
-      } u_pumpOut;
-      u_pumpOut.base = 0;
-      u_pumpOut.base |= ((uint16_t) (*(inbuffer + offset + 0))) << (8 * 0);
-      u_pumpOut.base |= ((uint16_t) (*(inbuffer + offset + 1))) << (8 * 1);
-      this->pumpOut = u_pumpOut.real;
-      offset += sizeof(this->pumpOut);
+      } u_pSourceCommand;
+      u_pSourceCommand.base = 0;
+      u_pSourceCommand.base |= ((uint16_t) (*(inbuffer + offset + 0))) << (8 * 0);
+      u_pSourceCommand.base |= ((uint16_t) (*(inbuffer + offset + 1))) << (8 * 1);
+      this->pSourceCommand = u_pSourceCommand.real;
+      offset += sizeof(this->pSourceCommand);
       union {
         int16_t real;
         uint16_t base;
-      } u_gripper;
-      u_gripper.base = 0;
-      u_gripper.base |= ((uint16_t) (*(inbuffer + offset + 0))) << (8 * 0);
-      u_gripper.base |= ((uint16_t) (*(inbuffer + offset + 1))) << (8 * 1);
-      this->gripper = u_gripper.real;
-      offset += sizeof(this->gripper);
-      this->cmd =  ((uint16_t) (*(inbuffer + offset)));
-      this->cmd |= ((uint16_t) (*(inbuffer + offset + 1))) << (8 * 1);
-      offset += sizeof(this->cmd);
+      } u_pSinkCommand;
+      u_pSinkCommand.base = 0;
+      u_pSinkCommand.base |= ((uint16_t) (*(inbuffer + offset + 0))) << (8 * 0);
+      u_pSinkCommand.base |= ((uint16_t) (*(inbuffer + offset + 1))) << (8 * 1);
+      this->pSinkCommand = u_pSinkCommand.real;
+      offset += sizeof(this->pSinkCommand);
      return offset;
     }
 
     virtual const char * getType() override { return "hydrosoft_ros/Command_Arm"; };
-    virtual const char * getMD5() override { return "b2e22b720533db37081218adfe851ec1"; };
+    virtual const char * getMD5() override { return "36f0809d92e060c19f205ca26715d3a2"; };
 
   };
 

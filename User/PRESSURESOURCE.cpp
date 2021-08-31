@@ -38,6 +38,15 @@ void PRESSURE_SOURCE::attachSensor(uint8_t AnalogPort) {
 void PRESSURE_SOURCE::attachValve(uint8_t valPort) {
 	valve.attach(valPort);
 }
+
+void PRESSURE_SOURCE::maintainPressure(int32_t pressurelim){
+	if(sourceType==LOW_PRESSURE_SINK){
+		maintainPressure(pressurelim,pressurelim+10);
+	}
+	else if(sourceType==HIGH_PRESSURE_SOURCE){
+		maintainPressure(pressurelim-10,pressurelim);
+	}
+}
 void PRESSURE_SOURCE::maintainPressure(int32_t p_low,int32_t p_high) {
 
 	pressureLower=p_low;
@@ -46,30 +55,37 @@ void PRESSURE_SOURCE::maintainPressure(int32_t p_low,int32_t p_high) {
 	if(sourceType==LOW_PRESSURE_SINK){
 		if(pressure<pressureLower)
 		{
-			pump.stop();
+			stopPump();
+			closeValve();
 		}
 		else if(pressure>pressureUpper)
 		{
-			pump.start();
+			openValve();
+			startPump();
 		}
 	}
 	else if(sourceType==HIGH_PRESSURE_SOURCE){
 		if(pressure<pressureLower)
 		{
-			pump.start();
+			openValve();
+			startPump();
 		}
 		else if(pressure>pressureUpper)
 		{
-			pump.stop();
+			stopPump();
+			closeValve();
 		}
 	}
 
 }
-void PRESSURE_SOURCE::stop()
+
+  
+
+void PRESSURE_SOURCE::stopPump()
 {
 	pump.stop();
 }
-void PRESSURE_SOURCE::start()
+void PRESSURE_SOURCE::startPump()
 {
 	pump.start();
 }

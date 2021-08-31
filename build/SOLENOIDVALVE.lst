@@ -1,4 +1,4 @@
-ARM GAS  /tmp/ccFErdT3.s 			page 1
+ARM GAS  /tmp/cc9WU706.s 			page 1
 
 
    1              		.cpu cortex-m3
@@ -26,7 +26,7 @@ ARM GAS  /tmp/ccFErdT3.s 			page 1
   24              	_ZN14SOLENOID_VALVE6attachEh:
   25              		.fnstart
   26              	.LVL0:
-  27              	.LFB68:
+  27              	.LFB69:
   28              		.file 1 "User/SOLENOIDVALVE.cpp"
    1:User/SOLENOIDVALVE.cpp **** /*
    2:User/SOLENOIDVALVE.cpp ****  * SOLENOIDVALVE.cpp
@@ -58,7 +58,7 @@ ARM GAS  /tmp/ccFErdT3.s 			page 1
   30              		.cfi_startproc
   31              		@ args = 0, pretend = 0, frame = 0
   32              		@ frame_needed = 0, uses_anonymous_args = 0
-ARM GAS  /tmp/ccFErdT3.s 			page 2
+ARM GAS  /tmp/cc9WU706.s 			page 2
 
 
   33              		@ link register save eliminated.
@@ -70,7 +70,7 @@ ARM GAS  /tmp/ccFErdT3.s 			page 1
   37              		.loc 1 28 1 view .LVU3
   38 0002 7047     		bx	lr
   39              		.cfi_endproc
-  40              	.LFE68:
+  40              	.LFE69:
   41              		.cantunwind
   42              		.fnend
   44              		.section	.text._ZN14SOLENOID_VALVEC2Eh,"ax",%progbits
@@ -83,7 +83,7 @@ ARM GAS  /tmp/ccFErdT3.s 			page 1
   52              	_ZN14SOLENOID_VALVEC2Eh:
   53              		.fnstart
   54              	.LVL1:
-  55              	.LFB66:
+  55              	.LFB67:
   16:User/SOLENOIDVALVE.cpp **** 
   56              		.loc 1 16 1 is_stmt 1 view -0
   57              		.cfi_startproc
@@ -118,7 +118,7 @@ ARM GAS  /tmp/ccFErdT3.s 			page 1
   21:User/SOLENOIDVALVE.cpp **** 	attach(num);
   79              		.loc 1 21 2 is_stmt 1 view .LVU12
   21:User/SOLENOIDVALVE.cpp **** 	attach(num);
-ARM GAS  /tmp/ccFErdT3.s 			page 3
+ARM GAS  /tmp/cc9WU706.s 			page 3
 
 
   80              		.loc 1 21 10 is_stmt 0 view .LVU13
@@ -139,7 +139,7 @@ ARM GAS  /tmp/ccFErdT3.s 			page 1
   23:User/SOLENOIDVALVE.cpp **** 
   91              		.loc 1 23 1 view .LVU18
   92              		.cfi_endproc
-  93              	.LFE66:
+  93              	.LFE67:
   94              		.cantunwind
   95              		.fnend
   97              		.global	_ZN14SOLENOID_VALVEC1Eh
@@ -155,7 +155,7 @@ ARM GAS  /tmp/ccFErdT3.s 			page 1
  108              	_ZN14SOLENOID_VALVE9writeDutyEs:
  109              		.fnstart
  110              	.LVL3:
- 111              	.LFB69:
+ 111              	.LFB70:
   29:User/SOLENOIDVALVE.cpp **** 
   30:User/SOLENOIDVALVE.cpp **** void SOLENOID_VALVE::writeDuty(int16_t dut)
   31:User/SOLENOIDVALVE.cpp **** {
@@ -178,7 +178,7 @@ ARM GAS  /tmp/ccFErdT3.s 			page 1
   33:User/SOLENOIDVALVE.cpp **** 	_duty= (PWM_DIGITAL_OUTPUT_REVERSED == 0)?duty:(1-duty);
  127              		.loc 1 33 2 is_stmt 1 view .LVU23
  128              		.loc 1 33 52 is_stmt 0 view .LVU24
-ARM GAS  /tmp/ccFErdT3.s 			page 4
+ARM GAS  /tmp/cc9WU706.s 			page 4
 
 
  129 0006 89B2     		uxth	r1, r1
@@ -208,7 +208,7 @@ ARM GAS  /tmp/ccFErdT3.s 			page 1
  148              		.loc 1 38 1 view .LVU31
  149 001e 10BD     		pop	{r4, pc}
  150              		.cfi_endproc
- 151              	.LFE69:
+ 151              	.LFE70:
  152              		.fnend
  154              		.text
  155              	.Letext0:
@@ -216,20 +216,20 @@ ARM GAS  /tmp/ccFErdT3.s 			page 1
  157              		.file 3 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-n
  158              		.file 4 "User/Inc/SOLENOIDVALVE.h"
  159              		.file 5 "User/Inc/HydroDriveLL.h"
-ARM GAS  /tmp/ccFErdT3.s 			page 5
+ARM GAS  /tmp/cc9WU706.s 			page 5
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 SOLENOIDVALVE.cpp
-     /tmp/ccFErdT3.s:16     .text._ZN14SOLENOID_VALVE6attachEh:0000000000000000 $t
-     /tmp/ccFErdT3.s:24     .text._ZN14SOLENOID_VALVE6attachEh:0000000000000000 _ZN14SOLENOID_VALVE6attachEh
+     /tmp/cc9WU706.s:16     .text._ZN14SOLENOID_VALVE6attachEh:0000000000000000 $t
+     /tmp/cc9WU706.s:24     .text._ZN14SOLENOID_VALVE6attachEh:0000000000000000 _ZN14SOLENOID_VALVE6attachEh
 .ARM.exidx.text._ZN14SOLENOID_VALVE6attachEh:0000000000000000 $d
-     /tmp/ccFErdT3.s:45     .text._ZN14SOLENOID_VALVEC2Eh:0000000000000000 $t
-     /tmp/ccFErdT3.s:52     .text._ZN14SOLENOID_VALVEC2Eh:0000000000000000 _ZN14SOLENOID_VALVEC2Eh
+     /tmp/cc9WU706.s:45     .text._ZN14SOLENOID_VALVEC2Eh:0000000000000000 $t
+     /tmp/cc9WU706.s:52     .text._ZN14SOLENOID_VALVEC2Eh:0000000000000000 _ZN14SOLENOID_VALVEC2Eh
 .ARM.exidx.text._ZN14SOLENOID_VALVEC2Eh:0000000000000000 $d
-     /tmp/ccFErdT3.s:52     .text._ZN14SOLENOID_VALVEC2Eh:0000000000000000 _ZN14SOLENOID_VALVEC1Eh
-     /tmp/ccFErdT3.s:101    .text._ZN14SOLENOID_VALVE9writeDutyEs:0000000000000000 $t
-     /tmp/ccFErdT3.s:108    .text._ZN14SOLENOID_VALVE9writeDutyEs:0000000000000000 _ZN14SOLENOID_VALVE9writeDutyEs
+     /tmp/cc9WU706.s:52     .text._ZN14SOLENOID_VALVEC2Eh:0000000000000000 _ZN14SOLENOID_VALVEC1Eh
+     /tmp/cc9WU706.s:101    .text._ZN14SOLENOID_VALVE9writeDutyEs:0000000000000000 $t
+     /tmp/cc9WU706.s:108    .text._ZN14SOLENOID_VALVE9writeDutyEs:0000000000000000 _ZN14SOLENOID_VALVE9writeDutyEs
 .ARM.exidx.text._ZN14SOLENOID_VALVE9writeDutyEs:0000000000000000 $d
 
 UNDEFINED SYMBOLS

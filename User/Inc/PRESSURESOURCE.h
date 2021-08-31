@@ -34,11 +34,16 @@ public:
 	void attachSensor(uint8_t AnalogPort);
 	void attachValve(uint8_t valvePort);
 	int32_t readPressure();
+	
+	void maintainPressure(int32_t pressurelim);
 	void maintainPressure(int32_t p_low,int32_t p_high);
-	void stop(void);
-	void start(void);
+
+	void stopPump(void);
+	void startPump(void);
+
 	void openValve(void);
 	void closeValve(void);
+
 	int sourceType;
 	PUMP pump;
 	SOLENOID_VALVE valve;

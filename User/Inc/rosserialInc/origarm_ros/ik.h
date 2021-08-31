@@ -4,8 +4,8 @@
 #include <string.h>
 #include <stdlib.h>
 #include "ros/msg.h"
-#include "origarm_ros/modenumber.h"
 #include "origarm_ros/States.h"
+#include "origarm_ros/modenumber.h"
 #include "origarm_ros/Command_ABL.h"
 
 namespace origarm_ros

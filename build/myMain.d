@@ -24,14 +24,11 @@ build/myMain.o: User/myMain.cpp User/Inc/myMain.h \
  Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h \
  Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h \
  Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h \
- Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h \
- User/Inc/messages.h User/Inc/rosserialInc/ros.h \
- User/Inc/rosserialInc/hydrosoft_ros/Command_Arm.h \
- User/Inc/rosserialInc/ros/msg.h \
- User/Inc/rosserialInc/hydrosoft_ros/Sensor_Arm.h \
+ Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h Core/Inc/usart.h \
+ Core/Inc/main.h User/Inc/messages.h User/Inc/rosserialInc/ros.h \
  User/Inc/rosserialInc/ros/node_handle.h \
- User/Inc/rosserialInc/std_msgs/Time.h User/Inc/rosserialInc/ros/time.h \
- User/Inc/rosserialInc/ros/duration.h \
+ User/Inc/rosserialInc/std_msgs/Time.h User/Inc/rosserialInc/ros/msg.h \
+ User/Inc/rosserialInc/ros/time.h User/Inc/rosserialInc/ros/duration.h \
  User/Inc/rosserialInc/rosserial_msgs/TopicInfo.h \
  User/Inc/rosserialInc/rosserial_msgs/Log.h \
  User/Inc/rosserialInc/rosserial_msgs/RequestParam.h \
@@ -40,11 +37,14 @@ build/myMain.o: User/myMain.cpp User/Inc/myMain.h \
  User/Inc/rosserialInc/ros/subscriber.h \
  User/Inc/rosserialInc/ros/service_server.h \
  User/Inc/rosserialInc/ros/service_client.h \
- User/Inc/rosserialInc/STM32Hardware.h Core/Inc/main.h User/Inc/CANbus.h \
- User/Inc/LED_Driver.h User/Inc/ads1115.h \
- User/Inc/HydroUnderwaterManipulator.h User/Inc/CHAMBER.h \
- User/Inc/PRESSURESENSOR.h User/Inc/SOLENOIDVALVE.h \
- User/Inc/PRESSURESOURCE.h User/Inc/PUMP.h User/Inc/messages.h
+ User/Inc/rosserialInc/STM32Hardware.h Core/Inc/main.h \
+ User/Inc/rosserialInc/rosserialNode.h User/Inc/rosserialInc/ros.h \
+ User/Inc/rosserialInc/ros/msg.h User/Inc/CANbus.h User/Inc/LED_Driver.h \
+ User/Inc/ads1115.h User/Inc/HydroUnderwaterManipulator.h \
+ User/Inc/CHAMBER.h User/Inc/PRESSURESENSOR.h User/Inc/SOLENOIDVALVE.h \
+ User/Inc/PRESSURESOURCE.h User/Inc/PUMP.h User/Inc/messages.h \
+ User/Inc/rosserialInc/hydrosoft_ros/Command_Arm.h \
+ User/Inc/rosserialInc/hydrosoft_ros/Sensor_Arm.h
 User/Inc/myMain.h:
 Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h:
 Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h:
@@ -74,13 +74,13 @@ Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h:
 Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h:
 Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h:
 Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h:
+Core/Inc/usart.h:
+Core/Inc/main.h:
 User/Inc/messages.h:
 User/Inc/rosserialInc/ros.h:
-User/Inc/rosserialInc/hydrosoft_ros/Command_Arm.h:
-User/Inc/rosserialInc/ros/msg.h:
-User/Inc/rosserialInc/hydrosoft_ros/Sensor_Arm.h:
 User/Inc/rosserialInc/ros/node_handle.h:
 User/Inc/rosserialInc/std_msgs/Time.h:
+User/Inc/rosserialInc/ros/msg.h:
 User/Inc/rosserialInc/ros/time.h:
 User/Inc/rosserialInc/ros/duration.h:
 User/Inc/rosserialInc/rosserial_msgs/TopicInfo.h:
@@ -93,6 +93,9 @@ User/Inc/rosserialInc/ros/service_server.h:
 User/Inc/rosserialInc/ros/service_client.h:
 User/Inc/rosserialInc/STM32Hardware.h:
 Core/Inc/main.h:
+User/Inc/rosserialInc/rosserialNode.h:
+User/Inc/rosserialInc/ros.h:
+User/Inc/rosserialInc/ros/msg.h:
 User/Inc/CANbus.h:
 User/Inc/LED_Driver.h:
 User/Inc/ads1115.h:
@@ -103,3 +106,5 @@ User/Inc/SOLENOIDVALVE.h:
 User/Inc/PRESSURESOURCE.h:
 User/Inc/PUMP.h:
 User/Inc/messages.h:
+User/Inc/rosserialInc/hydrosoft_ros/Command_Arm.h:
+User/Inc/rosserialInc/hydrosoft_ros/Sensor_Arm.h:
