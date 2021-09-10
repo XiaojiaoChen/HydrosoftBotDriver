@@ -51,10 +51,10 @@ void setup()
 
   }
 
-  while(1){
+//  while(1){
 	  HAL_Delay(1000);
 	  ADS1115_Read(0);
-  }
+//  }
   canConfig();
 
   /*setup loop() frequency to be 100Hz*/

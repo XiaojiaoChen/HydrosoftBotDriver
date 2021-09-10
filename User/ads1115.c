@@ -80,6 +80,7 @@ int16_t ADS1115_Read(int num)
 
 	}
 
+	HAL_Delay(20);
 	while(ad_flag == 0);										//Wait until flag is set (conversion complete)
 	ad_flag = 0;												//Clear flag
 	txBuf[0] = CONVERSION_ADDR;								//Read data
