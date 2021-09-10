@@ -1,4 +1,4 @@
-ARM GAS  /tmp/ccJO0myi.s 			page 1
+ARM GAS  /tmp/ccffNsqg.s 			page 1
 
 
    1              		.cpu cortex-m3
@@ -58,7 +58,7 @@ ARM GAS  /tmp/ccJO0myi.s 			page 1
   30:Core/Src/syscalls.c **** #include <time.h>
   31:Core/Src/syscalls.c **** #include <sys/time.h>
   32:Core/Src/syscalls.c **** #include <sys/times.h>
-ARM GAS  /tmp/ccJO0myi.s 			page 2
+ARM GAS  /tmp/ccffNsqg.s 			page 2
 
 
   33:Core/Src/syscalls.c **** 
@@ -118,7 +118,7 @@ ARM GAS  /tmp/ccJO0myi.s 			page 1
   64              		.thumb_func
   65              		.fpu softvfp
   67              	_kill:
-ARM GAS  /tmp/ccJO0myi.s 			page 3
+ARM GAS  /tmp/ccffNsqg.s 			page 3
 
 
   68              	.LVL0:
@@ -178,7 +178,7 @@ ARM GAS  /tmp/ccJO0myi.s 			page 1
   62:Core/Src/syscalls.c **** 	_kill(status, -1);
  115              		.loc 1 62 2 is_stmt 1 view .LVU13
  116 0002 4FF0FF31 		mov	r1, #-1
-ARM GAS  /tmp/ccJO0myi.s 			page 4
+ARM GAS  /tmp/ccffNsqg.s 			page 4
 
 
  117 0006 FFF7FEFF 		bl	_kill
@@ -238,7 +238,7 @@ ARM GAS  /tmp/ccJO0myi.s 			page 1
  163 000a FFF7FEFF 		bl	__io_getchar
  164              	.LVL7:
  165              		.loc 1 72 7 discriminator 3 view .LVU25
-ARM GAS  /tmp/ccJO0myi.s 			page 5
+ARM GAS  /tmp/ccffNsqg.s 			page 5
 
 
  166 000e 2146     		mov	r1, r4
@@ -298,7 +298,7 @@ ARM GAS  /tmp/ccJO0myi.s 			page 1
  211              		.cfi_offset 5, -12
  212              		.cfi_offset 6, -8
  213              		.cfi_offset 14, -4
-ARM GAS  /tmp/ccJO0myi.s 			page 6
+ARM GAS  /tmp/ccffNsqg.s 			page 6
 
 
  214 0002 0C46     		mov	r4, r1
@@ -358,7 +358,7 @@ ARM GAS  /tmp/ccJO0myi.s 			page 1
  258              	.LVL18:
  259              	.LFB31:
   88:Core/Src/syscalls.c **** 
-ARM GAS  /tmp/ccJO0myi.s 			page 7
+ARM GAS  /tmp/ccffNsqg.s 			page 7
 
 
   89:Core/Src/syscalls.c **** int _close(int file)
@@ -418,7 +418,7 @@ ARM GAS  /tmp/ccJO0myi.s 			page 1
  306              		.syntax unified
  307              		.thumb
  308              		.thumb_func
-ARM GAS  /tmp/ccJO0myi.s 			page 8
+ARM GAS  /tmp/ccffNsqg.s 			page 8
 
 
  309              		.fpu softvfp
@@ -478,7 +478,7 @@ ARM GAS  /tmp/ccJO0myi.s 			page 1
  357              		.thumb
  358              		.thumb_func
  359              		.fpu softvfp
-ARM GAS  /tmp/ccJO0myi.s 			page 9
+ARM GAS  /tmp/ccffNsqg.s 			page 9
 
 
  361              	_open:
@@ -538,7 +538,7 @@ ARM GAS  /tmp/ccJO0myi.s 			page 1
  408              	.LCFI6:
  409              		.cfi_def_cfa_offset 8
  410              		.cfi_offset 3, -8
-ARM GAS  /tmp/ccJO0myi.s 			page 10
+ARM GAS  /tmp/ccffNsqg.s 			page 10
 
 
  411              		.cfi_offset 14, -4
@@ -598,7 +598,7 @@ ARM GAS  /tmp/ccJO0myi.s 			page 1
  459              		.section	.text._times,"ax",%progbits
  460              		.align	1
  461              		.global	_times
-ARM GAS  /tmp/ccJO0myi.s 			page 11
+ARM GAS  /tmp/ccffNsqg.s 			page 11
 
 
  462              		.syntax unified
@@ -658,7 +658,7 @@ ARM GAS  /tmp/ccJO0myi.s 			page 1
  508              		.loc 1 138 1 view .LVU95
  509 0008 7047     		bx	lr
  510              		.cfi_endproc
-ARM GAS  /tmp/ccJO0myi.s 			page 12
+ARM GAS  /tmp/ccffNsqg.s 			page 12
 
 
  511              	.LFE39:
@@ -718,7 +718,7 @@ ARM GAS  /tmp/ccJO0myi.s 			page 1
  560              		@ frame_needed = 0, uses_anonymous_args = 0
  561 0000 08B5     		push	{r3, lr}
  562              	.LCFI9:
-ARM GAS  /tmp/ccJO0myi.s 			page 13
+ARM GAS  /tmp/ccffNsqg.s 			page 13
 
 
  563              		.cfi_def_cfa_offset 8
@@ -778,7 +778,7 @@ ARM GAS  /tmp/ccJO0myi.s 			page 1
  610              		.cfi_endproc
  611              	.LFE42:
  613              		.global	environ
-ARM GAS  /tmp/ccJO0myi.s 			page 14
+ARM GAS  /tmp/ccffNsqg.s 			page 14
 
 
  614              		.global	__env
@@ -802,51 +802,51 @@ ARM GAS  /tmp/ccJO0myi.s 			page 1
  636              		.file 7 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-n
  637              		.file 8 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-n
  638              		.file 9 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-n
-ARM GAS  /tmp/ccJO0myi.s 			page 15
+ARM GAS  /tmp/ccffNsqg.s 			page 15
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 syscalls.c
-     /tmp/ccJO0myi.s:16     .text.initialise_monitor_handles:0000000000000000 $t
-     /tmp/ccJO0myi.s:24     .text.initialise_monitor_handles:0000000000000000 initialise_monitor_handles
-     /tmp/ccJO0myi.s:38     .text._getpid:0000000000000000 $t
-     /tmp/ccJO0myi.s:45     .text._getpid:0000000000000000 _getpid
-     /tmp/ccJO0myi.s:60     .text._kill:0000000000000000 $t
-     /tmp/ccJO0myi.s:67     .text._kill:0000000000000000 _kill
-     /tmp/ccJO0myi.s:94     .text._exit:0000000000000000 $t
-     /tmp/ccJO0myi.s:101    .text._exit:0000000000000000 _exit
-     /tmp/ccJO0myi.s:128    .text._read:0000000000000000 $t
-     /tmp/ccJO0myi.s:135    .text._read:0000000000000000 _read
-     /tmp/ccJO0myi.s:192    .text._write:0000000000000000 $t
-     /tmp/ccJO0myi.s:199    .text._write:0000000000000000 _write
-     /tmp/ccJO0myi.s:250    .text._close:0000000000000000 $t
-     /tmp/ccJO0myi.s:257    .text._close:0000000000000000 _close
-     /tmp/ccJO0myi.s:275    .text._fstat:0000000000000000 $t
-     /tmp/ccJO0myi.s:282    .text._fstat:0000000000000000 _fstat
-     /tmp/ccJO0myi.s:304    .text._isatty:0000000000000000 $t
-     /tmp/ccJO0myi.s:311    .text._isatty:0000000000000000 _isatty
-     /tmp/ccJO0myi.s:329    .text._lseek:0000000000000000 $t
-     /tmp/ccJO0myi.s:336    .text._lseek:0000000000000000 _lseek
-     /tmp/ccJO0myi.s:354    .text._open:0000000000000000 $t
-     /tmp/ccJO0myi.s:361    .text._open:0000000000000000 _open
-     /tmp/ccJO0myi.s:392    .text._wait:0000000000000000 $t
-     /tmp/ccJO0myi.s:399    .text._wait:0000000000000000 _wait
-     /tmp/ccJO0myi.s:426    .text._unlink:0000000000000000 $t
-     /tmp/ccJO0myi.s:433    .text._unlink:0000000000000000 _unlink
-     /tmp/ccJO0myi.s:460    .text._times:0000000000000000 $t
-     /tmp/ccJO0myi.s:467    .text._times:0000000000000000 _times
-     /tmp/ccJO0myi.s:485    .text._stat:0000000000000000 $t
-     /tmp/ccJO0myi.s:492    .text._stat:0000000000000000 _stat
-     /tmp/ccJO0myi.s:514    .text._link:0000000000000000 $t
-     /tmp/ccJO0myi.s:521    .text._link:0000000000000000 _link
-     /tmp/ccJO0myi.s:548    .text._fork:0000000000000000 $t
-     /tmp/ccJO0myi.s:555    .text._fork:0000000000000000 _fork
-     /tmp/ccJO0myi.s:580    .text._execve:0000000000000000 $t
-     /tmp/ccJO0myi.s:587    .text._execve:0000000000000000 _execve
-     /tmp/ccJO0myi.s:625    .data.environ:0000000000000000 environ
-     /tmp/ccJO0myi.s:619    .bss.__env:0000000000000000 __env
-     /tmp/ccJO0myi.s:616    .bss.__env:0000000000000000 $d
-     /tmp/ccJO0myi.s:622    .data.environ:0000000000000000 $d
+     /tmp/ccffNsqg.s:16     .text.initialise_monitor_handles:0000000000000000 $t
+     /tmp/ccffNsqg.s:24     .text.initialise_monitor_handles:0000000000000000 initialise_monitor_handles
+     /tmp/ccffNsqg.s:38     .text._getpid:0000000000000000 $t
+     /tmp/ccffNsqg.s:45     .text._getpid:0000000000000000 _getpid
+     /tmp/ccffNsqg.s:60     .text._kill:0000000000000000 $t
+     /tmp/ccffNsqg.s:67     .text._kill:0000000000000000 _kill
+     /tmp/ccffNsqg.s:94     .text._exit:0000000000000000 $t
+     /tmp/ccffNsqg.s:101    .text._exit:0000000000000000 _exit
+     /tmp/ccffNsqg.s:128    .text._read:0000000000000000 $t
+     /tmp/ccffNsqg.s:135    .text._read:0000000000000000 _read
+     /tmp/ccffNsqg.s:192    .text._write:0000000000000000 $t
+     /tmp/ccffNsqg.s:199    .text._write:0000000000000000 _write
+     /tmp/ccffNsqg.s:250    .text._close:0000000000000000 $t
+     /tmp/ccffNsqg.s:257    .text._close:0000000000000000 _close
+     /tmp/ccffNsqg.s:275    .text._fstat:0000000000000000 $t
+     /tmp/ccffNsqg.s:282    .text._fstat:0000000000000000 _fstat
+     /tmp/ccffNsqg.s:304    .text._isatty:0000000000000000 $t
+     /tmp/ccffNsqg.s:311    .text._isatty:0000000000000000 _isatty
+     /tmp/ccffNsqg.s:329    .text._lseek:0000000000000000 $t
+     /tmp/ccffNsqg.s:336    .text._lseek:0000000000000000 _lseek
+     /tmp/ccffNsqg.s:354    .text._open:0000000000000000 $t
+     /tmp/ccffNsqg.s:361    .text._open:0000000000000000 _open
+     /tmp/ccffNsqg.s:392    .text._wait:0000000000000000 $t
+     /tmp/ccffNsqg.s:399    .text._wait:0000000000000000 _wait
+     /tmp/ccffNsqg.s:426    .text._unlink:0000000000000000 $t
+     /tmp/ccffNsqg.s:433    .text._unlink:0000000000000000 _unlink
+     /tmp/ccffNsqg.s:460    .text._times:0000000000000000 $t
+     /tmp/ccffNsqg.s:467    .text._times:0000000000000000 _times
+     /tmp/ccffNsqg.s:485    .text._stat:0000000000000000 $t
+     /tmp/ccffNsqg.s:492    .text._stat:0000000000000000 _stat
+     /tmp/ccffNsqg.s:514    .text._link:0000000000000000 $t
+     /tmp/ccffNsqg.s:521    .text._link:0000000000000000 _link
+     /tmp/ccffNsqg.s:548    .text._fork:0000000000000000 $t
+     /tmp/ccffNsqg.s:555    .text._fork:0000000000000000 _fork
+     /tmp/ccffNsqg.s:580    .text._execve:0000000000000000 $t
+     /tmp/ccffNsqg.s:587    .text._execve:0000000000000000 _execve
+     /tmp/ccffNsqg.s:625    .data.environ:0000000000000000 environ
+     /tmp/ccffNsqg.s:619    .bss.__env:0000000000000000 __env
+     /tmp/ccffNsqg.s:616    .bss.__env:0000000000000000 $d
+     /tmp/ccffNsqg.s:622    .data.environ:0000000000000000 $d
 
 UNDEFINED SYMBOLS
 __errno

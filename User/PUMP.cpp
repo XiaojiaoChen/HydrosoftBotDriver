@@ -33,7 +33,7 @@ void PUMP::start()
 
 void PUMP::stop()
 {
-	PWMWriteDuty(DigitalPort,(PWM_DIGITAL_OUTPUT_REVERSED?0:1));
+	PWMWriteDuty(DigitalPort,(PWM_DIGITAL_OUTPUT_REVERSED?1:0));
 	status=0;
 
 }

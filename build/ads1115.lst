@@ -1,4 +1,4 @@
-ARM GAS  /tmp/ccJE5MZs.s 			page 1
+ARM GAS  /tmp/cc6y7Vgy.s 			page 1
 
 
    1              		.cpu cortex-m3
@@ -58,7 +58,7 @@ ARM GAS  /tmp/ccJE5MZs.s 			page 1
   33              		.cfi_def_cfa_offset 24
   34              		.cfi_offset 4, -24
   35              		.cfi_offset 5, -20
-ARM GAS  /tmp/ccJE5MZs.s 			page 2
+ARM GAS  /tmp/cc6y7Vgy.s 			page 2
 
 
   36              		.cfi_offset 6, -16
@@ -118,7 +118,7 @@ ARM GAS  /tmp/ccJE5MZs.s 			page 1
   81 0046 FFF7FEFF 		bl	HAL_I2C_Mem_Write
   82              	.LVL1:
   33:User/ads1115.c **** 
-ARM GAS  /tmp/ccJE5MZs.s 			page 3
+ARM GAS  /tmp/cc6y7Vgy.s 			page 3
 
 
   34:User/ads1115.c **** 	txbuf[0] = 0xFF;											//Set MSB of Hi_thresh to 1
@@ -178,7 +178,7 @@ ARM GAS  /tmp/ccJE5MZs.s 			page 1
  130              	.LCFI3:
  131              		.cfi_def_cfa_offset 16
  132              		.cfi_offset 4, -16
-ARM GAS  /tmp/ccJE5MZs.s 			page 4
+ARM GAS  /tmp/cc6y7Vgy.s 			page 4
 
 
  133              		.cfi_offset 5, -12
@@ -200,10 +200,10 @@ ARM GAS  /tmp/ccJE5MZs.s 			page 1
  144              		.loc 1 47 11 is_stmt 0 view .LVU24
  145 0006 0123     		movs	r3, #1
  146 0008 8DF81430 		strb	r3, [sp, #20]
-  48:User/ads1115.c **** 	HAL_I2C_Master_Transmit(&hi2c2, ADS1115_ADDR,  txBuf,1,100);
+  48:User/ads1115.c **** 	HAL_I2C_Master_Transmit(&hi2c2, ADS1115_ADDR,  txBuf,1,10);
  147              		.loc 1 48 2 is_stmt 1 view .LVU25
  148 000c 384D     		ldr	r5, .L10
- 149 000e 6426     		movs	r6, #100
+ 149 000e 0A26     		movs	r6, #10
  150 0010 0096     		str	r6, [sp]
  151 0012 05AA     		add	r2, sp, #20
  152 0014 4821     		movs	r1, #72
@@ -212,7 +212,7 @@ ARM GAS  /tmp/ccJE5MZs.s 			page 1
  155              		.loc 1 48 2 is_stmt 0 view .LVU26
  156 0018 FFF7FEFF 		bl	HAL_I2C_Master_Transmit
  157              	.LVL5:
-  49:User/ads1115.c **** 	HAL_I2C_Master_Receive(&hi2c2, ADS1115_ADDR,  rxBuf,2,100);
+  49:User/ads1115.c **** 	HAL_I2C_Master_Receive(&hi2c2, ADS1115_ADDR,  rxBuf,2,10);
  158              		.loc 1 49 2 is_stmt 1 view .LVU27
  159 001c 0096     		str	r6, [sp]
  160 001e 0223     		movs	r3, #2
@@ -238,7 +238,7 @@ ARM GAS  /tmp/ccJE5MZs.s 			page 1
  176              		.loc 1 53 11 is_stmt 0 view .LVU34
  177 0036 43F08003 		orr	r3, r3, #128
  178 003a 8DF81430 		strb	r3, [sp, #20]
-ARM GAS  /tmp/ccJE5MZs.s 			page 5
+ARM GAS  /tmp/cc6y7Vgy.s 			page 5
 
 
   54:User/ads1115.c **** 	txBuf[0] &= ~(CONFIG_MUX_0 >> 8);						//Set MUX to 000 (AIN_p = AIN0, AIN_n = AIN1)
@@ -298,7 +298,7 @@ ARM GAS  /tmp/ccJE5MZs.s 			page 1
  217              		.loc 1 69 7 discriminator 1 view .LVU49
  218 007a 002B     		cmp	r3, #0
  219 007c FBD0     		beq	.L8
-ARM GAS  /tmp/ccJE5MZs.s 			page 6
+ARM GAS  /tmp/cc6y7Vgy.s 			page 6
 
 
   70:User/ads1115.c **** 	ad_flag = 0;												//Clear flag
@@ -358,7 +358,7 @@ ARM GAS  /tmp/ccJE5MZs.s 			page 1
  266              		.cfi_def_cfa_offset 16
  267              		@ sp needed
  268 00b8 70BD     		pop	{r4, r5, r6, pc}
-ARM GAS  /tmp/ccJE5MZs.s 			page 7
+ARM GAS  /tmp/cc6y7Vgy.s 			page 7
 
 
  269              	.LVL13:
@@ -418,7 +418,7 @@ ARM GAS  /tmp/ccJE5MZs.s 			page 1
  307 00f0 00000000 		.word	hi2c2
  308 00f4 00000000 		.word	.LANCHOR0
  309              		.cfi_endproc
-ARM GAS  /tmp/ccJE5MZs.s 			page 8
+ARM GAS  /tmp/cc6y7Vgy.s 			page 8
 
 
  310              	.LFE66:
@@ -478,27 +478,27 @@ ARM GAS  /tmp/ccJE5MZs.s 			page 1
  361              		.file 4 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h"
  362              		.file 5 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
  363              		.file 6 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
-ARM GAS  /tmp/ccJE5MZs.s 			page 9
+ARM GAS  /tmp/cc6y7Vgy.s 			page 9
 
 
  364              		.file 7 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h"
  365              		.file 8 "Core/Inc/i2c.h"
-ARM GAS  /tmp/ccJE5MZs.s 			page 10
+ARM GAS  /tmp/cc6y7Vgy.s 			page 10
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 ads1115.c
-     /tmp/ccJE5MZs.s:16     .text.ADS1115_Setup:0000000000000000 $t
-     /tmp/ccJE5MZs.s:24     .text.ADS1115_Setup:0000000000000000 ADS1115_Setup
-     /tmp/ccJE5MZs.s:109    .text.ADS1115_Setup:000000000000006c $d
-     /tmp/ccJE5MZs.s:114    .text.ADS1115_Read:0000000000000000 $t
-     /tmp/ccJE5MZs.s:121    .text.ADS1115_Read:0000000000000000 ADS1115_Read
-     /tmp/ccJE5MZs.s:307    .text.ADS1115_Read:00000000000000f0 $d
-     /tmp/ccJE5MZs.s:313    .text.HAL_GPIO_EXTI_Callback:0000000000000000 $t
-     /tmp/ccJE5MZs.s:320    .text.HAL_GPIO_EXTI_Callback:0000000000000000 HAL_GPIO_EXTI_Callback
-     /tmp/ccJE5MZs.s:346    .text.HAL_GPIO_EXTI_Callback:0000000000000010 $d
-     /tmp/ccJE5MZs.s:355    .bss.ad_flag:0000000000000000 ad_flag
-     /tmp/ccJE5MZs.s:356    .bss.ad_flag:0000000000000000 $d
+     /tmp/cc6y7Vgy.s:16     .text.ADS1115_Setup:0000000000000000 $t
+     /tmp/cc6y7Vgy.s:24     .text.ADS1115_Setup:0000000000000000 ADS1115_Setup
+     /tmp/cc6y7Vgy.s:109    .text.ADS1115_Setup:000000000000006c $d
+     /tmp/cc6y7Vgy.s:114    .text.ADS1115_Read:0000000000000000 $t
+     /tmp/cc6y7Vgy.s:121    .text.ADS1115_Read:0000000000000000 ADS1115_Read
+     /tmp/cc6y7Vgy.s:307    .text.ADS1115_Read:00000000000000f0 $d
+     /tmp/cc6y7Vgy.s:313    .text.HAL_GPIO_EXTI_Callback:0000000000000000 $t
+     /tmp/cc6y7Vgy.s:320    .text.HAL_GPIO_EXTI_Callback:0000000000000000 HAL_GPIO_EXTI_Callback
+     /tmp/cc6y7Vgy.s:346    .text.HAL_GPIO_EXTI_Callback:0000000000000010 $d
+     /tmp/cc6y7Vgy.s:355    .bss.ad_flag:0000000000000000 ad_flag
+     /tmp/cc6y7Vgy.s:356    .bss.ad_flag:0000000000000000 $d
 
 UNDEFINED SYMBOLS
 HAL_I2C_Mem_Write

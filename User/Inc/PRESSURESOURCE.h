@@ -38,6 +38,9 @@ public:
 	void maintainPressure(int32_t pressurelim);
 	void maintainPressure(int32_t p_low,int32_t p_high);
 
+	void setPump(int pumpCmd);
+	void setValve(int valveCmd);
+
 	void stopPump(void);
 	void startPump(void);
 

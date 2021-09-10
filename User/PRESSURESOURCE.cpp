@@ -79,7 +79,24 @@ void PRESSURE_SOURCE::maintainPressure(int32_t p_low,int32_t p_high) {
 
 }
 
-  
+void PRESSURE_SOURCE::setPump(int pumpCmd){
+	if(pumpCmd){
+		startPump();
+	}
+	else{
+		stopPump();
+	}
+}
+
+
+void PRESSURE_SOURCE::setValve(int valveCmd){
+	if(valveCmd){
+		openValve();
+	}
+	else{
+		closeValve();
+	}
+}
 
 void PRESSURE_SOURCE::stopPump()
 {

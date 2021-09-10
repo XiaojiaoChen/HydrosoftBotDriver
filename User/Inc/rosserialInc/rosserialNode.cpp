@@ -93,5 +93,6 @@ void RosserialNode::RxCallback(UART_HandleTypeDef *huart)
 }
 
 void RosserialNode::publish(const ros::Msg * msg){
+	uwManipulator.encodeStatus();
 	publisher1.publish(msg);
 }

@@ -16,7 +16,7 @@ extern "C" {
 #include "stm32f1xx_hal.h"
 
 
-#define ADS1115_ADDR					(0x48UL)
+#define ADS1115_ADDR					((0x48UL)<<1)
 
 #define CONVERSION_ADDR					(0X0UL)
 #define CONFIG_ADDR						(0X1UL)
@@ -49,8 +49,9 @@ extern "C" {
 #define CONFIG_COMP_QUE_0				(0X1UL << CONFIG_COMP_QUE_POS)
 #define CONFIG_COMP_QUE_1				(0X2UL << CONFIG_COMP_QUE_POS)
 
-void ADS1115_Setup(void);
+int ADS1115_Setup(void);
 int16_t ADS1115_Read(int num);
+void ads1115_Callback();
 #ifdef __cplusplus
 }
 #endif

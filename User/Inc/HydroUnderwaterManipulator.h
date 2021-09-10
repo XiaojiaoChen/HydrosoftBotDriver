@@ -99,15 +99,9 @@ public:
 	void setupPsourcePorts(uint8_t pumpPort, uint8_t valvePort, uint8_t sensorPort);
 	void setupPsinkPorts(uint8_t pumpPort, uint8_t valvePort, uint8_t sensorPort);
 
-	void control_pSource();
-	void control_pSink();
-	void control_actuators();
-	void control_gripper();
-
+	void control();
 	void encodeStatus();
-	void decodeCommand();
 
-	void execInfoCommand(char *);
 
 	HydroManipulatorStatus manipulatorStatus;
 	HydroManipulatorCommand hostCommand;

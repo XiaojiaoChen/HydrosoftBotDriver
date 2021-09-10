@@ -23,16 +23,21 @@ static uint8_t channelAddress[24]={
  * Automatic increment mode
  * PWM dithering mode
  * Output maximum current 25.5mA */
-void LED_Driver_Setup()
+int LED_Driver_Setup()
 {
 	uint8_t txBuf[1];
-
+	int ret = HAL_OK;
 	txBuf[0] = DEVICE_CONFIG0_CHIP_EN;
-	HAL_I2C_Mem_Write(&hi2c2,LED_DRIVER_ADDR, DEVICE_CONFIG0_ADDR, I2C_MEMADD_SIZE_8BIT, txBuf,1,100);
+	if((ret = HAL_I2C_Mem_Write(&hi2c2,LED_DRIVER_ADDR, DEVICE_CONFIG0_ADDR, I2C_MEMADD_SIZE_8BIT, txBuf,1,100))!=HAL_OK){
+
+	}
 
 	txBuf[0] = DEVICE_CONFIG1_POWER_SAVE_EN | DEVICE_CONFIG1_AUTO_INCR_EN | DEVICE_CONFIG1_PWM_DITHERING_EN | DEVICE_CONFIG1_MAX_CURRENT_OPTION;
-	HAL_I2C_Mem_Write(&hi2c2,LED_DRIVER_ADDR, DEVICE_CONFIG1_ADDR, I2C_MEMADD_SIZE_8BIT, txBuf,1,100);
+	if((ret = HAL_I2C_Mem_Write(&hi2c2,LED_DRIVER_ADDR, DEVICE_CONFIG1_ADDR, I2C_MEMADD_SIZE_8BIT, txBuf,1,100))!=HAL_OK){
+	}
 
+
+	return ret;
 }
 
 void LED_Driver_SetPWM_One(uint16_t channel, uint8_t dutyCycle)

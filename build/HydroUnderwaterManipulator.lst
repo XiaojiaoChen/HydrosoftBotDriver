@@ -1,4 +1,4 @@
-ARM GAS  /tmp/ccgPptWl.s 			page 1
+ARM GAS  /tmp/ccumnHxp.s 			page 1
 
 
    1              		.cpu cortex-m3
@@ -58,7 +58,7 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
   28:User/Inc/rosserialInc/hydrosoft_ros/Command_Arm.h ****     Command_Arm():
   29:User/Inc/rosserialInc/hydrosoft_ros/Command_Arm.h ****       controlModeCommand(0),
   30:User/Inc/rosserialInc/hydrosoft_ros/Command_Arm.h ****       actuatorCommand_length(0), st_actuatorCommand(), actuatorCommand(nullptr),
-ARM GAS  /tmp/ccgPptWl.s 			page 2
+ARM GAS  /tmp/ccumnHxp.s 			page 2
 
 
   31:User/Inc/rosserialInc/hydrosoft_ros/Command_Arm.h ****       gripperCommand(0),
@@ -118,7 +118,7 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
   64 0014 1B0A     		lsrs	r3, r3, #8
   65              		.loc 1 49 33 view .LVU18
   66 0016 CB70     		strb	r3, [r1, #3]
-ARM GAS  /tmp/ccgPptWl.s 			page 3
+ARM GAS  /tmp/ccumnHxp.s 			page 3
 
 
   50:User/Inc/rosserialInc/hydrosoft_ros/Command_Arm.h ****       *(outbuffer + offset + 2) = (this->actuatorCommand_length >> (8 * 2)) & 0xFF;
@@ -138,18 +138,18 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
   78              	.LVL3:
   53:User/Inc/rosserialInc/hydrosoft_ros/Command_Arm.h ****       for( uint32_t i = 0; i < actuatorCommand_length; i++){
   79              		.loc 1 53 7 view .LVU26
-  80              	.LBB45:
+  80              	.LBB41:
   81              		.loc 1 53 21 is_stmt 0 view .LVU27
   82 0020 4FF0000C 		mov	ip, #0
-  83              	.LBE45:
+  83              	.LBE41:
   52:User/Inc/rosserialInc/hydrosoft_ros/Command_Arm.h ****       offset += sizeof(this->actuatorCommand_length);
   84              		.loc 1 52 14 view .LVU28
   85 0024 0622     		movs	r2, #6
   86 0026 0CE0     		b	.L3
   87              	.LVL4:
   88              	.L5:
-  89              	.LBB47:
-  90              	.LBB46:
+  89              	.LBB43:
+  90              	.LBB42:
   54:User/Inc/rosserialInc/hydrosoft_ros/Command_Arm.h ****       union {
   91              		.loc 1 54 7 is_stmt 1 discriminator 2 view .LVU29
   55:User/Inc/rosserialInc/hydrosoft_ros/Command_Arm.h ****         int16_t real;
@@ -178,12 +178,12 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
  108              		.loc 1 61 7 is_stmt 1 discriminator 2 view .LVU39
  109              		.loc 1 61 14 is_stmt 0 discriminator 2 view .LVU40
  110 003c 0232     		adds	r2, r2, #2
-ARM GAS  /tmp/ccgPptWl.s 			page 4
+ARM GAS  /tmp/ccumnHxp.s 			page 4
 
 
  111              	.LVL5:
  112              		.loc 1 61 14 discriminator 2 view .LVU41
- 113              	.LBE46:
+ 113              	.LBE42:
   53:User/Inc/rosserialInc/hydrosoft_ros/Command_Arm.h ****       union {
  114              		.loc 1 53 7 is_stmt 1 discriminator 2 view .LVU42
  115 003e 0CF1010C 		add	ip, ip, #1
@@ -198,7 +198,7 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
  121              		.loc 1 53 30 discriminator 3 view .LVU45
  122 0044 6345     		cmp	r3, ip
  123 0046 EFD8     		bhi	.L5
- 124              	.LBE47:
+ 124              	.LBE43:
   62:User/Inc/rosserialInc/hydrosoft_ros/Command_Arm.h ****       }
   63:User/Inc/rosserialInc/hydrosoft_ros/Command_Arm.h ****       union {
  125              		.loc 1 63 7 is_stmt 1 view .LVU46
@@ -238,7 +238,7 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
  147              		.loc 1 75 37 is_stmt 0 view .LVU59
  148 005e B0F91630 		ldrsh	r3, [r0, #22]
   76:User/Inc/rosserialInc/hydrosoft_ros/Command_Arm.h ****       *(outbuffer + offset + 0) = (u_pSourceCommand.base >> (8 * 0)) & 0xFF;
-ARM GAS  /tmp/ccgPptWl.s 			page 5
+ARM GAS  /tmp/ccumnHxp.s 			page 5
 
 
  149              		.loc 1 76 7 is_stmt 1 view .LVU60
@@ -298,7 +298,7 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
  191              		.cantunwind
  192              		.fnend
  194              		.section	.rodata._ZN13hydrosoft_ros11Command_Arm7getTypeEv.str1.4,"aMS",%progbits,1
-ARM GAS  /tmp/ccgPptWl.s 			page 6
+ARM GAS  /tmp/ccumnHxp.s 			page 6
 
 
  195              		.align	2
@@ -358,7 +358,7 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
  125:User/Inc/rosserialInc/hydrosoft_ros/Command_Arm.h ****       } u_gripperCommand;
  126:User/Inc/rosserialInc/hydrosoft_ros/Command_Arm.h ****       u_gripperCommand.base = 0;
  127:User/Inc/rosserialInc/hydrosoft_ros/Command_Arm.h ****       u_gripperCommand.base |= ((uint16_t) (*(inbuffer + offset + 0))) << (8 * 0);
-ARM GAS  /tmp/ccgPptWl.s 			page 7
+ARM GAS  /tmp/ccumnHxp.s 			page 7
 
 
  128:User/Inc/rosserialInc/hydrosoft_ros/Command_Arm.h ****       u_gripperCommand.base |= ((uint16_t) (*(inbuffer + offset + 1))) << (8 * 1);
@@ -418,7 +418,7 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
  236              		.weak	_ZN13hydrosoft_ros11Command_Arm6getMD5Ev
  237              		.syntax unified
  238              		.thumb
-ARM GAS  /tmp/ccgPptWl.s 			page 8
+ARM GAS  /tmp/ccumnHxp.s 			page 8
 
 
  239              		.thumb_func
@@ -478,7 +478,7 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
   17:User/Inc/rosserialInc/hydrosoft_ros/Sensor_Arm.h ****       uint32_t actuatorStatus_length;
   18:User/Inc/rosserialInc/hydrosoft_ros/Sensor_Arm.h ****       typedef int16_t _actuatorStatus_type;
   19:User/Inc/rosserialInc/hydrosoft_ros/Sensor_Arm.h ****       _actuatorStatus_type st_actuatorStatus;
-ARM GAS  /tmp/ccgPptWl.s 			page 9
+ARM GAS  /tmp/ccumnHxp.s 			page 9
 
 
   20:User/Inc/rosserialInc/hydrosoft_ros/Sensor_Arm.h ****       _actuatorStatus_type * actuatorStatus;
@@ -538,7 +538,7 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
  301 000c 1B0A     		lsrs	r3, r3, #8
  302              		.loc 2 51 33 view .LVU99
  303 000e 4B70     		strb	r3, [r1, #1]
-ARM GAS  /tmp/ccgPptWl.s 			page 10
+ARM GAS  /tmp/ccumnHxp.s 			page 10
 
 
   52:User/Inc/rosserialInc/hydrosoft_ros/Sensor_Arm.h ****       offset += sizeof(this->controlModeStatus);
@@ -575,20 +575,20 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
  329              	.LVL21:
   58:User/Inc/rosserialInc/hydrosoft_ros/Sensor_Arm.h ****       for( uint32_t i = 0; i < actuatorStatus_length; i++){
  330              		.loc 2 58 7 view .LVU115
- 331              	.LBB48:
+ 331              	.LBB44:
  332              		.loc 2 58 21 is_stmt 0 view .LVU116
  333 0022 0020     		movs	r0, #0
  334              	.LVL22:
  335              		.loc 2 58 21 view .LVU117
- 336              	.LBE48:
+ 336              	.LBE44:
   57:User/Inc/rosserialInc/hydrosoft_ros/Sensor_Arm.h ****       offset += sizeof(this->actuatorStatus_length);
  337              		.loc 2 57 14 view .LVU118
  338 0024 0623     		movs	r3, #6
  339 0026 0CE0     		b	.L14
  340              	.LVL23:
  341              	.L18:
- 342              	.LBB50:
- 343              	.LBB49:
+ 342              	.LBB46:
+ 343              	.LBB45:
   59:User/Inc/rosserialInc/hydrosoft_ros/Sensor_Arm.h ****       union {
  344              		.loc 2 59 7 is_stmt 1 discriminator 2 view .LVU119
   60:User/Inc/rosserialInc/hydrosoft_ros/Sensor_Arm.h ****         int16_t real;
@@ -598,7 +598,7 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
  345              		.loc 2 63 7 discriminator 2 view .LVU120
  346              		.loc 2 63 38 is_stmt 0 discriminator 2 view .LVU121
  347 0028 DCF81020 		ldr	r2, [ip, #16]
-ARM GAS  /tmp/ccgPptWl.s 			page 11
+ARM GAS  /tmp/ccumnHxp.s 			page 11
 
 
  348              		.loc 2 63 54 discriminator 2 view .LVU122
@@ -622,7 +622,7 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
  363 003e 0233     		adds	r3, r3, #2
  364              	.LVL24:
  365              		.loc 2 66 14 discriminator 2 view .LVU131
- 366              	.LBE49:
+ 366              	.LBE45:
   58:User/Inc/rosserialInc/hydrosoft_ros/Sensor_Arm.h ****       union {
  367              		.loc 2 58 7 is_stmt 1 discriminator 2 view .LVU132
  368 0040 0130     		adds	r0, r0, #1
@@ -637,7 +637,7 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
  374              		.loc 2 58 30 discriminator 3 view .LVU135
  375 0046 8242     		cmp	r2, r0
  376 0048 EED8     		bhi	.L18
- 377              	.LBE50:
+ 377              	.LBE46:
   67:User/Inc/rosserialInc/hydrosoft_ros/Sensor_Arm.h ****       }
   68:User/Inc/rosserialInc/hydrosoft_ros/Sensor_Arm.h ****       union {
  378              		.loc 2 68 7 is_stmt 1 view .LVU136
@@ -658,7 +658,7 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
  387              		.loc 2 74 57 is_stmt 0 view .LVU142
  388 0052 120A     		lsrs	r2, r2, #8
  389              		.loc 2 74 28 view .LVU143
-ARM GAS  /tmp/ccgPptWl.s 			page 12
+ARM GAS  /tmp/ccumnHxp.s 			page 12
 
 
  390 0054 581C     		adds	r0, r3, #1
@@ -718,7 +718,7 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
  428 0072 120A     		lsrs	r2, r2, #8
  429              		.loc 2 90 28 view .LVU165
  430 0074 581D     		adds	r0, r3, #5
-ARM GAS  /tmp/ccgPptWl.s 			page 13
+ARM GAS  /tmp/ccumnHxp.s 			page 13
 
 
  431              	.LVL30:
@@ -769,16 +769,16 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
  470              	.LVL33:
   97:User/Inc/rosserialInc/hydrosoft_ros/Sensor_Arm.h ****       for( uint32_t i = 0; i < quaternions_length; i++){
  471              		.loc 2 97 7 is_stmt 1 view .LVU187
- 472              	.LBB51:
+ 472              	.LBB47:
  473              		.loc 2 97 21 is_stmt 0 view .LVU188
  474 00a2 0022     		movs	r2, #0
  475 00a4 0CE0     		b	.L16
  476              	.LVL34:
  477              	.L19:
- 478              	.LBB52:
+ 478              	.LBB48:
   98:User/Inc/rosserialInc/hydrosoft_ros/Sensor_Arm.h ****       union {
  479              		.loc 2 98 7 is_stmt 1 discriminator 2 view .LVU189
-ARM GAS  /tmp/ccgPptWl.s 			page 14
+ARM GAS  /tmp/ccumnHxp.s 			page 14
 
 
   99:User/Inc/rosserialInc/hydrosoft_ros/Sensor_Arm.h ****         int16_t real;
@@ -809,7 +809,7 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
  498 00bc 0230     		adds	r0, r0, #2
  499              	.LVL35:
  500              		.loc 2 105 14 discriminator 2 view .LVU201
- 501              	.LBE52:
+ 501              	.LBE48:
   97:User/Inc/rosserialInc/hydrosoft_ros/Sensor_Arm.h ****       union {
  502              		.loc 2 97 7 is_stmt 1 discriminator 2 view .LVU202
  503 00be 0132     		adds	r2, r2, #1
@@ -826,7 +826,7 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
  511 00c6 EED8     		bhi	.L19
   97:User/Inc/rosserialInc/hydrosoft_ros/Sensor_Arm.h ****       union {
  512              		.loc 2 97 30 discriminator 3 view .LVU206
- 513              	.LBE51:
+ 513              	.LBE47:
  106:User/Inc/rosserialInc/hydrosoft_ros/Sensor_Arm.h ****       }
  107:User/Inc/rosserialInc/hydrosoft_ros/Sensor_Arm.h ****       return offset;
  108:User/Inc/rosserialInc/hydrosoft_ros/Sensor_Arm.h ****     }
@@ -838,7 +838,7 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
  519              		.fnend
  521              		.section	.rodata._ZN13hydrosoft_ros10Sensor_Arm7getTypeEv.str1.4,"aMS",%progbits,1
  522              		.align	2
-ARM GAS  /tmp/ccgPptWl.s 			page 15
+ARM GAS  /tmp/ccumnHxp.s 			page 15
 
 
  523              	.LC2:
@@ -898,7 +898,7 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
  146:User/Inc/rosserialInc/hydrosoft_ros/Sensor_Arm.h ****       u_gripperStatus.base = 0;
  147:User/Inc/rosserialInc/hydrosoft_ros/Sensor_Arm.h ****       u_gripperStatus.base |= ((uint16_t) (*(inbuffer + offset + 0))) << (8 * 0);
  148:User/Inc/rosserialInc/hydrosoft_ros/Sensor_Arm.h ****       u_gripperStatus.base |= ((uint16_t) (*(inbuffer + offset + 1))) << (8 * 1);
-ARM GAS  /tmp/ccgPptWl.s 			page 16
+ARM GAS  /tmp/ccumnHxp.s 			page 16
 
 
  149:User/Inc/rosserialInc/hydrosoft_ros/Sensor_Arm.h ****       this->gripperStatus = u_gripperStatus.real;
@@ -958,7 +958,7 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
  547 0002 7047     		bx	lr
  548              	.L22:
  549              		.align	2
-ARM GAS  /tmp/ccgPptWl.s 			page 17
+ARM GAS  /tmp/ccumnHxp.s 			page 17
 
 
  550              	.L21:
@@ -1018,7 +1018,7 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
  603              	.LVL41:
  604              	.LFB434:
  110:User/Inc/rosserialInc/hydrosoft_ros/Sensor_Arm.h ****     {
-ARM GAS  /tmp/ccgPptWl.s 			page 18
+ARM GAS  /tmp/ccumnHxp.s 			page 18
 
 
  605              		.loc 2 110 17 is_stmt 1 view -0
@@ -1078,7 +1078,7 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
  643              		.loc 2 123 46 is_stmt 0 view .LVU232
  644 0012 CB78     		ldrb	r3, [r1, #3]	@ zero_extendqisi2
  123:User/Inc/rosserialInc/hydrosoft_ros/Sensor_Arm.h ****       actuatorStatus_lengthT |= ((uint32_t) (*(inbuffer + offset + 2))) << (8 * 2); 
-ARM GAS  /tmp/ccgPptWl.s 			page 19
+ARM GAS  /tmp/ccumnHxp.s 			page 19
 
 
  645              		.loc 2 123 30 view .LVU233
@@ -1123,11 +1123,11 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
  130:User/Inc/rosserialInc/hydrosoft_ros/Sensor_Arm.h ****       union {
  672              		.loc 2 130 7 is_stmt 1 view .LVU246
  673              	.LVL49:
- 674              	.LBB53:
+ 674              	.LBB49:
  130:User/Inc/rosserialInc/hydrosoft_ros/Sensor_Arm.h ****       union {
  675              		.loc 2 130 21 is_stmt 0 view .LVU247
  676 002c 0021     		movs	r1, #0
- 677              	.LBE53:
+ 677              	.LBE49:
  126:User/Inc/rosserialInc/hydrosoft_ros/Sensor_Arm.h ****       if(actuatorStatus_lengthT > actuatorStatus_length)
  678              		.loc 2 126 14 view .LVU248
  679 002e 0623     		movs	r3, #6
@@ -1138,7 +1138,7 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
  683              		.loc 2 128 9 is_stmt 1 view .LVU249
  128:User/Inc/rosserialInc/hydrosoft_ros/Sensor_Arm.h ****       actuatorStatus_length = actuatorStatus_lengthT;
  684              		.loc 2 128 49 is_stmt 0 view .LVU250
-ARM GAS  /tmp/ccgPptWl.s 			page 20
+ARM GAS  /tmp/ccumnHxp.s 			page 20
 
 
  685 0032 6100     		lsls	r1, r4, #1
@@ -1157,8 +1157,8 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
  695 003c F5E7     		b	.L27
  696              	.LVL54:
  697              	.L35:
- 698              	.LBB55:
- 699              	.LBB54:
+ 698              	.LBB51:
+ 699              	.LBB50:
  131:User/Inc/rosserialInc/hydrosoft_ros/Sensor_Arm.h ****         int16_t real;
  700              		.loc 2 131 7 is_stmt 1 discriminator 2 view .LVU254
  135:User/Inc/rosserialInc/hydrosoft_ros/Sensor_Arm.h ****       u_st_actuatorStatus.base |= ((uint16_t) (*(inbuffer + offset + 0))) << (8 * 0);
@@ -1198,10 +1198,10 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
  140:User/Inc/rosserialInc/hydrosoft_ros/Sensor_Arm.h ****       }
  722              		.loc 2 140 15 discriminator 2 view .LVU268
  723 004e 20F81120 		strh	r2, [r0, r1, lsl #1]	@ unaligned
-ARM GAS  /tmp/ccgPptWl.s 			page 21
+ARM GAS  /tmp/ccumnHxp.s 			page 21
 
 
- 724              	.LBE54:
+ 724              	.LBE50:
  130:User/Inc/rosserialInc/hydrosoft_ros/Sensor_Arm.h ****       union {
  725              		.loc 2 130 7 is_stmt 1 discriminator 2 view .LVU269
  726 0052 0131     		adds	r1, r1, #1
@@ -1216,7 +1216,7 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
  732              		.loc 2 130 30 discriminator 3 view .LVU272
  733 0056 8A42     		cmp	r2, r1
  734 0058 F1D8     		bhi	.L35
- 735              	.LBE55:
+ 735              	.LBE51:
  142:User/Inc/rosserialInc/hydrosoft_ros/Sensor_Arm.h ****         int16_t real;
  736              		.loc 2 142 7 is_stmt 1 view .LVU273
  146:User/Inc/rosserialInc/hydrosoft_ros/Sensor_Arm.h ****       u_gripperStatus.base |= ((uint16_t) (*(inbuffer + offset + 0))) << (8 * 0);
@@ -1258,7 +1258,7 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
  156:User/Inc/rosserialInc/hydrosoft_ros/Sensor_Arm.h ****       u_pSourceStatus.base |= ((uint16_t) (*(inbuffer + offset + 1))) << (8 * 1);
  759              		.loc 2 156 44 is_stmt 0 view .LVU288
  760 0068 B25C     		ldrb	r2, [r6, r2]	@ zero_extendqisi2
-ARM GAS  /tmp/ccgPptWl.s 			page 22
+ARM GAS  /tmp/ccumnHxp.s 			page 22
 
 
  761              	.LVL59:
@@ -1318,7 +1318,7 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
  795              	.LVL62:
  169:User/Inc/rosserialInc/hydrosoft_ros/Sensor_Arm.h ****       quaternions_lengthT |= ((uint32_t) (*(inbuffer + offset + 1))) << (8 * 1); 
  796              		.loc 2 169 7 is_stmt 1 view .LVU309
-ARM GAS  /tmp/ccgPptWl.s 			page 23
+ARM GAS  /tmp/ccumnHxp.s 			page 23
 
 
  169:User/Inc/rosserialInc/hydrosoft_ros/Sensor_Arm.h ****       quaternions_lengthT |= ((uint32_t) (*(inbuffer + offset + 1))) << (8 * 1); 
@@ -1378,7 +1378,7 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
  833 00a8 BB42     		cmp	r3, r7
  834 00aa 02D3     		bcc	.L36
  835              	.L30:
-ARM GAS  /tmp/ccgPptWl.s 			page 24
+ARM GAS  /tmp/ccumnHxp.s 			page 24
 
 
  176:User/Inc/rosserialInc/hydrosoft_ros/Sensor_Arm.h ****       for( uint32_t i = 0; i < quaternions_length; i++){
@@ -1389,7 +1389,7 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
  177:User/Inc/rosserialInc/hydrosoft_ros/Sensor_Arm.h ****       union {
  839              		.loc 2 177 7 is_stmt 1 view .LVU330
  840              	.LVL69:
- 841              	.LBB56:
+ 841              	.LBB52:
  177:User/Inc/rosserialInc/hydrosoft_ros/Sensor_Arm.h ****       union {
  842              		.loc 2 177 21 is_stmt 0 view .LVU331
  843 00ae 0022     		movs	r2, #0
@@ -1398,7 +1398,7 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
  846              	.L36:
  177:User/Inc/rosserialInc/hydrosoft_ros/Sensor_Arm.h ****       union {
  847              		.loc 2 177 21 view .LVU332
- 848              	.LBE56:
+ 848              	.LBE52:
  175:User/Inc/rosserialInc/hydrosoft_ros/Sensor_Arm.h ****       quaternions_length = quaternions_lengthT;
  849              		.loc 2 175 9 is_stmt 1 view .LVU333
  175:User/Inc/rosserialInc/hydrosoft_ros/Sensor_Arm.h ****       quaternions_length = quaternions_lengthT;
@@ -1413,8 +1413,8 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
  857 00bc F6E7     		b	.L30
  858              	.LVL72:
  859              	.L37:
- 860              	.LBB58:
- 861              	.LBB57:
+ 860              	.LBB54:
+ 861              	.LBB53:
  178:User/Inc/rosserialInc/hydrosoft_ros/Sensor_Arm.h ****         int16_t real;
  862              		.loc 2 178 7 is_stmt 1 discriminator 2 view .LVU336
  182:User/Inc/rosserialInc/hydrosoft_ros/Sensor_Arm.h ****       u_st_quaternions.base |= ((uint16_t) (*(inbuffer + offset + 0))) << (8 * 0);
@@ -1438,7 +1438,7 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
  185:User/Inc/rosserialInc/hydrosoft_ros/Sensor_Arm.h ****       offset += sizeof(this->st_quaternions);
  874              		.loc 2 185 7 is_stmt 1 discriminator 2 view .LVU344
  185:User/Inc/rosserialInc/hydrosoft_ros/Sensor_Arm.h ****       offset += sizeof(this->st_quaternions);
-ARM GAS  /tmp/ccgPptWl.s 			page 25
+ARM GAS  /tmp/ccumnHxp.s 			page 25
 
 
  875              		.loc 2 185 28 is_stmt 0 discriminator 2 view .LVU345
@@ -1457,7 +1457,7 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
  187:User/Inc/rosserialInc/hydrosoft_ros/Sensor_Arm.h ****       }
  884              		.loc 2 187 15 discriminator 2 view .LVU350
  885 00ce 21F81230 		strh	r3, [r1, r2, lsl #1]	@ unaligned
- 886              	.LBE57:
+ 886              	.LBE53:
  177:User/Inc/rosserialInc/hydrosoft_ros/Sensor_Arm.h ****       union {
  887              		.loc 2 177 7 is_stmt 1 discriminator 2 view .LVU351
  888 00d2 0132     		adds	r2, r2, #1
@@ -1474,7 +1474,7 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
  896 00d8 F1D8     		bhi	.L37
  177:User/Inc/rosserialInc/hydrosoft_ros/Sensor_Arm.h ****       union {
  897              		.loc 2 177 30 discriminator 3 view .LVU355
- 898              	.LBE58:
+ 898              	.LBE54:
  190:User/Inc/rosserialInc/hydrosoft_ros/Sensor_Arm.h **** 
  899              		.loc 2 190 5 view .LVU356
  900 00da 2046     		mov	r0, r4
@@ -1498,7 +1498,7 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
  919              	.LFB427:
   90:User/Inc/rosserialInc/hydrosoft_ros/Command_Arm.h ****     {
  920              		.loc 1 90 17 is_stmt 1 view -0
-ARM GAS  /tmp/ccgPptWl.s 			page 26
+ARM GAS  /tmp/ccumnHxp.s 			page 26
 
 
  921              		.cfi_startproc
@@ -1558,7 +1558,7 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
  958              		.loc 1 103 31 view .LVU375
  959 0014 46EA0326 		orr	r6, r6, r3, lsl #8
  960              	.LVL79:
-ARM GAS  /tmp/ccgPptWl.s 			page 27
+ARM GAS  /tmp/ccumnHxp.s 			page 27
 
 
  104:User/Inc/rosserialInc/hydrosoft_ros/Command_Arm.h ****       actuatorCommand_lengthT |= ((uint32_t) (*(inbuffer + offset + 3))) << (8 * 3); 
@@ -1600,11 +1600,11 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
  110:User/Inc/rosserialInc/hydrosoft_ros/Command_Arm.h ****       union {
  985              		.loc 1 110 7 is_stmt 1 view .LVU388
  986              	.LVL83:
- 987              	.LBB59:
+ 987              	.LBB55:
  110:User/Inc/rosserialInc/hydrosoft_ros/Command_Arm.h ****       union {
  988              		.loc 1 110 21 is_stmt 0 view .LVU389
  989 002c 0020     		movs	r0, #0
- 990              	.LBE59:
+ 990              	.LBE55:
  106:User/Inc/rosserialInc/hydrosoft_ros/Command_Arm.h ****       if(actuatorCommand_lengthT > actuatorCommand_length)
  991              		.loc 1 106 14 view .LVU390
  992 002e 0622     		movs	r2, #6
@@ -1618,7 +1618,7 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
  998 0032 7100     		lsls	r1, r6, #1
  999              	.LVL85:
  108:User/Inc/rosserialInc/hydrosoft_ros/Command_Arm.h ****       actuatorCommand_length = actuatorCommand_lengthT;
-ARM GAS  /tmp/ccgPptWl.s 			page 28
+ARM GAS  /tmp/ccumnHxp.s 			page 28
 
 
  1000              		.loc 1 108 50 view .LVU393
@@ -1634,8 +1634,8 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
  1008 003c F5E7     		b	.L39
  1009              	.LVL88:
  1010              	.L44:
- 1011              	.LBB61:
- 1012              	.LBB60:
+ 1011              	.LBB57:
+ 1012              	.LBB56:
  111:User/Inc/rosserialInc/hydrosoft_ros/Command_Arm.h ****         int16_t real;
  1013              		.loc 1 111 7 is_stmt 1 discriminator 2 view .LVU396
  115:User/Inc/rosserialInc/hydrosoft_ros/Command_Arm.h ****       u_st_actuatorCommand.base |= ((uint16_t) (*(inbuffer + offset + 0))) << (8 * 0);
@@ -1675,10 +1675,10 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
  120:User/Inc/rosserialInc/hydrosoft_ros/Command_Arm.h ****       }
  1035              		.loc 1 120 15 discriminator 2 view .LVU410
  1036 004e 21F81030 		strh	r3, [r1, r0, lsl #1]	@ unaligned
- 1037              	.LBE60:
+ 1037              	.LBE56:
  110:User/Inc/rosserialInc/hydrosoft_ros/Command_Arm.h ****       union {
  1038              		.loc 1 110 7 is_stmt 1 discriminator 2 view .LVU411
-ARM GAS  /tmp/ccgPptWl.s 			page 29
+ARM GAS  /tmp/ccumnHxp.s 			page 29
 
 
  1039 0052 0130     		adds	r0, r0, #1
@@ -1693,7 +1693,7 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
  1045              		.loc 1 110 30 discriminator 3 view .LVU414
  1046 0056 8342     		cmp	r3, r0
  1047 0058 F1D8     		bhi	.L44
- 1048              	.LBE61:
+ 1048              	.LBE57:
  122:User/Inc/rosserialInc/hydrosoft_ros/Command_Arm.h ****         int16_t real;
  1049              		.loc 1 122 7 is_stmt 1 view .LVU415
  126:User/Inc/rosserialInc/hydrosoft_ros/Command_Arm.h ****       u_gripperCommand.base |= ((uint16_t) (*(inbuffer + offset + 0))) << (8 * 0);
@@ -1738,7 +1738,7 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
  137:User/Inc/rosserialInc/hydrosoft_ros/Command_Arm.h ****       this->pSourceCommand = u_pSourceCommand.real;
  1074              		.loc 1 137 7 is_stmt 1 view .LVU431
  137:User/Inc/rosserialInc/hydrosoft_ros/Command_Arm.h ****       this->pSourceCommand = u_pSourceCommand.real;
-ARM GAS  /tmp/ccgPptWl.s 			page 30
+ARM GAS  /tmp/ccumnHxp.s 			page 30
 
 
  1075              		.loc 1 137 65 is_stmt 0 view .LVU432
@@ -1798,7 +1798,7 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
  150:User/Inc/rosserialInc/hydrosoft_ros/Command_Arm.h **** 
  1110              		.loc 1 150 5 view .LVU452
  1111 0084 70BD     		pop	{r4, r5, r6, pc}
-ARM GAS  /tmp/ccgPptWl.s 			page 31
+ARM GAS  /tmp/ccumnHxp.s 			page 31
 
 
  150:User/Inc/rosserialInc/hydrosoft_ros/Command_Arm.h **** 
@@ -1853,12 +1853,12 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
  1148              	.LCFI5:
  1149              		.cfi_def_cfa_offset 32
  1150 0006 0646     		mov	r6, r0
- 1151              	.LBB79:
+ 1151              	.LBB75:
   15:User/HydroUnderwaterManipulator.cpp **** 														   pSink(0, 0, LOW_PRESSURE_SINK)
  1152              		.loc 3 15 47 view .LVU456
  1153 0008 8046     		mov	r8, r0
  1154 000a 0227     		movs	r7, #2
-ARM GAS  /tmp/ccgPptWl.s 			page 32
+ARM GAS  /tmp/ccumnHxp.s 			page 32
 
 
  1155 000c 0CE0     		b	.L49
@@ -1913,12 +1913,12 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
  1204 005a 06F55070 		add	r0, r6, #832
  1205 005e FFF7FEFF 		bl	_ZN15PRESSURE_SOURCEC1Ehhhh
  1206              	.LVL102:
- 1207              	.LBB80:
- 1208              	.LBI80:
+ 1207              	.LBB76:
+ 1208              	.LBI76:
  1209              		.file 4 "User/Inc/HydroUnderwaterManipulator.h"
    1:User/Inc/HydroUnderwaterManipulator.h **** /*
    2:User/Inc/HydroUnderwaterManipulator.h ****  *
-ARM GAS  /tmp/ccgPptWl.s 			page 33
+ARM GAS  /tmp/ccumnHxp.s 			page 33
 
 
    3:User/Inc/HydroUnderwaterManipulator.h ****  *  Created on: May 12, 2018
@@ -1948,14 +1948,14 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
   27:User/Inc/HydroUnderwaterManipulator.h **** 	public:
   28:User/Inc/HydroUnderwaterManipulator.h **** 		HydroManipulatorStatus()
  1210              		.loc 4 28 3 is_stmt 1 discriminator 2 view .LVU465
- 1211              	.LBB81:
- 1212              	.LBB82:
- 1213              	.LBI82:
+ 1211              	.LBB77:
+ 1212              	.LBB78:
+ 1213              	.LBI78:
   32:User/Inc/rosserialInc/hydrosoft_ros/Sensor_Arm.h ****       controlModeStatus(0),
  1214              		.loc 2 32 5 discriminator 2 view .LVU466
- 1215              	.LBB83:
- 1216              	.LBB84:
- 1217              	.LBI84:
+ 1215              	.LBB79:
+ 1216              	.LBB80:
+ 1217              	.LBI80:
  1218              		.file 5 "User/Inc/rosserialInc/ros/msg.h"
    1:User/Inc/rosserialInc/ros/msg.h **** /*
    2:User/Inc/rosserialInc/ros/msg.h ****  * Software License Agreement (BSD License)
@@ -1978,7 +1978,7 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
   19:User/Inc/rosserialInc/ros/msg.h ****  *    from this software without specific prior written permission.
   20:User/Inc/rosserialInc/ros/msg.h ****  *
   21:User/Inc/rosserialInc/ros/msg.h ****  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-ARM GAS  /tmp/ccgPptWl.s 			page 34
+ARM GAS  /tmp/ccumnHxp.s 			page 34
 
 
   22:User/Inc/rosserialInc/ros/msg.h ****  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -2007,13 +2007,13 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
   45:User/Inc/rosserialInc/ros/msg.h **** /* Base Message Type */
   46:User/Inc/rosserialInc/ros/msg.h **** class Msg
  1219              		.loc 5 46 7 discriminator 2 view .LVU467
- 1220              	.LBB85:
+ 1220              	.LBB81:
  1221 0062 2549     		ldr	r1, .L52
  1222 0064 C6F87413 		str	r1, [r6, #884]
  1223              	.LVL103:
  1224              		.loc 5 46 7 is_stmt 0 discriminator 2 view .LVU468
- 1225              	.LBE85:
- 1226              	.LBE84:
+ 1225              	.LBE81:
+ 1226              	.LBE80:
   38:User/Inc/rosserialInc/hydrosoft_ros/Sensor_Arm.h ****     {
  1227              		.loc 2 38 67 discriminator 2 view .LVU469
  1228 0068 244A     		ldr	r2, .L52+4
@@ -2031,14 +2031,14 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
  1240              	.LVL104:
   38:User/Inc/rosserialInc/hydrosoft_ros/Sensor_Arm.h ****     {
  1241              		.loc 2 38 67 discriminator 2 view .LVU470
- 1242              	.LBE83:
- 1243              	.LBE82:
+ 1242              	.LBE79:
+ 1243              	.LBE78:
   29:User/Inc/HydroUnderwaterManipulator.h **** 		{
  1244              		.loc 4 29 3 discriminator 2 view .LVU471
  1245 0096 1A4A     		ldr	r2, .L52+8
  1246 0098 C6F87423 		str	r2, [r6, #884]
   30:User/Inc/HydroUnderwaterManipulator.h **** 			actuatorStatus = (int16_t *)actuatorStatusBuf;
-ARM GAS  /tmp/ccgPptWl.s 			page 35
+ARM GAS  /tmp/ccumnHxp.s 			page 35
 
 
  1247              		.loc 4 30 4 is_stmt 1 discriminator 2 view .LVU472
@@ -2064,10 +2064,10 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
  1264 00b4 C6F89003 		str	r0, [r6, #912]
  1265              	.LVL105:
  1266              		.loc 4 33 23 discriminator 2 view .LVU482
- 1267              	.LBE81:
- 1268              	.LBE80:
- 1269              	.LBB86:
- 1270              	.LBI86:
+ 1267              	.LBE77:
+ 1268              	.LBE76:
+ 1269              	.LBB82:
+ 1270              	.LBI82:
   34:User/Inc/HydroUnderwaterManipulator.h **** 		}
   35:User/Inc/HydroUnderwaterManipulator.h **** 		int16_t actuatorStatusBuf[SEGNUM][ACTNUM];
   36:User/Inc/HydroUnderwaterManipulator.h **** 		int16_t quaternionsBuf[(SEGNUM+1)][4];
@@ -2078,27 +2078,27 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
   41:User/Inc/HydroUnderwaterManipulator.h **** 	public:
   42:User/Inc/HydroUnderwaterManipulator.h **** 		HydroManipulatorCommand()
  1271              		.loc 4 42 3 is_stmt 1 discriminator 2 view .LVU483
- 1272              	.LBB87:
- 1273              	.LBB88:
- 1274              	.LBI88:
+ 1272              	.LBB83:
+ 1273              	.LBB84:
+ 1274              	.LBI84:
   28:User/Inc/rosserialInc/hydrosoft_ros/Command_Arm.h ****       controlModeCommand(0),
  1275              		.loc 1 28 5 discriminator 2 view .LVU484
- 1276              	.LBB89:
- 1277              	.LBB90:
- 1278              	.LBI90:
+ 1276              	.LBB85:
+ 1277              	.LBB86:
+ 1278              	.LBI86:
  1279              		.loc 5 46 7 discriminator 2 view .LVU485
- 1280              	.LBB91:
+ 1280              	.LBB87:
  1281 00b8 C6F8D413 		str	r1, [r6, #980]
  1282              	.LVL106:
  1283              		.loc 5 46 7 is_stmt 0 discriminator 2 view .LVU486
- 1284              	.LBE91:
- 1285              	.LBE90:
+ 1284              	.LBE87:
+ 1285              	.LBE86:
   33:User/Inc/rosserialInc/hydrosoft_ros/Command_Arm.h ****     {
  1286              		.loc 1 33 21 discriminator 2 view .LVU487
  1287 00bc 114B     		ldr	r3, .L52+12
  1288 00be C6F8D433 		str	r3, [r6, #980]
  1289 00c2 A6F8D843 		strh	r4, [r6, #984]	@ movhi
-ARM GAS  /tmp/ccgPptWl.s 			page 36
+ARM GAS  /tmp/ccumnHxp.s 			page 36
 
 
  1290 00c6 C6F8DC43 		str	r4, [r6, #988]
@@ -2110,8 +2110,8 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
  1296              	.LVL107:
   33:User/Inc/rosserialInc/hydrosoft_ros/Command_Arm.h ****     {
  1297              		.loc 1 33 21 discriminator 2 view .LVU488
- 1298              	.LBE89:
- 1299              	.LBE88:
+ 1298              	.LBE85:
+ 1299              	.LBE84:
   43:User/Inc/HydroUnderwaterManipulator.h **** 		{
  1300              		.loc 4 43 3 discriminator 2 view .LVU489
  1301 00de 0A4B     		ldr	r3, .L52+16
@@ -2128,9 +2128,9 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
  1310 00ec C6F8DC23 		str	r2, [r6, #988]
  1311              	.LVL108:
  1312              		.loc 4 45 27 discriminator 2 view .LVU495
- 1313              	.LBE87:
- 1314              	.LBE86:
- 1315              	.LBE79:
+ 1313              	.LBE83:
+ 1314              	.LBE82:
+ 1315              	.LBE75:
   16:User/HydroUnderwaterManipulator.cpp **** {
   17:User/HydroUnderwaterManipulator.cpp **** }
  1316              		.loc 3 17 1 discriminator 2 view .LVU496
@@ -2158,7 +2158,7 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
  1339              		.section	.text._ZN26HydroUnderwaterManipulator18setupActuatorPortsERA3_A4_A2_h,"ax",%progbits
  1340              		.align	1
  1341              		.global	_ZN26HydroUnderwaterManipulator18setupActuatorPortsERA3_A4_A2_h
-ARM GAS  /tmp/ccgPptWl.s 			page 37
+ARM GAS  /tmp/ccumnHxp.s 			page 37
 
 
  1342              		.syntax unified
@@ -2194,13 +2194,13 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
   23:User/HydroUnderwaterManipulator.cpp **** 	for (int i = 0; i < SEGNUM; i++)
  1368              		.loc 3 23 2 is_stmt 1 view .LVU500
  1369              	.LVL111:
- 1370              	.LBB92:
+ 1370              	.LBB88:
  1371              		.loc 3 23 11 is_stmt 0 view .LVU501
  1372 0008 0026     		movs	r6, #0
  1373 000a 19E0     		b	.L58
  1374              	.LVL112:
  1375              	.L60:
- 1376              	.LBB93:
+ 1376              	.LBB89:
   24:User/HydroUnderwaterManipulator.cpp **** 	{
   25:User/HydroUnderwaterManipulator.cpp **** 		for (int j = 0; j < ACTNUM; j++)
   26:User/HydroUnderwaterManipulator.cpp **** 		{
@@ -2218,7 +2218,7 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
  1387 0020 07EB4302 		add	r2, r7, r3, lsl #1
  1388              		.loc 3 27 29 discriminator 2 view .LVU506
  1389 0024 5278     		ldrb	r2, [r2, #1]	@ zero_extendqisi2
-ARM GAS  /tmp/ccgPptWl.s 			page 38
+ARM GAS  /tmp/ccumnHxp.s 			page 38
 
 
  1390 0026 17F81310 		ldrb	r1, [r7, r3, lsl #1]	@ zero_extendqisi2
@@ -2241,7 +2241,7 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
  1404              		.loc 3 25 21 discriminator 3 view .LVU510
  1405 003a 032D     		cmp	r5, #3
  1406 003c E6DD     		ble	.L60
- 1407              	.LBE93:
+ 1407              	.LBE89:
   23:User/HydroUnderwaterManipulator.cpp **** 	{
  1408              		.loc 3 23 2 discriminator 2 view .LVU511
  1409 003e 0136     		adds	r6, r6, #1
@@ -2251,14 +2251,14 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
  1412              		.loc 3 23 20 discriminator 1 view .LVU512
  1413 0040 022E     		cmp	r6, #2
  1414 0042 01DC     		bgt	.L54
- 1415              	.LBB94:
+ 1415              	.LBB90:
   25:User/HydroUnderwaterManipulator.cpp **** 		{
  1416              		.loc 3 25 12 is_stmt 0 view .LVU513
  1417 0044 0025     		movs	r5, #0
  1418 0046 F8E7     		b	.L57
  1419              	.L54:
- 1420              	.LBE94:
- 1421              	.LBE92:
+ 1420              	.LBE90:
+ 1421              	.LBE88:
   29:User/HydroUnderwaterManipulator.cpp **** 		}
   30:User/HydroUnderwaterManipulator.cpp **** 	}
   31:User/HydroUnderwaterManipulator.cpp **** }
@@ -2278,7 +2278,7 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
  1437              	_ZN26HydroUnderwaterManipulator17setupGripperPortsERA2_h:
  1438              		.fnstart
  1439              	.LVL117:
-ARM GAS  /tmp/ccgPptWl.s 			page 39
+ARM GAS  /tmp/ccumnHxp.s 			page 39
 
 
  1440              	.LFB447:
@@ -2338,7 +2338,7 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
  1489              		.loc 3 38 1 is_stmt 1 view -0
  1490              		.cfi_startproc
  1491              		@ args = 0, pretend = 0, frame = 0
-ARM GAS  /tmp/ccgPptWl.s 			page 40
+ARM GAS  /tmp/ccumnHxp.s 			page 40
 
 
  1492              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -2398,832 +2398,227 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
   44:User/HydroUnderwaterManipulator.cpp **** }
  1543              		.loc 3 44 1 view .LVU537
  1544 000a 08BD     		pop	{r3, pc}
-ARM GAS  /tmp/ccgPptWl.s 			page 41
+ARM GAS  /tmp/ccumnHxp.s 			page 41
 
 
  1545              		.cfi_endproc
  1546              	.LFE449:
  1547              		.fnend
- 1549              		.section	.text._ZN26HydroUnderwaterManipulator15control_pSourceEv,"ax",%progbits
+ 1549              		.section	.text._ZN26HydroUnderwaterManipulator7controlEv,"ax",%progbits
  1550              		.align	1
- 1551              		.global	_ZN26HydroUnderwaterManipulator15control_pSourceEv
+ 1551              		.global	_ZN26HydroUnderwaterManipulator7controlEv
  1552              		.syntax unified
  1553              		.thumb
  1554              		.thumb_func
  1555              		.fpu softvfp
- 1557              	_ZN26HydroUnderwaterManipulator15control_pSourceEv:
+ 1557              	_ZN26HydroUnderwaterManipulator7controlEv:
  1558              		.fnstart
  1559              	.LVL128:
  1560              	.LFB450:
   45:User/HydroUnderwaterManipulator.cpp **** 
-  46:User/HydroUnderwaterManipulator.cpp **** void HydroUnderwaterManipulator::control_pSource()
-  47:User/HydroUnderwaterManipulator.cpp **** {
- 1561              		.loc 3 47 1 is_stmt 1 view -0
+  46:User/HydroUnderwaterManipulator.cpp **** 
+  47:User/HydroUnderwaterManipulator.cpp **** 
+  48:User/HydroUnderwaterManipulator.cpp **** void HydroUnderwaterManipulator::control(){
+ 1561              		.loc 3 48 43 is_stmt 1 view -0
  1562              		.cfi_startproc
  1563              		@ args = 0, pretend = 0, frame = 0
  1564              		@ frame_needed = 0, uses_anonymous_args = 0
- 1565              		.loc 3 47 1 is_stmt 0 view .LVU539
- 1566 0000 10B5     		push	{r4, lr}
- 1567              		.save {r4, lr}
+ 1565              		.loc 3 48 43 is_stmt 0 view .LVU539
+ 1566 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 1567              		.save {r4, r5, r6, r7, r8, lr}
  1568              	.LCFI11:
- 1569              		.cfi_def_cfa_offset 8
- 1570              		.cfi_offset 4, -8
- 1571              		.cfi_offset 14, -4
-  48:User/HydroUnderwaterManipulator.cpp **** 	if (hostCommand.controlMode == OpeningControlMode)
- 1572              		.loc 3 48 2 is_stmt 1 view .LVU540
- 1573              		.loc 3 48 18 is_stmt 0 view .LVU541
- 1574 0002 B0F90634 		ldrsh	r3, [r0, #1030]
- 1575              		.loc 3 48 2 view .LVU542
- 1576 0006 83BB     		cbnz	r3, .L68
-  49:User/HydroUnderwaterManipulator.cpp **** 	{
-  50:User/HydroUnderwaterManipulator.cpp **** 		//pumpIn = on and vavleIn = On, watch out the sequency
-  51:User/HydroUnderwaterManipulator.cpp **** 		if (hostCommand.openingCmd_pSource_pump && hostCommand.openingCmd_pSource_valve)
- 1577              		.loc 3 51 3 is_stmt 1 view .LVU543
- 1578              		.loc 3 51 19 is_stmt 0 view .LVU544
- 1579 0008 B0F93C34 		ldrsh	r3, [r0, #1084]
- 1580              		.loc 3 51 3 view .LVU545
- 1581 000c 13B1     		cbz	r3, .L69
- 1582              		.loc 3 51 58 discriminator 1 view .LVU546
- 1583 000e B0F93E24 		ldrsh	r2, [r0, #1086]
- 1584              		.loc 3 51 43 discriminator 1 view .LVU547
- 1585 0012 7AB9     		cbnz	r2, .L74
- 1586              	.L69:
-  52:User/HydroUnderwaterManipulator.cpp **** 		{
-  53:User/HydroUnderwaterManipulator.cpp **** 			pSource.openValve();
-  54:User/HydroUnderwaterManipulator.cpp **** 			pSource.startPump();
-  55:User/HydroUnderwaterManipulator.cpp **** 		}
-  56:User/HydroUnderwaterManipulator.cpp **** 
-  57:User/HydroUnderwaterManipulator.cpp **** 		//pumpIn = off and vavleIn = Off;
-  58:User/HydroUnderwaterManipulator.cpp **** 		else if ((!hostCommand.openingCmd_pSource_pump) && (!hostCommand.openingCmd_pSource_valve))
- 1587              		.loc 3 58 8 is_stmt 1 view .LVU548
- 1588              		.loc 3 58 51 is_stmt 0 view .LVU549
- 1589 0014 D0F83C24 		ldr	r2, [r0, #1084]
-ARM GAS  /tmp/ccgPptWl.s 			page 42
+ 1569              		.cfi_def_cfa_offset 24
+ 1570              		.cfi_offset 4, -24
+ 1571              		.cfi_offset 5, -20
+ 1572              		.cfi_offset 6, -16
+ 1573              		.cfi_offset 7, -12
+ 1574              		.cfi_offset 8, -8
+ 1575              		.cfi_offset 14, -4
+ 1576 0004 0646     		mov	r6, r0
+  49:User/HydroUnderwaterManipulator.cpp **** 
+  50:User/HydroUnderwaterManipulator.cpp **** 	pSource.setPump(__GET_BIT(hostCommand.pSourceCommand, PSOURCE_IN_PUMP_MASK));
+ 1577              		.loc 3 50 2 is_stmt 1 view .LVU540
+ 1578              		.loc 3 50 17 is_stmt 0 view .LVU541
+ 1579 0006 00F54374 		add	r4, r0, #780
+ 1580              		.loc 3 50 18 view .LVU542
+ 1581 000a B0F9EA13 		ldrsh	r1, [r0, #1002]
+ 1582              		.loc 3 50 17 view .LVU543
+ 1583 000e C1F34001 		ubfx	r1, r1, #1, #1
+ 1584 0012 2046     		mov	r0, r4
+ 1585              	.LVL129:
+ 1586              		.loc 3 50 17 view .LVU544
+ 1587 0014 FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE7setPumpEi
+ 1588              	.LVL130:
+  51:User/HydroUnderwaterManipulator.cpp **** 	pSource.setValve(__GET_BIT(hostCommand.pSourceCommand, PSOURCE_IN_VALVE_MASK));
+ 1589              		.loc 3 51 2 is_stmt 1 view .LVU545
+ 1590              		.loc 3 51 19 is_stmt 0 view .LVU546
+ 1591 0018 B6F9EA13 		ldrsh	r1, [r6, #1002]
+ 1592              		.loc 3 51 18 view .LVU547
+ 1593 001c 01F00101 		and	r1, r1, #1
+ 1594 0020 2046     		mov	r0, r4
+ 1595 0022 FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE8setValveEi
+ 1596              	.LVL131:
+ARM GAS  /tmp/ccumnHxp.s 			page 42
 
 
- 1590              		.loc 3 58 8 view .LVU550
- 1591 0018 AAB1     		cbz	r2, .L75
-  59:User/HydroUnderwaterManipulator.cpp **** 		{
-  60:User/HydroUnderwaterManipulator.cpp **** 			pSource.stopPump();
-  61:User/HydroUnderwaterManipulator.cpp **** 			pSource.closeValve();
-  62:User/HydroUnderwaterManipulator.cpp **** 		}
-  63:User/HydroUnderwaterManipulator.cpp **** 		else if ((hostCommand.openingCmd_pSource_pump) && (!hostCommand.openingCmd_pSource_valve))
- 1592              		.loc 3 63 8 is_stmt 1 view .LVU551
- 1593 001a 13B1     		cbz	r3, .L72
- 1594              		.loc 3 63 67 is_stmt 0 discriminator 1 view .LVU552
- 1595 001c B0F93E34 		ldrsh	r3, [r0, #1086]
- 1596              		.loc 3 63 50 discriminator 1 view .LVU553
- 1597 0020 D3B1     		cbz	r3, .L76
- 1598              	.L72:
-  64:User/HydroUnderwaterManipulator.cpp **** 		{
-  65:User/HydroUnderwaterManipulator.cpp **** 			pSource.startPump();
-  66:User/HydroUnderwaterManipulator.cpp **** 			pSource.closeValve();
-  67:User/HydroUnderwaterManipulator.cpp **** 		}
-  68:User/HydroUnderwaterManipulator.cpp **** 		else
-  69:User/HydroUnderwaterManipulator.cpp **** 		{
-  70:User/HydroUnderwaterManipulator.cpp **** 			pSource.openValve();
- 1599              		.loc 3 70 4 is_stmt 1 view .LVU554
- 1600              		.loc 3 70 21 is_stmt 0 view .LVU555
- 1601 0022 00F54374 		add	r4, r0, #780
- 1602 0026 2046     		mov	r0, r4
- 1603              	.LVL129:
- 1604              		.loc 3 70 21 view .LVU556
- 1605 0028 FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE9openValveEv
- 1606              	.LVL130:
-  71:User/HydroUnderwaterManipulator.cpp **** 			pSource.stopPump();
- 1607              		.loc 3 71 4 is_stmt 1 view .LVU557
- 1608              		.loc 3 71 20 is_stmt 0 view .LVU558
- 1609 002c 2046     		mov	r0, r4
- 1610 002e FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE8stopPumpEv
- 1611              	.LVL131:
- 1612 0032 1CE0     		b	.L67
- 1613              	.LVL132:
- 1614              	.L74:
-  53:User/HydroUnderwaterManipulator.cpp **** 			pSource.startPump();
- 1615              		.loc 3 53 4 is_stmt 1 view .LVU559
-  53:User/HydroUnderwaterManipulator.cpp **** 			pSource.startPump();
- 1616              		.loc 3 53 21 is_stmt 0 view .LVU560
- 1617 0034 00F54374 		add	r4, r0, #780
- 1618 0038 2046     		mov	r0, r4
- 1619              	.LVL133:
-  53:User/HydroUnderwaterManipulator.cpp **** 			pSource.startPump();
- 1620              		.loc 3 53 21 view .LVU561
- 1621 003a FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE9openValveEv
+  52:User/HydroUnderwaterManipulator.cpp **** 
+  53:User/HydroUnderwaterManipulator.cpp **** 	pSink.setPump(__GET_BIT(hostCommand.pSinkCommand, PSINK_OUT_PUMP_MASK));
+ 1597              		.loc 3 53 2 is_stmt 1 view .LVU548
+ 1598              		.loc 3 53 15 is_stmt 0 view .LVU549
+ 1599 0026 06F55074 		add	r4, r6, #832
+ 1600              		.loc 3 53 16 view .LVU550
+ 1601 002a B6F9EC13 		ldrsh	r1, [r6, #1004]
+ 1602              		.loc 3 53 15 view .LVU551
+ 1603 002e C1F34001 		ubfx	r1, r1, #1, #1
+ 1604 0032 2046     		mov	r0, r4
+ 1605 0034 FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE7setPumpEi
+ 1606              	.LVL132:
+  54:User/HydroUnderwaterManipulator.cpp **** 	pSink.setValve(__GET_BIT(hostCommand.pSinkCommand, PSINK_OUT_VALVE_MASK));
+ 1607              		.loc 3 54 2 is_stmt 1 view .LVU552
+ 1608              		.loc 3 54 17 is_stmt 0 view .LVU553
+ 1609 0038 B6F9EC13 		ldrsh	r1, [r6, #1004]
+ 1610              		.loc 3 54 16 view .LVU554
+ 1611 003c 01F00101 		and	r1, r1, #1
+ 1612 0040 2046     		mov	r0, r4
+ 1613 0042 FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE8setValveEi
+ 1614              	.LVL133:
+  55:User/HydroUnderwaterManipulator.cpp **** 
+  56:User/HydroUnderwaterManipulator.cpp **** 	gripper.valves[0].writeDuty(__GET_BIT(hostCommand.gripperCommand, GRIPPER_IN_VALVE_MASK));
+ 1615              		.loc 3 56 2 is_stmt 1 view .LVU555
+ 1616              		.loc 3 56 30 is_stmt 0 view .LVU556
+ 1617 0046 B6F9E813 		ldrsh	r1, [r6, #1000]
+ 1618              		.loc 3 56 29 view .LVU557
+ 1619 004a 01F00101 		and	r1, r1, #1
+ 1620 004e 06F53470 		add	r0, r6, #720
+ 1621 0052 FFF7FEFF 		bl	_ZN14SOLENOID_VALVE9writeDutyEs
  1622              	.LVL134:
-  54:User/HydroUnderwaterManipulator.cpp **** 		}
- 1623              		.loc 3 54 4 is_stmt 1 view .LVU562
-  54:User/HydroUnderwaterManipulator.cpp **** 		}
- 1624              		.loc 3 54 21 is_stmt 0 view .LVU563
- 1625 003e 2046     		mov	r0, r4
- 1626 0040 FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE9startPumpEv
- 1627              	.LVL135:
- 1628 0044 13E0     		b	.L67
-ARM GAS  /tmp/ccgPptWl.s 			page 43
+  57:User/HydroUnderwaterManipulator.cpp **** 	gripper.valves[1].writeDuty(__GET_BIT(hostCommand.gripperCommand, GRIPPER_OUT_VALVE_MASK));
+ 1623              		.loc 3 57 2 is_stmt 1 view .LVU558
+ 1624              		.loc 3 57 30 is_stmt 0 view .LVU559
+ 1625 0056 B6F9E813 		ldrsh	r1, [r6, #1000]
+ 1626              		.loc 3 57 29 view .LVU560
+ 1627 005a C1F34001 		ubfx	r1, r1, #1, #1
+ 1628 005e 06F2DA20 		addw	r0, r6, #730
+ 1629 0062 FFF7FEFF 		bl	_ZN14SOLENOID_VALVE9writeDutyEs
+ 1630              	.LVL135:
+  58:User/HydroUnderwaterManipulator.cpp **** 
+  59:User/HydroUnderwaterManipulator.cpp **** 	for (int i = 0; i < SEGNUM; i++)
+ 1631              		.loc 3 59 2 is_stmt 1 view .LVU561
+ 1632              	.LBB91:
+ 1633              		.loc 3 59 11 is_stmt 0 view .LVU562
+ 1634 0066 0027     		movs	r7, #0
+ 1635 0068 20E0     		b	.L71
+ 1636              	.LVL136:
+ 1637              	.L73:
+ 1638              	.LBB92:
+  60:User/HydroUnderwaterManipulator.cpp **** 	{
+  61:User/HydroUnderwaterManipulator.cpp **** 		for (int j = 0; j < ACTNUM; j++)
+  62:User/HydroUnderwaterManipulator.cpp **** 		{
+  63:User/HydroUnderwaterManipulator.cpp **** 			actuators[i][j].valves[0].writeDuty(__GET_BIT(hostCommand.actuatorCommand[i * ACTNUM + j], ACTUA
+ 1639              		.loc 3 63 4 is_stmt 1 discriminator 2 view .LVU563
+ 1640              		.loc 3 63 40 is_stmt 0 discriminator 2 view .LVU564
+ 1641 006a D6F8E433 		ldr	r3, [r6, #996]
+ARM GAS  /tmp/ccumnHxp.s 			page 43
 
 
- 1629              	.LVL136:
- 1630              	.L75:
-  60:User/HydroUnderwaterManipulator.cpp **** 			pSource.closeValve();
- 1631              		.loc 3 60 4 is_stmt 1 view .LVU564
-  60:User/HydroUnderwaterManipulator.cpp **** 			pSource.closeValve();
- 1632              		.loc 3 60 20 is_stmt 0 view .LVU565
- 1633 0046 00F54374 		add	r4, r0, #780
- 1634 004a 2046     		mov	r0, r4
- 1635              	.LVL137:
-  60:User/HydroUnderwaterManipulator.cpp **** 			pSource.closeValve();
- 1636              		.loc 3 60 20 view .LVU566
- 1637 004c FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE8stopPumpEv
- 1638              	.LVL138:
-  61:User/HydroUnderwaterManipulator.cpp **** 		}
- 1639              		.loc 3 61 4 is_stmt 1 view .LVU567
-  61:User/HydroUnderwaterManipulator.cpp **** 		}
- 1640              		.loc 3 61 22 is_stmt 0 view .LVU568
- 1641 0050 2046     		mov	r0, r4
- 1642 0052 FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE10closeValveEv
- 1643              	.LVL139:
- 1644 0056 0AE0     		b	.L67
- 1645              	.LVL140:
- 1646              	.L76:
-  65:User/HydroUnderwaterManipulator.cpp **** 			pSource.closeValve();
- 1647              		.loc 3 65 4 is_stmt 1 view .LVU569
-  65:User/HydroUnderwaterManipulator.cpp **** 			pSource.closeValve();
- 1648              		.loc 3 65 21 is_stmt 0 view .LVU570
- 1649 0058 00F54374 		add	r4, r0, #780
- 1650 005c 2046     		mov	r0, r4
- 1651              	.LVL141:
-  65:User/HydroUnderwaterManipulator.cpp **** 			pSource.closeValve();
- 1652              		.loc 3 65 21 view .LVU571
- 1653 005e FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE9startPumpEv
- 1654              	.LVL142:
-  66:User/HydroUnderwaterManipulator.cpp **** 		}
- 1655              		.loc 3 66 4 is_stmt 1 view .LVU572
-  66:User/HydroUnderwaterManipulator.cpp **** 		}
- 1656              		.loc 3 66 22 is_stmt 0 view .LVU573
- 1657 0062 2046     		mov	r0, r4
- 1658 0064 FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE10closeValveEv
- 1659              	.LVL143:
- 1660 0068 01E0     		b	.L67
- 1661              	.LVL144:
- 1662              	.L68:
-  72:User/HydroUnderwaterManipulator.cpp **** 		}
-  73:User/HydroUnderwaterManipulator.cpp **** 	}
-  74:User/HydroUnderwaterManipulator.cpp **** 	else if (hostCommand.controlMode == PressureControlMode)
- 1663              		.loc 3 74 7 is_stmt 1 view .LVU574
- 1664 006a 012B     		cmp	r3, #1
- 1665 006c 00D0     		beq	.L77
- 1666              	.LVL145:
- 1667              	.L67:
-  75:User/HydroUnderwaterManipulator.cpp **** 	{
-  76:User/HydroUnderwaterManipulator.cpp **** 		pSource.maintainPressure(hostCommand.pressureCmd_pSource);
-  77:User/HydroUnderwaterManipulator.cpp **** 	}
-  78:User/HydroUnderwaterManipulator.cpp **** }
- 1668              		.loc 3 78 1 is_stmt 0 view .LVU575
-ARM GAS  /tmp/ccgPptWl.s 			page 44
+ 1642 006e 05EB8708 		add	r8, r5, r7, lsl #2
+ 1643 0072 33F91810 		ldrsh	r1, [r3, r8, lsl #1]
+ 1644              		.loc 3 63 39 discriminator 2 view .LVU565
+ 1645 0076 C5EB0510 		rsb	r0, r5, r5, lsl #4
+ 1646 007a C7EB0714 		rsb	r4, r7, r7, lsl #4
+ 1647 007e 2401     		lsls	r4, r4, #4
+ 1648 0080 04EB8004 		add	r4, r4, r0, lsl #2
+ 1649 0084 01F00101 		and	r1, r1, #1
+ 1650 0088 3019     		adds	r0, r6, r4
+ 1651 008a FFF7FEFF 		bl	_ZN14SOLENOID_VALVE9writeDutyEs
+ 1652              	.LVL137:
+  64:User/HydroUnderwaterManipulator.cpp **** 			actuators[i][j].valves[1].writeDuty(__GET_BIT(hostCommand.actuatorCommand[i * ACTNUM + j], ACTUA
+ 1653              		.loc 3 64 4 is_stmt 1 discriminator 2 view .LVU566
+ 1654              		.loc 3 64 40 is_stmt 0 discriminator 2 view .LVU567
+ 1655 008e D6F8E433 		ldr	r3, [r6, #996]
+ 1656 0092 33F91810 		ldrsh	r1, [r3, r8, lsl #1]
+ 1657              		.loc 3 64 39 discriminator 2 view .LVU568
+ 1658 0096 04F10A00 		add	r0, r4, #10
+ 1659 009a C1F34001 		ubfx	r1, r1, #1, #1
+ 1660 009e 3044     		add	r0, r0, r6
+ 1661 00a0 FFF7FEFF 		bl	_ZN14SOLENOID_VALVE9writeDutyEs
+ 1662              	.LVL138:
+  61:User/HydroUnderwaterManipulator.cpp **** 		{
+ 1663              		.loc 3 61 3 is_stmt 1 discriminator 2 view .LVU569
+ 1664 00a4 0135     		adds	r5, r5, #1
+ 1665              	.LVL139:
+ 1666              	.L70:
+  61:User/HydroUnderwaterManipulator.cpp **** 		{
+ 1667              		.loc 3 61 21 discriminator 3 view .LVU570
+ 1668 00a6 032D     		cmp	r5, #3
+ 1669 00a8 DFDD     		ble	.L73
+ 1670              	.LBE92:
+  59:User/HydroUnderwaterManipulator.cpp **** 	{
+ 1671              		.loc 3 59 2 discriminator 2 view .LVU571
+ 1672 00aa 0137     		adds	r7, r7, #1
+ 1673              	.LVL140:
+ 1674              	.L71:
+  59:User/HydroUnderwaterManipulator.cpp **** 	{
+ 1675              		.loc 3 59 20 discriminator 1 view .LVU572
+ 1676 00ac 022F     		cmp	r7, #2
+ 1677 00ae 01DC     		bgt	.L67
+ 1678              	.LBB93:
+  61:User/HydroUnderwaterManipulator.cpp **** 		{
+ 1679              		.loc 3 61 12 is_stmt 0 view .LVU573
+ 1680 00b0 0025     		movs	r5, #0
+ 1681 00b2 F8E7     		b	.L70
+ 1682              	.L67:
+ 1683              	.LBE93:
+ 1684              	.LBE91:
+  65:User/HydroUnderwaterManipulator.cpp **** 		}
+  66:User/HydroUnderwaterManipulator.cpp **** 	}
+  67:User/HydroUnderwaterManipulator.cpp **** }
+ 1685              		.loc 3 67 1 view .LVU574
+ 1686 00b4 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 1687              		.loc 3 67 1 view .LVU575
+ 1688              		.cfi_endproc
+ 1689              	.LFE450:
+ARM GAS  /tmp/ccumnHxp.s 			page 44
 
 
- 1669 006e 10BD     		pop	{r4, pc}
- 1670              	.LVL146:
- 1671              	.L77:
-  76:User/HydroUnderwaterManipulator.cpp **** 	}
- 1672              		.loc 3 76 3 is_stmt 1 view .LVU576
-  76:User/HydroUnderwaterManipulator.cpp **** 	}
- 1673              		.loc 3 76 27 is_stmt 0 view .LVU577
- 1674 0070 B0F95E14 		ldrsh	r1, [r0, #1118]
- 1675 0074 00F54370 		add	r0, r0, #780
- 1676              	.LVL147:
-  76:User/HydroUnderwaterManipulator.cpp **** 	}
- 1677              		.loc 3 76 27 view .LVU578
- 1678 0078 FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE16maintainPressureEl
- 1679              	.LVL148:
- 1680              		.loc 3 78 1 view .LVU579
- 1681 007c F7E7     		b	.L67
- 1682              		.cfi_endproc
- 1683              	.LFE450:
- 1684              		.fnend
- 1686              		.section	.text._ZN26HydroUnderwaterManipulator13control_pSinkEv,"ax",%progbits
- 1687              		.align	1
- 1688              		.global	_ZN26HydroUnderwaterManipulator13control_pSinkEv
- 1689              		.syntax unified
- 1690              		.thumb
- 1691              		.thumb_func
- 1692              		.fpu softvfp
- 1694              	_ZN26HydroUnderwaterManipulator13control_pSinkEv:
- 1695              		.fnstart
- 1696              	.LVL149:
- 1697              	.LFB451:
-  79:User/HydroUnderwaterManipulator.cpp **** void HydroUnderwaterManipulator::control_pSink()
-  80:User/HydroUnderwaterManipulator.cpp **** {
- 1698              		.loc 3 80 1 is_stmt 1 view -0
- 1699              		.cfi_startproc
- 1700              		@ args = 0, pretend = 0, frame = 0
- 1701              		@ frame_needed = 0, uses_anonymous_args = 0
- 1702              		.loc 3 80 1 is_stmt 0 view .LVU581
- 1703 0000 10B5     		push	{r4, lr}
- 1704              		.save {r4, lr}
- 1705              	.LCFI12:
- 1706              		.cfi_def_cfa_offset 8
- 1707              		.cfi_offset 4, -8
- 1708              		.cfi_offset 14, -4
-  81:User/HydroUnderwaterManipulator.cpp **** 	if (hostCommand.controlMode == OpeningControlMode)
- 1709              		.loc 3 81 2 is_stmt 1 view .LVU582
- 1710              		.loc 3 81 18 is_stmt 0 view .LVU583
- 1711 0002 B0F90634 		ldrsh	r3, [r0, #1030]
- 1712              		.loc 3 81 2 view .LVU584
- 1713 0006 83BB     		cbnz	r3, .L79
-  82:User/HydroUnderwaterManipulator.cpp **** 	{
-  83:User/HydroUnderwaterManipulator.cpp **** 		//pumpIn = on and vavleIn = On, watch out the sequency
-  84:User/HydroUnderwaterManipulator.cpp **** 		if (hostCommand.openingCmd_pSink_pump && hostCommand.openingCmd_pSink_valve)
- 1714              		.loc 3 84 3 is_stmt 1 view .LVU585
- 1715              		.loc 3 84 19 is_stmt 0 view .LVU586
- 1716 0008 B0F94034 		ldrsh	r3, [r0, #1088]
- 1717              		.loc 3 84 3 view .LVU587
- 1718 000c 13B1     		cbz	r3, .L80
-ARM GAS  /tmp/ccgPptWl.s 			page 45
-
-
- 1719              		.loc 3 84 56 discriminator 1 view .LVU588
- 1720 000e B0F94224 		ldrsh	r2, [r0, #1090]
- 1721              		.loc 3 84 41 discriminator 1 view .LVU589
- 1722 0012 7AB9     		cbnz	r2, .L85
- 1723              	.L80:
-  85:User/HydroUnderwaterManipulator.cpp **** 		{
-  86:User/HydroUnderwaterManipulator.cpp **** 			pSink.openValve();
-  87:User/HydroUnderwaterManipulator.cpp **** 			pSink.startPump();
-  88:User/HydroUnderwaterManipulator.cpp **** 		}
-  89:User/HydroUnderwaterManipulator.cpp **** 
-  90:User/HydroUnderwaterManipulator.cpp **** 		//pumpIn = off and vavleIn = Off;
-  91:User/HydroUnderwaterManipulator.cpp **** 		else if ((!hostCommand.openingCmd_pSink_pump) && (!hostCommand.openingCmd_pSink_valve))
- 1724              		.loc 3 91 8 is_stmt 1 view .LVU590
- 1725              		.loc 3 91 49 is_stmt 0 view .LVU591
- 1726 0014 D0F84024 		ldr	r2, [r0, #1088]
- 1727              		.loc 3 91 8 view .LVU592
- 1728 0018 AAB1     		cbz	r2, .L86
-  92:User/HydroUnderwaterManipulator.cpp **** 		{
-  93:User/HydroUnderwaterManipulator.cpp **** 			pSink.stopPump();
-  94:User/HydroUnderwaterManipulator.cpp **** 			pSink.closeValve();
-  95:User/HydroUnderwaterManipulator.cpp **** 		}
-  96:User/HydroUnderwaterManipulator.cpp **** 		else if ((hostCommand.openingCmd_pSink_pump) && (!hostCommand.openingCmd_pSink_valve))
- 1729              		.loc 3 96 8 is_stmt 1 view .LVU593
- 1730 001a 13B1     		cbz	r3, .L83
- 1731              		.loc 3 96 65 is_stmt 0 discriminator 1 view .LVU594
- 1732 001c B0F94234 		ldrsh	r3, [r0, #1090]
- 1733              		.loc 3 96 48 discriminator 1 view .LVU595
- 1734 0020 D3B1     		cbz	r3, .L87
- 1735              	.L83:
-  97:User/HydroUnderwaterManipulator.cpp **** 		{
-  98:User/HydroUnderwaterManipulator.cpp **** 			pSink.startPump();
-  99:User/HydroUnderwaterManipulator.cpp **** 			pSink.closeValve();
- 100:User/HydroUnderwaterManipulator.cpp **** 		}
- 101:User/HydroUnderwaterManipulator.cpp **** 		else
- 102:User/HydroUnderwaterManipulator.cpp **** 		{
- 103:User/HydroUnderwaterManipulator.cpp **** 			pSink.openValve();
- 1736              		.loc 3 103 4 is_stmt 1 view .LVU596
- 1737              		.loc 3 103 19 is_stmt 0 view .LVU597
- 1738 0022 00F55074 		add	r4, r0, #832
- 1739 0026 2046     		mov	r0, r4
- 1740              	.LVL150:
- 1741              		.loc 3 103 19 view .LVU598
- 1742 0028 FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE9openValveEv
- 1743              	.LVL151:
- 104:User/HydroUnderwaterManipulator.cpp **** 			pSink.stopPump();
- 1744              		.loc 3 104 4 is_stmt 1 view .LVU599
- 1745              		.loc 3 104 18 is_stmt 0 view .LVU600
- 1746 002c 2046     		mov	r0, r4
- 1747 002e FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE8stopPumpEv
- 1748              	.LVL152:
- 1749 0032 1CE0     		b	.L78
- 1750              	.LVL153:
- 1751              	.L85:
-  86:User/HydroUnderwaterManipulator.cpp **** 			pSink.startPump();
- 1752              		.loc 3 86 4 is_stmt 1 view .LVU601
-  86:User/HydroUnderwaterManipulator.cpp **** 			pSink.startPump();
- 1753              		.loc 3 86 19 is_stmt 0 view .LVU602
-ARM GAS  /tmp/ccgPptWl.s 			page 46
-
-
- 1754 0034 00F55074 		add	r4, r0, #832
- 1755 0038 2046     		mov	r0, r4
- 1756              	.LVL154:
-  86:User/HydroUnderwaterManipulator.cpp **** 			pSink.startPump();
- 1757              		.loc 3 86 19 view .LVU603
- 1758 003a FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE9openValveEv
- 1759              	.LVL155:
-  87:User/HydroUnderwaterManipulator.cpp **** 		}
- 1760              		.loc 3 87 4 is_stmt 1 view .LVU604
-  87:User/HydroUnderwaterManipulator.cpp **** 		}
- 1761              		.loc 3 87 19 is_stmt 0 view .LVU605
- 1762 003e 2046     		mov	r0, r4
- 1763 0040 FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE9startPumpEv
- 1764              	.LVL156:
- 1765 0044 13E0     		b	.L78
- 1766              	.LVL157:
- 1767              	.L86:
-  93:User/HydroUnderwaterManipulator.cpp **** 			pSink.closeValve();
- 1768              		.loc 3 93 4 is_stmt 1 view .LVU606
-  93:User/HydroUnderwaterManipulator.cpp **** 			pSink.closeValve();
- 1769              		.loc 3 93 18 is_stmt 0 view .LVU607
- 1770 0046 00F55074 		add	r4, r0, #832
- 1771 004a 2046     		mov	r0, r4
- 1772              	.LVL158:
-  93:User/HydroUnderwaterManipulator.cpp **** 			pSink.closeValve();
- 1773              		.loc 3 93 18 view .LVU608
- 1774 004c FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE8stopPumpEv
- 1775              	.LVL159:
-  94:User/HydroUnderwaterManipulator.cpp **** 		}
- 1776              		.loc 3 94 4 is_stmt 1 view .LVU609
-  94:User/HydroUnderwaterManipulator.cpp **** 		}
- 1777              		.loc 3 94 20 is_stmt 0 view .LVU610
- 1778 0050 2046     		mov	r0, r4
- 1779 0052 FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE10closeValveEv
- 1780              	.LVL160:
- 1781 0056 0AE0     		b	.L78
- 1782              	.LVL161:
- 1783              	.L87:
-  98:User/HydroUnderwaterManipulator.cpp **** 			pSink.closeValve();
- 1784              		.loc 3 98 4 is_stmt 1 view .LVU611
-  98:User/HydroUnderwaterManipulator.cpp **** 			pSink.closeValve();
- 1785              		.loc 3 98 19 is_stmt 0 view .LVU612
- 1786 0058 00F55074 		add	r4, r0, #832
- 1787 005c 2046     		mov	r0, r4
- 1788              	.LVL162:
-  98:User/HydroUnderwaterManipulator.cpp **** 			pSink.closeValve();
- 1789              		.loc 3 98 19 view .LVU613
- 1790 005e FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE9startPumpEv
- 1791              	.LVL163:
-  99:User/HydroUnderwaterManipulator.cpp **** 		}
- 1792              		.loc 3 99 4 is_stmt 1 view .LVU614
-  99:User/HydroUnderwaterManipulator.cpp **** 		}
- 1793              		.loc 3 99 20 is_stmt 0 view .LVU615
- 1794 0062 2046     		mov	r0, r4
- 1795 0064 FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE10closeValveEv
- 1796              	.LVL164:
- 1797 0068 01E0     		b	.L78
-ARM GAS  /tmp/ccgPptWl.s 			page 47
-
-
- 1798              	.LVL165:
- 1799              	.L79:
- 105:User/HydroUnderwaterManipulator.cpp **** 		}
- 106:User/HydroUnderwaterManipulator.cpp **** 	}
- 107:User/HydroUnderwaterManipulator.cpp **** 	else if (hostCommand.controlMode == PressureControlMode)
- 1800              		.loc 3 107 7 is_stmt 1 view .LVU616
- 1801 006a 012B     		cmp	r3, #1
- 1802 006c 00D0     		beq	.L88
- 1803              	.LVL166:
- 1804              	.L78:
- 108:User/HydroUnderwaterManipulator.cpp **** 	{
- 109:User/HydroUnderwaterManipulator.cpp **** 		pSink.maintainPressure(hostCommand.pressureCmd_pSink);
- 110:User/HydroUnderwaterManipulator.cpp **** 	}
- 111:User/HydroUnderwaterManipulator.cpp **** }
- 1805              		.loc 3 111 1 is_stmt 0 view .LVU617
- 1806 006e 10BD     		pop	{r4, pc}
- 1807              	.LVL167:
- 1808              	.L88:
- 109:User/HydroUnderwaterManipulator.cpp **** 	}
- 1809              		.loc 3 109 3 is_stmt 1 view .LVU618
- 109:User/HydroUnderwaterManipulator.cpp **** 	}
- 1810              		.loc 3 109 25 is_stmt 0 view .LVU619
- 1811 0070 B0F96014 		ldrsh	r1, [r0, #1120]
- 1812 0074 00F55070 		add	r0, r0, #832
- 1813              	.LVL168:
- 109:User/HydroUnderwaterManipulator.cpp **** 	}
- 1814              		.loc 3 109 25 view .LVU620
- 1815 0078 FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE16maintainPressureEl
- 1816              	.LVL169:
- 1817              		.loc 3 111 1 view .LVU621
- 1818 007c F7E7     		b	.L78
- 1819              		.cfi_endproc
- 1820              	.LFE451:
- 1821              		.fnend
- 1823              		.section	.text._ZN26HydroUnderwaterManipulator15control_gripperEv,"ax",%progbits
- 1824              		.align	1
- 1825              		.global	_ZN26HydroUnderwaterManipulator15control_gripperEv
- 1826              		.syntax unified
- 1827              		.thumb
- 1828              		.thumb_func
- 1829              		.fpu softvfp
- 1831              	_ZN26HydroUnderwaterManipulator15control_gripperEv:
- 1832              		.fnstart
- 1833              	.LVL170:
- 1834              	.LFB452:
- 112:User/HydroUnderwaterManipulator.cpp **** 
- 113:User/HydroUnderwaterManipulator.cpp **** void HydroUnderwaterManipulator::control_gripper()
- 114:User/HydroUnderwaterManipulator.cpp **** {
- 1835              		.loc 3 114 1 is_stmt 1 view -0
- 1836              		.cfi_startproc
- 1837              		@ args = 0, pretend = 0, frame = 0
- 1838              		@ frame_needed = 0, uses_anonymous_args = 0
- 1839              		.loc 3 114 1 is_stmt 0 view .LVU623
- 1840 0000 10B5     		push	{r4, lr}
- 1841              		.save {r4, lr}
- 1842              	.LCFI13:
- 1843              		.cfi_def_cfa_offset 8
-ARM GAS  /tmp/ccgPptWl.s 			page 48
-
-
- 1844              		.cfi_offset 4, -8
- 1845              		.cfi_offset 14, -4
- 1846 0002 0446     		mov	r4, r0
- 115:User/HydroUnderwaterManipulator.cpp **** 	// if (hostCommand.controlMode == OpeningControlMode)
- 116:User/HydroUnderwaterManipulator.cpp **** 	// {
- 117:User/HydroUnderwaterManipulator.cpp **** 	gripper.valves[0].writeDuty(hostCommand.openingCmd_gripper[0]);
- 1847              		.loc 3 117 2 is_stmt 1 view .LVU624
- 1848              		.loc 3 117 29 is_stmt 0 view .LVU625
- 1849 0004 B0F93814 		ldrsh	r1, [r0, #1080]
- 1850 0008 00F53470 		add	r0, r0, #720
- 1851              	.LVL171:
- 1852              		.loc 3 117 29 view .LVU626
- 1853 000c FFF7FEFF 		bl	_ZN14SOLENOID_VALVE9writeDutyEs
- 1854              	.LVL172:
- 118:User/HydroUnderwaterManipulator.cpp **** 	gripper.valves[1].writeDuty(hostCommand.openingCmd_gripper[1]);
- 1855              		.loc 3 118 2 is_stmt 1 view .LVU627
- 1856              		.loc 3 118 29 is_stmt 0 view .LVU628
- 1857 0010 B4F93A14 		ldrsh	r1, [r4, #1082]
- 1858 0014 04F2DA20 		addw	r0, r4, #730
- 1859 0018 FFF7FEFF 		bl	_ZN14SOLENOID_VALVE9writeDutyEs
- 1860              	.LVL173:
- 119:User/HydroUnderwaterManipulator.cpp **** 	// }
- 120:User/HydroUnderwaterManipulator.cpp **** 	// else if (hostCommand.controlMode == PressureControlMode)
- 121:User/HydroUnderwaterManipulator.cpp **** 	// {
- 122:User/HydroUnderwaterManipulator.cpp **** 	// }
- 123:User/HydroUnderwaterManipulator.cpp **** }
- 1861              		.loc 3 123 1 view .LVU629
- 1862 001c 10BD     		pop	{r4, pc}
- 1863              		.loc 3 123 1 view .LVU630
- 1864              		.cfi_endproc
- 1865              	.LFE452:
- 1866              		.fnend
- 1868              		.section	.text._ZN26HydroUnderwaterManipulator17control_actuatorsEv,"ax",%progbits
- 1869              		.align	1
- 1870              		.global	_ZN26HydroUnderwaterManipulator17control_actuatorsEv
- 1871              		.syntax unified
- 1872              		.thumb
- 1873              		.thumb_func
- 1874              		.fpu softvfp
- 1876              	_ZN26HydroUnderwaterManipulator17control_actuatorsEv:
- 1877              		.fnstart
- 1878              	.LVL174:
- 1879              	.LFB453:
- 124:User/HydroUnderwaterManipulator.cpp **** 
- 125:User/HydroUnderwaterManipulator.cpp **** void HydroUnderwaterManipulator::control_actuators()
- 126:User/HydroUnderwaterManipulator.cpp **** {
- 1880              		.loc 3 126 1 is_stmt 1 view -0
- 1881              		.cfi_startproc
- 1882              		@ args = 0, pretend = 0, frame = 0
- 1883              		@ frame_needed = 0, uses_anonymous_args = 0
- 1884              		.loc 3 126 1 is_stmt 0 view .LVU632
- 1885 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
- 1886              		.save {r4, r5, r6, r7, r8, lr}
- 1887              	.LCFI14:
- 1888              		.cfi_def_cfa_offset 24
- 1889              		.cfi_offset 4, -24
- 1890              		.cfi_offset 5, -20
-ARM GAS  /tmp/ccgPptWl.s 			page 49
-
-
- 1891              		.cfi_offset 6, -16
- 1892              		.cfi_offset 7, -12
- 1893              		.cfi_offset 8, -8
- 1894              		.cfi_offset 14, -4
- 1895 0004 0746     		mov	r7, r0
- 127:User/HydroUnderwaterManipulator.cpp **** 	for (int i = 0; i < SEGNUM; i++)
- 1896              		.loc 3 127 2 is_stmt 1 view .LVU633
- 1897              	.LVL175:
- 1898              	.LBB95:
- 1899              		.loc 3 127 11 is_stmt 0 view .LVU634
- 1900 0006 4FF00008 		mov	r8, #0
- 1901 000a 1FE0     		b	.L95
- 1902              	.LVL176:
- 1903              	.L97:
- 1904              	.LBB96:
- 128:User/HydroUnderwaterManipulator.cpp **** 	{
- 129:User/HydroUnderwaterManipulator.cpp **** 		for (int j = 0; j < ACTNUM; j++)
- 130:User/HydroUnderwaterManipulator.cpp **** 		{
- 131:User/HydroUnderwaterManipulator.cpp **** 			//if (hostCommand.controlMode == OpeningControlMode)
- 132:User/HydroUnderwaterManipulator.cpp **** 			//{
- 133:User/HydroUnderwaterManipulator.cpp **** 			actuators[i][j].valves[0].writeDuty(hostCommand.openingCmd_actuators[i][j][0]);
- 1905              		.loc 3 133 4 is_stmt 1 discriminator 2 view .LVU635
- 1906              		.loc 3 133 39 is_stmt 0 discriminator 2 view .LVU636
- 1907 000c 05EB8806 		add	r6, r5, r8, lsl #2
- 1908 0010 06F58073 		add	r3, r6, #256
- 1909 0014 07EB8303 		add	r3, r7, r3, lsl #2
- 1910 0018 C5EB0510 		rsb	r0, r5, r5, lsl #4
- 1911 001c C8EB0814 		rsb	r4, r8, r8, lsl #4
- 1912 0020 2401     		lsls	r4, r4, #4
- 1913 0022 04EB8004 		add	r4, r4, r0, lsl #2
- 1914 0026 B3F90810 		ldrsh	r1, [r3, #8]
- 1915 002a 3819     		adds	r0, r7, r4
- 1916 002c FFF7FEFF 		bl	_ZN14SOLENOID_VALVE9writeDutyEs
- 1917              	.LVL177:
- 134:User/HydroUnderwaterManipulator.cpp **** 			actuators[i][j].valves[1].writeDuty(hostCommand.openingCmd_actuators[i][j][1]);
- 1918              		.loc 3 134 4 is_stmt 1 discriminator 2 view .LVU637
- 1919              		.loc 3 134 39 is_stmt 0 discriminator 2 view .LVU638
- 1920 0030 07EB8606 		add	r6, r7, r6, lsl #2
- 1921 0034 04F10A00 		add	r0, r4, #10
- 1922 0038 B6F90A14 		ldrsh	r1, [r6, #1034]
- 1923 003c 3844     		add	r0, r0, r7
- 1924 003e FFF7FEFF 		bl	_ZN14SOLENOID_VALVE9writeDutyEs
- 1925              	.LVL178:
- 129:User/HydroUnderwaterManipulator.cpp **** 		{
- 1926              		.loc 3 129 3 is_stmt 1 discriminator 2 view .LVU639
- 1927 0042 0135     		adds	r5, r5, #1
- 1928              	.LVL179:
- 1929              	.L94:
- 129:User/HydroUnderwaterManipulator.cpp **** 		{
- 1930              		.loc 3 129 21 discriminator 3 view .LVU640
- 1931 0044 032D     		cmp	r5, #3
- 1932 0046 E1DD     		ble	.L97
- 1933              	.LBE96:
- 127:User/HydroUnderwaterManipulator.cpp **** 	{
- 1934              		.loc 3 127 2 discriminator 2 view .LVU641
- 1935 0048 08F10108 		add	r8, r8, #1
- 1936              	.LVL180:
-ARM GAS  /tmp/ccgPptWl.s 			page 50
-
-
- 1937              	.L95:
- 127:User/HydroUnderwaterManipulator.cpp **** 	{
- 1938              		.loc 3 127 20 discriminator 1 view .LVU642
- 1939 004c B8F1020F 		cmp	r8, #2
- 1940 0050 01DC     		bgt	.L91
- 1941              	.LBB97:
- 129:User/HydroUnderwaterManipulator.cpp **** 		{
- 1942              		.loc 3 129 12 is_stmt 0 view .LVU643
- 1943 0052 0025     		movs	r5, #0
- 1944 0054 F6E7     		b	.L94
- 1945              	.L91:
- 1946              	.LBE97:
- 1947              	.LBE95:
- 135:User/HydroUnderwaterManipulator.cpp **** 			//}
- 136:User/HydroUnderwaterManipulator.cpp **** 			// else
- 137:User/HydroUnderwaterManipulator.cpp **** 			// {
- 138:User/HydroUnderwaterManipulator.cpp **** 			// 	hostCommand.pressureCmd_actuators[SEGNUM][ACTNUM] = hostCommand.actuatorCommand[(i * ACTNUM 
- 139:User/HydroUnderwaterManipulator.cpp **** 			// }
- 140:User/HydroUnderwaterManipulator.cpp **** 		}
- 141:User/HydroUnderwaterManipulator.cpp **** 	}
- 142:User/HydroUnderwaterManipulator.cpp **** }
- 1948              		.loc 3 142 1 view .LVU644
- 1949 0056 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
- 1950              		.loc 3 142 1 view .LVU645
- 1951              		.cfi_endproc
- 1952              	.LFE453:
- 1953              		.fnend
- 1955              		.section	.text._ZN26HydroUnderwaterManipulator13decodeCommandEv,"ax",%progbits
- 1956              		.align	1
- 1957              		.global	_ZN26HydroUnderwaterManipulator13decodeCommandEv
- 1958              		.syntax unified
- 1959              		.thumb
- 1960              		.thumb_func
- 1961              		.fpu softvfp
- 1963              	_ZN26HydroUnderwaterManipulator13decodeCommandEv:
- 1964              		.fnstart
- 1965              	.LVL181:
- 1966              	.LFB454:
- 143:User/HydroUnderwaterManipulator.cpp **** 
- 144:User/HydroUnderwaterManipulator.cpp **** void HydroUnderwaterManipulator::decodeCommand()
- 145:User/HydroUnderwaterManipulator.cpp **** {
- 1967              		.loc 3 145 1 is_stmt 1 view -0
- 1968              		.cfi_startproc
- 1969              		@ args = 0, pretend = 0, frame = 0
- 1970              		@ frame_needed = 0, uses_anonymous_args = 0
- 1971              		.loc 3 145 1 is_stmt 0 view .LVU647
- 1972 0000 10B5     		push	{r4, lr}
- 1973              	.LCFI15:
- 1974              		.cfi_def_cfa_offset 8
- 1975              		.cfi_offset 4, -8
- 1976              		.cfi_offset 14, -4
- 146:User/HydroUnderwaterManipulator.cpp **** 
- 147:User/HydroUnderwaterManipulator.cpp **** 	hostCommand.controlMode = __GET_BIT(hostCommand.controlModeCommand, PRESSURE_CONTROL_MASK);
- 1977              		.loc 3 147 2 is_stmt 1 view .LVU648
- 1978              		.loc 3 147 28 is_stmt 0 view .LVU649
- 1979 0002 B0F9D843 		ldrsh	r4, [r0, #984]
- 1980 0006 04F00104 		and	r4, r4, #1
-ARM GAS  /tmp/ccgPptWl.s 			page 51
-
-
- 1981              		.loc 3 147 26 view .LVU650
- 1982 000a A0F80644 		strh	r4, [r0, #1030]	@ movhi
- 148:User/HydroUnderwaterManipulator.cpp **** 
- 149:User/HydroUnderwaterManipulator.cpp **** 	//decode actuator command, no implementation of pressure control yet
- 150:User/HydroUnderwaterManipulator.cpp **** 	for (int i = 0; i < SEGNUM; i++)
- 1983              		.loc 3 150 2 is_stmt 1 view .LVU651
- 1984              	.LVL182:
- 1985              	.LBB98:
- 1986              		.loc 3 150 11 is_stmt 0 view .LVU652
- 1987 000e 4FF0000E 		mov	lr, #0
- 1988 0012 14E0     		b	.L102
- 1989              	.LVL183:
- 1990              	.L108:
- 1991              	.LBB99:
- 151:User/HydroUnderwaterManipulator.cpp **** 	{
- 152:User/HydroUnderwaterManipulator.cpp **** 		for (int j = 0; j < ACTNUM; j++)
- 153:User/HydroUnderwaterManipulator.cpp **** 		{
- 154:User/HydroUnderwaterManipulator.cpp **** 			//if (hostCommand.controlMode == OpeningControlMode)
- 155:User/HydroUnderwaterManipulator.cpp **** 			//{
- 156:User/HydroUnderwaterManipulator.cpp **** 			hostCommand.openingCmd_actuators[SEGNUM][ACTNUM][0] = __GET_BIT(hostCommand.actuatorCommand[i * 
- 1992              		.loc 3 156 4 is_stmt 1 discriminator 2 view .LVU653
- 1993              		.loc 3 156 58 is_stmt 0 discriminator 2 view .LVU654
- 1994 0014 D0F8E413 		ldr	r1, [r0, #996]
- 1995 0018 03EB8E0C 		add	ip, r3, lr, lsl #2
- 1996 001c 31F91C20 		ldrsh	r2, [r1, ip, lsl #1]
- 1997 0020 02F00102 		and	r2, r2, #1
- 1998              		.loc 3 156 56 discriminator 2 view .LVU655
- 1999 0024 A0F84824 		strh	r2, [r0, #1096]	@ movhi
- 157:User/HydroUnderwaterManipulator.cpp **** 			hostCommand.openingCmd_actuators[SEGNUM][ACTNUM][1] = __GET_BIT(hostCommand.actuatorCommand[i * 
- 2000              		.loc 3 157 4 is_stmt 1 discriminator 2 view .LVU656
- 2001              		.loc 3 157 58 is_stmt 0 discriminator 2 view .LVU657
- 2002 0028 31F91C20 		ldrsh	r2, [r1, ip, lsl #1]
- 2003 002c C2F34002 		ubfx	r2, r2, #1, #1
- 2004              		.loc 3 157 56 discriminator 2 view .LVU658
- 2005 0030 A0F84A24 		strh	r2, [r0, #1098]	@ movhi
- 152:User/HydroUnderwaterManipulator.cpp **** 		{
- 2006              		.loc 3 152 3 is_stmt 1 discriminator 2 view .LVU659
- 2007 0034 0133     		adds	r3, r3, #1
- 2008              	.LVL184:
- 2009              	.L101:
- 152:User/HydroUnderwaterManipulator.cpp **** 		{
- 2010              		.loc 3 152 21 discriminator 3 view .LVU660
- 2011 0036 032B     		cmp	r3, #3
- 2012 0038 ECDD     		ble	.L108
- 2013              	.LBE99:
- 150:User/HydroUnderwaterManipulator.cpp **** 	{
- 2014              		.loc 3 150 2 discriminator 2 view .LVU661
- 2015 003a 0EF1010E 		add	lr, lr, #1
- 2016              	.LVL185:
- 2017              	.L102:
- 150:User/HydroUnderwaterManipulator.cpp **** 	{
- 2018              		.loc 3 150 20 discriminator 1 view .LVU662
- 2019 003e BEF1020F 		cmp	lr, #2
- 2020 0042 01DC     		bgt	.L99
- 2021              	.LBB100:
- 152:User/HydroUnderwaterManipulator.cpp **** 		{
- 2022              		.loc 3 152 12 is_stmt 0 view .LVU663
-ARM GAS  /tmp/ccgPptWl.s 			page 52
-
-
- 2023 0044 0023     		movs	r3, #0
- 2024 0046 F6E7     		b	.L101
- 2025              	.L99:
- 2026              	.LBE100:
- 2027              	.LBE98:
- 158:User/HydroUnderwaterManipulator.cpp **** 			//}
- 159:User/HydroUnderwaterManipulator.cpp **** 			// else
- 160:User/HydroUnderwaterManipulator.cpp **** 			// {
- 161:User/HydroUnderwaterManipulator.cpp **** 			// 	hostCommand.pressureCmd_actuators[SEGNUM][ACTNUM] = hostCommand.actuatorCommand[(i * ACTNUM 
- 162:User/HydroUnderwaterManipulator.cpp **** 			// }
- 163:User/HydroUnderwaterManipulator.cpp **** 		}
- 164:User/HydroUnderwaterManipulator.cpp **** 	}
- 165:User/HydroUnderwaterManipulator.cpp **** 
- 166:User/HydroUnderwaterManipulator.cpp **** 	//decode gripper command, no implementation of pressure control yet
- 167:User/HydroUnderwaterManipulator.cpp **** 	//if (hostCommand.controlMode == OpeningControlMode)
- 168:User/HydroUnderwaterManipulator.cpp **** 	//{
- 169:User/HydroUnderwaterManipulator.cpp **** 	hostCommand.openingCmd_gripper[0] = __GET_BIT(hostCommand.gripperCommand, GRIPPER_IN_VALVE_MASK);
- 2028              		.loc 3 169 2 is_stmt 1 view .LVU664
- 2029              		.loc 3 169 38 is_stmt 0 view .LVU665
- 2030 0048 B0F9E833 		ldrsh	r3, [r0, #1000]
- 2031 004c 03F00102 		and	r2, r3, #1
- 2032              		.loc 3 169 36 view .LVU666
- 2033 0050 A0F83824 		strh	r2, [r0, #1080]	@ movhi
- 170:User/HydroUnderwaterManipulator.cpp **** 	hostCommand.openingCmd_gripper[1] = __GET_BIT(hostCommand.gripperCommand, GRIPPER_OUT_VALVE_MASK);
- 2034              		.loc 3 170 2 is_stmt 1 view .LVU667
- 2035              		.loc 3 170 38 is_stmt 0 view .LVU668
- 2036 0054 C3F34003 		ubfx	r3, r3, #1, #1
- 2037              		.loc 3 170 36 view .LVU669
- 2038 0058 A0F83A34 		strh	r3, [r0, #1082]	@ movhi
- 171:User/HydroUnderwaterManipulator.cpp **** 	//}
- 172:User/HydroUnderwaterManipulator.cpp **** 	// else
- 173:User/HydroUnderwaterManipulator.cpp **** 	// {
- 174:User/HydroUnderwaterManipulator.cpp **** 	// 	hostCommand.pressureCmd_gripper = hostCommand.gripperCommand;
- 175:User/HydroUnderwaterManipulator.cpp **** 	// }
- 176:User/HydroUnderwaterManipulator.cpp **** 
- 177:User/HydroUnderwaterManipulator.cpp **** 	//decode pSource command
- 178:User/HydroUnderwaterManipulator.cpp **** 	if (hostCommand.controlMode == OpeningControlMode)
- 2039              		.loc 3 178 2 is_stmt 1 view .LVU670
- 2040 005c ACB9     		cbnz	r4, .L103
- 179:User/HydroUnderwaterManipulator.cpp **** 	{
- 180:User/HydroUnderwaterManipulator.cpp **** 		hostCommand.openingCmd_pSource_pump = __GET_BIT(hostCommand.pSourceCommand, PSOURCE_IN_PUMP_MASK)
- 2041              		.loc 3 180 3 view .LVU671
- 2042              		.loc 3 180 41 is_stmt 0 view .LVU672
- 2043 005e B0F9EA33 		ldrsh	r3, [r0, #1002]
- 2044 0062 C3F34002 		ubfx	r2, r3, #1, #1
- 2045              		.loc 3 180 39 view .LVU673
- 2046 0066 A0F83C24 		strh	r2, [r0, #1084]	@ movhi
- 181:User/HydroUnderwaterManipulator.cpp **** 		hostCommand.openingCmd_pSource_valve = __GET_BIT(hostCommand.pSourceCommand, PSOURCE_IN_VALVE_MAS
- 2047              		.loc 3 181 3 is_stmt 1 view .LVU674
- 2048              		.loc 3 181 42 is_stmt 0 view .LVU675
- 2049 006a 03F00103 		and	r3, r3, #1
- 2050              		.loc 3 181 40 view .LVU676
- 2051 006e A0F83E34 		strh	r3, [r0, #1086]	@ movhi
- 2052              	.L104:
- 182:User/HydroUnderwaterManipulator.cpp **** 	}
- 183:User/HydroUnderwaterManipulator.cpp **** 	else
- 184:User/HydroUnderwaterManipulator.cpp **** 	{
-ARM GAS  /tmp/ccgPptWl.s 			page 53
-
-
- 185:User/HydroUnderwaterManipulator.cpp **** 		hostCommand.pressureCmd_pSource = hostCommand.pSourceCommand;
- 186:User/HydroUnderwaterManipulator.cpp **** 	}
- 187:User/HydroUnderwaterManipulator.cpp **** 
- 188:User/HydroUnderwaterManipulator.cpp **** 	//decode pSink command
- 189:User/HydroUnderwaterManipulator.cpp **** 	if (hostCommand.controlMode == OpeningControlMode)
- 2053              		.loc 3 189 2 is_stmt 1 view .LVU677
- 2054 0072 7CB9     		cbnz	r4, .L105
- 190:User/HydroUnderwaterManipulator.cpp **** 	{
- 191:User/HydroUnderwaterManipulator.cpp **** 		hostCommand.openingCmd_pSink_pump = __GET_BIT(hostCommand.pSinkCommand, PSINK_OUT_PUMP_MASK);
- 2055              		.loc 3 191 3 view .LVU678
- 2056              		.loc 3 191 39 is_stmt 0 view .LVU679
- 2057 0074 B0F9EC33 		ldrsh	r3, [r0, #1004]
- 2058 0078 C3F34002 		ubfx	r2, r3, #1, #1
- 2059              		.loc 3 191 37 view .LVU680
- 2060 007c A0F84024 		strh	r2, [r0, #1088]	@ movhi
- 192:User/HydroUnderwaterManipulator.cpp **** 		hostCommand.openingCmd_pSink_valve = __GET_BIT(hostCommand.pSinkCommand, PSINK_OUT_VALVE_MASK);
- 2061              		.loc 3 192 3 is_stmt 1 view .LVU681
- 2062              		.loc 3 192 40 is_stmt 0 view .LVU682
- 2063 0080 03F00103 		and	r3, r3, #1
- 2064              		.loc 3 192 38 view .LVU683
- 2065 0084 A0F84234 		strh	r3, [r0, #1090]	@ movhi
- 2066              	.L98:
- 193:User/HydroUnderwaterManipulator.cpp **** 	}
- 194:User/HydroUnderwaterManipulator.cpp **** 	else
- 195:User/HydroUnderwaterManipulator.cpp **** 	{
- 196:User/HydroUnderwaterManipulator.cpp **** 		hostCommand.pressureCmd_pSink = hostCommand.pSinkCommand;
- 197:User/HydroUnderwaterManipulator.cpp **** 	}
- 198:User/HydroUnderwaterManipulator.cpp **** }
- 2067              		.loc 3 198 1 view .LVU684
- 2068 0088 10BD     		pop	{r4, pc}
- 2069              	.L103:
- 185:User/HydroUnderwaterManipulator.cpp **** 	}
- 2070              		.loc 3 185 3 is_stmt 1 view .LVU685
- 185:User/HydroUnderwaterManipulator.cpp **** 	}
- 2071              		.loc 3 185 49 is_stmt 0 view .LVU686
- 2072 008a B0F9EA33 		ldrsh	r3, [r0, #1002]
- 185:User/HydroUnderwaterManipulator.cpp **** 	}
- 2073              		.loc 3 185 35 view .LVU687
- 2074 008e A0F85E34 		strh	r3, [r0, #1118]	@ movhi
- 2075 0092 EEE7     		b	.L104
- 2076              	.L105:
- 196:User/HydroUnderwaterManipulator.cpp **** 	}
- 2077              		.loc 3 196 3 is_stmt 1 view .LVU688
- 196:User/HydroUnderwaterManipulator.cpp **** 	}
- 2078              		.loc 3 196 47 is_stmt 0 view .LVU689
- 2079 0094 B0F9EC33 		ldrsh	r3, [r0, #1004]
- 196:User/HydroUnderwaterManipulator.cpp **** 	}
- 2080              		.loc 3 196 33 view .LVU690
- 2081 0098 A0F86034 		strh	r3, [r0, #1120]	@ movhi
- 2082              		.loc 3 198 1 view .LVU691
- 2083 009c F4E7     		b	.L98
- 2084              		.cfi_endproc
- 2085              	.LFE454:
- 2086              		.cantunwind
- 2087              		.fnend
- 2089              		.section	.text._ZN26HydroUnderwaterManipulator12encodeStatusEv,"ax",%progbits
- 2090              		.align	1
-ARM GAS  /tmp/ccgPptWl.s 			page 54
-
-
- 2091              		.global	_ZN26HydroUnderwaterManipulator12encodeStatusEv
- 2092              		.syntax unified
- 2093              		.thumb
- 2094              		.thumb_func
- 2095              		.fpu softvfp
- 2097              	_ZN26HydroUnderwaterManipulator12encodeStatusEv:
- 2098              		.fnstart
- 2099              	.LVL186:
- 2100              	.LFB455:
- 199:User/HydroUnderwaterManipulator.cpp **** 
- 200:User/HydroUnderwaterManipulator.cpp **** void HydroUnderwaterManipulator::encodeStatus()
- 201:User/HydroUnderwaterManipulator.cpp **** {
- 2101              		.loc 3 201 1 is_stmt 1 view -0
- 2102              		.cfi_startproc
- 2103              		@ args = 0, pretend = 0, frame = 0
- 2104              		@ frame_needed = 0, uses_anonymous_args = 0
- 2105              		.loc 3 201 1 is_stmt 0 view .LVU693
- 2106 0000 10B5     		push	{r4, lr}
- 2107              	.LCFI16:
- 2108              		.cfi_def_cfa_offset 8
- 2109              		.cfi_offset 4, -8
- 2110              		.cfi_offset 14, -4
- 202:User/HydroUnderwaterManipulator.cpp **** 	manipulatorStatus.controlModeStatus = hostCommand.controlMode;
- 2111              		.loc 3 202 2 is_stmt 1 view .LVU694
- 2112              		.loc 3 202 52 is_stmt 0 view .LVU695
- 2113 0002 B0F90644 		ldrsh	r4, [r0, #1030]
- 2114              		.loc 3 202 38 view .LVU696
- 2115 0006 A0F87843 		strh	r4, [r0, #888]	@ movhi
- 203:User/HydroUnderwaterManipulator.cpp **** 
- 204:User/HydroUnderwaterManipulator.cpp **** 	//decode actuator command, no implementation of pressure control yet
- 205:User/HydroUnderwaterManipulator.cpp **** 	for (int i = 0; i < SEGNUM; i++)
- 2116              		.loc 3 205 2 is_stmt 1 view .LVU697
- 2117              	.LVL187:
- 2118              	.LBB101:
- 2119              		.loc 3 205 11 is_stmt 0 view .LVU698
- 2120 000a 4FF0000C 		mov	ip, #0
- 2121 000e 27E0     		b	.L114
- 2122              	.LVL188:
- 2123              	.L112:
- 2124              	.LBB102:
- 2125              	.LBB103:
- 2126              	.LBI103:
- 2127              		.file 6 "User/Inc/SOLENOIDVALVE.h"
+ 1690              		.fnend
+ 1692              		.section	.text._ZN26HydroUnderwaterManipulator12encodeStatusEv,"ax",%progbits
+ 1693              		.align	1
+ 1694              		.global	_ZN26HydroUnderwaterManipulator12encodeStatusEv
+ 1695              		.syntax unified
+ 1696              		.thumb
+ 1697              		.thumb_func
+ 1698              		.fpu softvfp
+ 1700              	_ZN26HydroUnderwaterManipulator12encodeStatusEv:
+ 1701              		.fnstart
+ 1702              	.LVL141:
+ 1703              	.LFB451:
+  68:User/HydroUnderwaterManipulator.cpp **** 
+  69:User/HydroUnderwaterManipulator.cpp **** 
+  70:User/HydroUnderwaterManipulator.cpp **** void HydroUnderwaterManipulator::encodeStatus()
+  71:User/HydroUnderwaterManipulator.cpp **** {
+ 1704              		.loc 3 71 1 is_stmt 1 view -0
+ 1705              		.cfi_startproc
+ 1706              		@ args = 0, pretend = 0, frame = 0
+ 1707              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1708              		.loc 3 71 1 is_stmt 0 view .LVU577
+ 1709 0000 00B5     		push	{lr}
+ 1710              	.LCFI12:
+ 1711              		.cfi_def_cfa_offset 4
+ 1712              		.cfi_offset 14, -4
+  72:User/HydroUnderwaterManipulator.cpp **** 	for (int i = 0; i < SEGNUM; i++)
+ 1713              		.loc 3 72 2 is_stmt 1 view .LVU578
+ 1714              	.LVL142:
+ 1715              	.LBB94:
+ 1716              		.loc 3 72 11 is_stmt 0 view .LVU579
+ 1717 0002 4FF0000C 		mov	ip, #0
+ 1718 0006 27E0     		b	.L79
+ 1719              	.LVL143:
+ 1720              	.L77:
+ 1721              	.LBB95:
+ 1722              	.LBB96:
+ 1723              	.LBI96:
+ 1724              		.file 6 "User/Inc/SOLENOIDVALVE.h"
    1:User/Inc/SOLENOIDVALVE.h **** /*
    2:User/Inc/SOLENOIDVALVE.h ****  * SOLENOIDVALVE.h
    3:User/Inc/SOLENOIDVALVE.h ****  *
@@ -3238,14 +2633,14 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
   12:User/Inc/SOLENOIDVALVE.h **** #define SOLENOIDVALVE_H_
   13:User/Inc/SOLENOIDVALVE.h **** #ifdef __cplusplus
   14:User/Inc/SOLENOIDVALVE.h **** extern "C" {
-ARM GAS  /tmp/ccgPptWl.s 			page 55
-
-
   15:User/Inc/SOLENOIDVALVE.h **** #endif
   16:User/Inc/SOLENOIDVALVE.h **** #include  <inttypes.h>
   17:User/Inc/SOLENOIDVALVE.h **** #define PWM_DIGITAL_OUTPUT_REVERSED 1
   18:User/Inc/SOLENOIDVALVE.h **** 
   19:User/Inc/SOLENOIDVALVE.h **** class SOLENOID_VALVE {
+ARM GAS  /tmp/ccumnHxp.s 			page 45
+
+
   20:User/Inc/SOLENOIDVALVE.h **** public:
   21:User/Inc/SOLENOIDVALVE.h **** 	SOLENOID_VALVE(uint8_t num=0);
   22:User/Inc/SOLENOIDVALVE.h **** 	void attach(uint8_t num);
@@ -3253,560 +2648,405 @@ ARM GAS  /tmp/ccgPptWl.s 			page 1
   24:User/Inc/SOLENOIDVALVE.h **** 	void writeDuty(int16_t dut);
   25:User/Inc/SOLENOIDVALVE.h **** 
   26:User/Inc/SOLENOIDVALVE.h **** 	int16_t getDuty(){return duty;};
- 2128              		.loc 6 26 10 is_stmt 1 discriminator 4 view .LVU699
- 2129              	.LBB104:
- 2130              		.loc 6 26 20 discriminator 4 view .LVU700
- 2131              		.loc 6 26 27 is_stmt 0 discriminator 4 view .LVU701
- 2132 0010 C3EB031E 		rsb	lr, r3, r3, lsl #4
- 2133 0014 CCEB0C12 		rsb	r2, ip, ip, lsl #4
- 2134 0018 1201     		lsls	r2, r2, #4
- 2135 001a 02EB8E02 		add	r2, r2, lr, lsl #2
- 2136 001e 0244     		add	r2, r2, r0
- 2137 0020 B2F90C20 		ldrsh	r2, [r2, #12]
- 2138              	.LVL189:
- 2139              		.loc 6 26 27 discriminator 4 view .LVU702
- 2140              	.LBE104:
- 2141              	.LBE103:
- 206:User/HydroUnderwaterManipulator.cpp **** 	{
- 207:User/HydroUnderwaterManipulator.cpp **** 		for (int j = 0; j < ACTNUM; j++)
- 208:User/HydroUnderwaterManipulator.cpp **** 		{
- 209:User/HydroUnderwaterManipulator.cpp **** 			//if (hostCommand.controlMode == OpeningControlMode)
- 210:User/HydroUnderwaterManipulator.cpp **** 			//{
- 211:User/HydroUnderwaterManipulator.cpp **** 			manipulatorStatus.actuatorStatusBuf[i][j] = (((actuators[i][j].valves[0].getDuty() != 0) << 1) |
- 2142              		.loc 3 211 99 discriminator 4 view .LVU703
- 2143 0024 002A     		cmp	r2, #0
- 2144 0026 18BF     		it	ne
- 2145 0028 41F00101 		orrne	r1, r1, #1
- 2146              		.loc 3 211 46 discriminator 4 view .LVU704
- 2147 002c 03EB8C02 		add	r2, r3, ip, lsl #2
- 2148 0030 02F5E672 		add	r2, r2, #460
- 2149 0034 00EB4202 		add	r2, r0, r2, lsl #1
- 2150 0038 9180     		strh	r1, [r2, #4]	@ movhi
- 207:User/HydroUnderwaterManipulator.cpp **** 		{
- 2151              		.loc 3 207 3 is_stmt 1 discriminator 4 view .LVU705
- 2152 003a 0133     		adds	r3, r3, #1
- 2153              	.LVL190:
- 2154              	.L113:
- 207:User/HydroUnderwaterManipulator.cpp **** 		{
- 2155              		.loc 3 207 21 discriminator 2 view .LVU706
- 2156 003c 032B     		cmp	r3, #3
- 2157 003e 0DDC     		bgt	.L111
- 2158              		.loc 3 211 4 view .LVU707
- 2159              	.LVL191:
- 2160              	.LBB105:
- 2161              	.LBI105:
- 2162              		.loc 6 26 10 view .LVU708
- 2163              	.LBB106:
- 2164              		.loc 6 26 20 view .LVU709
-ARM GAS  /tmp/ccgPptWl.s 			page 56
+ 1725              		.loc 6 26 10 is_stmt 1 discriminator 4 view .LVU580
+ 1726              	.LBB97:
+ 1727              		.loc 6 26 20 discriminator 4 view .LVU581
+ 1728              		.loc 6 26 27 is_stmt 0 discriminator 4 view .LVU582
+ 1729 0008 C3EB031E 		rsb	lr, r3, r3, lsl #4
+ 1730 000c CCEB0C12 		rsb	r2, ip, ip, lsl #4
+ 1731 0010 1201     		lsls	r2, r2, #4
+ 1732 0012 02EB8E02 		add	r2, r2, lr, lsl #2
+ 1733 0016 0244     		add	r2, r2, r0
+ 1734 0018 B2F90C20 		ldrsh	r2, [r2, #12]
+ 1735              	.LVL144:
+ 1736              		.loc 6 26 27 discriminator 4 view .LVU583
+ 1737              	.LBE97:
+ 1738              	.LBE96:
+  73:User/HydroUnderwaterManipulator.cpp **** 	{
+  74:User/HydroUnderwaterManipulator.cpp **** 		for (int j = 0; j < ACTNUM; j++)
+  75:User/HydroUnderwaterManipulator.cpp **** 		{
+  76:User/HydroUnderwaterManipulator.cpp **** 			manipulatorStatus.actuatorStatusBuf[i][j] = (((actuators[i][j].valves[0].getDuty() != 0) << 1) |
+ 1739              		.loc 3 76 99 discriminator 4 view .LVU584
+ 1740 001c 002A     		cmp	r2, #0
+ 1741 001e 18BF     		it	ne
+ 1742 0020 41F00101 		orrne	r1, r1, #1
+ 1743              		.loc 3 76 46 discriminator 4 view .LVU585
+ 1744 0024 03EB8C02 		add	r2, r3, ip, lsl #2
+ 1745 0028 02F5E672 		add	r2, r2, #460
+ 1746 002c 00EB4202 		add	r2, r0, r2, lsl #1
+ 1747 0030 9180     		strh	r1, [r2, #4]	@ movhi
+  74:User/HydroUnderwaterManipulator.cpp **** 		{
+ 1748              		.loc 3 74 3 is_stmt 1 discriminator 4 view .LVU586
+ 1749 0032 0133     		adds	r3, r3, #1
+ 1750              	.LVL145:
+ 1751              	.L78:
+  74:User/HydroUnderwaterManipulator.cpp **** 		{
+ 1752              		.loc 3 74 21 discriminator 2 view .LVU587
+ 1753 0034 032B     		cmp	r3, #3
+ 1754 0036 0DDC     		bgt	.L76
+ 1755              		.loc 3 76 4 view .LVU588
+ 1756              	.LVL146:
+ 1757              	.LBB98:
+ 1758              	.LBI98:
+ 1759              		.loc 6 26 10 view .LVU589
+ 1760              	.LBB99:
+ 1761              		.loc 6 26 20 view .LVU590
+ 1762              		.loc 6 26 27 is_stmt 0 view .LVU591
+ 1763 0038 C3EB0312 		rsb	r2, r3, r3, lsl #4
+ 1764 003c CCEB0C11 		rsb	r1, ip, ip, lsl #4
+ 1765 0040 0901     		lsls	r1, r1, #4
+ 1766 0042 01EB8202 		add	r2, r1, r2, lsl #2
+ 1767 0046 0244     		add	r2, r2, r0
+ 1768 0048 B2F90210 		ldrsh	r1, [r2, #2]
+ARM GAS  /tmp/ccumnHxp.s 			page 46
 
 
- 2165              		.loc 6 26 27 is_stmt 0 view .LVU710
- 2166 0040 C3EB0312 		rsb	r2, r3, r3, lsl #4
- 2167 0044 CCEB0C11 		rsb	r1, ip, ip, lsl #4
- 2168 0048 0901     		lsls	r1, r1, #4
- 2169 004a 01EB8202 		add	r2, r1, r2, lsl #2
- 2170 004e 0244     		add	r2, r2, r0
- 2171 0050 B2F90210 		ldrsh	r1, [r2, #2]
- 2172              	.LVL192:
- 2173              		.loc 6 26 27 view .LVU711
- 2174              	.LBE106:
- 2175              	.LBE105:
- 2176              		.loc 3 211 99 view .LVU712
- 2177 0054 0029     		cmp	r1, #0
- 2178 0056 DBD0     		beq	.L112
- 2179              		.loc 3 211 99 view .LVU713
- 2180 0058 0221     		movs	r1, #2
- 2181 005a D9E7     		b	.L112
- 2182              	.L111:
- 2183              		.loc 3 211 99 view .LVU714
- 2184              	.LBE102:
- 205:User/HydroUnderwaterManipulator.cpp **** 	{
- 2185              		.loc 3 205 2 is_stmt 1 discriminator 2 view .LVU715
- 2186 005c 0CF1010C 		add	ip, ip, #1
- 2187              	.LVL193:
- 2188              	.L114:
- 205:User/HydroUnderwaterManipulator.cpp **** 	{
- 2189              		.loc 3 205 20 discriminator 1 view .LVU716
- 2190 0060 BCF1020F 		cmp	ip, #2
- 2191 0064 01DC     		bgt	.L110
- 2192              	.LBB107:
- 207:User/HydroUnderwaterManipulator.cpp **** 		{
- 2193              		.loc 3 207 12 is_stmt 0 view .LVU717
- 2194 0066 0023     		movs	r3, #0
- 2195 0068 E8E7     		b	.L113
- 2196              	.L110:
- 2197              	.LBE107:
- 2198              	.LBE101:
- 212:User/HydroUnderwaterManipulator.cpp **** 			//}
- 213:User/HydroUnderwaterManipulator.cpp **** 			// else
- 214:User/HydroUnderwaterManipulator.cpp **** 			// {
- 215:User/HydroUnderwaterManipulator.cpp **** 			//	manipulatorStatus.actuatorStatus[i*ACTNUM+j] = actuators[i][j].pressure;
- 216:User/HydroUnderwaterManipulator.cpp **** 			// }
- 217:User/HydroUnderwaterManipulator.cpp **** 		}
- 218:User/HydroUnderwaterManipulator.cpp **** 	}
- 219:User/HydroUnderwaterManipulator.cpp **** 
- 220:User/HydroUnderwaterManipulator.cpp **** 	//decode gripper command, no implementation of pressure control yet
- 221:User/HydroUnderwaterManipulator.cpp **** 	//if (hostCommand.controlMode == OpeningControlMode)
- 222:User/HydroUnderwaterManipulator.cpp **** 	//{
- 223:User/HydroUnderwaterManipulator.cpp **** 	manipulatorStatus.gripperStatus = (((gripper.valves[0].getDuty() != 0) << 1) | (gripper.valves[1].
- 2199              		.loc 3 223 2 is_stmt 1 view .LVU718
- 2200              	.LVL194:
- 2201              	.LBB108:
- 2202              	.LBI108:
- 2203              		.loc 6 26 10 view .LVU719
- 2204              	.LBB109:
- 2205              		.loc 6 26 20 view .LVU720
- 2206              		.loc 6 26 27 is_stmt 0 view .LVU721
-ARM GAS  /tmp/ccgPptWl.s 			page 57
+ 1769              	.LVL147:
+ 1770              		.loc 6 26 27 view .LVU592
+ 1771              	.LBE99:
+ 1772              	.LBE98:
+ 1773              		.loc 3 76 99 view .LVU593
+ 1774 004c 0029     		cmp	r1, #0
+ 1775 004e DBD0     		beq	.L77
+ 1776              		.loc 3 76 99 view .LVU594
+ 1777 0050 0221     		movs	r1, #2
+ 1778 0052 D9E7     		b	.L77
+ 1779              	.L76:
+ 1780              		.loc 3 76 99 view .LVU595
+ 1781              	.LBE95:
+  72:User/HydroUnderwaterManipulator.cpp **** 	{
+ 1782              		.loc 3 72 2 is_stmt 1 discriminator 2 view .LVU596
+ 1783 0054 0CF1010C 		add	ip, ip, #1
+ 1784              	.LVL148:
+ 1785              	.L79:
+  72:User/HydroUnderwaterManipulator.cpp **** 	{
+ 1786              		.loc 3 72 20 discriminator 1 view .LVU597
+ 1787 0058 BCF1020F 		cmp	ip, #2
+ 1788 005c 01DC     		bgt	.L75
+ 1789              	.LBB100:
+  74:User/HydroUnderwaterManipulator.cpp **** 		{
+ 1790              		.loc 3 74 12 is_stmt 0 view .LVU598
+ 1791 005e 0023     		movs	r3, #0
+ 1792 0060 E8E7     		b	.L78
+ 1793              	.L75:
+ 1794              	.LBE100:
+ 1795              	.LBE94:
+  77:User/HydroUnderwaterManipulator.cpp **** 		}
+  78:User/HydroUnderwaterManipulator.cpp **** 	}
+  79:User/HydroUnderwaterManipulator.cpp **** 	manipulatorStatus.gripperStatus = (((gripper.valves[0].getDuty() != 0) << 1) | (gripper.valves[1].
+ 1796              		.loc 3 79 2 is_stmt 1 view .LVU599
+ 1797              	.LVL149:
+ 1798              	.LBB101:
+ 1799              	.LBI101:
+ 1800              		.loc 6 26 10 view .LVU600
+ 1801              	.LBB102:
+ 1802              		.loc 6 26 20 view .LVU601
+ 1803              		.loc 6 26 27 is_stmt 0 view .LVU602
+ 1804 0062 B0F9D232 		ldrsh	r3, [r0, #722]
+ 1805              	.LVL150:
+ 1806              		.loc 6 26 27 view .LVU603
+ 1807              	.LBE102:
+ 1808              	.LBE101:
+ 1809              		.loc 3 79 79 view .LVU604
+ 1810 0066 03B1     		cbz	r3, .L80
+ 1811 0068 0223     		movs	r3, #2
+ 1812              	.L80:
+ 1813              	.LVL151:
+ 1814              	.LBB103:
+ 1815              	.LBI103:
+ 1816              		.loc 6 26 10 is_stmt 1 discriminator 4 view .LVU605
+ 1817              	.LBB104:
+ 1818              		.loc 6 26 20 discriminator 4 view .LVU606
+ 1819              		.loc 6 26 27 is_stmt 0 discriminator 4 view .LVU607
+ARM GAS  /tmp/ccumnHxp.s 			page 47
 
 
- 2207 006a B0F9D232 		ldrsh	r3, [r0, #722]
- 2208              	.LVL195:
- 2209              		.loc 6 26 27 view .LVU722
- 2210              	.LBE109:
- 2211              	.LBE108:
- 2212              		.loc 3 223 79 view .LVU723
- 2213 006e 03B1     		cbz	r3, .L115
- 2214 0070 0223     		movs	r3, #2
- 2215              	.L115:
- 2216              	.LVL196:
- 2217              	.LBB110:
- 2218              	.LBI110:
- 2219              		.loc 6 26 10 is_stmt 1 discriminator 4 view .LVU724
- 2220              	.LBB111:
- 2221              		.loc 6 26 20 discriminator 4 view .LVU725
- 2222              		.loc 6 26 27 is_stmt 0 discriminator 4 view .LVU726
- 2223 0072 B0F9DC22 		ldrsh	r2, [r0, #732]
- 2224              	.LVL197:
- 2225              		.loc 6 26 27 discriminator 4 view .LVU727
- 2226              	.LBE111:
- 2227              	.LBE110:
- 2228              		.loc 3 223 79 discriminator 4 view .LVU728
- 2229 0076 002A     		cmp	r2, #0
- 2230 0078 18BF     		it	ne
- 2231 007a 43F00103 		orrne	r3, r3, #1
- 2232              		.loc 3 223 34 discriminator 4 view .LVU729
- 2233 007e A0F88833 		strh	r3, [r0, #904]	@ movhi
- 224:User/HydroUnderwaterManipulator.cpp **** 	//}
- 225:User/HydroUnderwaterManipulator.cpp **** 	// else
- 226:User/HydroUnderwaterManipulator.cpp **** 	// {
- 227:User/HydroUnderwaterManipulator.cpp **** 	// 	manipulatorStatus.gripperStatus =    gripper.pressure;
- 228:User/HydroUnderwaterManipulator.cpp **** 	// }
- 229:User/HydroUnderwaterManipulator.cpp **** 
- 230:User/HydroUnderwaterManipulator.cpp **** 	//decode pSource command
- 231:User/HydroUnderwaterManipulator.cpp **** 	if (hostCommand.controlMode == OpeningControlMode)
- 2234              		.loc 3 231 2 is_stmt 1 discriminator 4 view .LVU730
- 2235 0082 CCB9     		cbnz	r4, .L116
- 232:User/HydroUnderwaterManipulator.cpp **** 	{
- 233:User/HydroUnderwaterManipulator.cpp **** 		manipulatorStatus.pSourceStatus = (((pSource.pump.status != 0) << 1) | (pSource.valve.getDuty() !
- 2236              		.loc 3 233 3 view .LVU731
- 2237              		.loc 3 233 53 is_stmt 0 view .LVU732
- 2238 0084 B0F91233 		ldrsh	r3, [r0, #786]
- 2239              		.loc 3 233 72 view .LVU733
- 2240 0088 03B1     		cbz	r3, .L117
- 2241 008a 0223     		movs	r3, #2
- 2242              	.L117:
- 2243              	.LVL198:
- 2244              	.LBB112:
- 2245              	.LBI112:
- 2246              		.loc 6 26 10 is_stmt 1 discriminator 4 view .LVU734
- 2247              	.LBB113:
- 2248              		.loc 6 26 20 discriminator 4 view .LVU735
- 2249              		.loc 6 26 27 is_stmt 0 discriminator 4 view .LVU736
- 2250 008c B0F91623 		ldrsh	r2, [r0, #790]
- 2251              	.LVL199:
- 2252              		.loc 6 26 27 discriminator 4 view .LVU737
- 2253              	.LBE113:
-ARM GAS  /tmp/ccgPptWl.s 			page 58
+ 1820 006a B0F9DC22 		ldrsh	r2, [r0, #732]
+ 1821              	.LVL152:
+ 1822              		.loc 6 26 27 discriminator 4 view .LVU608
+ 1823              	.LBE104:
+ 1824              	.LBE103:
+ 1825              		.loc 3 79 79 discriminator 4 view .LVU609
+ 1826 006e 002A     		cmp	r2, #0
+ 1827 0070 18BF     		it	ne
+ 1828 0072 43F00103 		orrne	r3, r3, #1
+ 1829              		.loc 3 79 34 discriminator 4 view .LVU610
+ 1830 0076 A0F88833 		strh	r3, [r0, #904]	@ movhi
+  80:User/HydroUnderwaterManipulator.cpp **** 	manipulatorStatus.pSourceStatus =pSource.pressure;
+ 1831              		.loc 3 80 2 is_stmt 1 discriminator 4 view .LVU611
+ 1832              		.loc 3 80 43 is_stmt 0 discriminator 4 view .LVU612
+ 1833 007a D0F83433 		ldr	r3, [r0, #820]
+ 1834              		.loc 3 80 34 discriminator 4 view .LVU613
+ 1835 007e A0F88A33 		strh	r3, [r0, #906]	@ movhi
+  81:User/HydroUnderwaterManipulator.cpp **** 	manipulatorStatus.pSinkStatus = pSink.pressure;
+ 1836              		.loc 3 81 2 is_stmt 1 discriminator 4 view .LVU614
+ 1837              		.loc 3 81 40 is_stmt 0 discriminator 4 view .LVU615
+ 1838 0082 D0F86833 		ldr	r3, [r0, #872]
+ 1839              		.loc 3 81 32 discriminator 4 view .LVU616
+ 1840 0086 A0F88C33 		strh	r3, [r0, #908]	@ movhi
+  82:User/HydroUnderwaterManipulator.cpp **** 
+  83:User/HydroUnderwaterManipulator.cpp **** }
+ 1841              		.loc 3 83 1 discriminator 4 view .LVU617
+ 1842 008a 5DF804FB 		ldr	pc, [sp], #4
+ 1843              		.cfi_endproc
+ 1844              	.LFE451:
+ 1845              		.cantunwind
+ 1846              		.fnend
+ 1848              		.weak	_ZTSN3ros3MsgE
+ 1849              		.section	.rodata._ZTSN3ros3MsgE,"aG",%progbits,_ZTSN3ros3MsgE,comdat
+ 1850              		.align	2
+ 1853              	_ZTSN3ros3MsgE:
+ 1854 0000 4E33726F 		.ascii	"N3ros3MsgE\000"
+ 1854      73334D73 
+ 1854      674500
+ 1855              		.weak	_ZTIN3ros3MsgE
+ 1856              		.section	.rodata._ZTIN3ros3MsgE,"aG",%progbits,_ZTIN3ros3MsgE,comdat
+ 1857              		.align	2
+ 1860              	_ZTIN3ros3MsgE:
+ 1861 0000 08000000 		.word	_ZTVN10__cxxabiv117__class_type_infoE+8
+ 1862 0004 00000000 		.word	_ZTSN3ros3MsgE
+ 1863              		.weak	_ZTSN13hydrosoft_ros11Command_ArmE
+ 1864              		.section	.rodata._ZTSN13hydrosoft_ros11Command_ArmE,"aG",%progbits,_ZTSN13hydrosoft_ros11Command_A
+ 1865              		.align	2
+ 1868              	_ZTSN13hydrosoft_ros11Command_ArmE:
+ 1869 0000 4E313368 		.ascii	"N13hydrosoft_ros11Command_ArmE\000"
+ 1869      7964726F 
+ 1869      736F6674 
+ 1869      5F726F73 
+ 1869      3131436F 
+ 1870              		.weak	_ZTIN13hydrosoft_ros11Command_ArmE
+ 1871              		.section	.rodata._ZTIN13hydrosoft_ros11Command_ArmE,"aG",%progbits,_ZTIN13hydrosoft_ros11Command_A
+ 1872              		.align	2
+ 1875              	_ZTIN13hydrosoft_ros11Command_ArmE:
+ARM GAS  /tmp/ccumnHxp.s 			page 48
 
 
- 2254              	.LBE112:
- 2255              		.loc 3 233 72 discriminator 4 view .LVU738
- 2256 0090 002A     		cmp	r2, #0
- 2257 0092 18BF     		it	ne
- 2258 0094 43F00103 		orrne	r3, r3, #1
- 2259              		.loc 3 233 35 discriminator 4 view .LVU739
- 2260 0098 A0F88A33 		strh	r3, [r0, #906]	@ movhi
- 2261              	.L118:
- 234:User/HydroUnderwaterManipulator.cpp **** 	}
- 235:User/HydroUnderwaterManipulator.cpp **** 	else
- 236:User/HydroUnderwaterManipulator.cpp **** 	{
- 237:User/HydroUnderwaterManipulator.cpp **** 		hostCommand.pressureCmd_pSource = pSource.pressure;
- 238:User/HydroUnderwaterManipulator.cpp **** 	}
- 239:User/HydroUnderwaterManipulator.cpp **** 
- 240:User/HydroUnderwaterManipulator.cpp **** 	//decode pSink command
- 241:User/HydroUnderwaterManipulator.cpp **** 	if (hostCommand.controlMode == OpeningControlMode)
- 2262              		.loc 3 241 2 is_stmt 1 view .LVU740
- 2263 009c 8CB9     		cbnz	r4, .L119
- 242:User/HydroUnderwaterManipulator.cpp **** 	{
- 243:User/HydroUnderwaterManipulator.cpp **** 		manipulatorStatus.pSinkStatus = (((pSink.pump.status != 0) << 1) | (pSink.valve.getDuty() != 0));
- 2264              		.loc 3 243 3 view .LVU741
- 2265              		.loc 3 243 49 is_stmt 0 view .LVU742
- 2266 009e B0F94633 		ldrsh	r3, [r0, #838]
- 2267              		.loc 3 243 68 view .LVU743
- 2268 00a2 03B1     		cbz	r3, .L120
- 2269 00a4 0223     		movs	r3, #2
- 2270              	.L120:
- 2271              	.LVL200:
- 2272              	.LBB114:
- 2273              	.LBI114:
- 2274              		.loc 6 26 10 is_stmt 1 discriminator 4 view .LVU744
- 2275              	.LBB115:
- 2276              		.loc 6 26 20 discriminator 4 view .LVU745
- 2277              		.loc 6 26 27 is_stmt 0 discriminator 4 view .LVU746
- 2278 00a6 B0F94A23 		ldrsh	r2, [r0, #842]
- 2279              	.LVL201:
- 2280              		.loc 6 26 27 discriminator 4 view .LVU747
- 2281              	.LBE115:
- 2282              	.LBE114:
- 2283              		.loc 3 243 68 discriminator 4 view .LVU748
- 2284 00aa 002A     		cmp	r2, #0
- 2285 00ac 18BF     		it	ne
- 2286 00ae 43F00103 		orrne	r3, r3, #1
- 2287              		.loc 3 243 33 discriminator 4 view .LVU749
- 2288 00b2 A0F88C33 		strh	r3, [r0, #908]	@ movhi
- 2289              	.L109:
- 244:User/HydroUnderwaterManipulator.cpp **** 	}
- 245:User/HydroUnderwaterManipulator.cpp **** 	else
- 246:User/HydroUnderwaterManipulator.cpp **** 	{
- 247:User/HydroUnderwaterManipulator.cpp **** 		hostCommand.pressureCmd_pSink = pSink.pressure;
- 248:User/HydroUnderwaterManipulator.cpp **** 	}
- 249:User/HydroUnderwaterManipulator.cpp **** }
- 2290              		.loc 3 249 1 view .LVU750
- 2291 00b6 10BD     		pop	{r4, pc}
- 2292              	.L116:
- 237:User/HydroUnderwaterManipulator.cpp **** 	}
- 2293              		.loc 3 237 3 is_stmt 1 view .LVU751
-ARM GAS  /tmp/ccgPptWl.s 			page 59
+ 1876 0000 08000000 		.word	_ZTVN10__cxxabiv120__si_class_type_infoE+8
+ 1877 0004 00000000 		.word	_ZTSN13hydrosoft_ros11Command_ArmE
+ 1878 0008 00000000 		.word	_ZTIN3ros3MsgE
+ 1879              		.weak	_ZTSN13hydrosoft_ros10Sensor_ArmE
+ 1880              		.section	.rodata._ZTSN13hydrosoft_ros10Sensor_ArmE,"aG",%progbits,_ZTSN13hydrosoft_ros10Sensor_Arm
+ 1881              		.align	2
+ 1884              	_ZTSN13hydrosoft_ros10Sensor_ArmE:
+ 1885 0000 4E313368 		.ascii	"N13hydrosoft_ros10Sensor_ArmE\000"
+ 1885      7964726F 
+ 1885      736F6674 
+ 1885      5F726F73 
+ 1885      31305365 
+ 1886              		.weak	_ZTIN13hydrosoft_ros10Sensor_ArmE
+ 1887              		.section	.rodata._ZTIN13hydrosoft_ros10Sensor_ArmE,"aG",%progbits,_ZTIN13hydrosoft_ros10Sensor_Arm
+ 1888              		.align	2
+ 1891              	_ZTIN13hydrosoft_ros10Sensor_ArmE:
+ 1892 0000 08000000 		.word	_ZTVN10__cxxabiv120__si_class_type_infoE+8
+ 1893 0004 00000000 		.word	_ZTSN13hydrosoft_ros10Sensor_ArmE
+ 1894 0008 00000000 		.word	_ZTIN3ros3MsgE
+ 1895              		.weak	_ZTS22HydroManipulatorStatus
+ 1896              		.section	.rodata._ZTS22HydroManipulatorStatus,"aG",%progbits,_ZTS22HydroManipulatorStatus,comdat
+ 1897              		.align	2
+ 1900              	_ZTS22HydroManipulatorStatus:
+ 1901 0000 32324879 		.ascii	"22HydroManipulatorStatus\000"
+ 1901      64726F4D 
+ 1901      616E6970 
+ 1901      756C6174 
+ 1901      6F725374 
+ 1902              		.weak	_ZTI22HydroManipulatorStatus
+ 1903              		.section	.rodata._ZTI22HydroManipulatorStatus,"aG",%progbits,_ZTI22HydroManipulatorStatus,comdat
+ 1904              		.align	2
+ 1907              	_ZTI22HydroManipulatorStatus:
+ 1908 0000 08000000 		.word	_ZTVN10__cxxabiv120__si_class_type_infoE+8
+ 1909 0004 00000000 		.word	_ZTS22HydroManipulatorStatus
+ 1910 0008 00000000 		.word	_ZTIN13hydrosoft_ros10Sensor_ArmE
+ 1911              		.weak	_ZTS23HydroManipulatorCommand
+ 1912              		.section	.rodata._ZTS23HydroManipulatorCommand,"aG",%progbits,_ZTS23HydroManipulatorCommand,comdat
+ 1913              		.align	2
+ 1916              	_ZTS23HydroManipulatorCommand:
+ 1917 0000 32334879 		.ascii	"23HydroManipulatorCommand\000"
+ 1917      64726F4D 
+ 1917      616E6970 
+ 1917      756C6174 
+ 1917      6F72436F 
+ 1918              		.weak	_ZTI23HydroManipulatorCommand
+ 1919              		.section	.rodata._ZTI23HydroManipulatorCommand,"aG",%progbits,_ZTI23HydroManipulatorCommand,comdat
+ 1920              		.align	2
+ 1923              	_ZTI23HydroManipulatorCommand:
+ 1924 0000 08000000 		.word	_ZTVN10__cxxabiv120__si_class_type_infoE+8
+ 1925 0004 00000000 		.word	_ZTS23HydroManipulatorCommand
+ 1926 0008 00000000 		.word	_ZTIN13hydrosoft_ros11Command_ArmE
+ 1927              		.weak	_ZTVN3ros3MsgE
+ 1928              		.section	.rodata._ZTVN3ros3MsgE,"aG",%progbits,_ZTVN3ros3MsgE,comdat
+ 1929              		.align	2
+ 1932              	_ZTVN3ros3MsgE:
+ 1933 0000 00000000 		.word	0
+ 1934 0004 00000000 		.word	_ZTIN3ros3MsgE
+ARM GAS  /tmp/ccumnHxp.s 			page 49
 
 
- 237:User/HydroUnderwaterManipulator.cpp **** 	}
- 2294              		.loc 3 237 45 is_stmt 0 view .LVU752
- 2295 00b8 D0F83433 		ldr	r3, [r0, #820]
- 237:User/HydroUnderwaterManipulator.cpp **** 	}
- 2296              		.loc 3 237 35 view .LVU753
- 2297 00bc A0F85E34 		strh	r3, [r0, #1118]	@ movhi
- 2298 00c0 ECE7     		b	.L118
- 2299              	.L119:
- 247:User/HydroUnderwaterManipulator.cpp **** 	}
- 2300              		.loc 3 247 3 is_stmt 1 view .LVU754
- 247:User/HydroUnderwaterManipulator.cpp **** 	}
- 2301              		.loc 3 247 41 is_stmt 0 view .LVU755
- 2302 00c2 D0F86833 		ldr	r3, [r0, #872]
- 247:User/HydroUnderwaterManipulator.cpp **** 	}
- 2303              		.loc 3 247 33 view .LVU756
- 2304 00c6 A0F86034 		strh	r3, [r0, #1120]	@ movhi
- 2305              		.loc 3 249 1 view .LVU757
- 2306 00ca F4E7     		b	.L109
- 2307              		.cfi_endproc
- 2308              	.LFE455:
- 2309              		.cantunwind
- 2310              		.fnend
- 2312              		.section	.text._ZN26HydroUnderwaterManipulator15execInfoCommandEPc,"ax",%progbits
- 2313              		.align	1
- 2314              		.global	_ZN26HydroUnderwaterManipulator15execInfoCommandEPc
- 2315              		.syntax unified
- 2316              		.thumb
- 2317              		.thumb_func
- 2318              		.fpu softvfp
- 2320              	_ZN26HydroUnderwaterManipulator15execInfoCommandEPc:
- 2321              		.fnstart
- 2322              	.LVL202:
- 2323              	.LFB456:
- 250:User/HydroUnderwaterManipulator.cpp **** 
- 251:User/HydroUnderwaterManipulator.cpp **** void HydroUnderwaterManipulator::execInfoCommand(char *infoBuf)
- 252:User/HydroUnderwaterManipulator.cpp **** {
- 2324              		.loc 3 252 1 is_stmt 1 view -0
- 2325              		.cfi_startproc
- 2326              		@ args = 0, pretend = 0, frame = 0
- 2327              		@ frame_needed = 0, uses_anonymous_args = 0
- 2328              		@ link register save eliminated.
- 253:User/HydroUnderwaterManipulator.cpp **** 	if (infoBuf[0] == 'z')
- 2329              		.loc 3 253 2 view .LVU759
- 254:User/HydroUnderwaterManipulator.cpp **** 	{
- 255:User/HydroUnderwaterManipulator.cpp **** 	}
- 256:User/HydroUnderwaterManipulator.cpp **** 	if (infoBuf[0] == 'o')
- 2330              		.loc 3 256 2 view .LVU760
- 257:User/HydroUnderwaterManipulator.cpp **** 	{
- 258:User/HydroUnderwaterManipulator.cpp **** 	}
- 259:User/HydroUnderwaterManipulator.cpp **** }
- 2331              		.loc 3 259 1 is_stmt 0 view .LVU761
- 2332 0000 7047     		bx	lr
- 2333              		.cfi_endproc
- 2334              	.LFE456:
- 2335              		.cantunwind
- 2336              		.fnend
- 2338              		.weak	_ZTSN3ros3MsgE
-ARM GAS  /tmp/ccgPptWl.s 			page 60
+ 1935 0008 00000000 		.word	__cxa_pure_virtual
+ 1936 000c 00000000 		.word	__cxa_pure_virtual
+ 1937 0010 00000000 		.word	__cxa_pure_virtual
+ 1938 0014 00000000 		.word	__cxa_pure_virtual
+ 1939              		.weak	_ZTVN13hydrosoft_ros11Command_ArmE
+ 1940              		.section	.rodata._ZTVN13hydrosoft_ros11Command_ArmE,"aG",%progbits,_ZTVN13hydrosoft_ros11Command_A
+ 1941              		.align	2
+ 1944              	_ZTVN13hydrosoft_ros11Command_ArmE:
+ 1945 0000 00000000 		.word	0
+ 1946 0004 00000000 		.word	_ZTIN13hydrosoft_ros11Command_ArmE
+ 1947 0008 00000000 		.word	_ZNK13hydrosoft_ros11Command_Arm9serializeEPh
+ 1948 000c 00000000 		.word	_ZN13hydrosoft_ros11Command_Arm11deserializeEPh
+ 1949 0010 00000000 		.word	_ZN13hydrosoft_ros11Command_Arm7getTypeEv
+ 1950 0014 00000000 		.word	_ZN13hydrosoft_ros11Command_Arm6getMD5Ev
+ 1951              		.weak	_ZTVN13hydrosoft_ros10Sensor_ArmE
+ 1952              		.section	.rodata._ZTVN13hydrosoft_ros10Sensor_ArmE,"aG",%progbits,_ZTVN13hydrosoft_ros10Sensor_Arm
+ 1953              		.align	2
+ 1956              	_ZTVN13hydrosoft_ros10Sensor_ArmE:
+ 1957 0000 00000000 		.word	0
+ 1958 0004 00000000 		.word	_ZTIN13hydrosoft_ros10Sensor_ArmE
+ 1959 0008 00000000 		.word	_ZNK13hydrosoft_ros10Sensor_Arm9serializeEPh
+ 1960 000c 00000000 		.word	_ZN13hydrosoft_ros10Sensor_Arm11deserializeEPh
+ 1961 0010 00000000 		.word	_ZN13hydrosoft_ros10Sensor_Arm7getTypeEv
+ 1962 0014 00000000 		.word	_ZN13hydrosoft_ros10Sensor_Arm6getMD5Ev
+ 1963              		.weak	_ZTV22HydroManipulatorStatus
+ 1964              		.section	.rodata._ZTV22HydroManipulatorStatus,"aG",%progbits,_ZTV22HydroManipulatorStatus,comdat
+ 1965              		.align	2
+ 1968              	_ZTV22HydroManipulatorStatus:
+ 1969 0000 00000000 		.word	0
+ 1970 0004 00000000 		.word	_ZTI22HydroManipulatorStatus
+ 1971 0008 00000000 		.word	_ZNK13hydrosoft_ros10Sensor_Arm9serializeEPh
+ 1972 000c 00000000 		.word	_ZN13hydrosoft_ros10Sensor_Arm11deserializeEPh
+ 1973 0010 00000000 		.word	_ZN13hydrosoft_ros10Sensor_Arm7getTypeEv
+ 1974 0014 00000000 		.word	_ZN13hydrosoft_ros10Sensor_Arm6getMD5Ev
+ 1975              		.weak	_ZTV23HydroManipulatorCommand
+ 1976              		.section	.rodata._ZTV23HydroManipulatorCommand,"aG",%progbits,_ZTV23HydroManipulatorCommand,comdat
+ 1977              		.align	2
+ 1980              	_ZTV23HydroManipulatorCommand:
+ 1981 0000 00000000 		.word	0
+ 1982 0004 00000000 		.word	_ZTI23HydroManipulatorCommand
+ 1983 0008 00000000 		.word	_ZNK13hydrosoft_ros11Command_Arm9serializeEPh
+ 1984 000c 00000000 		.word	_ZN13hydrosoft_ros11Command_Arm11deserializeEPh
+ 1985 0010 00000000 		.word	_ZN13hydrosoft_ros11Command_Arm7getTypeEv
+ 1986 0014 00000000 		.word	_ZN13hydrosoft_ros11Command_Arm6getMD5Ev
+ 1987              		.text
+ 1988              	.Letext0:
+ 1989              		.file 7 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-n
+ 1990              		.file 8 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-n
+ 1991              		.file 9 "User/Inc/PRESSURESENSOR.h"
+ 1992              		.file 10 "User/Inc/CHAMBER.h"
+ 1993              		.file 11 "User/Inc/PUMP.h"
+ 1994              		.file 12 "User/Inc/PRESSURESOURCE.h"
+ 1995              		.file 13 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h"
+ 1996              		.file 14 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-
+ 1997              		.file 15 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
+ 1998              		.file 16 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-
+ 1999              		.file 17 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-
+ARM GAS  /tmp/ccumnHxp.s 			page 50
 
 
- 2339              		.section	.rodata._ZTSN3ros3MsgE,"aG",%progbits,_ZTSN3ros3MsgE,comdat
- 2340              		.align	2
- 2343              	_ZTSN3ros3MsgE:
- 2344 0000 4E33726F 		.ascii	"N3ros3MsgE\000"
- 2344      73334D73 
- 2344      674500
- 2345              		.weak	_ZTIN3ros3MsgE
- 2346              		.section	.rodata._ZTIN3ros3MsgE,"aG",%progbits,_ZTIN3ros3MsgE,comdat
- 2347              		.align	2
- 2350              	_ZTIN3ros3MsgE:
- 2351 0000 08000000 		.word	_ZTVN10__cxxabiv117__class_type_infoE+8
- 2352 0004 00000000 		.word	_ZTSN3ros3MsgE
- 2353              		.weak	_ZTSN13hydrosoft_ros11Command_ArmE
- 2354              		.section	.rodata._ZTSN13hydrosoft_ros11Command_ArmE,"aG",%progbits,_ZTSN13hydrosoft_ros11Command_A
- 2355              		.align	2
- 2358              	_ZTSN13hydrosoft_ros11Command_ArmE:
- 2359 0000 4E313368 		.ascii	"N13hydrosoft_ros11Command_ArmE\000"
- 2359      7964726F 
- 2359      736F6674 
- 2359      5F726F73 
- 2359      3131436F 
- 2360              		.weak	_ZTIN13hydrosoft_ros11Command_ArmE
- 2361              		.section	.rodata._ZTIN13hydrosoft_ros11Command_ArmE,"aG",%progbits,_ZTIN13hydrosoft_ros11Command_A
- 2362              		.align	2
- 2365              	_ZTIN13hydrosoft_ros11Command_ArmE:
- 2366 0000 08000000 		.word	_ZTVN10__cxxabiv120__si_class_type_infoE+8
- 2367 0004 00000000 		.word	_ZTSN13hydrosoft_ros11Command_ArmE
- 2368 0008 00000000 		.word	_ZTIN3ros3MsgE
- 2369              		.weak	_ZTSN13hydrosoft_ros10Sensor_ArmE
- 2370              		.section	.rodata._ZTSN13hydrosoft_ros10Sensor_ArmE,"aG",%progbits,_ZTSN13hydrosoft_ros10Sensor_Arm
- 2371              		.align	2
- 2374              	_ZTSN13hydrosoft_ros10Sensor_ArmE:
- 2375 0000 4E313368 		.ascii	"N13hydrosoft_ros10Sensor_ArmE\000"
- 2375      7964726F 
- 2375      736F6674 
- 2375      5F726F73 
- 2375      31305365 
- 2376              		.weak	_ZTIN13hydrosoft_ros10Sensor_ArmE
- 2377              		.section	.rodata._ZTIN13hydrosoft_ros10Sensor_ArmE,"aG",%progbits,_ZTIN13hydrosoft_ros10Sensor_Arm
- 2378              		.align	2
- 2381              	_ZTIN13hydrosoft_ros10Sensor_ArmE:
- 2382 0000 08000000 		.word	_ZTVN10__cxxabiv120__si_class_type_infoE+8
- 2383 0004 00000000 		.word	_ZTSN13hydrosoft_ros10Sensor_ArmE
- 2384 0008 00000000 		.word	_ZTIN3ros3MsgE
- 2385              		.weak	_ZTS22HydroManipulatorStatus
- 2386              		.section	.rodata._ZTS22HydroManipulatorStatus,"aG",%progbits,_ZTS22HydroManipulatorStatus,comdat
- 2387              		.align	2
- 2390              	_ZTS22HydroManipulatorStatus:
- 2391 0000 32324879 		.ascii	"22HydroManipulatorStatus\000"
- 2391      64726F4D 
- 2391      616E6970 
- 2391      756C6174 
- 2391      6F725374 
- 2392              		.weak	_ZTI22HydroManipulatorStatus
- 2393              		.section	.rodata._ZTI22HydroManipulatorStatus,"aG",%progbits,_ZTI22HydroManipulatorStatus,comdat
- 2394              		.align	2
- 2397              	_ZTI22HydroManipulatorStatus:
-ARM GAS  /tmp/ccgPptWl.s 			page 61
-
-
- 2398 0000 08000000 		.word	_ZTVN10__cxxabiv120__si_class_type_infoE+8
- 2399 0004 00000000 		.word	_ZTS22HydroManipulatorStatus
- 2400 0008 00000000 		.word	_ZTIN13hydrosoft_ros10Sensor_ArmE
- 2401              		.weak	_ZTS23HydroManipulatorCommand
- 2402              		.section	.rodata._ZTS23HydroManipulatorCommand,"aG",%progbits,_ZTS23HydroManipulatorCommand,comdat
- 2403              		.align	2
- 2406              	_ZTS23HydroManipulatorCommand:
- 2407 0000 32334879 		.ascii	"23HydroManipulatorCommand\000"
- 2407      64726F4D 
- 2407      616E6970 
- 2407      756C6174 
- 2407      6F72436F 
- 2408              		.weak	_ZTI23HydroManipulatorCommand
- 2409              		.section	.rodata._ZTI23HydroManipulatorCommand,"aG",%progbits,_ZTI23HydroManipulatorCommand,comdat
- 2410              		.align	2
- 2413              	_ZTI23HydroManipulatorCommand:
- 2414 0000 08000000 		.word	_ZTVN10__cxxabiv120__si_class_type_infoE+8
- 2415 0004 00000000 		.word	_ZTS23HydroManipulatorCommand
- 2416 0008 00000000 		.word	_ZTIN13hydrosoft_ros11Command_ArmE
- 2417              		.weak	_ZTVN3ros3MsgE
- 2418              		.section	.rodata._ZTVN3ros3MsgE,"aG",%progbits,_ZTVN3ros3MsgE,comdat
- 2419              		.align	2
- 2422              	_ZTVN3ros3MsgE:
- 2423 0000 00000000 		.word	0
- 2424 0004 00000000 		.word	_ZTIN3ros3MsgE
- 2425 0008 00000000 		.word	__cxa_pure_virtual
- 2426 000c 00000000 		.word	__cxa_pure_virtual
- 2427 0010 00000000 		.word	__cxa_pure_virtual
- 2428 0014 00000000 		.word	__cxa_pure_virtual
- 2429              		.weak	_ZTVN13hydrosoft_ros11Command_ArmE
- 2430              		.section	.rodata._ZTVN13hydrosoft_ros11Command_ArmE,"aG",%progbits,_ZTVN13hydrosoft_ros11Command_A
- 2431              		.align	2
- 2434              	_ZTVN13hydrosoft_ros11Command_ArmE:
- 2435 0000 00000000 		.word	0
- 2436 0004 00000000 		.word	_ZTIN13hydrosoft_ros11Command_ArmE
- 2437 0008 00000000 		.word	_ZNK13hydrosoft_ros11Command_Arm9serializeEPh
- 2438 000c 00000000 		.word	_ZN13hydrosoft_ros11Command_Arm11deserializeEPh
- 2439 0010 00000000 		.word	_ZN13hydrosoft_ros11Command_Arm7getTypeEv
- 2440 0014 00000000 		.word	_ZN13hydrosoft_ros11Command_Arm6getMD5Ev
- 2441              		.weak	_ZTVN13hydrosoft_ros10Sensor_ArmE
- 2442              		.section	.rodata._ZTVN13hydrosoft_ros10Sensor_ArmE,"aG",%progbits,_ZTVN13hydrosoft_ros10Sensor_Arm
- 2443              		.align	2
- 2446              	_ZTVN13hydrosoft_ros10Sensor_ArmE:
- 2447 0000 00000000 		.word	0
- 2448 0004 00000000 		.word	_ZTIN13hydrosoft_ros10Sensor_ArmE
- 2449 0008 00000000 		.word	_ZNK13hydrosoft_ros10Sensor_Arm9serializeEPh
- 2450 000c 00000000 		.word	_ZN13hydrosoft_ros10Sensor_Arm11deserializeEPh
- 2451 0010 00000000 		.word	_ZN13hydrosoft_ros10Sensor_Arm7getTypeEv
- 2452 0014 00000000 		.word	_ZN13hydrosoft_ros10Sensor_Arm6getMD5Ev
- 2453              		.weak	_ZTV22HydroManipulatorStatus
- 2454              		.section	.rodata._ZTV22HydroManipulatorStatus,"aG",%progbits,_ZTV22HydroManipulatorStatus,comdat
- 2455              		.align	2
- 2458              	_ZTV22HydroManipulatorStatus:
- 2459 0000 00000000 		.word	0
- 2460 0004 00000000 		.word	_ZTI22HydroManipulatorStatus
- 2461 0008 00000000 		.word	_ZNK13hydrosoft_ros10Sensor_Arm9serializeEPh
- 2462 000c 00000000 		.word	_ZN13hydrosoft_ros10Sensor_Arm11deserializeEPh
-ARM GAS  /tmp/ccgPptWl.s 			page 62
-
-
- 2463 0010 00000000 		.word	_ZN13hydrosoft_ros10Sensor_Arm7getTypeEv
- 2464 0014 00000000 		.word	_ZN13hydrosoft_ros10Sensor_Arm6getMD5Ev
- 2465              		.weak	_ZTV23HydroManipulatorCommand
- 2466              		.section	.rodata._ZTV23HydroManipulatorCommand,"aG",%progbits,_ZTV23HydroManipulatorCommand,comdat
- 2467              		.align	2
- 2470              	_ZTV23HydroManipulatorCommand:
- 2471 0000 00000000 		.word	0
- 2472 0004 00000000 		.word	_ZTI23HydroManipulatorCommand
- 2473 0008 00000000 		.word	_ZNK13hydrosoft_ros11Command_Arm9serializeEPh
- 2474 000c 00000000 		.word	_ZN13hydrosoft_ros11Command_Arm11deserializeEPh
- 2475 0010 00000000 		.word	_ZN13hydrosoft_ros11Command_Arm7getTypeEv
- 2476 0014 00000000 		.word	_ZN13hydrosoft_ros11Command_Arm6getMD5Ev
- 2477              		.text
- 2478              	.Letext0:
- 2479              		.file 7 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-n
- 2480              		.file 8 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-n
- 2481              		.file 9 "User/Inc/PRESSURESENSOR.h"
- 2482              		.file 10 "User/Inc/CHAMBER.h"
- 2483              		.file 11 "User/Inc/PUMP.h"
- 2484              		.file 12 "User/Inc/PRESSURESOURCE.h"
- 2485              		.file 13 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h"
- 2486              		.file 14 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-
- 2487              		.file 15 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
- 2488              		.file 16 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-
- 2489              		.file 17 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-
- 2490              		.file 18 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-
- 2491              		.file 19 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-
- 2492              		.file 20 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-
- 2493              		.file 21 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-
- 2494              		.file 22 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-
- 2495              		.file 23 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-
- 2496              		.file 24 "User/Inc/rosserialInc/ros/node_handle.h"
- 2497              		.file 25 "User/Inc/rosserialInc/rosserial_msgs/TopicInfo.h"
- 2498              		.file 26 "User/Inc/rosserialInc/rosserial_msgs/RequestParam.h"
- 2499              		.file 27 "<built-in>"
- 2500              		.file 28 "User/Inc/rosserialInc/std_msgs/Time.h"
-ARM GAS  /tmp/ccgPptWl.s 			page 63
+ 2000              		.file 18 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-
+ 2001              		.file 19 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-
+ 2002              		.file 20 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-
+ 2003              		.file 21 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-
+ 2004              		.file 22 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-
+ 2005              		.file 23 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-
+ 2006              		.file 24 "User/Inc/rosserialInc/ros/node_handle.h"
+ 2007              		.file 25 "User/Inc/rosserialInc/rosserial_msgs/TopicInfo.h"
+ 2008              		.file 26 "User/Inc/rosserialInc/rosserial_msgs/RequestParam.h"
+ 2009              		.file 27 "<built-in>"
+ 2010              		.file 28 "User/Inc/rosserialInc/std_msgs/Time.h"
+ARM GAS  /tmp/ccumnHxp.s 			page 51
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 HydroUnderwaterManipulator.cpp
-     /tmp/ccgPptWl.s:16     .text._ZNK13hydrosoft_ros11Command_Arm9serializeEPh:0000000000000000 $t
-     /tmp/ccgPptWl.s:24     .text._ZNK13hydrosoft_ros11Command_Arm9serializeEPh:0000000000000000 _ZNK13hydrosoft_ros11Command_Arm9serializeEPh
+     /tmp/ccumnHxp.s:16     .text._ZNK13hydrosoft_ros11Command_Arm9serializeEPh:0000000000000000 $t
+     /tmp/ccumnHxp.s:24     .text._ZNK13hydrosoft_ros11Command_Arm9serializeEPh:0000000000000000 _ZNK13hydrosoft_ros11Command_Arm9serializeEPh
 .ARM.exidx.text._ZNK13hydrosoft_ros11Command_Arm9serializeEPh:0000000000000000 $d
-     /tmp/ccgPptWl.s:195    .rodata._ZN13hydrosoft_ros11Command_Arm7getTypeEv.str1.4:0000000000000000 $d
-     /tmp/ccgPptWl.s:199    .text._ZN13hydrosoft_ros11Command_Arm7getTypeEv:0000000000000000 $t
-     /tmp/ccgPptWl.s:206    .text._ZN13hydrosoft_ros11Command_Arm7getTypeEv:0000000000000000 _ZN13hydrosoft_ros11Command_Arm7getTypeEv
-     /tmp/ccgPptWl.s:224    .text._ZN13hydrosoft_ros11Command_Arm7getTypeEv:0000000000000004 $d
+     /tmp/ccumnHxp.s:195    .rodata._ZN13hydrosoft_ros11Command_Arm7getTypeEv.str1.4:0000000000000000 $d
+     /tmp/ccumnHxp.s:199    .text._ZN13hydrosoft_ros11Command_Arm7getTypeEv:0000000000000000 $t
+     /tmp/ccumnHxp.s:206    .text._ZN13hydrosoft_ros11Command_Arm7getTypeEv:0000000000000000 _ZN13hydrosoft_ros11Command_Arm7getTypeEv
+     /tmp/ccumnHxp.s:224    .text._ZN13hydrosoft_ros11Command_Arm7getTypeEv:0000000000000004 $d
 .ARM.exidx.text._ZN13hydrosoft_ros11Command_Arm7getTypeEv:0000000000000000 $d
-     /tmp/ccgPptWl.s:231    .rodata._ZN13hydrosoft_ros11Command_Arm6getMD5Ev.str1.4:0000000000000000 $d
-     /tmp/ccgPptWl.s:235    .text._ZN13hydrosoft_ros11Command_Arm6getMD5Ev:0000000000000000 $t
-     /tmp/ccgPptWl.s:242    .text._ZN13hydrosoft_ros11Command_Arm6getMD5Ev:0000000000000000 _ZN13hydrosoft_ros11Command_Arm6getMD5Ev
-     /tmp/ccgPptWl.s:260    .text._ZN13hydrosoft_ros11Command_Arm6getMD5Ev:0000000000000004 $d
+     /tmp/ccumnHxp.s:231    .rodata._ZN13hydrosoft_ros11Command_Arm6getMD5Ev.str1.4:0000000000000000 $d
+     /tmp/ccumnHxp.s:235    .text._ZN13hydrosoft_ros11Command_Arm6getMD5Ev:0000000000000000 $t
+     /tmp/ccumnHxp.s:242    .text._ZN13hydrosoft_ros11Command_Arm6getMD5Ev:0000000000000000 _ZN13hydrosoft_ros11Command_Arm6getMD5Ev
+     /tmp/ccumnHxp.s:260    .text._ZN13hydrosoft_ros11Command_Arm6getMD5Ev:0000000000000004 $d
 .ARM.exidx.text._ZN13hydrosoft_ros11Command_Arm6getMD5Ev:0000000000000000 $d
-     /tmp/ccgPptWl.s:267    .text._ZNK13hydrosoft_ros10Sensor_Arm9serializeEPh:0000000000000000 $t
-     /tmp/ccgPptWl.s:274    .text._ZNK13hydrosoft_ros10Sensor_Arm9serializeEPh:0000000000000000 _ZNK13hydrosoft_ros10Sensor_Arm9serializeEPh
+     /tmp/ccumnHxp.s:267    .text._ZNK13hydrosoft_ros10Sensor_Arm9serializeEPh:0000000000000000 $t
+     /tmp/ccumnHxp.s:274    .text._ZNK13hydrosoft_ros10Sensor_Arm9serializeEPh:0000000000000000 _ZNK13hydrosoft_ros10Sensor_Arm9serializeEPh
 .ARM.exidx.text._ZNK13hydrosoft_ros10Sensor_Arm9serializeEPh:0000000000000000 $d
-     /tmp/ccgPptWl.s:522    .rodata._ZN13hydrosoft_ros10Sensor_Arm7getTypeEv.str1.4:0000000000000000 $d
-     /tmp/ccgPptWl.s:526    .text._ZN13hydrosoft_ros10Sensor_Arm7getTypeEv:0000000000000000 $t
-     /tmp/ccgPptWl.s:533    .text._ZN13hydrosoft_ros10Sensor_Arm7getTypeEv:0000000000000000 _ZN13hydrosoft_ros10Sensor_Arm7getTypeEv
-     /tmp/ccgPptWl.s:551    .text._ZN13hydrosoft_ros10Sensor_Arm7getTypeEv:0000000000000004 $d
+     /tmp/ccumnHxp.s:522    .rodata._ZN13hydrosoft_ros10Sensor_Arm7getTypeEv.str1.4:0000000000000000 $d
+     /tmp/ccumnHxp.s:526    .text._ZN13hydrosoft_ros10Sensor_Arm7getTypeEv:0000000000000000 $t
+     /tmp/ccumnHxp.s:533    .text._ZN13hydrosoft_ros10Sensor_Arm7getTypeEv:0000000000000000 _ZN13hydrosoft_ros10Sensor_Arm7getTypeEv
+     /tmp/ccumnHxp.s:551    .text._ZN13hydrosoft_ros10Sensor_Arm7getTypeEv:0000000000000004 $d
 .ARM.exidx.text._ZN13hydrosoft_ros10Sensor_Arm7getTypeEv:0000000000000000 $d
-     /tmp/ccgPptWl.s:558    .rodata._ZN13hydrosoft_ros10Sensor_Arm6getMD5Ev.str1.4:0000000000000000 $d
-     /tmp/ccgPptWl.s:562    .text._ZN13hydrosoft_ros10Sensor_Arm6getMD5Ev:0000000000000000 $t
-     /tmp/ccgPptWl.s:569    .text._ZN13hydrosoft_ros10Sensor_Arm6getMD5Ev:0000000000000000 _ZN13hydrosoft_ros10Sensor_Arm6getMD5Ev
-     /tmp/ccgPptWl.s:587    .text._ZN13hydrosoft_ros10Sensor_Arm6getMD5Ev:0000000000000004 $d
+     /tmp/ccumnHxp.s:558    .rodata._ZN13hydrosoft_ros10Sensor_Arm6getMD5Ev.str1.4:0000000000000000 $d
+     /tmp/ccumnHxp.s:562    .text._ZN13hydrosoft_ros10Sensor_Arm6getMD5Ev:0000000000000000 $t
+     /tmp/ccumnHxp.s:569    .text._ZN13hydrosoft_ros10Sensor_Arm6getMD5Ev:0000000000000000 _ZN13hydrosoft_ros10Sensor_Arm6getMD5Ev
+     /tmp/ccumnHxp.s:587    .text._ZN13hydrosoft_ros10Sensor_Arm6getMD5Ev:0000000000000004 $d
 .ARM.exidx.text._ZN13hydrosoft_ros10Sensor_Arm6getMD5Ev:0000000000000000 $d
-     /tmp/ccgPptWl.s:594    .text._ZN13hydrosoft_ros10Sensor_Arm11deserializeEPh:0000000000000000 $t
-     /tmp/ccgPptWl.s:601    .text._ZN13hydrosoft_ros10Sensor_Arm11deserializeEPh:0000000000000000 _ZN13hydrosoft_ros10Sensor_Arm11deserializeEPh
+     /tmp/ccumnHxp.s:594    .text._ZN13hydrosoft_ros10Sensor_Arm11deserializeEPh:0000000000000000 $t
+     /tmp/ccumnHxp.s:601    .text._ZN13hydrosoft_ros10Sensor_Arm11deserializeEPh:0000000000000000 _ZN13hydrosoft_ros10Sensor_Arm11deserializeEPh
 .ARM.exidx.text._ZN13hydrosoft_ros10Sensor_Arm11deserializeEPh:0000000000000000 $d
-     /tmp/ccgPptWl.s:909    .text._ZN13hydrosoft_ros11Command_Arm11deserializeEPh:0000000000000000 $t
-     /tmp/ccgPptWl.s:916    .text._ZN13hydrosoft_ros11Command_Arm11deserializeEPh:0000000000000000 _ZN13hydrosoft_ros11Command_Arm11deserializeEPh
+     /tmp/ccumnHxp.s:909    .text._ZN13hydrosoft_ros11Command_Arm11deserializeEPh:0000000000000000 $t
+     /tmp/ccumnHxp.s:916    .text._ZN13hydrosoft_ros11Command_Arm11deserializeEPh:0000000000000000 _ZN13hydrosoft_ros11Command_Arm11deserializeEPh
 .ARM.exidx.text._ZN13hydrosoft_ros11Command_Arm11deserializeEPh:0000000000000000 $d
-     /tmp/ccgPptWl.s:1119   .text._ZN26HydroUnderwaterManipulatorC2Ev:0000000000000000 $t
-     /tmp/ccgPptWl.s:1126   .text._ZN26HydroUnderwaterManipulatorC2Ev:0000000000000000 _ZN26HydroUnderwaterManipulatorC2Ev
-     /tmp/ccgPptWl.s:1328   .text._ZN26HydroUnderwaterManipulatorC2Ev:00000000000000f8 $d
-     /tmp/ccgPptWl.s:2422   .rodata._ZTVN3ros3MsgE:0000000000000000 _ZTVN3ros3MsgE
-     /tmp/ccgPptWl.s:2446   .rodata._ZTVN13hydrosoft_ros10Sensor_ArmE:0000000000000000 _ZTVN13hydrosoft_ros10Sensor_ArmE
-     /tmp/ccgPptWl.s:2458   .rodata._ZTV22HydroManipulatorStatus:0000000000000000 _ZTV22HydroManipulatorStatus
-     /tmp/ccgPptWl.s:2434   .rodata._ZTVN13hydrosoft_ros11Command_ArmE:0000000000000000 _ZTVN13hydrosoft_ros11Command_ArmE
-     /tmp/ccgPptWl.s:2470   .rodata._ZTV23HydroManipulatorCommand:0000000000000000 _ZTV23HydroManipulatorCommand
+     /tmp/ccumnHxp.s:1119   .text._ZN26HydroUnderwaterManipulatorC2Ev:0000000000000000 $t
+     /tmp/ccumnHxp.s:1126   .text._ZN26HydroUnderwaterManipulatorC2Ev:0000000000000000 _ZN26HydroUnderwaterManipulatorC2Ev
+     /tmp/ccumnHxp.s:1328   .text._ZN26HydroUnderwaterManipulatorC2Ev:00000000000000f8 $d
+     /tmp/ccumnHxp.s:1932   .rodata._ZTVN3ros3MsgE:0000000000000000 _ZTVN3ros3MsgE
+     /tmp/ccumnHxp.s:1956   .rodata._ZTVN13hydrosoft_ros10Sensor_ArmE:0000000000000000 _ZTVN13hydrosoft_ros10Sensor_ArmE
+     /tmp/ccumnHxp.s:1968   .rodata._ZTV22HydroManipulatorStatus:0000000000000000 _ZTV22HydroManipulatorStatus
+     /tmp/ccumnHxp.s:1944   .rodata._ZTVN13hydrosoft_ros11Command_ArmE:0000000000000000 _ZTVN13hydrosoft_ros11Command_ArmE
+     /tmp/ccumnHxp.s:1980   .rodata._ZTV23HydroManipulatorCommand:0000000000000000 _ZTV23HydroManipulatorCommand
 .ARM.exidx.text._ZN26HydroUnderwaterManipulatorC2Ev:0000000000000000 $d
-     /tmp/ccgPptWl.s:1126   .text._ZN26HydroUnderwaterManipulatorC2Ev:0000000000000000 _ZN26HydroUnderwaterManipulatorC1Ev
-     /tmp/ccgPptWl.s:1340   .text._ZN26HydroUnderwaterManipulator18setupActuatorPortsERA3_A4_A2_h:0000000000000000 $t
-     /tmp/ccgPptWl.s:1347   .text._ZN26HydroUnderwaterManipulator18setupActuatorPortsERA3_A4_A2_h:0000000000000000 _ZN26HydroUnderwaterManipulator18setupActuatorPortsERA3_A4_A2_h
+     /tmp/ccumnHxp.s:1126   .text._ZN26HydroUnderwaterManipulatorC2Ev:0000000000000000 _ZN26HydroUnderwaterManipulatorC1Ev
+     /tmp/ccumnHxp.s:1340   .text._ZN26HydroUnderwaterManipulator18setupActuatorPortsERA3_A4_A2_h:0000000000000000 $t
+     /tmp/ccumnHxp.s:1347   .text._ZN26HydroUnderwaterManipulator18setupActuatorPortsERA3_A4_A2_h:0000000000000000 _ZN26HydroUnderwaterManipulator18setupActuatorPortsERA3_A4_A2_h
 .ARM.exidx.text._ZN26HydroUnderwaterManipulator18setupActuatorPortsERA3_A4_A2_h:0000000000000000 $d
-     /tmp/ccgPptWl.s:1430   .text._ZN26HydroUnderwaterManipulator17setupGripperPortsERA2_h:0000000000000000 $t
-     /tmp/ccgPptWl.s:1437   .text._ZN26HydroUnderwaterManipulator17setupGripperPortsERA2_h:0000000000000000 _ZN26HydroUnderwaterManipulator17setupGripperPortsERA2_h
+     /tmp/ccumnHxp.s:1430   .text._ZN26HydroUnderwaterManipulator17setupGripperPortsERA2_h:0000000000000000 $t
+     /tmp/ccumnHxp.s:1437   .text._ZN26HydroUnderwaterManipulator17setupGripperPortsERA2_h:0000000000000000 _ZN26HydroUnderwaterManipulator17setupGripperPortsERA2_h
 .ARM.exidx.text._ZN26HydroUnderwaterManipulator17setupGripperPortsERA2_h:0000000000000000 $d
-     /tmp/ccgPptWl.s:1478   .text._ZN26HydroUnderwaterManipulator17setupPsourcePortsEhhh:0000000000000000 $t
-     /tmp/ccgPptWl.s:1485   .text._ZN26HydroUnderwaterManipulator17setupPsourcePortsEhhh:0000000000000000 _ZN26HydroUnderwaterManipulator17setupPsourcePortsEhhh
+     /tmp/ccumnHxp.s:1478   .text._ZN26HydroUnderwaterManipulator17setupPsourcePortsEhhh:0000000000000000 $t
+     /tmp/ccumnHxp.s:1485   .text._ZN26HydroUnderwaterManipulator17setupPsourcePortsEhhh:0000000000000000 _ZN26HydroUnderwaterManipulator17setupPsourcePortsEhhh
 .ARM.extab.text._ZN26HydroUnderwaterManipulator17setupPsourcePortsEhhh:0000000000000000 $d
 .ARM.exidx.text._ZN26HydroUnderwaterManipulator17setupPsourcePortsEhhh:0000000000000000 $d
-     /tmp/ccgPptWl.s:1514   .text._ZN26HydroUnderwaterManipulator15setupPsinkPortsEhhh:0000000000000000 $t
-     /tmp/ccgPptWl.s:1521   .text._ZN26HydroUnderwaterManipulator15setupPsinkPortsEhhh:0000000000000000 _ZN26HydroUnderwaterManipulator15setupPsinkPortsEhhh
+     /tmp/ccumnHxp.s:1514   .text._ZN26HydroUnderwaterManipulator15setupPsinkPortsEhhh:0000000000000000 $t
+     /tmp/ccumnHxp.s:1521   .text._ZN26HydroUnderwaterManipulator15setupPsinkPortsEhhh:0000000000000000 _ZN26HydroUnderwaterManipulator15setupPsinkPortsEhhh
 .ARM.extab.text._ZN26HydroUnderwaterManipulator15setupPsinkPortsEhhh:0000000000000000 $d
-ARM GAS  /tmp/ccgPptWl.s 			page 64
+ARM GAS  /tmp/ccumnHxp.s 			page 52
 
 
 .ARM.exidx.text._ZN26HydroUnderwaterManipulator15setupPsinkPortsEhhh:0000000000000000 $d
-     /tmp/ccgPptWl.s:1550   .text._ZN26HydroUnderwaterManipulator15control_pSourceEv:0000000000000000 $t
-     /tmp/ccgPptWl.s:1557   .text._ZN26HydroUnderwaterManipulator15control_pSourceEv:0000000000000000 _ZN26HydroUnderwaterManipulator15control_pSourceEv
-.ARM.exidx.text._ZN26HydroUnderwaterManipulator15control_pSourceEv:0000000000000000 $d
-     /tmp/ccgPptWl.s:1687   .text._ZN26HydroUnderwaterManipulator13control_pSinkEv:0000000000000000 $t
-     /tmp/ccgPptWl.s:1694   .text._ZN26HydroUnderwaterManipulator13control_pSinkEv:0000000000000000 _ZN26HydroUnderwaterManipulator13control_pSinkEv
-.ARM.exidx.text._ZN26HydroUnderwaterManipulator13control_pSinkEv:0000000000000000 $d
-     /tmp/ccgPptWl.s:1824   .text._ZN26HydroUnderwaterManipulator15control_gripperEv:0000000000000000 $t
-     /tmp/ccgPptWl.s:1831   .text._ZN26HydroUnderwaterManipulator15control_gripperEv:0000000000000000 _ZN26HydroUnderwaterManipulator15control_gripperEv
-.ARM.exidx.text._ZN26HydroUnderwaterManipulator15control_gripperEv:0000000000000000 $d
-     /tmp/ccgPptWl.s:1869   .text._ZN26HydroUnderwaterManipulator17control_actuatorsEv:0000000000000000 $t
-     /tmp/ccgPptWl.s:1876   .text._ZN26HydroUnderwaterManipulator17control_actuatorsEv:0000000000000000 _ZN26HydroUnderwaterManipulator17control_actuatorsEv
-.ARM.exidx.text._ZN26HydroUnderwaterManipulator17control_actuatorsEv:0000000000000000 $d
-     /tmp/ccgPptWl.s:1956   .text._ZN26HydroUnderwaterManipulator13decodeCommandEv:0000000000000000 $t
-     /tmp/ccgPptWl.s:1963   .text._ZN26HydroUnderwaterManipulator13decodeCommandEv:0000000000000000 _ZN26HydroUnderwaterManipulator13decodeCommandEv
-.ARM.exidx.text._ZN26HydroUnderwaterManipulator13decodeCommandEv:0000000000000000 $d
-     /tmp/ccgPptWl.s:2090   .text._ZN26HydroUnderwaterManipulator12encodeStatusEv:0000000000000000 $t
-     /tmp/ccgPptWl.s:2097   .text._ZN26HydroUnderwaterManipulator12encodeStatusEv:0000000000000000 _ZN26HydroUnderwaterManipulator12encodeStatusEv
+     /tmp/ccumnHxp.s:1550   .text._ZN26HydroUnderwaterManipulator7controlEv:0000000000000000 $t
+     /tmp/ccumnHxp.s:1557   .text._ZN26HydroUnderwaterManipulator7controlEv:0000000000000000 _ZN26HydroUnderwaterManipulator7controlEv
+.ARM.exidx.text._ZN26HydroUnderwaterManipulator7controlEv:0000000000000000 $d
+     /tmp/ccumnHxp.s:1693   .text._ZN26HydroUnderwaterManipulator12encodeStatusEv:0000000000000000 $t
+     /tmp/ccumnHxp.s:1700   .text._ZN26HydroUnderwaterManipulator12encodeStatusEv:0000000000000000 _ZN26HydroUnderwaterManipulator12encodeStatusEv
 .ARM.exidx.text._ZN26HydroUnderwaterManipulator12encodeStatusEv:0000000000000000 $d
-     /tmp/ccgPptWl.s:2313   .text._ZN26HydroUnderwaterManipulator15execInfoCommandEPc:0000000000000000 $t
-     /tmp/ccgPptWl.s:2320   .text._ZN26HydroUnderwaterManipulator15execInfoCommandEPc:0000000000000000 _ZN26HydroUnderwaterManipulator15execInfoCommandEPc
-.ARM.exidx.text._ZN26HydroUnderwaterManipulator15execInfoCommandEPc:0000000000000000 $d
-     /tmp/ccgPptWl.s:2343   .rodata._ZTSN3ros3MsgE:0000000000000000 _ZTSN3ros3MsgE
-     /tmp/ccgPptWl.s:2340   .rodata._ZTSN3ros3MsgE:0000000000000000 $d
-     /tmp/ccgPptWl.s:2350   .rodata._ZTIN3ros3MsgE:0000000000000000 _ZTIN3ros3MsgE
-     /tmp/ccgPptWl.s:2347   .rodata._ZTIN3ros3MsgE:0000000000000000 $d
-     /tmp/ccgPptWl.s:2358   .rodata._ZTSN13hydrosoft_ros11Command_ArmE:0000000000000000 _ZTSN13hydrosoft_ros11Command_ArmE
-     /tmp/ccgPptWl.s:2355   .rodata._ZTSN13hydrosoft_ros11Command_ArmE:0000000000000000 $d
-     /tmp/ccgPptWl.s:2365   .rodata._ZTIN13hydrosoft_ros11Command_ArmE:0000000000000000 _ZTIN13hydrosoft_ros11Command_ArmE
-     /tmp/ccgPptWl.s:2362   .rodata._ZTIN13hydrosoft_ros11Command_ArmE:0000000000000000 $d
-     /tmp/ccgPptWl.s:2374   .rodata._ZTSN13hydrosoft_ros10Sensor_ArmE:0000000000000000 _ZTSN13hydrosoft_ros10Sensor_ArmE
-     /tmp/ccgPptWl.s:2371   .rodata._ZTSN13hydrosoft_ros10Sensor_ArmE:0000000000000000 $d
-     /tmp/ccgPptWl.s:2381   .rodata._ZTIN13hydrosoft_ros10Sensor_ArmE:0000000000000000 _ZTIN13hydrosoft_ros10Sensor_ArmE
-     /tmp/ccgPptWl.s:2378   .rodata._ZTIN13hydrosoft_ros10Sensor_ArmE:0000000000000000 $d
-     /tmp/ccgPptWl.s:2390   .rodata._ZTS22HydroManipulatorStatus:0000000000000000 _ZTS22HydroManipulatorStatus
-     /tmp/ccgPptWl.s:2387   .rodata._ZTS22HydroManipulatorStatus:0000000000000000 $d
-     /tmp/ccgPptWl.s:2397   .rodata._ZTI22HydroManipulatorStatus:0000000000000000 _ZTI22HydroManipulatorStatus
-     /tmp/ccgPptWl.s:2394   .rodata._ZTI22HydroManipulatorStatus:0000000000000000 $d
-     /tmp/ccgPptWl.s:2406   .rodata._ZTS23HydroManipulatorCommand:0000000000000000 _ZTS23HydroManipulatorCommand
-     /tmp/ccgPptWl.s:2403   .rodata._ZTS23HydroManipulatorCommand:0000000000000000 $d
-     /tmp/ccgPptWl.s:2413   .rodata._ZTI23HydroManipulatorCommand:0000000000000000 _ZTI23HydroManipulatorCommand
-     /tmp/ccgPptWl.s:2410   .rodata._ZTI23HydroManipulatorCommand:0000000000000000 $d
-     /tmp/ccgPptWl.s:2419   .rodata._ZTVN3ros3MsgE:0000000000000000 $d
-     /tmp/ccgPptWl.s:2431   .rodata._ZTVN13hydrosoft_ros11Command_ArmE:0000000000000000 $d
-     /tmp/ccgPptWl.s:2443   .rodata._ZTVN13hydrosoft_ros10Sensor_ArmE:0000000000000000 $d
-     /tmp/ccgPptWl.s:2455   .rodata._ZTV22HydroManipulatorStatus:0000000000000000 $d
-     /tmp/ccgPptWl.s:2467   .rodata._ZTV23HydroManipulatorCommand:0000000000000000 $d
+     /tmp/ccumnHxp.s:1853   .rodata._ZTSN3ros3MsgE:0000000000000000 _ZTSN3ros3MsgE
+     /tmp/ccumnHxp.s:1850   .rodata._ZTSN3ros3MsgE:0000000000000000 $d
+     /tmp/ccumnHxp.s:1860   .rodata._ZTIN3ros3MsgE:0000000000000000 _ZTIN3ros3MsgE
+     /tmp/ccumnHxp.s:1857   .rodata._ZTIN3ros3MsgE:0000000000000000 $d
+     /tmp/ccumnHxp.s:1868   .rodata._ZTSN13hydrosoft_ros11Command_ArmE:0000000000000000 _ZTSN13hydrosoft_ros11Command_ArmE
+     /tmp/ccumnHxp.s:1865   .rodata._ZTSN13hydrosoft_ros11Command_ArmE:0000000000000000 $d
+     /tmp/ccumnHxp.s:1875   .rodata._ZTIN13hydrosoft_ros11Command_ArmE:0000000000000000 _ZTIN13hydrosoft_ros11Command_ArmE
+     /tmp/ccumnHxp.s:1872   .rodata._ZTIN13hydrosoft_ros11Command_ArmE:0000000000000000 $d
+     /tmp/ccumnHxp.s:1884   .rodata._ZTSN13hydrosoft_ros10Sensor_ArmE:0000000000000000 _ZTSN13hydrosoft_ros10Sensor_ArmE
+     /tmp/ccumnHxp.s:1881   .rodata._ZTSN13hydrosoft_ros10Sensor_ArmE:0000000000000000 $d
+     /tmp/ccumnHxp.s:1891   .rodata._ZTIN13hydrosoft_ros10Sensor_ArmE:0000000000000000 _ZTIN13hydrosoft_ros10Sensor_ArmE
+     /tmp/ccumnHxp.s:1888   .rodata._ZTIN13hydrosoft_ros10Sensor_ArmE:0000000000000000 $d
+     /tmp/ccumnHxp.s:1900   .rodata._ZTS22HydroManipulatorStatus:0000000000000000 _ZTS22HydroManipulatorStatus
+     /tmp/ccumnHxp.s:1897   .rodata._ZTS22HydroManipulatorStatus:0000000000000000 $d
+     /tmp/ccumnHxp.s:1907   .rodata._ZTI22HydroManipulatorStatus:0000000000000000 _ZTI22HydroManipulatorStatus
+     /tmp/ccumnHxp.s:1904   .rodata._ZTI22HydroManipulatorStatus:0000000000000000 $d
+     /tmp/ccumnHxp.s:1916   .rodata._ZTS23HydroManipulatorCommand:0000000000000000 _ZTS23HydroManipulatorCommand
+     /tmp/ccumnHxp.s:1913   .rodata._ZTS23HydroManipulatorCommand:0000000000000000 $d
+     /tmp/ccumnHxp.s:1923   .rodata._ZTI23HydroManipulatorCommand:0000000000000000 _ZTI23HydroManipulatorCommand
+     /tmp/ccumnHxp.s:1920   .rodata._ZTI23HydroManipulatorCommand:0000000000000000 $d
+     /tmp/ccumnHxp.s:1929   .rodata._ZTVN3ros3MsgE:0000000000000000 $d
+     /tmp/ccumnHxp.s:1941   .rodata._ZTVN13hydrosoft_ros11Command_ArmE:0000000000000000 $d
+     /tmp/ccumnHxp.s:1953   .rodata._ZTVN13hydrosoft_ros10Sensor_ArmE:0000000000000000 $d
+     /tmp/ccumnHxp.s:1965   .rodata._ZTV22HydroManipulatorStatus:0000000000000000 $d
+     /tmp/ccumnHxp.s:1977   .rodata._ZTV23HydroManipulatorCommand:0000000000000000 $d
 
 UNDEFINED SYMBOLS
 realloc
@@ -3817,14 +3057,8 @@ _ZN7CHAMBER9attachPWMEii
 _ZN7CHAMBER12writeOpeningEs
 _ZN15PRESSURE_SOURCE6attachEhhh
 __aeabi_unwind_cpp_pr1
-ARM GAS  /tmp/ccgPptWl.s 			page 65
-
-
-_ZN15PRESSURE_SOURCE9openValveEv
-_ZN15PRESSURE_SOURCE8stopPumpEv
-_ZN15PRESSURE_SOURCE9startPumpEv
-_ZN15PRESSURE_SOURCE10closeValveEv
-_ZN15PRESSURE_SOURCE16maintainPressureEl
+_ZN15PRESSURE_SOURCE7setPumpEi
+_ZN15PRESSURE_SOURCE8setValveEi
 _ZN14SOLENOID_VALVE9writeDutyEs
 _ZTVN10__cxxabiv117__class_type_infoE
 _ZTVN10__cxxabiv120__si_class_type_infoE

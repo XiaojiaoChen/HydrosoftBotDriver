@@ -13,11 +13,11 @@ extern "C" {
 
 #include "main.h"
 
-void LED_Driver_Setup();
+int LED_Driver_Setup();
 void LED_Driver_SetPWM_One(uint16_t channel, uint8_t dutyCycle);
 void LED_Driver_SetPWM_Multi(uint8_t startChannel, uint8_t numofChannels, uint8_t dutyCycle);
 
-#define LED_DRIVER_ADDR							(0x28UL)
+#define LED_DRIVER_ADDR							((0x28UL)<<1)
 
 #define DEVICE_CONFIG0_ADDR 					(0x0UL)
 #define DEVICE_CONFIG1_ADDR						(0x1UL)

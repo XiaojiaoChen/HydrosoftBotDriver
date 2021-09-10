@@ -1,4 +1,4 @@
-ARM GAS  /tmp/ccMst6Pr.s 			page 1
+ARM GAS  /tmp/ccpSMeCe.s 			page 1
 
 
    1              		.cpu cortex-m3
@@ -58,7 +58,7 @@ ARM GAS  /tmp/ccMst6Pr.s 			page 1
   17:Core/Src/freertos.c ****  ******************************************************************************
   18:Core/Src/freertos.c ****  */
   19:Core/Src/freertos.c **** /* USER CODE END Header */
-ARM GAS  /tmp/ccMst6Pr.s 			page 2
+ARM GAS  /tmp/ccpSMeCe.s 			page 2
 
 
   20:Core/Src/freertos.c **** 
@@ -118,7 +118,7 @@ ARM GAS  /tmp/ccMst6Pr.s 			page 1
   74:Core/Src/freertos.c **** /* USER CODE BEGIN GET_IDLE_TASK_MEMORY */
   75:Core/Src/freertos.c **** static StaticTask_t xIdleTaskTCBBuffer;
   76:Core/Src/freertos.c **** static StackType_t xIdleStack[configMINIMAL_STACK_SIZE];
-ARM GAS  /tmp/ccMst6Pr.s 			page 3
+ARM GAS  /tmp/ccpSMeCe.s 			page 3
 
 
   77:Core/Src/freertos.c **** 
@@ -178,7 +178,7 @@ ARM GAS  /tmp/ccMst6Pr.s 			page 1
  131:Core/Src/freertos.c ****  * @param argument: Not used
  132:Core/Src/freertos.c ****  * @retval None
  133:Core/Src/freertos.c ****  */
-ARM GAS  /tmp/ccMst6Pr.s 			page 4
+ARM GAS  /tmp/ccpSMeCe.s 			page 4
 
 
  134:Core/Src/freertos.c **** /* USER CODE END Header_sensorTaskFunc */
@@ -238,7 +238,7 @@ ARM GAS  /tmp/ccMst6Pr.s 			page 1
   72              		.loc 1 143 8 view .LVU11
   73              	.L3:
  140:Core/Src/freertos.c **** 
-ARM GAS  /tmp/ccMst6Pr.s 			page 5
+ARM GAS  /tmp/ccpSMeCe.s 			page 5
 
 
   74              		.loc 1 140 2 view .LVU12
@@ -298,7 +298,7 @@ ARM GAS  /tmp/ccMst6Pr.s 			page 1
  110              		.cfi_startproc
  111              		@ args = 0, pretend = 0, frame = 8
  112              		@ frame_needed = 0, uses_anonymous_args = 0
-ARM GAS  /tmp/ccMst6Pr.s 			page 6
+ARM GAS  /tmp/ccpSMeCe.s 			page 6
 
 
  113              		.loc 1 163 1 is_stmt 0 view .LVU20
@@ -358,7 +358,7 @@ ARM GAS  /tmp/ccMst6Pr.s 			page 1
  150              		.loc 1 172 3 view .LVU33
  172:Core/Src/freertos.c **** 			loopTick = 0;
  151              		.loc 1 172 7 is_stmt 0 view .LVU34
-ARM GAS  /tmp/ccMst6Pr.s 			page 7
+ARM GAS  /tmp/ccpSMeCe.s 			page 7
 
 
  152 001e 044A     		ldr	r2, .L13
@@ -418,7 +418,7 @@ ARM GAS  /tmp/ccMst6Pr.s 			page 1
  198 0008 8023     		movs	r3, #128
  199 000a 1360     		str	r3, [r2]
   84:Core/Src/freertos.c **** /* USER CODE END GET_IDLE_TASK_MEMORY */
-ARM GAS  /tmp/ccMst6Pr.s 			page 8
+ARM GAS  /tmp/ccpSMeCe.s 			page 8
 
 
  200              		.loc 1 84 1 view .LVU45
@@ -478,7 +478,7 @@ ARM GAS  /tmp/ccMst6Pr.s 			page 1
  250 0028 EE46     		mov	lr, sp
  251 002a 04F11C0C 		add	ip, r4, #28
  252 002e BCE80F00 		ldmia	ip!, {r0, r1, r2, r3}
-ARM GAS  /tmp/ccMst6Pr.s 			page 9
+ARM GAS  /tmp/ccpSMeCe.s 			page 9
 
 
  253 0032 AEE80F00 		stmia	lr!, {r0, r1, r2, r3}
@@ -538,7 +538,7 @@ ARM GAS  /tmp/ccMst6Pr.s 			page 1
  304 0026 0000     		.space	2
  305 0028 00000000 		.word	0
  306 002c 00040000 		.word	1024
-ARM GAS  /tmp/ccMst6Pr.s 			page 10
+ARM GAS  /tmp/ccpSMeCe.s 			page 10
 
 
  307 0030 00000000 		.word	communicationTaskBuffer
@@ -598,7 +598,7 @@ ARM GAS  /tmp/ccMst6Pr.s 			page 1
  361              		.section	.bss.xIdleStack,"aw",%nobits
  362              		.align	2
  363              		.set	.LANCHOR5,. + 0
-ARM GAS  /tmp/ccMst6Pr.s 			page 11
+ARM GAS  /tmp/ccpSMeCe.s 			page 11
 
 
  366              	xIdleStack:
@@ -639,49 +639,49 @@ ARM GAS  /tmp/ccMst6Pr.s 			page 1
  399              		.file 10 "Middlewares/Third_Party/FreeRTOS/Source/include/task.h"
  400              		.file 11 "Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h"
  401              		.file 12 "User/Inc/myMain.h"
-ARM GAS  /tmp/ccMst6Pr.s 			page 12
+ARM GAS  /tmp/ccpSMeCe.s 			page 12
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 freertos.c
-     /tmp/ccMst6Pr.s:13     .rodata.str1.4:0000000000000000 $d
-     /tmp/ccMst6Pr.s:23     .text.sensorTaskFunc:0000000000000000 $t
-     /tmp/ccMst6Pr.s:31     .text.sensorTaskFunc:0000000000000000 sensorTaskFunc
-     /tmp/ccMst6Pr.s:93     .text.sensorTaskFunc:0000000000000030 $d
-     /tmp/ccMst6Pr.s:99     .text.communicationTaskFunc:0000000000000000 $t
-     /tmp/ccMst6Pr.s:106    .text.communicationTaskFunc:0000000000000000 communicationTaskFunc
-     /tmp/ccMst6Pr.s:167    .text.communicationTaskFunc:0000000000000030 $d
-     /tmp/ccMst6Pr.s:173    .text.vApplicationGetIdleTaskMemory:0000000000000000 $t
-     /tmp/ccMst6Pr.s:180    .text.vApplicationGetIdleTaskMemory:0000000000000000 vApplicationGetIdleTaskMemory
-     /tmp/ccMst6Pr.s:205    .text.vApplicationGetIdleTaskMemory:0000000000000010 $d
-     /tmp/ccMst6Pr.s:211    .text.MX_FREERTOS_Init:0000000000000000 $t
-     /tmp/ccMst6Pr.s:218    .text.MX_FREERTOS_Init:0000000000000000 MX_FREERTOS_Init
-     /tmp/ccMst6Pr.s:274    .text.MX_FREERTOS_Init:0000000000000050 $d
-     /tmp/ccMst6Pr.s:326    .bss.communicationTaskControlBlock:0000000000000000 communicationTaskControlBlock
-     /tmp/ccMst6Pr.s:320    .bss.communicationTaskBuffer:0000000000000000 communicationTaskBuffer
-     /tmp/ccMst6Pr.s:314    .bss.communicationTaHandle:0000000000000000 communicationTaHandle
-     /tmp/ccMst6Pr.s:352    .bss.sensorTaskControlBlock:0000000000000000 sensorTaskControlBlock
-     /tmp/ccMst6Pr.s:346    .bss.sensorTaskBuffer:0000000000000000 sensorTaskBuffer
-     /tmp/ccMst6Pr.s:359    .bss.sensorTaskHandle:0000000000000000 sensorTaskHandle
-     /tmp/ccMst6Pr.s:380    .data.globalCommunicationTaskPeriod:0000000000000000 globalCommunicationTaskPeriod
-     /tmp/ccMst6Pr.s:387    .data.globalSensorTaskPeriod:0000000000000000 globalSensorTaskPeriod
-     /tmp/ccMst6Pr.s:289    .rodata:0000000000000000 $d
-     /tmp/ccMst6Pr.s:310    .bss.communicationTaHandle:0000000000000000 $d
-     /tmp/ccMst6Pr.s:317    .bss.communicationTaskBuffer:0000000000000000 $d
-     /tmp/ccMst6Pr.s:323    .bss.communicationTaskControlBlock:0000000000000000 $d
-     /tmp/ccMst6Pr.s:329    .bss.loopTick.0:0000000000000000 $d
-     /tmp/ccMst6Pr.s:333    .bss.loopTick.0:0000000000000000 loopTick.0
-     /tmp/ccMst6Pr.s:336    .bss.loopTick.1:0000000000000000 $d
-     /tmp/ccMst6Pr.s:340    .bss.loopTick.1:0000000000000000 loopTick.1
-     /tmp/ccMst6Pr.s:343    .bss.sensorTaskBuffer:0000000000000000 $d
-     /tmp/ccMst6Pr.s:349    .bss.sensorTaskControlBlock:0000000000000000 $d
-     /tmp/ccMst6Pr.s:355    .bss.sensorTaskHandle:0000000000000000 $d
-     /tmp/ccMst6Pr.s:362    .bss.xIdleStack:0000000000000000 $d
-     /tmp/ccMst6Pr.s:366    .bss.xIdleStack:0000000000000000 xIdleStack
-     /tmp/ccMst6Pr.s:369    .bss.xIdleTaskTCBBuffer:0000000000000000 $d
-     /tmp/ccMst6Pr.s:373    .bss.xIdleTaskTCBBuffer:0000000000000000 xIdleTaskTCBBuffer
-     /tmp/ccMst6Pr.s:376    .data.globalCommunicationTaskPeriod:0000000000000000 $d
-     /tmp/ccMst6Pr.s:383    .data.globalSensorTaskPeriod:0000000000000000 $d
+     /tmp/ccpSMeCe.s:13     .rodata.str1.4:0000000000000000 $d
+     /tmp/ccpSMeCe.s:23     .text.sensorTaskFunc:0000000000000000 $t
+     /tmp/ccpSMeCe.s:31     .text.sensorTaskFunc:0000000000000000 sensorTaskFunc
+     /tmp/ccpSMeCe.s:93     .text.sensorTaskFunc:0000000000000030 $d
+     /tmp/ccpSMeCe.s:99     .text.communicationTaskFunc:0000000000000000 $t
+     /tmp/ccpSMeCe.s:106    .text.communicationTaskFunc:0000000000000000 communicationTaskFunc
+     /tmp/ccpSMeCe.s:167    .text.communicationTaskFunc:0000000000000030 $d
+     /tmp/ccpSMeCe.s:173    .text.vApplicationGetIdleTaskMemory:0000000000000000 $t
+     /tmp/ccpSMeCe.s:180    .text.vApplicationGetIdleTaskMemory:0000000000000000 vApplicationGetIdleTaskMemory
+     /tmp/ccpSMeCe.s:205    .text.vApplicationGetIdleTaskMemory:0000000000000010 $d
+     /tmp/ccpSMeCe.s:211    .text.MX_FREERTOS_Init:0000000000000000 $t
+     /tmp/ccpSMeCe.s:218    .text.MX_FREERTOS_Init:0000000000000000 MX_FREERTOS_Init
+     /tmp/ccpSMeCe.s:274    .text.MX_FREERTOS_Init:0000000000000050 $d
+     /tmp/ccpSMeCe.s:326    .bss.communicationTaskControlBlock:0000000000000000 communicationTaskControlBlock
+     /tmp/ccpSMeCe.s:320    .bss.communicationTaskBuffer:0000000000000000 communicationTaskBuffer
+     /tmp/ccpSMeCe.s:314    .bss.communicationTaHandle:0000000000000000 communicationTaHandle
+     /tmp/ccpSMeCe.s:352    .bss.sensorTaskControlBlock:0000000000000000 sensorTaskControlBlock
+     /tmp/ccpSMeCe.s:346    .bss.sensorTaskBuffer:0000000000000000 sensorTaskBuffer
+     /tmp/ccpSMeCe.s:359    .bss.sensorTaskHandle:0000000000000000 sensorTaskHandle
+     /tmp/ccpSMeCe.s:380    .data.globalCommunicationTaskPeriod:0000000000000000 globalCommunicationTaskPeriod
+     /tmp/ccpSMeCe.s:387    .data.globalSensorTaskPeriod:0000000000000000 globalSensorTaskPeriod
+     /tmp/ccpSMeCe.s:289    .rodata:0000000000000000 $d
+     /tmp/ccpSMeCe.s:310    .bss.communicationTaHandle:0000000000000000 $d
+     /tmp/ccpSMeCe.s:317    .bss.communicationTaskBuffer:0000000000000000 $d
+     /tmp/ccpSMeCe.s:323    .bss.communicationTaskControlBlock:0000000000000000 $d
+     /tmp/ccpSMeCe.s:329    .bss.loopTick.0:0000000000000000 $d
+     /tmp/ccpSMeCe.s:333    .bss.loopTick.0:0000000000000000 loopTick.0
+     /tmp/ccpSMeCe.s:336    .bss.loopTick.1:0000000000000000 $d
+     /tmp/ccpSMeCe.s:340    .bss.loopTick.1:0000000000000000 loopTick.1
+     /tmp/ccpSMeCe.s:343    .bss.sensorTaskBuffer:0000000000000000 $d
+     /tmp/ccpSMeCe.s:349    .bss.sensorTaskControlBlock:0000000000000000 $d
+     /tmp/ccpSMeCe.s:355    .bss.sensorTaskHandle:0000000000000000 $d
+     /tmp/ccpSMeCe.s:362    .bss.xIdleStack:0000000000000000 $d
+     /tmp/ccpSMeCe.s:366    .bss.xIdleStack:0000000000000000 xIdleStack
+     /tmp/ccpSMeCe.s:369    .bss.xIdleTaskTCBBuffer:0000000000000000 $d
+     /tmp/ccpSMeCe.s:373    .bss.xIdleTaskTCBBuffer:0000000000000000 xIdleTaskTCBBuffer
+     /tmp/ccpSMeCe.s:376    .data.globalCommunicationTaskPeriod:0000000000000000 $d
+     /tmp/ccpSMeCe.s:383    .data.globalSensorTaskPeriod:0000000000000000 $d
 
 UNDEFINED SYMBOLS
 xTaskGetTickCount

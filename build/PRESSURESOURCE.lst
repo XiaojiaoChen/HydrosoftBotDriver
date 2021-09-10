@@ -1,4 +1,4 @@
-ARM GAS  /tmp/ccAzMsOE.s 			page 1
+ARM GAS  /tmp/ccl2W3rp.s 			page 1
 
 
    1              		.cpu cortex-m3
@@ -58,7 +58,7 @@ ARM GAS  /tmp/ccAzMsOE.s 			page 1
   28:User/PRESSURESOURCE.cpp **** 	attachValve(valvePort);
   29:User/PRESSURESOURCE.cpp **** }
   30:User/PRESSURESOURCE.cpp **** 
-ARM GAS  /tmp/ccAzMsOE.s 			page 2
+ARM GAS  /tmp/ccl2W3rp.s 			page 2
 
 
   31:User/PRESSURESOURCE.cpp **** void PRESSURE_SOURCE::attachPump(uint8_t DigitalPort) {
@@ -118,7 +118,7 @@ ARM GAS  /tmp/ccAzMsOE.s 			page 1
   79              	.LVL4:
   80              		.loc 1 36 23 view .LVU10
   81 0004 FFF7FEFF 		bl	_ZN15PRESSURE_SENSOR6attachEh
-ARM GAS  /tmp/ccAzMsOE.s 			page 3
+ARM GAS  /tmp/ccl2W3rp.s 			page 3
 
 
   82              	.LVL5:
@@ -178,7 +178,7 @@ ARM GAS  /tmp/ccAzMsOE.s 			page 1
  136              	.LFB4:
   25:User/PRESSURESOURCE.cpp **** 	attachPump(DigitalPort);
  137              		.loc 1 25 89 is_stmt 1 view -0
-ARM GAS  /tmp/ccAzMsOE.s 			page 4
+ARM GAS  /tmp/ccl2W3rp.s 			page 4
 
 
  138              		.cfi_startproc
@@ -238,7 +238,7 @@ ARM GAS  /tmp/ccAzMsOE.s 			page 1
  185              		.fnstart
  186              	.LVL13:
  187              	.LFB2:
-ARM GAS  /tmp/ccAzMsOE.s 			page 5
+ARM GAS  /tmp/ccl2W3rp.s 			page 5
 
 
   14:User/PRESSURESOURCE.cpp **** 	attach(DigitalPort, valvePort, AnalogPort);
@@ -298,7 +298,7 @@ ARM GAS  /tmp/ccAzMsOE.s 			page 1
  234              	.LVL19:
   16:User/PRESSURESOURCE.cpp **** 	direction=0;
  235              		.loc 1 16 2 is_stmt 1 view .LVU36
-ARM GAS  /tmp/ccAzMsOE.s 			page 6
+ARM GAS  /tmp/ccl2W3rp.s 			page 6
 
 
   16:User/PRESSURESOURCE.cpp **** 	direction=0;
@@ -355,10 +355,10 @@ ARM GAS  /tmp/ccAzMsOE.s 			page 1
  276              	_ZN15PRESSURE_SOURCE8stopPumpEv:
  277              		.fnstart
  278              	.LVL21:
- 279              	.LFB10:
+ 279              	.LFB12:
   41:User/PRESSURESOURCE.cpp **** 
   42:User/PRESSURESOURCE.cpp **** void PRESSURE_SOURCE::maintainPressure(int32_t pressurelim){
-ARM GAS  /tmp/ccAzMsOE.s 			page 7
+ARM GAS  /tmp/ccl2W3rp.s 			page 7
 
 
   43:User/PRESSURESOURCE.cpp **** 	if(sourceType==LOW_PRESSURE_SINK){
@@ -400,37 +400,54 @@ ARM GAS  /tmp/ccAzMsOE.s 			page 1
   79:User/PRESSURESOURCE.cpp **** 
   80:User/PRESSURESOURCE.cpp **** }
   81:User/PRESSURESOURCE.cpp **** 
-  82:User/PRESSURESOURCE.cpp ****   
-  83:User/PRESSURESOURCE.cpp **** 
-  84:User/PRESSURESOURCE.cpp **** void PRESSURE_SOURCE::stopPump()
-  85:User/PRESSURESOURCE.cpp **** {
- 280              		.loc 1 85 1 is_stmt 1 view -0
+  82:User/PRESSURESOURCE.cpp **** void PRESSURE_SOURCE::setPump(int pumpCmd){
+  83:User/PRESSURESOURCE.cpp **** 	if(pumpCmd){
+  84:User/PRESSURESOURCE.cpp **** 		startPump();
+  85:User/PRESSURESOURCE.cpp **** 	}
+  86:User/PRESSURESOURCE.cpp **** 	else{
+  87:User/PRESSURESOURCE.cpp **** 		stopPump();
+  88:User/PRESSURESOURCE.cpp **** 	}
+  89:User/PRESSURESOURCE.cpp **** }
+  90:User/PRESSURESOURCE.cpp **** 
+  91:User/PRESSURESOURCE.cpp **** 
+  92:User/PRESSURESOURCE.cpp **** void PRESSURE_SOURCE::setValve(int valveCmd){
+  93:User/PRESSURESOURCE.cpp **** 	if(valveCmd){
+  94:User/PRESSURESOURCE.cpp **** 		openValve();
+  95:User/PRESSURESOURCE.cpp **** 	}
+  96:User/PRESSURESOURCE.cpp **** 	else{
+  97:User/PRESSURESOURCE.cpp **** 		closeValve();
+  98:User/PRESSURESOURCE.cpp **** 	}
+  99:User/PRESSURESOURCE.cpp **** }
+ARM GAS  /tmp/ccl2W3rp.s 			page 8
+
+
+ 100:User/PRESSURESOURCE.cpp **** 
+ 101:User/PRESSURESOURCE.cpp **** void PRESSURE_SOURCE::stopPump()
+ 102:User/PRESSURESOURCE.cpp **** {
+ 280              		.loc 1 102 1 is_stmt 1 view -0
  281              		.cfi_startproc
  282              		@ args = 0, pretend = 0, frame = 0
  283              		@ frame_needed = 0, uses_anonymous_args = 0
- 284              		.loc 1 85 1 is_stmt 0 view .LVU51
+ 284              		.loc 1 102 1 is_stmt 0 view .LVU51
  285 0000 08B5     		push	{r3, lr}
  286              		.save {r3, lr}
  287              	.LCFI5:
  288              		.cfi_def_cfa_offset 8
  289              		.cfi_offset 3, -8
  290              		.cfi_offset 14, -4
-  86:User/PRESSURESOURCE.cpp **** 	pump.stop();
- 291              		.loc 1 86 2 is_stmt 1 view .LVU52
- 292              		.loc 1 86 11 is_stmt 0 view .LVU53
-ARM GAS  /tmp/ccAzMsOE.s 			page 8
-
-
+ 103:User/PRESSURESOURCE.cpp **** 	pump.stop();
+ 291              		.loc 1 103 2 is_stmt 1 view .LVU52
+ 292              		.loc 1 103 11 is_stmt 0 view .LVU53
  293 0002 0430     		adds	r0, r0, #4
  294              	.LVL22:
- 295              		.loc 1 86 11 view .LVU54
+ 295              		.loc 1 103 11 view .LVU54
  296 0004 FFF7FEFF 		bl	_ZN4PUMP4stopEv
  297              	.LVL23:
-  87:User/PRESSURESOURCE.cpp **** }
- 298              		.loc 1 87 1 view .LVU55
+ 104:User/PRESSURESOURCE.cpp **** }
+ 298              		.loc 1 104 1 view .LVU55
  299 0008 08BD     		pop	{r3, pc}
  300              		.cfi_endproc
- 301              	.LFE10:
+ 301              	.LFE12:
  302              		.fnend
  304              		.section	.text._ZN15PRESSURE_SOURCE9startPumpEv,"ax",%progbits
  305              		.align	1
@@ -442,498 +459,617 @@ ARM GAS  /tmp/ccAzMsOE.s 			page 1
  312              	_ZN15PRESSURE_SOURCE9startPumpEv:
  313              		.fnstart
  314              	.LVL24:
- 315              	.LFB11:
-  88:User/PRESSURESOURCE.cpp **** void PRESSURE_SOURCE::startPump()
-  89:User/PRESSURESOURCE.cpp **** {
- 316              		.loc 1 89 1 is_stmt 1 view -0
+ 315              	.LFB13:
+ 105:User/PRESSURESOURCE.cpp **** void PRESSURE_SOURCE::startPump()
+ 106:User/PRESSURESOURCE.cpp **** {
+ 316              		.loc 1 106 1 is_stmt 1 view -0
  317              		.cfi_startproc
  318              		@ args = 0, pretend = 0, frame = 0
  319              		@ frame_needed = 0, uses_anonymous_args = 0
- 320              		.loc 1 89 1 is_stmt 0 view .LVU57
+ 320              		.loc 1 106 1 is_stmt 0 view .LVU57
  321 0000 08B5     		push	{r3, lr}
  322              		.save {r3, lr}
  323              	.LCFI6:
  324              		.cfi_def_cfa_offset 8
  325              		.cfi_offset 3, -8
  326              		.cfi_offset 14, -4
-  90:User/PRESSURESOURCE.cpp **** 	pump.start();
- 327              		.loc 1 90 2 is_stmt 1 view .LVU58
- 328              		.loc 1 90 12 is_stmt 0 view .LVU59
+ 107:User/PRESSURESOURCE.cpp **** 	pump.start();
+ 327              		.loc 1 107 2 is_stmt 1 view .LVU58
+ 328              		.loc 1 107 12 is_stmt 0 view .LVU59
  329 0002 0430     		adds	r0, r0, #4
  330              	.LVL25:
- 331              		.loc 1 90 12 view .LVU60
+ARM GAS  /tmp/ccl2W3rp.s 			page 9
+
+
+ 331              		.loc 1 107 12 view .LVU60
  332 0004 FFF7FEFF 		bl	_ZN4PUMP5startEv
  333              	.LVL26:
-  91:User/PRESSURESOURCE.cpp **** }
- 334              		.loc 1 91 1 view .LVU61
+ 108:User/PRESSURESOURCE.cpp **** }
+ 334              		.loc 1 108 1 view .LVU61
  335 0008 08BD     		pop	{r3, pc}
  336              		.cfi_endproc
- 337              	.LFE11:
+ 337              	.LFE13:
  338              		.fnend
- 340              		.section	.text._ZN15PRESSURE_SOURCE9openValveEv,"ax",%progbits
+ 340              		.section	.text._ZN15PRESSURE_SOURCE7setPumpEi,"ax",%progbits
  341              		.align	1
- 342              		.global	_ZN15PRESSURE_SOURCE9openValveEv
+ 342              		.global	_ZN15PRESSURE_SOURCE7setPumpEi
  343              		.syntax unified
  344              		.thumb
  345              		.thumb_func
  346              		.fpu softvfp
- 348              	_ZN15PRESSURE_SOURCE9openValveEv:
-ARM GAS  /tmp/ccAzMsOE.s 			page 9
-
-
+ 348              	_ZN15PRESSURE_SOURCE7setPumpEi:
  349              		.fnstart
  350              	.LVL27:
- 351              	.LFB12:
-  92:User/PRESSURESOURCE.cpp **** void PRESSURE_SOURCE::openValve(){
- 352              		.loc 1 92 34 is_stmt 1 view -0
+ 351              	.LFB10:
+  82:User/PRESSURESOURCE.cpp **** 	if(pumpCmd){
+ 352              		.loc 1 82 43 is_stmt 1 view -0
  353              		.cfi_startproc
  354              		@ args = 0, pretend = 0, frame = 0
  355              		@ frame_needed = 0, uses_anonymous_args = 0
- 356              		.loc 1 92 34 is_stmt 0 view .LVU63
+  82:User/PRESSURESOURCE.cpp **** 	if(pumpCmd){
+ 356              		.loc 1 82 43 is_stmt 0 view .LVU63
  357 0000 08B5     		push	{r3, lr}
  358              		.save {r3, lr}
  359              	.LCFI7:
  360              		.cfi_def_cfa_offset 8
  361              		.cfi_offset 3, -8
  362              		.cfi_offset 14, -4
-  93:User/PRESSURESOURCE.cpp **** 	valve.writeDuty(1);
- 363              		.loc 1 93 2 is_stmt 1 view .LVU64
- 364              		.loc 1 93 17 is_stmt 0 view .LVU65
- 365 0002 0121     		movs	r1, #1
- 366 0004 0830     		adds	r0, r0, #8
- 367              	.LVL28:
- 368              		.loc 1 93 17 view .LVU66
- 369 0006 FFF7FEFF 		bl	_ZN14SOLENOID_VALVE9writeDutyEs
- 370              	.LVL29:
-  94:User/PRESSURESOURCE.cpp **** }
- 371              		.loc 1 94 1 view .LVU67
- 372 000a 08BD     		pop	{r3, pc}
- 373              		.cfi_endproc
- 374              	.LFE12:
- 375              		.fnend
- 377              		.section	.text._ZN15PRESSURE_SOURCE10closeValveEv,"ax",%progbits
- 378              		.align	1
- 379              		.global	_ZN15PRESSURE_SOURCE10closeValveEv
- 380              		.syntax unified
- 381              		.thumb
- 382              		.thumb_func
- 383              		.fpu softvfp
- 385              	_ZN15PRESSURE_SOURCE10closeValveEv:
- 386              		.fnstart
- 387              	.LVL30:
- 388              	.LFB13:
-  95:User/PRESSURESOURCE.cpp **** void PRESSURE_SOURCE::closeValve(){
- 389              		.loc 1 95 35 is_stmt 1 view -0
- 390              		.cfi_startproc
- 391              		@ args = 0, pretend = 0, frame = 0
- 392              		@ frame_needed = 0, uses_anonymous_args = 0
- 393              		.loc 1 95 35 is_stmt 0 view .LVU69
- 394 0000 08B5     		push	{r3, lr}
- 395              		.save {r3, lr}
- 396              	.LCFI8:
- 397              		.cfi_def_cfa_offset 8
- 398              		.cfi_offset 3, -8
- 399              		.cfi_offset 14, -4
-  96:User/PRESSURESOURCE.cpp **** 	valve.writeDuty(0);
- 400              		.loc 1 96 2 is_stmt 1 view .LVU70
- 401              		.loc 1 96 17 is_stmt 0 view .LVU71
- 402 0002 0021     		movs	r1, #0
-ARM GAS  /tmp/ccAzMsOE.s 			page 10
+  83:User/PRESSURESOURCE.cpp **** 		startPump();
+ 363              		.loc 1 83 2 is_stmt 1 view .LVU64
+ 364 0002 11B1     		cbz	r1, .L16
+  84:User/PRESSURESOURCE.cpp **** 	}
+ 365              		.loc 1 84 3 view .LVU65
+  84:User/PRESSURESOURCE.cpp **** 	}
+ 366              		.loc 1 84 12 is_stmt 0 view .LVU66
+ 367 0004 FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE9startPumpEv
+ 368              	.LVL28:
+ 369              	.L15:
+  89:User/PRESSURESOURCE.cpp **** 
+ 370              		.loc 1 89 1 view .LVU67
+ 371 0008 08BD     		pop	{r3, pc}
+ 372              	.LVL29:
+ 373              	.L16:
+  87:User/PRESSURESOURCE.cpp **** 	}
+ 374              		.loc 1 87 3 is_stmt 1 view .LVU68
+  87:User/PRESSURESOURCE.cpp **** 	}
+ 375              		.loc 1 87 11 is_stmt 0 view .LVU69
+ 376 000a FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE8stopPumpEv
+ 377              	.LVL30:
+  89:User/PRESSURESOURCE.cpp **** 
+ 378              		.loc 1 89 1 view .LVU70
+ 379 000e FBE7     		b	.L15
+ARM GAS  /tmp/ccl2W3rp.s 			page 10
 
 
- 403 0004 0830     		adds	r0, r0, #8
- 404              	.LVL31:
- 405              		.loc 1 96 17 view .LVU72
- 406 0006 FFF7FEFF 		bl	_ZN14SOLENOID_VALVE9writeDutyEs
- 407              	.LVL32:
-  97:User/PRESSURESOURCE.cpp **** }
- 408              		.loc 1 97 1 view .LVU73
- 409 000a 08BD     		pop	{r3, pc}
- 410              		.cfi_endproc
- 411              	.LFE13:
- 412              		.fnend
- 414              		.section	.text._ZN15PRESSURE_SOURCE12readPressureEv,"ax",%progbits
- 415              		.align	1
- 416              		.global	_ZN15PRESSURE_SOURCE12readPressureEv
- 417              		.syntax unified
- 418              		.thumb
- 419              		.thumb_func
- 420              		.fpu softvfp
- 422              	_ZN15PRESSURE_SOURCE12readPressureEv:
- 423              		.fnstart
- 424              	.LVL33:
- 425              	.LFB14:
-  98:User/PRESSURESOURCE.cpp **** 
-  99:User/PRESSURESOURCE.cpp **** int32_t PRESSURE_SOURCE::readPressure() {
- 426              		.loc 1 99 41 is_stmt 1 view -0
- 427              		.cfi_startproc
- 428              		@ args = 0, pretend = 0, frame = 0
- 429              		@ frame_needed = 0, uses_anonymous_args = 0
- 430              		.loc 1 99 41 is_stmt 0 view .LVU75
- 431 0000 10B5     		push	{r4, lr}
- 432              		.save {r4, lr}
- 433              	.LCFI9:
- 434              		.cfi_def_cfa_offset 8
- 435              		.cfi_offset 4, -8
- 436              		.cfi_offset 14, -4
- 437 0002 0446     		mov	r4, r0
- 100:User/PRESSURESOURCE.cpp **** 	int32_t pp=pressureSensor.read();
- 438              		.loc 1 100 2 is_stmt 1 view .LVU76
- 439              		.loc 1 100 32 is_stmt 0 view .LVU77
- 440 0004 1430     		adds	r0, r0, #20
- 441              	.LVL34:
- 442              		.loc 1 100 32 view .LVU78
- 443 0006 FFF7FEFF 		bl	_ZN15PRESSURE_SENSOR4readEv
- 444              	.LVL35:
- 101:User/PRESSURESOURCE.cpp **** 	if(sourceType==LOW_PRESSURE_SINK){
- 445              		.loc 1 101 2 is_stmt 1 view .LVU79
- 446              		.loc 1 101 5 is_stmt 0 view .LVU80
- 447 000a 2368     		ldr	r3, [r4]
- 448              		.loc 1 101 2 view .LVU81
- 449 000c 012B     		cmp	r3, #1
- 450 000e 01D0     		beq	.L22
- 451              	.L20:
- 102:User/PRESSURESOURCE.cpp **** 		pp=-pp;
- 103:User/PRESSURESOURCE.cpp **** 	}
- 104:User/PRESSURESOURCE.cpp **** 	pressure = pp;
- 452              		.loc 1 104 2 is_stmt 1 view .LVU82
- 453              		.loc 1 104 11 is_stmt 0 view .LVU83
-ARM GAS  /tmp/ccAzMsOE.s 			page 11
+ 380              		.cfi_endproc
+ 381              	.LFE10:
+ 382              		.fnend
+ 384              		.section	.text._ZN15PRESSURE_SOURCE9openValveEv,"ax",%progbits
+ 385              		.align	1
+ 386              		.global	_ZN15PRESSURE_SOURCE9openValveEv
+ 387              		.syntax unified
+ 388              		.thumb
+ 389              		.thumb_func
+ 390              		.fpu softvfp
+ 392              	_ZN15PRESSURE_SOURCE9openValveEv:
+ 393              		.fnstart
+ 394              	.LVL31:
+ 395              	.LFB14:
+ 109:User/PRESSURESOURCE.cpp **** void PRESSURE_SOURCE::openValve(){
+ 396              		.loc 1 109 34 is_stmt 1 view -0
+ 397              		.cfi_startproc
+ 398              		@ args = 0, pretend = 0, frame = 0
+ 399              		@ frame_needed = 0, uses_anonymous_args = 0
+ 400              		.loc 1 109 34 is_stmt 0 view .LVU72
+ 401 0000 08B5     		push	{r3, lr}
+ 402              		.save {r3, lr}
+ 403              	.LCFI8:
+ 404              		.cfi_def_cfa_offset 8
+ 405              		.cfi_offset 3, -8
+ 406              		.cfi_offset 14, -4
+ 110:User/PRESSURESOURCE.cpp **** 	valve.writeDuty(1);
+ 407              		.loc 1 110 2 is_stmt 1 view .LVU73
+ 408              		.loc 1 110 17 is_stmt 0 view .LVU74
+ 409 0002 0121     		movs	r1, #1
+ 410 0004 0830     		adds	r0, r0, #8
+ 411              	.LVL32:
+ 412              		.loc 1 110 17 view .LVU75
+ 413 0006 FFF7FEFF 		bl	_ZN14SOLENOID_VALVE9writeDutyEs
+ 414              	.LVL33:
+ 111:User/PRESSURESOURCE.cpp **** }
+ 415              		.loc 1 111 1 view .LVU76
+ 416 000a 08BD     		pop	{r3, pc}
+ 417              		.cfi_endproc
+ 418              	.LFE14:
+ 419              		.fnend
+ 421              		.section	.text._ZN15PRESSURE_SOURCE10closeValveEv,"ax",%progbits
+ 422              		.align	1
+ 423              		.global	_ZN15PRESSURE_SOURCE10closeValveEv
+ 424              		.syntax unified
+ 425              		.thumb
+ 426              		.thumb_func
+ 427              		.fpu softvfp
+ 429              	_ZN15PRESSURE_SOURCE10closeValveEv:
+ 430              		.fnstart
+ 431              	.LVL34:
+ 432              	.LFB15:
+ 112:User/PRESSURESOURCE.cpp **** void PRESSURE_SOURCE::closeValve(){
+ 433              		.loc 1 112 35 is_stmt 1 view -0
+ 434              		.cfi_startproc
+ 435              		@ args = 0, pretend = 0, frame = 0
+ 436              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  /tmp/ccl2W3rp.s 			page 11
 
 
- 454 0010 A062     		str	r0, [r4, #40]
- 105:User/PRESSURESOURCE.cpp **** 	return pressure;
- 455              		.loc 1 105 2 is_stmt 1 view .LVU84
- 106:User/PRESSURESOURCE.cpp **** }
- 456              		.loc 1 106 1 is_stmt 0 view .LVU85
- 457 0012 10BD     		pop	{r4, pc}
- 458              	.LVL36:
- 459              	.L22:
- 102:User/PRESSURESOURCE.cpp **** 		pp=-pp;
- 460              		.loc 1 102 3 is_stmt 1 view .LVU86
- 102:User/PRESSURESOURCE.cpp **** 		pp=-pp;
- 461              		.loc 1 102 5 is_stmt 0 view .LVU87
- 462 0014 4042     		rsbs	r0, r0, #0
- 463              	.LVL37:
- 102:User/PRESSURESOURCE.cpp **** 		pp=-pp;
- 464              		.loc 1 102 5 view .LVU88
- 465 0016 FBE7     		b	.L20
- 466              		.cfi_endproc
- 467              	.LFE14:
- 468              		.fnend
- 470              		.section	.text._ZN15PRESSURE_SOURCE16maintainPressureEll,"ax",%progbits
- 471              		.align	1
- 472              		.global	_ZN15PRESSURE_SOURCE16maintainPressureEll
- 473              		.syntax unified
- 474              		.thumb
- 475              		.thumb_func
- 476              		.fpu softvfp
- 478              	_ZN15PRESSURE_SOURCE16maintainPressureEll:
- 479              		.fnstart
- 480              	.LVL38:
- 481              	.LFB9:
+ 437              		.loc 1 112 35 is_stmt 0 view .LVU78
+ 438 0000 08B5     		push	{r3, lr}
+ 439              		.save {r3, lr}
+ 440              	.LCFI9:
+ 441              		.cfi_def_cfa_offset 8
+ 442              		.cfi_offset 3, -8
+ 443              		.cfi_offset 14, -4
+ 113:User/PRESSURESOURCE.cpp **** 	valve.writeDuty(0);
+ 444              		.loc 1 113 2 is_stmt 1 view .LVU79
+ 445              		.loc 1 113 17 is_stmt 0 view .LVU80
+ 446 0002 0021     		movs	r1, #0
+ 447 0004 0830     		adds	r0, r0, #8
+ 448              	.LVL35:
+ 449              		.loc 1 113 17 view .LVU81
+ 450 0006 FFF7FEFF 		bl	_ZN14SOLENOID_VALVE9writeDutyEs
+ 451              	.LVL36:
+ 114:User/PRESSURESOURCE.cpp **** }
+ 452              		.loc 1 114 1 view .LVU82
+ 453 000a 08BD     		pop	{r3, pc}
+ 454              		.cfi_endproc
+ 455              	.LFE15:
+ 456              		.fnend
+ 458              		.section	.text._ZN15PRESSURE_SOURCE8setValveEi,"ax",%progbits
+ 459              		.align	1
+ 460              		.global	_ZN15PRESSURE_SOURCE8setValveEi
+ 461              		.syntax unified
+ 462              		.thumb
+ 463              		.thumb_func
+ 464              		.fpu softvfp
+ 466              	_ZN15PRESSURE_SOURCE8setValveEi:
+ 467              		.fnstart
+ 468              	.LVL37:
+ 469              	.LFB11:
+  92:User/PRESSURESOURCE.cpp **** 	if(valveCmd){
+ 470              		.loc 1 92 45 is_stmt 1 view -0
+ 471              		.cfi_startproc
+ 472              		@ args = 0, pretend = 0, frame = 0
+ 473              		@ frame_needed = 0, uses_anonymous_args = 0
+  92:User/PRESSURESOURCE.cpp **** 	if(valveCmd){
+ 474              		.loc 1 92 45 is_stmt 0 view .LVU84
+ 475 0000 08B5     		push	{r3, lr}
+ 476              		.save {r3, lr}
+ 477              	.LCFI10:
+ 478              		.cfi_def_cfa_offset 8
+ 479              		.cfi_offset 3, -8
+ 480              		.cfi_offset 14, -4
+  93:User/PRESSURESOURCE.cpp **** 		openValve();
+ 481              		.loc 1 93 2 is_stmt 1 view .LVU85
+ 482 0002 11B1     		cbz	r1, .L24
+  94:User/PRESSURESOURCE.cpp **** 	}
+ 483              		.loc 1 94 3 view .LVU86
+  94:User/PRESSURESOURCE.cpp **** 	}
+ 484              		.loc 1 94 12 is_stmt 0 view .LVU87
+ 485 0004 FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE9openValveEv
+ 486              	.LVL38:
+ 487              	.L23:
+  99:User/PRESSURESOURCE.cpp **** 
+ARM GAS  /tmp/ccl2W3rp.s 			page 12
+
+
+ 488              		.loc 1 99 1 view .LVU88
+ 489 0008 08BD     		pop	{r3, pc}
+ 490              	.LVL39:
+ 491              	.L24:
+  97:User/PRESSURESOURCE.cpp **** 	}
+ 492              		.loc 1 97 3 is_stmt 1 view .LVU89
+  97:User/PRESSURESOURCE.cpp **** 	}
+ 493              		.loc 1 97 13 is_stmt 0 view .LVU90
+ 494 000a FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE10closeValveEv
+ 495              	.LVL40:
+  99:User/PRESSURESOURCE.cpp **** 
+ 496              		.loc 1 99 1 view .LVU91
+ 497 000e FBE7     		b	.L23
+ 498              		.cfi_endproc
+ 499              	.LFE11:
+ 500              		.fnend
+ 502              		.section	.text._ZN15PRESSURE_SOURCE12readPressureEv,"ax",%progbits
+ 503              		.align	1
+ 504              		.global	_ZN15PRESSURE_SOURCE12readPressureEv
+ 505              		.syntax unified
+ 506              		.thumb
+ 507              		.thumb_func
+ 508              		.fpu softvfp
+ 510              	_ZN15PRESSURE_SOURCE12readPressureEv:
+ 511              		.fnstart
+ 512              	.LVL41:
+ 513              	.LFB16:
+ 115:User/PRESSURESOURCE.cpp **** 
+ 116:User/PRESSURESOURCE.cpp **** int32_t PRESSURE_SOURCE::readPressure() {
+ 514              		.loc 1 116 41 is_stmt 1 view -0
+ 515              		.cfi_startproc
+ 516              		@ args = 0, pretend = 0, frame = 0
+ 517              		@ frame_needed = 0, uses_anonymous_args = 0
+ 518              		.loc 1 116 41 is_stmt 0 view .LVU93
+ 519 0000 10B5     		push	{r4, lr}
+ 520              		.save {r4, lr}
+ 521              	.LCFI11:
+ 522              		.cfi_def_cfa_offset 8
+ 523              		.cfi_offset 4, -8
+ 524              		.cfi_offset 14, -4
+ 525 0002 0446     		mov	r4, r0
+ 117:User/PRESSURESOURCE.cpp **** 	int32_t pp=pressureSensor.read();
+ 526              		.loc 1 117 2 is_stmt 1 view .LVU94
+ 527              		.loc 1 117 32 is_stmt 0 view .LVU95
+ 528 0004 1430     		adds	r0, r0, #20
+ 529              	.LVL42:
+ 530              		.loc 1 117 32 view .LVU96
+ 531 0006 FFF7FEFF 		bl	_ZN15PRESSURE_SENSOR4readEv
+ 532              	.LVL43:
+ 118:User/PRESSURESOURCE.cpp **** 	if(sourceType==LOW_PRESSURE_SINK){
+ 533              		.loc 1 118 2 is_stmt 1 view .LVU97
+ 534              		.loc 1 118 5 is_stmt 0 view .LVU98
+ 535 000a 2368     		ldr	r3, [r4]
+ 536              		.loc 1 118 2 view .LVU99
+ 537 000c 012B     		cmp	r3, #1
+ 538 000e 01D0     		beq	.L30
+ 539              	.L28:
+ARM GAS  /tmp/ccl2W3rp.s 			page 13
+
+
+ 119:User/PRESSURESOURCE.cpp **** 		pp=-pp;
+ 120:User/PRESSURESOURCE.cpp **** 	}
+ 121:User/PRESSURESOURCE.cpp **** 	pressure = pp;
+ 540              		.loc 1 121 2 is_stmt 1 view .LVU100
+ 541              		.loc 1 121 11 is_stmt 0 view .LVU101
+ 542 0010 A062     		str	r0, [r4, #40]
+ 122:User/PRESSURESOURCE.cpp **** 	return pressure;
+ 543              		.loc 1 122 2 is_stmt 1 view .LVU102
+ 123:User/PRESSURESOURCE.cpp **** }
+ 544              		.loc 1 123 1 is_stmt 0 view .LVU103
+ 545 0012 10BD     		pop	{r4, pc}
+ 546              	.LVL44:
+ 547              	.L30:
+ 119:User/PRESSURESOURCE.cpp **** 		pp=-pp;
+ 548              		.loc 1 119 3 is_stmt 1 view .LVU104
+ 119:User/PRESSURESOURCE.cpp **** 		pp=-pp;
+ 549              		.loc 1 119 5 is_stmt 0 view .LVU105
+ 550 0014 4042     		rsbs	r0, r0, #0
+ 551              	.LVL45:
+ 119:User/PRESSURESOURCE.cpp **** 		pp=-pp;
+ 552              		.loc 1 119 5 view .LVU106
+ 553 0016 FBE7     		b	.L28
+ 554              		.cfi_endproc
+ 555              	.LFE16:
+ 556              		.fnend
+ 558              		.section	.text._ZN15PRESSURE_SOURCE16maintainPressureEll,"ax",%progbits
+ 559              		.align	1
+ 560              		.global	_ZN15PRESSURE_SOURCE16maintainPressureEll
+ 561              		.syntax unified
+ 562              		.thumb
+ 563              		.thumb_func
+ 564              		.fpu softvfp
+ 566              	_ZN15PRESSURE_SOURCE16maintainPressureEll:
+ 567              		.fnstart
+ 568              	.LVL46:
+ 569              	.LFB9:
   50:User/PRESSURESOURCE.cpp **** 
- 482              		.loc 1 50 70 is_stmt 1 view -0
- 483              		.cfi_startproc
- 484              		@ args = 0, pretend = 0, frame = 0
- 485              		@ frame_needed = 0, uses_anonymous_args = 0
+ 570              		.loc 1 50 70 is_stmt 1 view -0
+ 571              		.cfi_startproc
+ 572              		@ args = 0, pretend = 0, frame = 0
+ 573              		@ frame_needed = 0, uses_anonymous_args = 0
   50:User/PRESSURESOURCE.cpp **** 
- 486              		.loc 1 50 70 is_stmt 0 view .LVU90
- 487 0000 10B5     		push	{r4, lr}
- 488              		.save {r4, lr}
- 489              	.LCFI10:
- 490              		.cfi_def_cfa_offset 8
- 491              		.cfi_offset 4, -8
- 492              		.cfi_offset 14, -4
- 493 0002 0446     		mov	r4, r0
+ 574              		.loc 1 50 70 is_stmt 0 view .LVU108
+ 575 0000 10B5     		push	{r4, lr}
+ 576              		.save {r4, lr}
+ 577              	.LCFI12:
+ 578              		.cfi_def_cfa_offset 8
+ 579              		.cfi_offset 4, -8
+ 580              		.cfi_offset 14, -4
+ 581 0002 0446     		mov	r4, r0
   52:User/PRESSURESOURCE.cpp **** 	pressureUpper=p_high;
- 494              		.loc 1 52 2 is_stmt 1 view .LVU91
+ 582              		.loc 1 52 2 is_stmt 1 view .LVU109
   52:User/PRESSURESOURCE.cpp **** 	pressureUpper=p_high;
- 495              		.loc 1 52 15 is_stmt 0 view .LVU92
- 496 0004 C162     		str	r1, [r0, #44]
+ 583              		.loc 1 52 15 is_stmt 0 view .LVU110
+ 584 0004 C162     		str	r1, [r0, #44]
   53:User/PRESSURESOURCE.cpp **** 	readPressure();
- 497              		.loc 1 53 2 is_stmt 1 view .LVU93
-  53:User/PRESSURESOURCE.cpp **** 	readPressure();
- 498              		.loc 1 53 15 is_stmt 0 view .LVU94
- 499 0006 0263     		str	r2, [r0, #48]
-  54:User/PRESSURESOURCE.cpp **** 	if(sourceType==LOW_PRESSURE_SINK){
- 500              		.loc 1 54 2 is_stmt 1 view .LVU95
-ARM GAS  /tmp/ccAzMsOE.s 			page 12
+ 585              		.loc 1 53 2 is_stmt 1 view .LVU111
+ARM GAS  /tmp/ccl2W3rp.s 			page 14
 
 
+  53:User/PRESSURESOURCE.cpp **** 	readPressure();
+ 586              		.loc 1 53 15 is_stmt 0 view .LVU112
+ 587 0006 0263     		str	r2, [r0, #48]
   54:User/PRESSURESOURCE.cpp **** 	if(sourceType==LOW_PRESSURE_SINK){
- 501              		.loc 1 54 14 is_stmt 0 view .LVU96
- 502 0008 FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE12readPressureEv
- 503              	.LVL39:
+ 588              		.loc 1 54 2 is_stmt 1 view .LVU113
+  54:User/PRESSURESOURCE.cpp **** 	if(sourceType==LOW_PRESSURE_SINK){
+ 589              		.loc 1 54 14 is_stmt 0 view .LVU114
+ 590 0008 FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE12readPressureEv
+ 591              	.LVL47:
   55:User/PRESSURESOURCE.cpp **** 		if(pressure<pressureLower)
- 504              		.loc 1 55 2 is_stmt 1 view .LVU97
+ 592              		.loc 1 55 2 is_stmt 1 view .LVU115
   55:User/PRESSURESOURCE.cpp **** 		if(pressure<pressureLower)
- 505              		.loc 1 55 5 is_stmt 0 view .LVU98
- 506 000c 2368     		ldr	r3, [r4]
+ 593              		.loc 1 55 5 is_stmt 0 view .LVU116
+ 594 000c 2368     		ldr	r3, [r4]
   55:User/PRESSURESOURCE.cpp **** 		if(pressure<pressureLower)
- 507              		.loc 1 55 2 view .LVU99
- 508 000e 012B     		cmp	r3, #1
- 509 0010 0ED0     		beq	.L29
+ 595              		.loc 1 55 2 view .LVU117
+ 596 000e 012B     		cmp	r3, #1
+ 597 0010 0ED0     		beq	.L37
   67:User/PRESSURESOURCE.cpp **** 		if(pressure<pressureLower)
- 510              		.loc 1 67 7 is_stmt 1 view .LVU100
- 511 0012 A3B9     		cbnz	r3, .L23
+ 598              		.loc 1 67 7 is_stmt 1 view .LVU118
+ 599 0012 A3B9     		cbnz	r3, .L31
   68:User/PRESSURESOURCE.cpp **** 		{
- 512              		.loc 1 68 3 view .LVU101
+ 600              		.loc 1 68 3 view .LVU119
   68:User/PRESSURESOURCE.cpp **** 		{
- 513              		.loc 1 68 6 is_stmt 0 view .LVU102
- 514 0014 A36A     		ldr	r3, [r4, #40]
+ 601              		.loc 1 68 6 is_stmt 0 view .LVU120
+ 602 0014 A36A     		ldr	r3, [r4, #40]
   68:User/PRESSURESOURCE.cpp **** 		{
- 515              		.loc 1 68 15 view .LVU103
- 516 0016 E26A     		ldr	r2, [r4, #44]
+ 603              		.loc 1 68 15 view .LVU121
+ 604 0016 E26A     		ldr	r2, [r4, #44]
   68:User/PRESSURESOURCE.cpp **** 		{
- 517              		.loc 1 68 3 view .LVU104
- 518 0018 9342     		cmp	r3, r2
- 519 001a 1FDB     		blt	.L30
+ 605              		.loc 1 68 3 view .LVU122
+ 606 0018 9342     		cmp	r3, r2
+ 607 001a 1FDB     		blt	.L38
   73:User/PRESSURESOURCE.cpp **** 		{
- 520              		.loc 1 73 8 is_stmt 1 view .LVU105
+ 608              		.loc 1 73 8 is_stmt 1 view .LVU123
   73:User/PRESSURESOURCE.cpp **** 		{
- 521              		.loc 1 73 20 is_stmt 0 view .LVU106
- 522 001c 226B     		ldr	r2, [r4, #48]
+ 609              		.loc 1 73 20 is_stmt 0 view .LVU124
+ 610 001c 226B     		ldr	r2, [r4, #48]
   73:User/PRESSURESOURCE.cpp **** 		{
- 523              		.loc 1 73 8 view .LVU107
- 524 001e 9342     		cmp	r3, r2
- 525 0020 0DDD     		ble	.L23
+ 611              		.loc 1 73 8 view .LVU125
+ 612 001e 9342     		cmp	r3, r2
+ 613 0020 0DDD     		ble	.L31
   75:User/PRESSURESOURCE.cpp **** 			closeValve();
- 526              		.loc 1 75 4 is_stmt 1 view .LVU108
+ 614              		.loc 1 75 4 is_stmt 1 view .LVU126
   75:User/PRESSURESOURCE.cpp **** 			closeValve();
- 527              		.loc 1 75 12 is_stmt 0 view .LVU109
- 528 0022 2046     		mov	r0, r4
- 529 0024 FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE8stopPumpEv
- 530              	.LVL40:
+ 615              		.loc 1 75 12 is_stmt 0 view .LVU127
+ 616 0022 2046     		mov	r0, r4
+ 617 0024 FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE8stopPumpEv
+ 618              	.LVL48:
   76:User/PRESSURESOURCE.cpp **** 		}
- 531              		.loc 1 76 4 is_stmt 1 view .LVU110
+ 619              		.loc 1 76 4 is_stmt 1 view .LVU128
   76:User/PRESSURESOURCE.cpp **** 		}
- 532              		.loc 1 76 14 is_stmt 0 view .LVU111
- 533 0028 2046     		mov	r0, r4
- 534 002a FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE10closeValveEv
- 535              	.LVL41:
+ 620              		.loc 1 76 14 is_stmt 0 view .LVU129
+ 621 0028 2046     		mov	r0, r4
+ 622 002a FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE10closeValveEv
+ 623              	.LVL49:
   80:User/PRESSURESOURCE.cpp **** 
- 536              		.loc 1 80 1 view .LVU112
- 537 002e 06E0     		b	.L23
- 538              	.L29:
-  56:User/PRESSURESOURCE.cpp **** 		{
- 539              		.loc 1 56 3 is_stmt 1 view .LVU113
-ARM GAS  /tmp/ccAzMsOE.s 			page 13
+ARM GAS  /tmp/ccl2W3rp.s 			page 15
 
 
+ 624              		.loc 1 80 1 view .LVU130
+ 625 002e 06E0     		b	.L31
+ 626              	.L37:
   56:User/PRESSURESOURCE.cpp **** 		{
- 540              		.loc 1 56 6 is_stmt 0 view .LVU114
- 541 0030 A36A     		ldr	r3, [r4, #40]
+ 627              		.loc 1 56 3 is_stmt 1 view .LVU131
   56:User/PRESSURESOURCE.cpp **** 		{
- 542              		.loc 1 56 15 view .LVU115
- 543 0032 E26A     		ldr	r2, [r4, #44]
+ 628              		.loc 1 56 6 is_stmt 0 view .LVU132
+ 629 0030 A36A     		ldr	r3, [r4, #40]
   56:User/PRESSURESOURCE.cpp **** 		{
- 544              		.loc 1 56 3 view .LVU116
- 545 0034 9342     		cmp	r3, r2
- 546 0036 03DB     		blt	.L31
+ 630              		.loc 1 56 15 view .LVU133
+ 631 0032 E26A     		ldr	r2, [r4, #44]
+  56:User/PRESSURESOURCE.cpp **** 		{
+ 632              		.loc 1 56 3 view .LVU134
+ 633 0034 9342     		cmp	r3, r2
+ 634 0036 03DB     		blt	.L39
   61:User/PRESSURESOURCE.cpp **** 		{
- 547              		.loc 1 61 8 is_stmt 1 view .LVU117
+ 635              		.loc 1 61 8 is_stmt 1 view .LVU135
   61:User/PRESSURESOURCE.cpp **** 		{
- 548              		.loc 1 61 20 is_stmt 0 view .LVU118
- 549 0038 226B     		ldr	r2, [r4, #48]
+ 636              		.loc 1 61 20 is_stmt 0 view .LVU136
+ 637 0038 226B     		ldr	r2, [r4, #48]
   61:User/PRESSURESOURCE.cpp **** 		{
- 550              		.loc 1 61 8 view .LVU119
- 551 003a 9342     		cmp	r3, r2
- 552 003c 07DC     		bgt	.L32
- 553              	.L23:
+ 638              		.loc 1 61 8 view .LVU137
+ 639 003a 9342     		cmp	r3, r2
+ 640 003c 07DC     		bgt	.L40
+ 641              	.L31:
   80:User/PRESSURESOURCE.cpp **** 
- 554              		.loc 1 80 1 view .LVU120
- 555 003e 10BD     		pop	{r4, pc}
- 556              	.LVL42:
- 557              	.L31:
+ 642              		.loc 1 80 1 view .LVU138
+ 643 003e 10BD     		pop	{r4, pc}
+ 644              	.LVL50:
+ 645              	.L39:
   58:User/PRESSURESOURCE.cpp **** 			closeValve();
- 558              		.loc 1 58 4 is_stmt 1 view .LVU121
+ 646              		.loc 1 58 4 is_stmt 1 view .LVU139
   58:User/PRESSURESOURCE.cpp **** 			closeValve();
- 559              		.loc 1 58 12 is_stmt 0 view .LVU122
- 560 0040 2046     		mov	r0, r4
- 561 0042 FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE8stopPumpEv
- 562              	.LVL43:
+ 647              		.loc 1 58 12 is_stmt 0 view .LVU140
+ 648 0040 2046     		mov	r0, r4
+ 649 0042 FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE8stopPumpEv
+ 650              	.LVL51:
   59:User/PRESSURESOURCE.cpp **** 		}
- 563              		.loc 1 59 4 is_stmt 1 view .LVU123
+ 651              		.loc 1 59 4 is_stmt 1 view .LVU141
   59:User/PRESSURESOURCE.cpp **** 		}
- 564              		.loc 1 59 14 is_stmt 0 view .LVU124
- 565 0046 2046     		mov	r0, r4
- 566 0048 FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE10closeValveEv
- 567              	.LVL44:
- 568 004c F7E7     		b	.L23
- 569              	.L32:
+ 652              		.loc 1 59 14 is_stmt 0 view .LVU142
+ 653 0046 2046     		mov	r0, r4
+ 654 0048 FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE10closeValveEv
+ 655              	.LVL52:
+ 656 004c F7E7     		b	.L31
+ 657              	.L40:
   63:User/PRESSURESOURCE.cpp **** 			startPump();
- 570              		.loc 1 63 4 is_stmt 1 view .LVU125
+ 658              		.loc 1 63 4 is_stmt 1 view .LVU143
   63:User/PRESSURESOURCE.cpp **** 			startPump();
- 571              		.loc 1 63 13 is_stmt 0 view .LVU126
- 572 004e 2046     		mov	r0, r4
- 573 0050 FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE9openValveEv
- 574              	.LVL45:
+ 659              		.loc 1 63 13 is_stmt 0 view .LVU144
+ 660 004e 2046     		mov	r0, r4
+ 661 0050 FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE9openValveEv
+ 662              	.LVL53:
   64:User/PRESSURESOURCE.cpp **** 		}
- 575              		.loc 1 64 4 is_stmt 1 view .LVU127
+ 663              		.loc 1 64 4 is_stmt 1 view .LVU145
   64:User/PRESSURESOURCE.cpp **** 		}
- 576              		.loc 1 64 13 is_stmt 0 view .LVU128
- 577 0054 2046     		mov	r0, r4
- 578 0056 FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE9startPumpEv
- 579              	.LVL46:
- 580 005a F0E7     		b	.L23
- 581              	.L30:
-ARM GAS  /tmp/ccAzMsOE.s 			page 14
+ 664              		.loc 1 64 13 is_stmt 0 view .LVU146
+ARM GAS  /tmp/ccl2W3rp.s 			page 16
 
 
+ 665 0054 2046     		mov	r0, r4
+ 666 0056 FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE9startPumpEv
+ 667              	.LVL54:
+ 668 005a F0E7     		b	.L31
+ 669              	.L38:
   70:User/PRESSURESOURCE.cpp **** 			startPump();
- 582              		.loc 1 70 4 is_stmt 1 view .LVU129
+ 670              		.loc 1 70 4 is_stmt 1 view .LVU147
   70:User/PRESSURESOURCE.cpp **** 			startPump();
- 583              		.loc 1 70 13 is_stmt 0 view .LVU130
- 584 005c 2046     		mov	r0, r4
- 585 005e FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE9openValveEv
- 586              	.LVL47:
+ 671              		.loc 1 70 13 is_stmt 0 view .LVU148
+ 672 005c 2046     		mov	r0, r4
+ 673 005e FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE9openValveEv
+ 674              	.LVL55:
   71:User/PRESSURESOURCE.cpp **** 		}
- 587              		.loc 1 71 4 is_stmt 1 view .LVU131
+ 675              		.loc 1 71 4 is_stmt 1 view .LVU149
   71:User/PRESSURESOURCE.cpp **** 		}
- 588              		.loc 1 71 13 is_stmt 0 view .LVU132
- 589 0062 2046     		mov	r0, r4
- 590 0064 FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE9startPumpEv
- 591              	.LVL48:
- 592 0068 E9E7     		b	.L23
- 593              		.cfi_endproc
- 594              	.LFE9:
- 595              		.fnend
- 597              		.section	.text._ZN15PRESSURE_SOURCE16maintainPressureEl,"ax",%progbits
- 598              		.align	1
- 599              		.global	_ZN15PRESSURE_SOURCE16maintainPressureEl
- 600              		.syntax unified
- 601              		.thumb
- 602              		.thumb_func
- 603              		.fpu softvfp
- 605              	_ZN15PRESSURE_SOURCE16maintainPressureEl:
- 606              		.fnstart
- 607              	.LVL49:
- 608              	.LFB8:
+ 676              		.loc 1 71 13 is_stmt 0 view .LVU150
+ 677 0062 2046     		mov	r0, r4
+ 678 0064 FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE9startPumpEv
+ 679              	.LVL56:
+ 680 0068 E9E7     		b	.L31
+ 681              		.cfi_endproc
+ 682              	.LFE9:
+ 683              		.fnend
+ 685              		.section	.text._ZN15PRESSURE_SOURCE16maintainPressureEl,"ax",%progbits
+ 686              		.align	1
+ 687              		.global	_ZN15PRESSURE_SOURCE16maintainPressureEl
+ 688              		.syntax unified
+ 689              		.thumb
+ 690              		.thumb_func
+ 691              		.fpu softvfp
+ 693              	_ZN15PRESSURE_SOURCE16maintainPressureEl:
+ 694              		.fnstart
+ 695              	.LVL57:
+ 696              	.LFB8:
   42:User/PRESSURESOURCE.cpp **** 	if(sourceType==LOW_PRESSURE_SINK){
- 609              		.loc 1 42 60 is_stmt 1 view -0
- 610              		.cfi_startproc
- 611              		@ args = 0, pretend = 0, frame = 0
- 612              		@ frame_needed = 0, uses_anonymous_args = 0
+ 697              		.loc 1 42 60 is_stmt 1 view -0
+ 698              		.cfi_startproc
+ 699              		@ args = 0, pretend = 0, frame = 0
+ 700              		@ frame_needed = 0, uses_anonymous_args = 0
   42:User/PRESSURESOURCE.cpp **** 	if(sourceType==LOW_PRESSURE_SINK){
- 613              		.loc 1 42 60 is_stmt 0 view .LVU134
- 614 0000 08B5     		push	{r3, lr}
- 615              		.save {r3, lr}
- 616              	.LCFI11:
- 617              		.cfi_def_cfa_offset 8
- 618              		.cfi_offset 3, -8
- 619              		.cfi_offset 14, -4
+ 701              		.loc 1 42 60 is_stmt 0 view .LVU152
+ 702 0000 08B5     		push	{r3, lr}
+ 703              		.save {r3, lr}
+ 704              	.LCFI13:
+ 705              		.cfi_def_cfa_offset 8
+ 706              		.cfi_offset 3, -8
+ 707              		.cfi_offset 14, -4
   43:User/PRESSURESOURCE.cpp **** 		maintainPressure(pressurelim,pressurelim+10);
- 620              		.loc 1 43 2 is_stmt 1 view .LVU135
+ 708              		.loc 1 43 2 is_stmt 1 view .LVU153
   43:User/PRESSURESOURCE.cpp **** 		maintainPressure(pressurelim,pressurelim+10);
- 621              		.loc 1 43 5 is_stmt 0 view .LVU136
- 622 0002 0368     		ldr	r3, [r0]
+ 709              		.loc 1 43 5 is_stmt 0 view .LVU154
+ 710 0002 0368     		ldr	r3, [r0]
   43:User/PRESSURESOURCE.cpp **** 		maintainPressure(pressurelim,pressurelim+10);
- 623              		.loc 1 43 2 view .LVU137
- 624 0004 012B     		cmp	r3, #1
- 625 0006 01D0     		beq	.L37
+ 711              		.loc 1 43 2 view .LVU155
+ 712 0004 012B     		cmp	r3, #1
+ 713 0006 01D0     		beq	.L45
   46:User/PRESSURESOURCE.cpp **** 		maintainPressure(pressurelim-10,pressurelim);
- 626              		.loc 1 46 7 is_stmt 1 view .LVU138
- 627 0008 2BB1     		cbz	r3, .L38
- 628              	.LVL50:
- 629              	.L33:
-  49:User/PRESSURESOURCE.cpp **** void PRESSURE_SOURCE::maintainPressure(int32_t p_low,int32_t p_high) {
-ARM GAS  /tmp/ccAzMsOE.s 			page 15
+ARM GAS  /tmp/ccl2W3rp.s 			page 17
 
 
- 630              		.loc 1 49 1 is_stmt 0 view .LVU139
- 631 000a 08BD     		pop	{r3, pc}
- 632              	.LVL51:
- 633              	.L37:
-  44:User/PRESSURESOURCE.cpp **** 	}
- 634              		.loc 1 44 3 is_stmt 1 view .LVU140
-  44:User/PRESSURESOURCE.cpp **** 	}
- 635              		.loc 1 44 19 is_stmt 0 view .LVU141
- 636 000c 01F10A02 		add	r2, r1, #10
- 637 0010 FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE16maintainPressureEll
- 638              	.LVL52:
-  44:User/PRESSURESOURCE.cpp **** 	}
- 639              		.loc 1 44 19 view .LVU142
- 640 0014 F9E7     		b	.L33
- 641              	.LVL53:
- 642              	.L38:
-  47:User/PRESSURESOURCE.cpp **** 	}
- 643              		.loc 1 47 3 is_stmt 1 view .LVU143
-  47:User/PRESSURESOURCE.cpp **** 	}
- 644              		.loc 1 47 19 is_stmt 0 view .LVU144
- 645 0016 0A46     		mov	r2, r1
- 646 0018 0A39     		subs	r1, r1, #10
- 647              	.LVL54:
-  47:User/PRESSURESOURCE.cpp **** 	}
- 648              		.loc 1 47 19 view .LVU145
- 649 001a FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE16maintainPressureEll
- 650              	.LVL55:
+ 714              		.loc 1 46 7 is_stmt 1 view .LVU156
+ 715 0008 2BB1     		cbz	r3, .L46
+ 716              	.LVL58:
+ 717              	.L41:
   49:User/PRESSURESOURCE.cpp **** void PRESSURE_SOURCE::maintainPressure(int32_t p_low,int32_t p_high) {
- 651              		.loc 1 49 1 view .LVU146
- 652 001e F4E7     		b	.L33
- 653              		.cfi_endproc
- 654              	.LFE8:
- 655              		.fnend
- 657              		.text
- 658              	.Letext0:
- 659              		.file 2 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-n
- 660              		.file 3 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-n
- 661              		.file 4 "User/Inc/PUMP.h"
- 662              		.file 5 "User/Inc/PRESSURESENSOR.h"
- 663              		.file 6 "User/Inc/SOLENOIDVALVE.h"
- 664              		.file 7 "User/Inc/PRESSURESOURCE.h"
-ARM GAS  /tmp/ccAzMsOE.s 			page 16
+ 718              		.loc 1 49 1 is_stmt 0 view .LVU157
+ 719 000a 08BD     		pop	{r3, pc}
+ 720              	.LVL59:
+ 721              	.L45:
+  44:User/PRESSURESOURCE.cpp **** 	}
+ 722              		.loc 1 44 3 is_stmt 1 view .LVU158
+  44:User/PRESSURESOURCE.cpp **** 	}
+ 723              		.loc 1 44 19 is_stmt 0 view .LVU159
+ 724 000c 01F10A02 		add	r2, r1, #10
+ 725 0010 FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE16maintainPressureEll
+ 726              	.LVL60:
+  44:User/PRESSURESOURCE.cpp **** 	}
+ 727              		.loc 1 44 19 view .LVU160
+ 728 0014 F9E7     		b	.L41
+ 729              	.LVL61:
+ 730              	.L46:
+  47:User/PRESSURESOURCE.cpp **** 	}
+ 731              		.loc 1 47 3 is_stmt 1 view .LVU161
+  47:User/PRESSURESOURCE.cpp **** 	}
+ 732              		.loc 1 47 19 is_stmt 0 view .LVU162
+ 733 0016 0A46     		mov	r2, r1
+ 734 0018 0A39     		subs	r1, r1, #10
+ 735              	.LVL62:
+  47:User/PRESSURESOURCE.cpp **** 	}
+ 736              		.loc 1 47 19 view .LVU163
+ 737 001a FFF7FEFF 		bl	_ZN15PRESSURE_SOURCE16maintainPressureEll
+ 738              	.LVL63:
+  49:User/PRESSURESOURCE.cpp **** void PRESSURE_SOURCE::maintainPressure(int32_t p_low,int32_t p_high) {
+ 739              		.loc 1 49 1 view .LVU164
+ 740 001e F4E7     		b	.L41
+ 741              		.cfi_endproc
+ 742              	.LFE8:
+ 743              		.fnend
+ 745              		.text
+ 746              	.Letext0:
+ 747              		.file 2 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-n
+ 748              		.file 3 "/home/softarm/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-n
+ 749              		.file 4 "User/Inc/PUMP.h"
+ 750              		.file 5 "User/Inc/PRESSURESENSOR.h"
+ 751              		.file 6 "User/Inc/SOLENOIDVALVE.h"
+ 752              		.file 7 "User/Inc/PRESSURESOURCE.h"
+ARM GAS  /tmp/ccl2W3rp.s 			page 18
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 PRESSURESOURCE.cpp
-     /tmp/ccAzMsOE.s:16     .text._ZN15PRESSURE_SOURCE10attachPumpEh:0000000000000000 $t
-     /tmp/ccAzMsOE.s:24     .text._ZN15PRESSURE_SOURCE10attachPumpEh:0000000000000000 _ZN15PRESSURE_SOURCE10attachPumpEh
+     /tmp/ccl2W3rp.s:16     .text._ZN15PRESSURE_SOURCE10attachPumpEh:0000000000000000 $t
+     /tmp/ccl2W3rp.s:24     .text._ZN15PRESSURE_SOURCE10attachPumpEh:0000000000000000 _ZN15PRESSURE_SOURCE10attachPumpEh
 .ARM.extab.text._ZN15PRESSURE_SOURCE10attachPumpEh:0000000000000000 $d
 .ARM.exidx.text._ZN15PRESSURE_SOURCE10attachPumpEh:0000000000000000 $d
-     /tmp/ccAzMsOE.s:54     .text._ZN15PRESSURE_SOURCE12attachSensorEh:0000000000000000 $t
-     /tmp/ccAzMsOE.s:61     .text._ZN15PRESSURE_SOURCE12attachSensorEh:0000000000000000 _ZN15PRESSURE_SOURCE12attachSensorEh
+     /tmp/ccl2W3rp.s:54     .text._ZN15PRESSURE_SOURCE12attachSensorEh:0000000000000000 $t
+     /tmp/ccl2W3rp.s:61     .text._ZN15PRESSURE_SOURCE12attachSensorEh:0000000000000000 _ZN15PRESSURE_SOURCE12attachSensorEh
 .ARM.extab.text._ZN15PRESSURE_SOURCE12attachSensorEh:0000000000000000 $d
 .ARM.exidx.text._ZN15PRESSURE_SOURCE12attachSensorEh:0000000000000000 $d
-     /tmp/ccAzMsOE.s:90     .text._ZN15PRESSURE_SOURCE11attachValveEh:0000000000000000 $t
-     /tmp/ccAzMsOE.s:97     .text._ZN15PRESSURE_SOURCE11attachValveEh:0000000000000000 _ZN15PRESSURE_SOURCE11attachValveEh
+     /tmp/ccl2W3rp.s:90     .text._ZN15PRESSURE_SOURCE11attachValveEh:0000000000000000 $t
+     /tmp/ccl2W3rp.s:97     .text._ZN15PRESSURE_SOURCE11attachValveEh:0000000000000000 _ZN15PRESSURE_SOURCE11attachValveEh
 .ARM.extab.text._ZN15PRESSURE_SOURCE11attachValveEh:0000000000000000 $d
 .ARM.exidx.text._ZN15PRESSURE_SOURCE11attachValveEh:0000000000000000 $d
-     /tmp/ccAzMsOE.s:126    .text._ZN15PRESSURE_SOURCE6attachEhhh:0000000000000000 $t
-     /tmp/ccAzMsOE.s:133    .text._ZN15PRESSURE_SOURCE6attachEhhh:0000000000000000 _ZN15PRESSURE_SOURCE6attachEhhh
+     /tmp/ccl2W3rp.s:126    .text._ZN15PRESSURE_SOURCE6attachEhhh:0000000000000000 $t
+     /tmp/ccl2W3rp.s:133    .text._ZN15PRESSURE_SOURCE6attachEhhh:0000000000000000 _ZN15PRESSURE_SOURCE6attachEhhh
 .ARM.exidx.text._ZN15PRESSURE_SOURCE6attachEhhh:0000000000000000 $d
-     /tmp/ccAzMsOE.s:177    .text._ZN15PRESSURE_SOURCEC2Ehhhh:0000000000000000 $t
-     /tmp/ccAzMsOE.s:184    .text._ZN15PRESSURE_SOURCEC2Ehhhh:0000000000000000 _ZN15PRESSURE_SOURCEC2Ehhhh
+     /tmp/ccl2W3rp.s:177    .text._ZN15PRESSURE_SOURCEC2Ehhhh:0000000000000000 $t
+     /tmp/ccl2W3rp.s:184    .text._ZN15PRESSURE_SOURCEC2Ehhhh:0000000000000000 _ZN15PRESSURE_SOURCEC2Ehhhh
 .ARM.exidx.text._ZN15PRESSURE_SOURCEC2Ehhhh:0000000000000000 $d
-     /tmp/ccAzMsOE.s:184    .text._ZN15PRESSURE_SOURCEC2Ehhhh:0000000000000000 _ZN15PRESSURE_SOURCEC1Ehhhh
-     /tmp/ccAzMsOE.s:269    .text._ZN15PRESSURE_SOURCE8stopPumpEv:0000000000000000 $t
-     /tmp/ccAzMsOE.s:276    .text._ZN15PRESSURE_SOURCE8stopPumpEv:0000000000000000 _ZN15PRESSURE_SOURCE8stopPumpEv
+     /tmp/ccl2W3rp.s:184    .text._ZN15PRESSURE_SOURCEC2Ehhhh:0000000000000000 _ZN15PRESSURE_SOURCEC1Ehhhh
+     /tmp/ccl2W3rp.s:269    .text._ZN15PRESSURE_SOURCE8stopPumpEv:0000000000000000 $t
+     /tmp/ccl2W3rp.s:276    .text._ZN15PRESSURE_SOURCE8stopPumpEv:0000000000000000 _ZN15PRESSURE_SOURCE8stopPumpEv
 .ARM.extab.text._ZN15PRESSURE_SOURCE8stopPumpEv:0000000000000000 $d
 .ARM.exidx.text._ZN15PRESSURE_SOURCE8stopPumpEv:0000000000000000 $d
-     /tmp/ccAzMsOE.s:305    .text._ZN15PRESSURE_SOURCE9startPumpEv:0000000000000000 $t
-     /tmp/ccAzMsOE.s:312    .text._ZN15PRESSURE_SOURCE9startPumpEv:0000000000000000 _ZN15PRESSURE_SOURCE9startPumpEv
+     /tmp/ccl2W3rp.s:305    .text._ZN15PRESSURE_SOURCE9startPumpEv:0000000000000000 $t
+     /tmp/ccl2W3rp.s:312    .text._ZN15PRESSURE_SOURCE9startPumpEv:0000000000000000 _ZN15PRESSURE_SOURCE9startPumpEv
 .ARM.extab.text._ZN15PRESSURE_SOURCE9startPumpEv:0000000000000000 $d
 .ARM.exidx.text._ZN15PRESSURE_SOURCE9startPumpEv:0000000000000000 $d
-     /tmp/ccAzMsOE.s:341    .text._ZN15PRESSURE_SOURCE9openValveEv:0000000000000000 $t
-     /tmp/ccAzMsOE.s:348    .text._ZN15PRESSURE_SOURCE9openValveEv:0000000000000000 _ZN15PRESSURE_SOURCE9openValveEv
+     /tmp/ccl2W3rp.s:341    .text._ZN15PRESSURE_SOURCE7setPumpEi:0000000000000000 $t
+     /tmp/ccl2W3rp.s:348    .text._ZN15PRESSURE_SOURCE7setPumpEi:0000000000000000 _ZN15PRESSURE_SOURCE7setPumpEi
+.ARM.extab.text._ZN15PRESSURE_SOURCE7setPumpEi:0000000000000000 $d
+.ARM.exidx.text._ZN15PRESSURE_SOURCE7setPumpEi:0000000000000000 $d
+     /tmp/ccl2W3rp.s:385    .text._ZN15PRESSURE_SOURCE9openValveEv:0000000000000000 $t
+     /tmp/ccl2W3rp.s:392    .text._ZN15PRESSURE_SOURCE9openValveEv:0000000000000000 _ZN15PRESSURE_SOURCE9openValveEv
 .ARM.extab.text._ZN15PRESSURE_SOURCE9openValveEv:0000000000000000 $d
 .ARM.exidx.text._ZN15PRESSURE_SOURCE9openValveEv:0000000000000000 $d
-     /tmp/ccAzMsOE.s:378    .text._ZN15PRESSURE_SOURCE10closeValveEv:0000000000000000 $t
-     /tmp/ccAzMsOE.s:385    .text._ZN15PRESSURE_SOURCE10closeValveEv:0000000000000000 _ZN15PRESSURE_SOURCE10closeValveEv
+     /tmp/ccl2W3rp.s:422    .text._ZN15PRESSURE_SOURCE10closeValveEv:0000000000000000 $t
+     /tmp/ccl2W3rp.s:429    .text._ZN15PRESSURE_SOURCE10closeValveEv:0000000000000000 _ZN15PRESSURE_SOURCE10closeValveEv
 .ARM.extab.text._ZN15PRESSURE_SOURCE10closeValveEv:0000000000000000 $d
 .ARM.exidx.text._ZN15PRESSURE_SOURCE10closeValveEv:0000000000000000 $d
-     /tmp/ccAzMsOE.s:415    .text._ZN15PRESSURE_SOURCE12readPressureEv:0000000000000000 $t
-     /tmp/ccAzMsOE.s:422    .text._ZN15PRESSURE_SOURCE12readPressureEv:0000000000000000 _ZN15PRESSURE_SOURCE12readPressureEv
+     /tmp/ccl2W3rp.s:459    .text._ZN15PRESSURE_SOURCE8setValveEi:0000000000000000 $t
+     /tmp/ccl2W3rp.s:466    .text._ZN15PRESSURE_SOURCE8setValveEi:0000000000000000 _ZN15PRESSURE_SOURCE8setValveEi
+.ARM.extab.text._ZN15PRESSURE_SOURCE8setValveEi:0000000000000000 $d
+.ARM.exidx.text._ZN15PRESSURE_SOURCE8setValveEi:0000000000000000 $d
+     /tmp/ccl2W3rp.s:503    .text._ZN15PRESSURE_SOURCE12readPressureEv:0000000000000000 $t
+     /tmp/ccl2W3rp.s:510    .text._ZN15PRESSURE_SOURCE12readPressureEv:0000000000000000 _ZN15PRESSURE_SOURCE12readPressureEv
 .ARM.exidx.text._ZN15PRESSURE_SOURCE12readPressureEv:0000000000000000 $d
-     /tmp/ccAzMsOE.s:471    .text._ZN15PRESSURE_SOURCE16maintainPressureEll:0000000000000000 $t
-     /tmp/ccAzMsOE.s:478    .text._ZN15PRESSURE_SOURCE16maintainPressureEll:0000000000000000 _ZN15PRESSURE_SOURCE16maintainPressureEll
+     /tmp/ccl2W3rp.s:559    .text._ZN15PRESSURE_SOURCE16maintainPressureEll:0000000000000000 $t
+     /tmp/ccl2W3rp.s:566    .text._ZN15PRESSURE_SOURCE16maintainPressureEll:0000000000000000 _ZN15PRESSURE_SOURCE16maintainPressureEll
 .ARM.exidx.text._ZN15PRESSURE_SOURCE16maintainPressureEll:0000000000000000 $d
-     /tmp/ccAzMsOE.s:598    .text._ZN15PRESSURE_SOURCE16maintainPressureEl:0000000000000000 $t
-     /tmp/ccAzMsOE.s:605    .text._ZN15PRESSURE_SOURCE16maintainPressureEl:0000000000000000 _ZN15PRESSURE_SOURCE16maintainPressureEl
+     /tmp/ccl2W3rp.s:686    .text._ZN15PRESSURE_SOURCE16maintainPressureEl:0000000000000000 $t
+     /tmp/ccl2W3rp.s:693    .text._ZN15PRESSURE_SOURCE16maintainPressureEl:0000000000000000 _ZN15PRESSURE_SOURCE16maintainPressureEl
 .ARM.extab.text._ZN15PRESSURE_SOURCE16maintainPressureEl:0000000000000000 $d
 .ARM.exidx.text._ZN15PRESSURE_SOURCE16maintainPressureEl:0000000000000000 $d
 
 UNDEFINED SYMBOLS
+ARM GAS  /tmp/ccl2W3rp.s 			page 19
+
+
 _ZN4PUMP6attachEh
 __aeabi_unwind_cpp_pr1
 _ZN15PRESSURE_SENSOR6attachEh
@@ -942,9 +1078,6 @@ __aeabi_unwind_cpp_pr0
 _ZN4PUMPC1Eh
 _ZN14SOLENOID_VALVEC1Eh
 _ZN15PRESSURE_SENSORC1Eh
-ARM GAS  /tmp/ccAzMsOE.s 			page 17
-
-
 _ZN14SOLENOID_VALVE9writeDutyEs
 _ZN4PUMP4stopEv
 _ZN4PUMP5startEv
