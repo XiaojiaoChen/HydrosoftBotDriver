@@ -18,10 +18,13 @@ float AnalogRead(uint16_t num);
 
 void DigitalWrite(uint16_t num, uint16_t state);
 
+void PWMWriteFlush();
+
 void PWMWriteDuty(uint16_t num, float duty);
 
 void PWMWriteFrequency(uint16_t num, float fre);
 
+void PWMTest();
 //uint32_t millis();
 //uint32_t micros();
 //void delay_us(int32_t t);

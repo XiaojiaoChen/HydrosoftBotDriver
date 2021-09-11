@@ -11,8 +11,9 @@
 
 static int16_t adRawData=0;
 float adVoltage=0;
+static uint8_t PWMDutyBuffer[LED_CHANNEL_NUM];
 
-
+static int isDirtyPWM=0;
 float AnalogRead(uint16_t num)
 {
 	adRawData = ADS1115_Read(num);
@@ -26,11 +27,22 @@ void DigitalWrite(uint16_t num, uint16_t state)
 
 }
 
+void PWMWriteFlush(){
+	if(isDirtyPWM){
+		LED_Driver_SetPWM_Multi(0, LED_CHANNEL_NUM, PWMDutyBuffer);
+		isDirtyPWM=0;
+	}
+}
+
 void PWMWriteDuty(uint16_t num, float fduty)
 {
 	fduty = fduty<0 ? 0 : ( fduty>1?1:fduty);
 	uint8_t cycleduty = fduty*255;
-	LED_Driver_SetPWM_One(num,cycleduty);
+
+	/*Buffer pwm duty commands, needs to call  PWMWriteFlush() later*/
+	PWMDutyBuffer[num]=cycleduty;
+	isDirtyPWM=1;
+	//LED_Driver_SetPWM_One(num,cycleduty);
 
 }
 
@@ -40,6 +52,19 @@ void PWMWriteFrequency(uint16_t num, float fre)
 }
 
 
+void PWMTest()
+{
+	for(int i=0;i<LED_CHANNEL_NUM;i++){
+		PWMWriteDuty(i, (i*1.0f)/LED_CHANNEL_NUM);
+	}
+	PWMWriteFlush();
+
+	for(int i=0;i<LED_CHANNEL_NUM;i++){
+		PWMWriteDuty(i, (i*1.0f)/LED_CHANNEL_NUM);
+	}
+	uint8_t dutyCycles[LED_CHANNEL_NUM];
+	LED_Driver_GetPWM_Multi(0, LED_CHANNEL_NUM, dutyCycles);
+}
 
 
 

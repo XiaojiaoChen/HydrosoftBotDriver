@@ -79,7 +79,7 @@ int main(void)
   /* MCU Configuration--------------------------------------------------------*/
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
-  HAL_Init();
+   HAL_Init();
 
   /* USER CODE BEGIN Init */
 
@@ -101,13 +101,8 @@ int main(void)
   MX_DMA_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-  AFIO->EXTICR[3]	|= AFIO_EXTICR4_EXTI15_PA;				//Select the source input for EXTI interrupt
-
-  	EXTI->IMR		|= EXTI_IMR_MR15;						//EXTI line 15 is selected
-  	EXTI->FTSR		|= EXTI_FTSR_TR15;						//Falling edge trigger the interrupt
-
-  	NVIC_EnableIRQ(EXTI15_10_IRQn);
   setup();
+
   /* USER CODE END 2 */
 
   /* Call init function for freertos objects (in freertos.c) */

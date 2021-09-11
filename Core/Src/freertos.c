@@ -27,6 +27,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "myMain.h"
+#include "HydroDriveLL.h"
 int32_t globalSensorTaskPeriod = 10;      //10 ms period for loop()  (100Hz)
 int32_t globalCommunicationTaskPeriod = 5;     //5 ms period for loop2()  (200Hz)
 
@@ -145,6 +146,7 @@ void sensorTaskFunc(void const * argument)
 		if (++loopTick >= globalSensorTaskPeriod) {
 			loopTick = 0;
 			loop();
+			PWMWriteFlush();
 		}
 		vTaskDelayUntil(&xLastWakeTime, sensorTaskPeriod);
 

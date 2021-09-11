@@ -13,6 +13,7 @@
 #include "LED_Driver.h"
 #include "ads1115.h"
 #include "HydroUnderwaterManipulator.h"
+#include "HydroDriveLL.h"
 #define SEGNUM 3
 #define ACTNUM 4
 
@@ -20,19 +21,19 @@ uint8_t actuatorInitPorts[SEGNUM][ACTNUM][2] =
     {
         {{0, 1}, {2, 3}, {4, 5}, {6, 7}},
         {{8, 9}, {10, 11}, {12, 13}, {14, 15}},
-        {{16, 17}, {18, 19}, {20, 21}, {22, 23}},
+        {{16, 17}, {16, 17}, {16,17}, {16,17}},
 }; //{In, Out}
 
-uint8_t gripperInitPort[2] = {24, 25}; //{In, Out}
+uint8_t gripperInitPort[2] = {18, 19}; //{In, Out}
 
-uint8_t pSourceValveInitPort = 26;  //in valve
-uint8_t pSourcePumpInitPort = 27;   //in pump
+uint8_t pSourceValveInitPort = 20;  //in valve
+uint8_t pSourcePumpInitPort = 21;   //in pump
 
-uint8_t pSinkValveInitPort = 28; //out valve
-uint8_t pSinkPumpInitPort = 29;  //out pump
+uint8_t pSinkValveInitPort = 22; //out valve
+uint8_t pSinkPumpInitPort = 23;  //out pump
 
-uint8_t pSourceSensorInitPort = 1; //in sensor
-uint8_t pSinkSensorInitPort = 2; //out sensor
+uint8_t pSourceSensorInitPort = 0; //in sensor
+uint8_t pSinkSensorInitPort = 1; //out sensor
 
 /*********** transfer in KPa, otherwise all in Pa ******************/
 
@@ -45,16 +46,11 @@ void setup()
 {
   int ret=0;
   /*peripheral initiation*/
-//  if((ret = LED_Driver_Setup())!=HAL_OK){
-//  }
+  if((ret = LED_Driver_Setup())!=HAL_OK){
+  }
   if((ret = ADS1115_Setup())!=HAL_OK){
 
   }
-
-//  while(1){
-	  HAL_Delay(1000);
-	  ADS1115_Read(0);
-//  }
   canConfig();
 
   /*setup loop() frequency to be 100Hz*/
@@ -65,7 +61,10 @@ void setup()
   uwManipulator.setupGripperPorts(gripperInitPort);
   uwManipulator.setupPsourcePorts(pSourcePumpInitPort, pSourceValveInitPort, pSourceSensorInitPort);
   uwManipulator.setupPsinkPorts(pSinkPumpInitPort, pSinkValveInitPort, pSinkSensorInitPort);
+  PWMWriteFlush();
 }
+
+
 
 //100Hz default. change frequency by calling setupLoopFrequency(50);
 void loop()
@@ -75,6 +74,7 @@ void loop()
   uwManipulator.pSink.readPressure();
 
   uwManipulator.control();
+ // PWMTest();
 
   uwManipulator.encodeStatus();
 

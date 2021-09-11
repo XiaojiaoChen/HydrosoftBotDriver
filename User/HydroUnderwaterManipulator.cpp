@@ -28,11 +28,13 @@ void HydroUnderwaterManipulator::setupActuatorPorts(uint8_t (&ports)[SEGNUM][ACT
 			actuators[i][j].writeOpening(0);
 		}
 	}
+
 }
 void HydroUnderwaterManipulator::setupGripperPorts(uint8_t (&ports)[2])
 {
 	gripper.attachPWM(ports[0], ports[1]);
 	gripper.writeOpening(0);
+
 }
 void HydroUnderwaterManipulator::setupPsourcePorts(uint8_t pumpPort, uint8_t valvePort, uint8_t sensorPort)
 {

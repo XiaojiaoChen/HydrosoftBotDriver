@@ -13,9 +13,8 @@ extern "C" {
 
 #include "main.h"
 
-int LED_Driver_Setup();
-void LED_Driver_SetPWM_One(uint16_t channel, uint8_t dutyCycle);
-void LED_Driver_SetPWM_Multi(uint8_t startChannel, uint8_t numofChannels, uint8_t dutyCycle);
+#define LED_CHANNEL_NUM							24
+
 
 #define LED_DRIVER_ADDR							((0x28UL)<<1)
 
@@ -92,6 +91,13 @@ void LED_Driver_SetPWM_Multi(uint8_t startChannel, uint8_t numofChannels, uint8_
 #define LED_CONFIG0_LED0_BANK_EN				(0x1UL << LED_CONFIG0_LED7_BANK_EN_POS)
 #define RESET									(0xFFUL)
 
+
+
+int LED_Driver_Setup();
+void LED_Driver_SetPWM_One(uint16_t channel, uint8_t dutyCycle);
+void LED_Driver_SetPWM_Multi(uint8_t startChannel, uint8_t numofChannels, uint8_t  dutyCycles[]);
+uint8_t LED_Driver_GetPWM_One(uint16_t channel);
+void LED_Driver_GetPWM_Multi(uint8_t startChannel, uint8_t numofChannels, uint8_t dutyCycles[]);
 #ifdef __cplusplus
 }
 #endif
