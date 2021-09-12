@@ -150,7 +150,7 @@ namespace hydrosoft_ros
     }
 
     virtual const char * getType() override { return "hydrosoft_ros/Command_Arm"; };
-    virtual const char * getMD5() override { return "36f0809d92e060c19f205ca26715d3a2"; };
+    virtual const char * getMD5() override { return "184069e4cb6a272643f2666a8b7a5ce9"; };
 
   };
 

@@ -9,16 +9,39 @@
 #ifndef __ROS_H_
 #define __ROS_H_
 
-/*************************No need to modify the following unless you know what you are doing*********/
 
+/*******************Usage *****************
+ 1. config your publisher and subscriber informations in "rosserialNode.cpp"
+
+ 2. in your file: 
+    #include "ros.h"
+
+    void setup(){
+        rosserialNode.init(&huart1);
+    }
+
+    void loop(){
+        rosserialNode.publish(&(yourPubData));
+        rosserialNode.spinOnce();
+    }
+  
+    void sub1Callback(const std_msgs::String &msg){
+        //code here
+    }
+******************Usage  End******************/
+
+
+#include "main.h"  
 #include "ros/node_handle.h"
 #include "STM32Hardware.h"
-#include "main.h"  
 //#include "stm32f1xx_hal.h" if necessary
 namespace ros{
     typedef NodeHandle_<STM32Hardware> NodeHandle; // default 25, 25, 512, 512
 }
 #include "rosserialNode.h"
+
+
+
 
 
 

@@ -41,9 +41,9 @@
 
 /**********************************  Configuration    ************************************/
 
-#define RxBufLen  256     //suit your needs
+#define RxBufLen  512     //suit your needs
 
-#define TxBufLen  256     //suit your needs
+#define TxBufLen  512     //suit your needs
 
 /**********************************  Configuration end************************************/
 

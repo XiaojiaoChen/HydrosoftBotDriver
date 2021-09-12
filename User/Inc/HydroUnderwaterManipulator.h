@@ -16,7 +16,7 @@
 #include "ros.h"
 #include "hydrosoft_ros/Command_Arm.h"
 #include "hydrosoft_ros/Sensor_Arm.h"
-
+#include "HydroDriveLL.h"
 typedef enum{
 	OpeningControlMode,
 	PressureControlMode

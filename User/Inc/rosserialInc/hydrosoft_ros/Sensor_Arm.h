@@ -190,7 +190,7 @@ namespace hydrosoft_ros
     }
 
     virtual const char * getType() override { return "hydrosoft_ros/Sensor_Arm"; };
-    virtual const char * getMD5() override { return "bc428f4929dae1c25e71344937e9850d"; };
+    virtual const char * getMD5() override { return "1e8353ed362cc5c1cb8a961b34c6c836"; };
 
   };
 

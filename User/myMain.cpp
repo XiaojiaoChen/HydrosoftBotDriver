@@ -38,6 +38,7 @@ uint8_t pSinkSensorInitPort = 1; //out sensor
 /*********** transfer in KPa, otherwise all in Pa ******************/
 
 HydroUnderwaterManipulator uwManipulator;
+extern RosserialNode rosserialNode;
 
 void setupLoopFrequency(int16_t fre);
 void setupLoop2Frequency(int16_t fre);
@@ -45,16 +46,20 @@ void setupLoop2Frequency(int16_t fre);
 void setup()
 {
   int ret=0;
-  /*peripheral initiation*/
+  /*PWM initiation*/
   if((ret = LED_Driver_Setup())!=HAL_OK){
   }
+  /*ADC initiation*/
   if((ret = ADS1115_Setup())!=HAL_OK){
 
   }
+  rosserialNode.init(&huart1);
+
+  /*CAN initiation*/
   canConfig();
 
   /*setup loop() frequency to be 100Hz*/
-  setupLoopFrequency(100);
+  setupLoopFrequency(10);
 
   /*ports mapping*/
   uwManipulator.setupActuatorPorts(actuatorInitPorts);
@@ -70,16 +75,15 @@ void setup()
 void loop()
 {
   //Get pressrue data. currently only pSource and pSink
-  uwManipulator.pSource.readPressure();
-  uwManipulator.pSink.readPressure();
-
-  uwManipulator.control();
- // PWMTest();
-
-  uwManipulator.encodeStatus();
+//  uwManipulator.pSource.readPressure();
+//  uwManipulator.pSink.readPressure();
+//
+//  uwManipulator.control();
+// // PWMTest()
+//  uwManipulator.encodeStatus();
 
   rosserialNode.publish(&(uwManipulator.manipulatorStatus));
-  
+
   rosserialNode.spinOnce();
 }
 
