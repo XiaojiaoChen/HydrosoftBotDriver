@@ -75,12 +75,12 @@ void setup()
 void loop()
 {
   //Get pressrue data. currently only pSource and pSink
-//  uwManipulator.pSource.readPressure();
-//  uwManipulator.pSink.readPressure();
-//
-//  uwManipulator.control();
-// // PWMTest()
-//  uwManipulator.encodeStatus();
+  uwManipulator.pSource.readPressure();
+  uwManipulator.pSink.readPressure();
+
+  uwManipulator.control();
+ // PWMTest()
+  uwManipulator.encodeStatus();
 
   rosserialNode.publish(&(uwManipulator.manipulatorStatus));
 
