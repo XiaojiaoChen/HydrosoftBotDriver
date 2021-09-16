@@ -11,7 +11,6 @@ struct CANBUS_HANDLE canbus;
 #include "messages.h"
 #include "can.h"
 #include <inttypes.h>
-#include "ros.h"
 #include "HydroUnderwaterManipulator.h"
 static HAL_StatusTypeDef my_HAL_CAN_GetRxMessage(CAN_HandleTypeDef *hcan, uint32_t RxFifo, CAN_RxHeaderTypeDef *pHeader, uint8_t aData[]);
 /***************************     Can bus        ***************************/
@@ -210,10 +209,10 @@ static HAL_StatusTypeDef my_HAL_CAN_GetRxMessage(CAN_HandleTypeDef *hcan, uint32
     /*******************************************************************/
 
     /********************** update the content of rosserial.pubdata*******************************/
-    uwManipulator.manipulatorStatus.quaternionsBuf[j][0] = botNodeData[j].quaternion.imuData[0];
-    uwManipulator.manipulatorStatus.quaternionsBuf[j][1]= botNodeData[j].quaternion.imuData[1];
-    uwManipulator.manipulatorStatus.quaternionsBuf[j][2]= botNodeData[j].quaternion.imuData[2];
-    uwManipulator.manipulatorStatus.quaternionsBuf[j][3]= botNodeData[j].quaternion.imuData[3];
+    uwManipulator.manipulatorStatus.quaternions[j][0] = botNodeData[j].quaternion.imuData[0];
+    uwManipulator.manipulatorStatus.quaternions[j][1]= botNodeData[j].quaternion.imuData[1];
+    uwManipulator.manipulatorStatus.quaternions[j][2]= botNodeData[j].quaternion.imuData[2];
+    uwManipulator.manipulatorStatus.quaternions[j][3]= botNodeData[j].quaternion.imuData[3];
 
 
 

@@ -13,74 +13,87 @@
 #define SEGNUM 3
 #define ACTNUM 4
 #define P_ATM 101000
-#include "ros.h"
-#include "hydrosoft_ros/Command_Arm.h"
-#include "hydrosoft_ros/Sensor_Arm.h"
 #include "HydroDriveLL.h"
 typedef enum{
 	OpeningControlMode,
 	PressureControlMode
 }CONTROLMODE;
 
-class HydroManipulatorStatus : public hydrosoft_ros::Sensor_Arm
-{
-	public:
-		HydroManipulatorStatus()
-		{
-			actuatorStatus = (int16_t *)actuatorStatusBuf;
-			actuatorStatus_length = SEGNUM*ACTNUM;
-			quaternions = (int16_t *)quaternionsBuf;
-			quaternions_length = (SEGNUM+1)*4;
-		}
-		int16_t actuatorStatusBuf[SEGNUM][ACTNUM];
-		int16_t quaternionsBuf[(SEGNUM+1)][4];
-};
 
-class HydroManipulatorCommand : public hydrosoft_ros::Command_Arm
-{
-	public:
-		HydroManipulatorCommand()
-		{
-			actuatorCommand = (int16_t *)actuatorCommandBuf;
-			actuatorCommand_length = SEGNUM*ACTNUM;
-		}
-		int16_t actuatorCommandBuf[SEGNUM][ACTNUM];
+typedef struct __attribute__((packed)) HydroManipulatorCommandTag{
+	uint8_t header[2];
+	uint8_t modeCmd;
+	uint32_t armCmd;
+	int16_t pSourceCmd;
+	int16_t pSinkCmd;
+	uint8_t tail[1];
+}HydroManipulatorCommand;
 
-		int16_t controlMode;
-
-		int16_t openingCmd_actuators[SEGNUM][ACTNUM][2];
-		int16_t openingCmd_gripper[2];
-		int16_t openingCmd_pSource_pump;
-		int16_t openingCmd_pSource_valve;
-		int16_t openingCmd_pSink_pump;
-		int16_t openingCmd_pSink_valve;
-
-		int16_t pressureCmd_actuators[SEGNUM][ACTNUM];
-		int16_t pressureCmd_gripper;
-		int16_t pressureCmd_pSource;
-		int16_t pressureCmd_pSink;
-};
+typedef struct __attribute__((packed)) HydroManipulatorStatusTag{
+	uint8_t header[2];
+	uint8_t modeStatus;
+	uint32_t armStatus;
+	int16_t pSourcePressure;
+	int16_t pSinkPressure;
+	int16_t quaternions[(SEGNUM+1)][4];
+	uint8_t tail[1];
+}HydroManipulatorStatus;
 
 
-#define PRESSURE_CONTROL_MASK (0x0001)
+//
+//class HydroManipulatorStatus : public hydrosoft_ros::Sensor_Arm
+//{
+//	public:
+//		HydroManipulatorStatus()
+//		{
+//			actuatorStatus = (int16_t *)actuatorStatusBuf;
+//			actuatorStatus_length = SEGNUM*ACTNUM;
+//			quaternions = (int16_t *)quaternionsBuf;
+//			quaternions_length = (SEGNUM+1)*4;
+//		}
+//		int16_t actuatorStatusBuf[SEGNUM][ACTNUM];
+//		int16_t quaternionsBuf[(SEGNUM+1)][4];
+//};
+//
+//class HydroManipulatorCommand : public hydrosoft_ros::Command_Arm
+//{
+//	public:
+//		HydroManipulatorCommand()
+//		{
+//			actuatorCommand = (int16_t *)actuatorCommandBuf;
+//			actuatorCommand_length = SEGNUM*ACTNUM;
+//		}
+//		int16_t actuatorCommandBuf[SEGNUM][ACTNUM];
+//
+//		int16_t controlMode;
+//
+//		int16_t openingCmd_actuators[SEGNUM][ACTNUM][2];
+//		int16_t openingCmd_gripper[2];
+//		int16_t openingCmd_pSource_pump;
+//		int16_t openingCmd_pSource_valve;
+//		int16_t openingCmd_pSink_pump;
+//		int16_t openingCmd_pSink_valve;
+//
+//		int16_t pressureCmd_actuators[SEGNUM][ACTNUM];
+//		int16_t pressureCmd_gripper;
+//		int16_t pressureCmd_pSource;
+//		int16_t pressureCmd_pSink;
+//};
 
-#define ACTUATOR_IN_VALVE_MASK  (0x0001)
-#define ACTUATOR_OUT_VALVE_MASK  (0x0002)
 
-#define GRIPPER_IN_VALVE_MASK  (0x0001)
-#define GRIPPER_OUT_VALVE_MASK  (0x0002)
 
-#define PSOURCE_IN_VALVE_MASK  (0x0001)
-#define PSOURCE_IN_PUMP_MASK  (0x0002)
+#define __MY_SET_BIT(__VALUE__, __BITMASK__)     			 ((__VALUE__) |= (__BITMASK__))
+#define __MY_RESET_BIT(__VALUE__, __BITMASK__)   			 ((__VALUE__) &= ~(__BITMASK__))
+#define __MY_TOGGLE_BIT(__VALUE__, __BITMASK__)   		 	((__VALUE__) ^= (__BITMASK__))
+#define __MY_GET_BIT(__VALUE__, __BITMASK__)         		(((__VALUE__) & (__BITMASK__)) != 0)
 
-#define PSINK_OUT_VALVE_MASK  (0x0001)
-#define PSINK_OUT_PUMP_MASK  (0x0002)
-
-#define __SET_BIT(__VALUE__, __BITMASK__) ((__VALUE__) |= (__BITMASK__))
-#define __RESET_BIT(__VALUE__, __BITMASK__) ((__VALUE__) &= ~(__BITMASK__))
-#define __TOGGLE_BIT(__VALUE__, __BITMASK__) ((__VALUE__) ^= (__BITMASK__))
-#define __GET_BIT(__VALUE__, __BITMASK__) (((__VALUE__) & (__BITMASK__)) != 0)
-
+#define __MY_SET_BIT_VAL(__VALUE__, __BITMASK__,__VAL__)    do{                                              \
+																if(__VAL__)							\
+																	{(__VALUE__) |= (__BITMASK__);}   \
+																else\
+																	{(__VALUE__) &= ~(__BITMASK__);};        \
+																       \
+															  } while(0)
 
 
 
