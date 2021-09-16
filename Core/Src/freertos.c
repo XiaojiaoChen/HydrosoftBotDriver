@@ -146,7 +146,7 @@ void sensorTaskFunc(void const * argument)
 		if (++loopTick >= globalSensorTaskPeriod) {
 			loopTick = 0;
 			loop();
-			PWMWriteFlush();
+//			PWMWriteFlush();
 		}
 		vTaskDelayUntil(&xLastWakeTime, sensorTaskPeriod);
 

@@ -40,9 +40,9 @@ void PWMWriteDuty(uint16_t num, float fduty)
 	uint8_t cycleduty = fduty*255;
 
 	/*Buffer pwm duty commands, needs to call  PWMWriteFlush() later*/
-	PWMDutyBuffer[num]=cycleduty;
+	//PWMDutyBuffer[num]=cycleduty;
 	isDirtyPWM=1;
-	//LED_Driver_SetPWM_One(num,cycleduty);
+	LED_Driver_SetPWM_One(num,cycleduty);
 
 }
 

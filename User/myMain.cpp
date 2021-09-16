@@ -56,17 +56,17 @@ void setup()
   rosserialNode.init(&huart1);
 
   /*CAN initiation*/
-  canConfig();
+ // canConfig();
 
   /*setup loop() frequency to be 100Hz*/
-  setupLoopFrequency(10);
+  setupLoopFrequency(5);
 
   /*ports mapping*/
   uwManipulator.setupActuatorPorts(actuatorInitPorts);
   uwManipulator.setupGripperPorts(gripperInitPort);
   uwManipulator.setupPsourcePorts(pSourcePumpInitPort, pSourceValveInitPort, pSourceSensorInitPort);
   uwManipulator.setupPsinkPorts(pSinkPumpInitPort, pSinkValveInitPort, pSinkSensorInitPort);
-  PWMWriteFlush();
+  //PWMWriteFlush();
 }
 
 
@@ -75,16 +75,26 @@ void setup()
 void loop()
 {
   //Get pressrue data. currently only pSource and pSink
-  uwManipulator.pSource.readPressure();
-  uwManipulator.pSink.readPressure();
-
+//  uwManipulator.pSource.readPressure();
+//  uwManipulator.pSink.readPressure();
+	static uint32_t tt=0;
   uwManipulator.control();
- // PWMTest()
+
   uwManipulator.encodeStatus();
 
   rosserialNode.publish(&(uwManipulator.manipulatorStatus));
 
   rosserialNode.spinOnce();
+
+//  for(uint32_t i=0;i<24;i++){
+//	  if(i==tt){
+//		  PWMWriteDuty(i,0);
+//	  }
+//	  else{
+//		  PWMWriteDuty(i,1);
+//	  }
+//  }
+//  tt=(tt+1)%24;
 }
 
 //200Hz loop2 reserved
@@ -94,8 +104,8 @@ void loop2()
 
 /**
  * @brief callback of subscriber function to the command topic
- * 
- * @param cmd_msg 
+ *
+ * @param cmd_msg
  */
 void sub1Callback(const hydrosoft_ros::Command_Arm &cmd_msg)
 {

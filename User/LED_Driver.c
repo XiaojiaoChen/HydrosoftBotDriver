@@ -43,7 +43,7 @@ int LED_Driver_Setup()
 
 void LED_Driver_SetPWM_One(uint16_t channel, uint8_t dutyCycle)
 {
-	HAL_I2C_Mem_Write(&hi2c2,LED_DRIVER_ADDR, channelAddress[channel],I2C_MEMADD_SIZE_8BIT,&dutyCycle , 1,10);
+	HAL_I2C_Mem_Write(&hi2c2,LED_DRIVER_ADDR, channelAddress[channel],I2C_MEMADD_SIZE_8BIT,&dutyCycle , 1,1);
 }
 
 void LED_Driver_SetPWM_Multi(uint8_t startChannel, uint8_t numofChannels, uint8_t dutyCycles[])

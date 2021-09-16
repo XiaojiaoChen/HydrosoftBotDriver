@@ -24,8 +24,8 @@ ros::Publisher publisher1("HydroStatus",  &(uwManipulator.manipulatorStatus));  
 __weak void sub1Callback(const hydrosoft_ros::Command_Arm &msg){  //dont modify the sub callback name
 	UNUSED(msg);
 	//implement your sub callback content in your file
-} 
-ros::Subscriber<hydrosoft_ros::Command_Arm> subscriber1("HydroCommand", &sub1Callback); 
+}
+ros::Subscriber<hydrosoft_ros::Command_Arm> subscriber1("HydroCommands", &sub1Callback);
 
 /*************************User Config Zone End  ***********************/
 
