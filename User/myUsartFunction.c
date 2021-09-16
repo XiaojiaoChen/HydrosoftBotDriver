@@ -34,7 +34,7 @@ static void myInitUsartMode(UART_HandleTypeDef *huart,USARTMode usartMode){
 	}
 }
 static UART_DEVICE *getUsartDevice(UART_HandleTypeDef *huart){
-	if(huart==&huart1)
+	//if(huart==&huart1)
 		return &Usart1Device;
 }
 

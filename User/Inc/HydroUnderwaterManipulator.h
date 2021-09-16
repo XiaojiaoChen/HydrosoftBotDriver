@@ -11,7 +11,7 @@
 #include "PRESSURESOURCE.h"
 #include "messages.h"
 #define SEGNUM 3
-#define ACTNUM 4
+#define ACTNUM 3
 #define P_ATM 101000
 #include "HydroDriveLL.h"
 typedef enum{

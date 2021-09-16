@@ -15,8 +15,7 @@
 #include "HydroDriveLL.h"
 #include "myUsartFunction.h"
 #include "cstring"
-#define SEGNUM 3
-#define ACTNUM 3
+
 
 uint8_t actuatorInitPorts[SEGNUM][ACTNUM][2] =
     {
