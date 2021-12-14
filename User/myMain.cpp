@@ -19,21 +19,21 @@
 
 uint8_t actuatorInitPorts[SEGNUM][ACTNUM][2] =
     {
-        {{0, 10}, {1, 11}, {2, 12}},
-        {{3, 13}, {4, 14}, {5, 15}},
-        {{6, 16}, {6, 16}, {6, 16}},
+        {{2, 12}, {0, 10}, {1, 11}},
+        {{5, 15}, {3, 13}, {4, 14}},
+        {{16, 6}, {16, 6}, {16, 6}},
 }; //{In, Out}
 
-uint8_t gripperInitPort[2] = {7, 17}; //{In, Out}
+uint8_t gripperInitPort[2] = {17, 7}; //{In, Out}
 
-uint8_t pSourceValveInitPort = 18; //in valve
-uint8_t pSourcePumpInitPort = 9;  //in pump
+uint8_t pSourceValveInitPort = 8; //in valve
+uint8_t pSourcePumpInitPort = 19;  //in pump
 
-uint8_t pSinkValveInitPort = 8; //out valve
-uint8_t pSinkPumpInitPort = 19;  //out pump
+uint8_t pSinkValveInitPort = 18; //out valve
+uint8_t pSinkPumpInitPort = 9;  //out pump
 
-uint8_t pSourceSensorInitPort = 0; //in sensor
-uint8_t pSinkSensorInitPort = 1;   //out sensor
+uint8_t pSourceSensorInitPort = 1; //in sensor
+uint8_t pSinkSensorInitPort = 0;   //out sensor
 
 /*********** transfer in KPa, otherwise all in Pa ******************/
 
@@ -42,21 +42,22 @@ HydroUnderwaterManipulator uwManipulator;
 void setupLoopFrequency(int16_t fre);
 void setupLoop2Frequency(int16_t fre);
 
+uint8_t grxBuf[12];
 void setup()
 {
-	my_UsartInit();
+	//my_UsartInit();
   int ret = 0;
   /*PWM initiation*/
   if ((ret = LED_Driver_Setup()) != HAL_OK)
   {
   }
   /*ADC initiation*/
-  if ((ret = ADS1115_Setup()) != HAL_OK)
-  {
-  }
+//  if ((ret = ADS1115_Setup()) != HAL_OK)
+//  {
+//  }
 
   /*CAN initiation*/
-  //canConfig();
+  canConfig();
 
   /*setup loop() frequency to be 100Hz*/
   setupLoopFrequency(100);
@@ -67,20 +68,38 @@ void setup()
   uwManipulator.setupPsourcePorts(pSourcePumpInitPort, pSourceValveInitPort, pSourceSensorInitPort);
   uwManipulator.setupPsinkPorts(pSinkPumpInitPort, pSinkValveInitPort, pSinkSensorInitPort);
   PWMWriteFlush();
+
 }
+
+void getRx();
 
 //100Hz default. change frequency by calling setupLoopFrequency(50);
 void loop()
 {
-  //Get pressrue data. currently only pSource and pSink
+	int readnum=HAL_UARTEx_ReceiveToIdle_DMA(&huart1, grxBuf, sizeof(HydroManipulatorCommand));
+  //AD start conversion two channel with DMA
+
+//  ADS1115_ReadUnblocked();
+
+//  ADS1115_Read(0);
+//  ADS1115_Read(1);
+
+  //while AD dma is ongoing, we could do control stuff without using sensor info
+  uwManipulator.control();
+
+  //wait for AD complete/Timeout for following action
+//  waitTrue(&gAD_complete,6);
+
+  //Get pressrue data from AD data. currently only pSource and pSink
 //  uwManipulator.pSource.readPressure();
 //  uwManipulator.pSink.readPressure();
 
-  uwManipulator.control();
-  // PWMTest()
-  uwManipulator.encodeStatus();
+  //I2C is released now, we could send PWM command.
+  PWMWriteFlush();
 
-  printBin((char *)(&uwManipulator.manipulatorStatus),sizeof(HydroManipulatorStatus));
+  //publish status to usart 1 DMA
+  uwManipulator.encodeStatus();
+  HAL_UART_Transmit_DMA(&huart1,(uint8_t *)(&uwManipulator.manipulatorStatus),sizeof(HydroManipulatorStatus));
 
 }
 
@@ -97,8 +116,8 @@ void loop2()
  * 
  * @param cmd_msg 
  */
-void serialCallback(char *buf){
-	  memcpy(&uwManipulator.hostCommand,buf,sizeof(HydroManipulatorCommand));
+void serialCallback(){
+	  memcpy(&uwManipulator.hostCommand,grxBuf,sizeof(HydroManipulatorCommand));
 }
 
 void setupLoopFrequency(int16_t fre)

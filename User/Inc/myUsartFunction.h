@@ -71,7 +71,7 @@ void myUsartIntIRQ(UART_HandleTypeDef *huart);/*put in the ISR*/
 
 int my_write_DMA(UART_HandleTypeDef *huart, uint8_t *pSrc, int len);
 
-__weak void serialCallback(char *buf);
+__weak void serialCallback();
 
 #ifdef __cplusplus
 }

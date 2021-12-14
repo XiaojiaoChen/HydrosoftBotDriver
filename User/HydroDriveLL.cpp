@@ -9,16 +9,17 @@
 #include "LED_Driver.h"
 //extern TIM_HandleTypeDef htim5;
 
-static int16_t adRawData=0;
-float adVoltage=0;
+static int16_t adRawData[2]={0,0};
+float adVoltage[2]={0,0};
 static uint8_t PWMDutyBuffer[LED_CHANNEL_NUM];
 
 static int isDirtyPWM=0;
 float AnalogRead(uint16_t num)
 {
-	adRawData = ADS1115_Read(num);
-	adVoltage = (float)(adRawData)/32767.0f*5.0f;     //raw data to voltage
-	return adVoltage;
+	//adRawData[num] = ADS1115_Read(num);
+	adRawData[num] = gAD_data[num];
+	adVoltage[num] = adRawData[num]/32768.0*4.096f;     //raw data to voltage
+	return adVoltage[num];
 }
 
 
@@ -34,15 +35,17 @@ void PWMWriteFlush(){
 	}
 }
 
+
+//call PWMWriteFlush() afterwards
 void PWMWriteDuty(uint16_t num, float fduty)
 {
 	fduty = fduty<0 ? 0 : ( fduty>1?1:fduty);
 	uint8_t cycleduty = fduty*255;
 
 	/*Buffer pwm duty commands, needs to call  PWMWriteFlush() later*/
-	//PWMDutyBuffer[num]=cycleduty;
+	PWMDutyBuffer[num]=cycleduty;
 	isDirtyPWM=1;
-	LED_Driver_SetPWM_One(num,cycleduty);
+	//LED_Driver_SetPWM_One(num,cycleduty);
 
 }
 

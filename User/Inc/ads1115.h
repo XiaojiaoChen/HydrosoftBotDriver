@@ -52,6 +52,16 @@ extern "C" {
 int ADS1115_Setup(void);
 int16_t ADS1115_Read(int num);
 void ads1115_Callback();
+
+void ADS1115_ReadUnblocked();
+void ads1115_Unblocked_Callback();
+int waitTrue(int *waitingflag, uint32_t Timeout);
+
+extern int16_t gAD_data[2];
+extern int gAD_curIndex;
+extern int gAD_flag;
+extern int gAD_complete;
+
 #ifdef __cplusplus
 }
 #endif

@@ -187,9 +187,15 @@ static HAL_StatusTypeDef my_HAL_CAN_GetRxMessage(CAN_HandleTypeDef *hcan, uint32
 
     /**********************  added  ******************************************/
 	//int i = pHeader->StdId/4;
-    int j = pHeader->StdId%4;
+    int curInd = 0;
 
-    aData=(uint8_t *)(botNodeDataBuffer);
+    if(pHeader->StdId==40)
+    	curInd = 2;
+    else if(pHeader->StdId==37)
+    	curInd = 1;
+
+
+    aData=(uint8_t *)(&botNodeDataBuffer[curInd]);
     /****************************************************************/
 
     /* Get the data */
@@ -204,16 +210,34 @@ static HAL_StatusTypeDef my_HAL_CAN_GetRxMessage(CAN_HandleTypeDef *hcan, uint32
 
 
     /**********************  Added Docode the compact sensor Data to complete sensor data*******************************/
-
-    decodeSensorData(&(botNodeDataBuffer[j]),&(botNodeData[j]));
+    decodeSensorData(&(botNodeDataBuffer[curInd]),&(botNodeData[curInd]));
     /*******************************************************************/
 
     /********************** update the content of rosserial.pubdata*******************************/
-    uwManipulator.manipulatorStatus.quaternions[j][0] = botNodeData[j].quaternion.imuData[0];
-    uwManipulator.manipulatorStatus.quaternions[j][1]= botNodeData[j].quaternion.imuData[1];
-    uwManipulator.manipulatorStatus.quaternions[j][2]= botNodeData[j].quaternion.imuData[2];
-    uwManipulator.manipulatorStatus.quaternions[j][3]= botNodeData[j].quaternion.imuData[3];
+    uwManipulator.manipulatorStatus.quaternions[curInd][0] = botNodeData[curInd].quaternion.imuData[0];
+    uwManipulator.manipulatorStatus.quaternions[curInd][1]= botNodeData[curInd].quaternion.imuData[1];
+    uwManipulator.manipulatorStatus.quaternions[curInd][2]= botNodeData[curInd].quaternion.imuData[2];
+    uwManipulator.manipulatorStatus.quaternions[curInd][3]= botNodeData[curInd].quaternion.imuData[3];
 
+
+    /***Test use only start****/
+    static int8_t ttt=1;
+    if(curInd == 1 && ttt>0){
+        uwManipulator.manipulatorStatus.quaternions[curInd-1][0] = botNodeData[curInd].quaternion.imuData[0];
+        uwManipulator.manipulatorStatus.quaternions[curInd-1][1]= botNodeData[curInd].quaternion.imuData[1];
+        uwManipulator.manipulatorStatus.quaternions[curInd-1][2]= botNodeData[curInd].quaternion.imuData[2];
+        uwManipulator.manipulatorStatus.quaternions[curInd-1][3]= botNodeData[curInd].quaternion.imuData[3];
+        ttt--;
+    }
+
+    if(curInd == 2 ){
+    	uwManipulator.manipulatorStatus.quaternions[curInd+1][0] = botNodeData[curInd].quaternion.imuData[0];
+		uwManipulator.manipulatorStatus.quaternions[curInd+1][1]= botNodeData[curInd].quaternion.imuData[1];
+		uwManipulator.manipulatorStatus.quaternions[curInd+1][2]= botNodeData[curInd].quaternion.imuData[2];
+		uwManipulator.manipulatorStatus.quaternions[curInd+1][3]= botNodeData[curInd].quaternion.imuData[3];
+
+    }
+    /***Test use only end****/
 
 
     /* Release the FIFO */

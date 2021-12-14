@@ -93,29 +93,29 @@ void printBin(char *buf,int len){
 /************************************Transfer Complete Callback*************************************/
 /************************************							************************************/
 /*this function would overwrite HAL's weak HAL_UART_TxCpltCallback for all usart*/
-void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
-{
-	UART_DEVICE *uartDev=getUsartDevice(huart);
-	 /*update information*/
-//	 uartDev->TxEnd = micros();
-	 uartDev->lastTxTime = uartDev->TxEnd - uartDev->TxStart;
-	 uartDev->lastTxCount = uartDev->countTxBuf[uartDev->consumerTxBufNum];
-
-	/*One consumption done. move consumer forward*/
-	uartDev->consumerTxBufNum++;
-	uartDev->consumerTxBufNum%=UART_TX_BUF_NUM;
-
-	/*reduce one bufferedTxNum*/
-	 uartDev->bufferedTxNum--;
-
-	/*If it is still positive, go on consume next*/
-	if(uartDev->bufferedTxNum>0){
-//		uartDev->TxStart = micros();
-		uint8_t *px = &uartDev->TxBuf[uartDev->consumerTxBufNum][0];
-		HAL_UART_Transmit_DMA(uartDev->huart,px,uartDev->countTxBuf[uartDev->consumerTxBufNum]);
-	}
-
-}
+//void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
+//{
+//	UART_DEVICE *uartDev=getUsartDevice(huart);
+//	 /*update information*/
+////	 uartDev->TxEnd = micros();
+//	 uartDev->lastTxTime = uartDev->TxEnd - uartDev->TxStart;
+//	 uartDev->lastTxCount = uartDev->countTxBuf[uartDev->consumerTxBufNum];
+//
+//	/*One consumption done. move consumer forward*/
+//	uartDev->consumerTxBufNum++;
+//	uartDev->consumerTxBufNum%=UART_TX_BUF_NUM;
+//
+//	/*reduce one bufferedTxNum*/
+//	 uartDev->bufferedTxNum--;
+//
+//	/*If it is still positive, go on consume next*/
+//	if(uartDev->bufferedTxNum>0){
+////		uartDev->TxStart = micros();
+//		uint8_t *px = &uartDev->TxBuf[uartDev->consumerTxBufNum][0];
+//		HAL_UART_Transmit_DMA(uartDev->huart,px,uartDev->countTxBuf[uartDev->consumerTxBufNum]);
+//	}
+//
+//}
 
 /************************************							*************************************/
 /************************************Receive Complete Callback*************************************/
@@ -143,12 +143,25 @@ void myUsartIntIRQ(UART_HandleTypeDef *huart)
 		*(uartDev->pRxBuf)=(uint8_t)(huart->Instance->DR & (uint8_t)0x00FF);  //read and clear flag
 		if(*(uartDev->pRxBuf)==0x0a) // if current char is 0x0a, take care. If not, go on receiving.
 		{
+
 			uartDev->Received = 1;
-			serialCallback((char *)(uartDev->RxBuf));
+			int leng = uartDev->pRxBuf - &(uartDev->RxBuf[0]);
+			if((uartDev->RxBuf[0] == 0x5a) && (uartDev->RxBuf[1] == 0x5a)){
+				serialCallback((char *)(uartDev->RxBuf));
+			}
+			else{
+				//bad frame, discard
+			}
 			memset(uartDev->RxBuf,0,UART_RX_BUF_SIZE);
 			uartDev->pRxBuf=uartDev->RxBuf;
 			uartDev->Received = 0;
 		}
-		else uartDev->pRxBuf++;
+		else {
+			if((uartDev->pRxBuf - uartDev->RxBuf)>=UART_RX_BUF_SIZE){
+				memset(uartDev->RxBuf,0,UART_RX_BUF_SIZE);
+				uartDev->pRxBuf=uartDev->RxBuf;
+			}
+			uartDev->pRxBuf++;
+		}
 	}
 }

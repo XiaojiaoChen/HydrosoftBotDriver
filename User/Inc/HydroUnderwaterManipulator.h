@@ -88,7 +88,7 @@ typedef struct __attribute__((packed)) HydroManipulatorStatusTag{
 #define __MY_GET_BIT(__VALUE__, __BITMASK__)         		(((__VALUE__) & (__BITMASK__)) != 0)
 
 #define __MY_SET_BIT_VAL(__VALUE__, __BITMASK__,__VAL__)    do{                                              \
-																if(__VAL__)							\
+																if(__VAL__!=0)							\
 																	{(__VALUE__) |= (__BITMASK__);}   \
 																else\
 																	{(__VALUE__) &= ~(__BITMASK__);};        \

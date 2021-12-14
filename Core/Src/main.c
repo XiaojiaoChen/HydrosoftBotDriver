@@ -32,6 +32,7 @@
 /* USER CODE BEGIN Includes */
 #include "myMain.h"
 #include "ads1115.h"
+#include "myUsartFunction.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -162,8 +163,19 @@ void SystemClock_Config(void)
 
 /* USER CODE BEGIN 4 */
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
-	if(GPIO_Pin == GPIO_PIN_15){
-		ads1115_Callback();
+//	if(GPIO_Pin == GPIO_PIN_15){
+//		ads1115_Callback();
+//		ads1115_Unblocked_Callback();
+//	}
+}
+extern uint8_t grxBuf[12];
+void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size){
+
+	if(Size == 12 && grxBuf[0] == 0x5a && grxBuf[1] == 0x5a){
+		serialCallback();
+	}
+	else{
+		int a =1;
 	}
 }
 
@@ -171,7 +183,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
 
 /**
   * @brief  Period elapsed callback in non blocking mode
-  * @note   This function is called  when TIM1 interrupt took place, inside
+  * @note   This function is called  when TIM3 interrupt took place, inside
   * HAL_TIM_IRQHandler(). It makes a direct call to HAL_IncTick() to increment
   * a global variable "uwTick" used as application time base.
   * @param  htim : TIM handle
@@ -182,7 +194,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
   /* USER CODE BEGIN Callback 0 */
 
   /* USER CODE END Callback 0 */
-  if (htim->Instance == TIM1) {
+  if (htim->Instance == TIM3) {
     HAL_IncTick();
   }
   /* USER CODE BEGIN Callback 1 */
