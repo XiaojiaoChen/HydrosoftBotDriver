@@ -12,14 +12,13 @@
  extern "C" {
 #endif
 
-#include "stm32f1xx.h"
-
+#include "stm32g0xx.h"
 
 
 void setup();
 void loop();
 void loop2();
-
+void serialCallback();
 
 #ifdef __cplusplus
 }

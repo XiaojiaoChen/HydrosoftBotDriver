@@ -11,7 +11,6 @@
 #include "main.h"
 #include "HydroDriveLL.h"
 #include "PRESSURESENSOR.h"
-#include "ads1115.h"
 
 //gauge pressure Pa
 const int32_t PascalPerPSI=6895;
@@ -28,9 +27,9 @@ pressure(0)
 
 int32_t PRESSURE_SENSOR::read()
 {
-	float vol=AnalogRead(AnalogPort);
+	//float vol=AnalogRead(AnalogPort);
 	//pressure = (int32_t)(vol/5.0*10000);
-	pressure = gAD_data[AnalogPort];//(int32_t)(vol*1000);
+	//pressure = gAD_data[AnalogPort];//(int32_t)(vol*1000);
 	return pressure;
 }
 

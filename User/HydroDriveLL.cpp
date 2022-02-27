@@ -5,11 +5,10 @@
  *      Author: 402072495
  */
 #include <HydroDriveLL.h>
-#include "ads1115.h"
 #include "LED_Driver.h"
 //extern TIM_HandleTypeDef htim5;
 
-static int16_t adRawData[2]={0,0};
+//static int16_t adRawData[2]={0,0};
 float adVoltage[2]={0,0};
 static uint8_t PWMDutyBuffer[LED_CHANNEL_NUM];
 
@@ -17,8 +16,8 @@ static int isDirtyPWM=0;
 float AnalogRead(uint16_t num)
 {
 	//adRawData[num] = ADS1115_Read(num);
-	adRawData[num] = gAD_data[num];
-	adVoltage[num] = adRawData[num]/32768.0*4.096f;     //raw data to voltage
+//	adRawData[num] = gAD_data[num];
+//	adVoltage[num] = adRawData[num]/32768.0*4.096f;     //raw data to voltage
 	return adVoltage[num];
 }
 

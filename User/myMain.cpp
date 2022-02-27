@@ -6,15 +6,13 @@
  */
 
 #include "myMain.h"
-#include "usart.h"
-#include "messages.h"
-#include "CANbus.h"
-#include "LED_Driver.h"
-#include "ads1115.h"
-#include "HydroUnderwaterManipulator.h"
-#include "HydroDriveLL.h"
-#include "myUsartFunction.h"
+#include "canbus_if.h"
+#include "main.h"
 #include "cstring"
+#include "HydroDriveLL.h"
+#include "HydroUnderwaterManipulator.h"
+#include "LED_Driver.h"
+#include "myUsartFunction.h"
 
 
 uint8_t actuatorInitPorts[SEGNUM][ACTNUM][2] =
@@ -37,30 +35,16 @@ uint8_t pSinkSensorInitPort = 0;   //out sensor
 
 /*********** transfer in KPa, otherwise all in Pa ******************/
 
-HydroUnderwaterManipulator uwManipulator;
-
-void setupLoopFrequency(int16_t fre);
-void setupLoop2Frequency(int16_t fre);
 
 uint8_t grxBuf[12];
 void setup()
 {
-	//my_UsartInit();
-  int ret = 0;
+
   /*PWM initiation*/
-  if ((ret = LED_Driver_Setup()) != HAL_OK)
-  {
-  }
-  /*ADC initiation*/
-//  if ((ret = ADS1115_Setup()) != HAL_OK)
-//  {
-//  }
+  LED_Driver_Setup();
 
   /*CAN initiation*/
-  canConfig();
-
-  /*setup loop() frequency to be 100Hz*/
-  setupLoopFrequency(100);
+  FDCAN_Config();
 
   /*ports mapping*/
   uwManipulator.setupActuatorPorts(actuatorInitPorts);
@@ -71,59 +55,31 @@ void setup()
 
 }
 
-void getRx();
-
-//100Hz default. change frequency by calling setupLoopFrequency(50);
+//100Hz
 void loop()
 {
-	int readnum=HAL_UARTEx_ReceiveToIdle_DMA(&huart1, grxBuf, sizeof(HydroManipulatorCommand));
-  //AD start conversion two channel with DMA
+	HAL_UARTEx_ReceiveToIdle_DMA(&huart1, grxBuf, sizeof(HydroManipulatorCommand));
 
-//  ADS1115_ReadUnblocked();
-
-//  ADS1115_Read(0);
-//  ADS1115_Read(1);
-
-  //while AD dma is ongoing, we could do control stuff without using sensor info
-  uwManipulator.control();
-
-  //wait for AD complete/Timeout for following action
-//  waitTrue(&gAD_complete,6);
-
-  //Get pressrue data from AD data. currently only pSource and pSink
-//  uwManipulator.pSource.readPressure();
-//  uwManipulator.pSink.readPressure();
+ uwManipulator.control();
 
   //I2C is released now, we could send PWM command.
   PWMWriteFlush();
 
   //publish status to usart 1 DMA
   uwManipulator.encodeStatus();
+
   HAL_UART_Transmit_DMA(&huart1,(uint8_t *)(&uwManipulator.manipulatorStatus),sizeof(HydroManipulatorStatus));
 
 }
 
-//200Hz loop2 reserved
+//10Hz loop2 reserved
 void loop2()
 {
 
-//	memcpy()
-//	HAL_UART_Transmit_DMA()
+
 }
 
-/**
- * @brief callback of subscriber function to the command topic
- * 
- * @param cmd_msg 
- */
 void serialCallback(){
 	  memcpy(&uwManipulator.hostCommand,grxBuf,sizeof(HydroManipulatorCommand));
 }
 
-void setupLoopFrequency(int16_t fre)
-{
-  extern int32_t globalSensorTaskPeriod;
-  globalSensorTaskPeriod = (int)(1000 / fre);
-  if (globalSensorTaskPeriod < 1)
-    globalSensorTaskPeriod = 1;
-}

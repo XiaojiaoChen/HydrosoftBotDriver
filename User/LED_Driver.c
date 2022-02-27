@@ -6,7 +6,7 @@
  */
 
 #include "LED_Driver.h"
-#include "i2c.h"
+extern I2C_HandleTypeDef hi2c2;
 
 static uint8_t channelAddress[LED_CHANNEL_NUM]={
 		OUT0_COLOR_ADDR,OUT1_COLOR_ADDR,OUT2_COLOR_ADDR,OUT3_COLOR_ADDR,

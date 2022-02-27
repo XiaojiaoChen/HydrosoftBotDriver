@@ -5,12 +5,17 @@
  *      Author: 402072495
  */
 #include "HydroUnderwaterManipulator.h"
-#include "myUsartFunction.h"
+
 #include "main.h"
 
 #include "stdio.h"
 #include "string.h"
+
 #include "buttonMaps.h"
+#include "myUsartFunction.h"
+
+HydroUnderwaterManipulator uwManipulator;
+
 /*************************SOFT ARM**************************
  *
  ***********************************************************/

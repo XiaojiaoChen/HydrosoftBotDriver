@@ -12,66 +12,47 @@
  extern "C" {
 #endif
 
-
-#include "stm32f1xx_hal.h"
+#include "main.h"
 #include "stdio.h"
-#include "usart.h"
-
-#define UART_TX_BUF_SIZE 100
-#define UART_RX_BUF_SIZE 100
-#define COMMAND_SIZE 50
-
-#define UART_TX_BUF_NUM	5
 
 
-typedef enum USARTMode_ENUM{
-	usartIntMode,
-	usartDMAIdleMode,
-	usartDMACircularMode
-}USARTMode;
+#define UART_TX_BUF_SIZE 2048
+#define UART_RX_BUF_SIZE 30
 
-typedef struct UART_DEVICE_STRUCT{
+//---------------------------RING BUFFER--------------------------
+//
+//| 0 | 1 | 2 | 3 | 4 | 5 | ...                           |UART_TX_BUF_SIZE-1|
+//|---flushLen----|------------------------------|--------flushLen-----------|
+//                *                               *
+//                bufStartNum    				  flushStartNum
+
+
+ //---------------------------RING BUFFER--------------------------
+ //
+ //| 0 | 1 | 2 | 3 | 4 | 5 | ...                  |UART_TX_BUF_SIZE-1|
+ //|-------------------------------------------|----flushLen--|---------------|
+ //                            				   *               *
+ //                                            flushStartNum   bufStartNum
+
+
+//possible to overlap sending data in exchange for better utilization
+
+
+ typedef struct UART_DEVICE_STRUCT{
+	uint8_t TxBuf[UART_TX_BUF_SIZE];  /*Tx ring + dynamic Buffer */
+
+	int16_t flushStartNum;
+	int16_t flushLen;
+
+	int16_t bufStartNum;
+	int16_t transLen;
+	uint8_t isFree;
+
 	UART_HandleTypeDef *huart;
-	USARTMode	usartmode;
 
-	uint8_t TxBuf[UART_TX_BUF_NUM][UART_TX_BUF_SIZE];  /*TxBuffer*/
-	uint16_t consumerTxBufNum;
-	uint16_t producerTxBufNum;
-	uint16_t bufferedTxNum;
-	uint16_t countTxBuf[UART_TX_BUF_NUM];
-
-	uint8_t RxBuf[UART_RX_BUF_SIZE];
-	uint8_t *pRxBuf;
-	uint8_t RxLineBuf[UART_RX_BUF_SIZE];
-	uint8_t *pRxLineBuf;
-	uint16_t countRxLineBuf;
-	uint16_t USART_RX_STA;
-	uint32_t RxInd;
-
-	uint8_t szCmd[COMMAND_SIZE];
-	float	uiArgv[3];
-	int32_t ulArgv[3];
-	int     iArgc;
-    int usartCommandCode;
-	uint16_t countRxBuf;
-
-	uint16_t Received;
-
-	uint32_t TxStart;
-	uint32_t TxEnd;
-
-	uint32_t lastTxTime;
-	uint32_t lastTxCount;
 }UART_DEVICE;
 
-void my_UsartInit();			/*put in the Initialization*/
-void printBin(char *buf,int len);
-void Usart_ReceivePolling(void);/*put In the polling loop*/
-void myUsartIntIRQ(UART_HandleTypeDef *huart);/*put in the ISR*/
-
-int my_write_DMA(UART_HandleTypeDef *huart, uint8_t *pSrc, int len);
-
-__weak void serialCallback();
+extern UART_DEVICE Usart1Device;
 
 #ifdef __cplusplus
 }

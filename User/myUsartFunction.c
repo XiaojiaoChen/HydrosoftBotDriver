@@ -4,164 +4,153 @@
  *  Created on: Jun 12, 2018
  *      Author: 402072495
  */
-#include "main.h"
+#include "stm32g0b1xx.h"
 #include "myUsartFunction.h"
-#include "cmsis_os.h"
-
+#include "stdio.h"
 #include "string.h"
-#include <stdarg.h>
-#include <stdio.h>
+#include "main.h"
+extern UART_HandleTypeDef huart1;
 
-UART_DEVICE Usart1Device;
 
-static void myInitUsartMode(UART_HandleTypeDef *huart,USARTMode usartMode);
-static UART_DEVICE *getUsartDevice(UART_HandleTypeDef *huart);
-
-/*put this function in the main.c for initilization*/
-void my_UsartInit()
-{
-	 myInitUsartMode(&huart1,usartIntMode);
-}
-static void myInitUsartMode(UART_HandleTypeDef *huart,USARTMode usartMode){
-	UART_DEVICE *uartDev=getUsartDevice(huart);
-	memset(uartDev,0,sizeof(UART_DEVICE));
-	uartDev->huart = huart;
-	uartDev->pRxBuf = uartDev->RxBuf;
-	uartDev->pRxLineBuf=uartDev->RxLineBuf;
-	uartDev->usartmode=usartMode;
-	if(usartMode==usartIntMode){
-		 __HAL_UART_ENABLE_IT(huart,UART_IT_RXNE);
+/**
+ * wait until the flag is false or timeout. The flag is check at 1 us interval
+ */
+void myWaitForFlagUntilTimeout(uint8_t flag, uint32_t timeout){
+	uint32_t tt=0;
+	while(flag){
+		delay_us(1);
+		if(tt++>timeout)
+			break;
 	}
-}
-static UART_DEVICE *getUsartDevice(UART_HandleTypeDef *huart){
-	//if(huart==&huart1)
-		return &Usart1Device;
+
 }
 
+UART_DEVICE Usart1Device = {
+	.flushLen = 0,
+	.flushStartNum = 0,
+	.bufStartNum = 0,
+	.isFree = 1,
+	.huart = &huart1
+
+};
 
 
+static int writeRingBuf(UART_DEVICE *uDev, char *pSrc, int len);
+static int getVacancy(UART_DEVICE *uDev);
+static int getFlushSegment(UART_DEVICE *uDev);
+static int getBufSegment(UART_DEVICE *uDev);
+static void flushSegment(UART_DEVICE *uDev);
 
-
-/************************************			*************************************/
-/************************************	Transfer*************************************/
-/************************************			************************************/
 /*Redirect printf() by implementing (weak) _write function.
  *Every printf() call would store the output string in TxBuf[], ready for Usart DMA output instead of directly output*/
-int _write(int file, char *pSrc, int len){
-	return my_write_DMA(&huart1,(uint8_t *)pSrc,len);
-}
-int my_write_DMA(UART_HandleTypeDef *huart, uint8_t *pSrc, int len)
+int _write(int file, char *pSrc, int len)
 {
-	UART_DEVICE *uartDev=getUsartDevice(huart);
-	uint8_t *pDes=uartDev->TxBuf[uartDev->producerTxBufNum];
-
-	//store the string to next buffer
-	memcpy(pDes,pSrc,len);
-	*(pDes+len)='\0';
-	uartDev->countTxBuf[uartDev->producerTxBufNum] = len;
-
-	//add one bufferedTxNum, recording how many buffered strings that haven't been sent
-	uartDev->bufferedTxNum++;
-
-	//Try to send just buffered string if this is the only one
-	if(uartDev->bufferedTxNum == 1){
-		HAL_UART_Transmit_DMA(uartDev->huart,pDes,uartDev->countTxBuf[uartDev->producerTxBufNum]);
-//		uartDev->TxStart = micros();
+	//HAL_UART_Transmit(Usart1Device.huart,pSrc,len,100);
+	writeRingBuf(&Usart1Device, pSrc, len);
+	if (Usart1Device.isFree)
+	{
+		flushSegment(&Usart1Device);
 	}
-	else{
-	//TO DO, There is a bug here, when the builtInPWMFrequency is changed, the uartDevs would somehow suddenly lost the configurations
-		uartDev->bufferedTxNum=uartDev->bufferedTxNum-1+1;
-	}
-	//move producerTxBufNum forward
-	uartDev->producerTxBufNum++;
-	uartDev->producerTxBufNum%=UART_TX_BUF_NUM;
-
-	//Buffered term full, wait for consumer to reduce producerTxBufNum
-//	while(uartDev->bufferedTxNum > (UART_TX_BUF_NUM-2)){
-//		//Danger! May block the main program continuously !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//		//This waiting mechanism is to take care of the high frequency output within a short period during the Ethercat Initialization
-//		//If the producer is always quicker than consumer, for example a high frequency output ,this function would block the program permanently
-//	};
 	return len;
 }
 
-void printBin(char *buf,int len){
-	_write(0,buf,len);
+
+
+int writeRingBuf(UART_DEVICE *uDev, char *pSrc, int len)
+{
+	if (len > 0)
+	{
+		while(len>getVacancy(uDev));//block here, waiting for enough vacancy TODO: add timeout
+
+		//now we have Enough vacancy
+		int segLen = getBufSegment(uDev);
+
+		if(segLen>=len){
+			memcpy(&uDev->TxBuf[uDev->bufStartNum],pSrc,len);
+		}
+		else{//wrap,basd on the condition that we have enough vacancy.
+			memcpy(&uDev->TxBuf[uDev->bufStartNum],pSrc,segLen);
+			memcpy(&uDev->TxBuf[0],pSrc+segLen,(len-segLen));
+		}
+		uDev->bufStartNum = (uDev->bufStartNum + len) % UART_TX_BUF_SIZE;
+		uDev->flushLen +=  len;
+		return len;
+	}
+	return 0;
 }
 
-/************************************							*************************************/
-/************************************Transfer Complete Callback*************************************/
-/************************************							************************************/
-/*this function would overwrite HAL's weak HAL_UART_TxCpltCallback for all usart*/
-//void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
-//{
-//	UART_DEVICE *uartDev=getUsartDevice(huart);
-//	 /*update information*/
-////	 uartDev->TxEnd = micros();
-//	 uartDev->lastTxTime = uartDev->TxEnd - uartDev->TxStart;
-//	 uartDev->lastTxCount = uartDev->countTxBuf[uartDev->consumerTxBufNum];
-//
-//	/*One consumption done. move consumer forward*/
-//	uartDev->consumerTxBufNum++;
-//	uartDev->consumerTxBufNum%=UART_TX_BUF_NUM;
-//
-//	/*reduce one bufferedTxNum*/
-//	 uartDev->bufferedTxNum--;
-//
-//	/*If it is still positive, go on consume next*/
-//	if(uartDev->bufferedTxNum>0){
-////		uartDev->TxStart = micros();
-//		uint8_t *px = &uartDev->TxBuf[uartDev->consumerTxBufNum][0];
-//		HAL_UART_Transmit_DMA(uartDev->huart,px,uartDev->countTxBuf[uartDev->consumerTxBufNum]);
-//	}
-//
-//}
 
-/************************************							*************************************/
-/************************************Receive Complete Callback*************************************/
-/************************************							************************************/
-/*this function would overwrite HAL's weak HAL_UART_RxCpltCallback for all usart*/
-
-
-
-
-
-
-
-/*put this function in stm32f7xx_it.c as below
-	void USART2_IRQHandler(void)
-	{
-	  myUsartIntIRQ(&huart2);
-	  HAL_UART_IRQHandler(&huart2);
-	}
-*/
-void myUsartIntIRQ(UART_HandleTypeDef *huart)
+/**
+ * @brief flush out buffered data. If the buffered data is seperated into two parts, then only flush the first part.
+ *
+ * @param uDev
+ */
+static void flushSegment(UART_DEVICE *uDev)
 {
-	UART_DEVICE *uartDev=getUsartDevice(huart);
- 	if(__HAL_UART_GET_FLAG(huart, UART_FLAG_RXNE)!=RESET)   //receive interrupt
-	{
-		*(uartDev->pRxBuf)=(uint8_t)(huart->Instance->DR & (uint8_t)0x00FF);  //read and clear flag
-		if(*(uartDev->pRxBuf)==0x0a) // if current char is 0x0a, take care. If not, go on receiving.
-		{
 
-			uartDev->Received = 1;
-			int leng = uartDev->pRxBuf - &(uartDev->RxBuf[0]);
-			if((uartDev->RxBuf[0] == 0x5a) && (uartDev->RxBuf[1] == 0x5a)){
-				serialCallback((char *)(uartDev->RxBuf));
-			}
-			else{
-				//bad frame, discard
-			}
-			memset(uartDev->RxBuf,0,UART_RX_BUF_SIZE);
-			uartDev->pRxBuf=uartDev->RxBuf;
-			uartDev->Received = 0;
-		}
-		else {
-			if((uartDev->pRxBuf - uartDev->RxBuf)>=UART_RX_BUF_SIZE){
-				memset(uartDev->RxBuf,0,UART_RX_BUF_SIZE);
-				uartDev->pRxBuf=uartDev->RxBuf;
-			}
-			uartDev->pRxBuf++;
+	uDev->transLen = getFlushSegment(uDev);
+
+	if(uDev->transLen > 0){
+		if(HAL_UART_Transmit_DMA(uDev->huart, &(uDev->TxBuf[uDev->flushStartNum]), uDev->transLen)==HAL_OK){
+			uDev->isFree = 0;//only set this if transmision start normal, otherwise may never be free again.
 		}
 	}
+
+
+}
+
+static int getVacancy(UART_DEVICE *uDev){
+	return (int)(UART_TX_BUF_SIZE - uDev->flushLen);
+}
+
+/**
+ * get the length of the next continuous ready-to-flush block
+ */
+static int getFlushSegment(UART_DEVICE *uDev){
+	 if(uDev->flushStartNum < uDev->bufStartNum)
+		 return (uDev->bufStartNum - uDev->flushStartNum);
+	 else if(uDev->flushStartNum > uDev->bufStartNum)
+		 return (UART_TX_BUF_SIZE - uDev->flushStartNum);
+	 else if(uDev->flushLen>0)//uDev->flushStartNum == uDev->bufStartNum, full data
+		 return (UART_TX_BUF_SIZE - uDev->flushStartNum);
+	 else//uDev->flushStartNum == uDev->bufStartNum, no data
+		 return 0;
+}
+
+/**
+ * get the length of the next continuous free block
+ */
+static int getBufSegment(UART_DEVICE *uDev){
+	 if(uDev->flushStartNum < uDev->bufStartNum)
+		 return (UART_TX_BUF_SIZE - uDev->bufStartNum);
+	 else if(uDev->flushStartNum > uDev->bufStartNum)
+		 return (uDev->flushStartNum - uDev->bufStartNum);
+	 else if(uDev->flushLen)//uDev->flushStartNum == uDev->bufStartNum, full data
+		 return 0;
+	 else//uDev->flushStartNum == uDev->bufStartNum, no data
+		 return (UART_TX_BUF_SIZE - uDev->bufStartNum);
+}
+
+/*this function would overwrite HAL's weak HAL_UART_TxCpltCallback*/
+void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart) {
+	Usart1Device.flushStartNum = (Usart1Device.flushStartNum + Usart1Device.transLen) % UART_TX_BUF_SIZE;
+	Usart1Device.flushLen -=  Usart1Device.transLen;
+	if(Usart1Device.flushLen>0){//more data to flush
+		flushSegment(&Usart1Device);
+	}
+	else if(Usart1Device.flushLen==0){//normal complete or abnormal
+
+//		Usart1Device.flushLen = 0;
+//				Usart1Device.flushStartNum = 0;
+//		Usart1Device.bufStartNum = 0;
+		Usart1Device.isFree = 1;
+	}
+	else{
+				Usart1Device.flushLen = 0;
+						Usart1Device.flushStartNum = 0;
+				Usart1Device.bufStartNum = 0;
+				Usart1Device.transLen=0;
+		Usart1Device.isFree = 1;
+	}
+
 }

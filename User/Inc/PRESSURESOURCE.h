@@ -10,6 +10,7 @@
 
 #ifndef FRAMEWORK_PNEUMATICELEMENTS_PRESSURESOURCE_H_
 #define FRAMEWORK_PNEUMATICELEMENTS_PRESSURESOURCE_H_
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -18,9 +19,9 @@ extern "C" {
  *
  */
 
-#include "PUMP.h"
-#include "PRESSURESENSOR.h"
-#include "SOLENOIDVALVE.h"
+#include "../../../User/Inc/PUMP.h"
+#include "../../../User/Inc/PRESSURESENSOR.h"
+#include "../../../User/Inc/SOLENOIDVALVE.h"
 typedef enum{
 	HIGH_PRESSURE_SOURCE = 0,
 	LOW_PRESSURE_SINK=1

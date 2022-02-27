@@ -9,7 +9,6 @@
 
 #include "CHAMBER.h"
 #include "PRESSURESOURCE.h"
-#include "messages.h"
 #define SEGNUM 3
 #define ACTNUM 3
 #define P_ATM 101000
@@ -119,5 +118,7 @@ public:
 	HydroManipulatorStatus manipulatorStatus;
 	HydroManipulatorCommand hostCommand;
 };
+
+extern HydroUnderwaterManipulator uwManipulator;
 
 #endif /* USERINC_SOFTARM_H_ */

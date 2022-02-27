@@ -17,8 +17,8 @@ extern "C" {
 
 
 
-#include "PRESSURESENSOR.h"
-#include "SOLENOIDVALVE.h"
+#include "../../../User/Inc/PRESSURESENSOR.h"
+#include "../../../User/Inc/SOLENOIDVALVE.h"
 
 class CHAMBER{
 public:
