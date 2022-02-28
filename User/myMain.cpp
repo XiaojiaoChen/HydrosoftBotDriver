@@ -60,7 +60,9 @@ void loop()
 {
 	HAL_UARTEx_ReceiveToIdle_DMA(&huart1, grxBuf, sizeof(HydroManipulatorCommand));
 
- uwManipulator.control();
+ //uwManipulator.control();
+for(int i=0;i<24;i++)
+   PWMWriteDuty(0, 0.5);
 
   //I2C is released now, we could send PWM command.
   PWMWriteFlush();
