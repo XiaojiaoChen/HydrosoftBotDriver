@@ -8,7 +8,6 @@
 
 #include <CANbus.h>
 struct CANBUS_HANDLE canbus;
-#include "messages.h"
 #include "can.h"
 #include <inttypes.h>
 #include "HydroUnderwaterManipulator.h"
@@ -20,10 +19,16 @@ static HAL_StatusTypeDef my_HAL_CAN_GetRxMessage(CAN_HandleTypeDef *hcan, uint32
 /**************************************************************************/
 /**************************************************************************/
 /**************************************************************************/
-
-static SENSORDATACOMPACT botNodeDataBuffer[4];
-static SENSORDATA botNodeData[4];
-
+typedef struct QUATERNION_TAG{
+ int16_t w;
+ int16_t x;
+ int16_t y;
+ int16_t z;
+}QUATERNION;
+//
+//static SENSORDATACOMPACT botNodeDataBuffer[4];
+//static SENSORDATA botNodeData[4];
+QUATERNION imuOriData;
 extern HydroUnderwaterManipulator uwManipulator;
 
 
@@ -186,16 +191,10 @@ static HAL_StatusTypeDef my_HAL_CAN_GetRxMessage(CAN_HandleTypeDef *hcan, uint32
 
 
     /**********************  added  ******************************************/
-	//int i = pHeader->StdId/4;
-    int curInd = 0;
-
-    if(pHeader->StdId==40)
-    	curInd = 2;
-    else if(pHeader->StdId==37)
-    	curInd = 1;
+	int curInd = pHeader->StdId;//0,1,2,3
 
 
-    aData=(uint8_t *)(&botNodeDataBuffer[curInd]);
+    aData=(uint8_t *)(&imuOriData);
     /****************************************************************/
 
     /* Get the data */
@@ -209,35 +208,32 @@ static HAL_StatusTypeDef my_HAL_CAN_GetRxMessage(CAN_HandleTypeDef *hcan, uint32
     aData[7] = (uint8_t)((CAN_RDH0R_DATA7 & hcan->Instance->sFIFOMailBox[RxFifo].RDHR) >> CAN_RDH0R_DATA7_Pos);
 
 
-    /**********************  Added Docode the compact sensor Data to complete sensor data*******************************/
-    decodeSensorData(&(botNodeDataBuffer[curInd]),&(botNodeData[curInd]));
-    /*******************************************************************/
 
     /********************** update the content of rosserial.pubdata*******************************/
-    uwManipulator.manipulatorStatus.quaternions[curInd][0] = botNodeData[curInd].quaternion.imuData[0];
-    uwManipulator.manipulatorStatus.quaternions[curInd][1]= botNodeData[curInd].quaternion.imuData[1];
-    uwManipulator.manipulatorStatus.quaternions[curInd][2]= botNodeData[curInd].quaternion.imuData[2];
-    uwManipulator.manipulatorStatus.quaternions[curInd][3]= botNodeData[curInd].quaternion.imuData[3];
+    uwManipulator.manipulatorStatus.quaternions[curInd][0] = imuOriData.w;
+    uwManipulator.manipulatorStatus.quaternions[curInd][1]= imuOriData.x;
+    uwManipulator.manipulatorStatus.quaternions[curInd][2]= imuOriData.y;
+    uwManipulator.manipulatorStatus.quaternions[curInd][3]= imuOriData.z;
 
 
-    /***Test use only start****/
-    static int8_t ttt=1;
-    if(curInd == 1 && ttt>0){
-        uwManipulator.manipulatorStatus.quaternions[curInd-1][0] = botNodeData[curInd].quaternion.imuData[0];
-        uwManipulator.manipulatorStatus.quaternions[curInd-1][1]= botNodeData[curInd].quaternion.imuData[1];
-        uwManipulator.manipulatorStatus.quaternions[curInd-1][2]= botNodeData[curInd].quaternion.imuData[2];
-        uwManipulator.manipulatorStatus.quaternions[curInd-1][3]= botNodeData[curInd].quaternion.imuData[3];
-        ttt--;
-    }
-
-    if(curInd == 2 ){
-    	uwManipulator.manipulatorStatus.quaternions[curInd+1][0] = botNodeData[curInd].quaternion.imuData[0];
-		uwManipulator.manipulatorStatus.quaternions[curInd+1][1]= botNodeData[curInd].quaternion.imuData[1];
-		uwManipulator.manipulatorStatus.quaternions[curInd+1][2]= botNodeData[curInd].quaternion.imuData[2];
-		uwManipulator.manipulatorStatus.quaternions[curInd+1][3]= botNodeData[curInd].quaternion.imuData[3];
-
-    }
-    /***Test use only end****/
+//    /***Test use only start****/
+//    static int8_t ttt=1;
+//    if(curInd == 1 && ttt>0){
+//        uwManipulator.manipulatorStatus.quaternions[curInd-1][0] = botNodeData[curInd].quaternion.imuData[0];
+//        uwManipulator.manipulatorStatus.quaternions[curInd-1][1]= botNodeData[curInd].quaternion.imuData[1];
+//        uwManipulator.manipulatorStatus.quaternions[curInd-1][2]= botNodeData[curInd].quaternion.imuData[2];
+//        uwManipulator.manipulatorStatus.quaternions[curInd-1][3]= botNodeData[curInd].quaternion.imuData[3];
+//        ttt--;
+//    }
+//
+//    if(curInd == 2 ){
+//    	uwManipulator.manipulatorStatus.quaternions[curInd+1][0] = botNodeData[curInd].quaternion.imuData[0];
+//		uwManipulator.manipulatorStatus.quaternions[curInd+1][1]= botNodeData[curInd].quaternion.imuData[1];
+//		uwManipulator.manipulatorStatus.quaternions[curInd+1][2]= botNodeData[curInd].quaternion.imuData[2];
+//		uwManipulator.manipulatorStatus.quaternions[curInd+1][3]= botNodeData[curInd].quaternion.imuData[3];
+//
+//    }
+//    /***Test use only end****/
 
 
     /* Release the FIFO */

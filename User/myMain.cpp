@@ -7,7 +7,6 @@
 
 #include "myMain.h"
 #include "usart.h"
-#include "messages.h"
 #include "CANbus.h"
 #include "LED_Driver.h"
 #include "ads1115.h"
@@ -17,23 +16,24 @@
 #include "cstring"
 
 
+
 uint8_t actuatorInitPorts[SEGNUM][ACTNUM][2] =
     {
-        {{2, 12}, {0, 10}, {1, 11}},
-        {{5, 15}, {3, 13}, {4, 14}},
-        {{16, 6}, {16, 6}, {16, 6}},
+        {{0, 9}, {1, 10}, {2, 11}},
+        {{3, 12}, {4, 13}, {5, 14}},
+        {{6, 15}, {6,15}, {6,15}},//ATTENTION!!! currently, port 6 and 7 are related and commanded together!!!!!!!!!!!!!!!!!!1
 }; //{In, Out}
 
-uint8_t gripperInitPort[2] = {17, 7}; //{In, Out}
+//uint8_t gripperInitPort[2] = {8, 17}; //{In, Out}
 
-uint8_t pSourceValveInitPort = 8; //in valve
-uint8_t pSourcePumpInitPort = 19;  //in pump
+//uint8_t pSourceValveInitPort = 9; //in valve
+uint8_t pSourcePumpInitPort = 8;  //in pump
 
-uint8_t pSinkValveInitPort = 18; //out valve
-uint8_t pSinkPumpInitPort = 9;  //out pump
+//uint8_t pSinkValveInitPort = 18; //out valve
+uint8_t pSinkPumpInitPort = 17;  //out pump
 
-uint8_t pSourceSensorInitPort = 1; //in sensor
-uint8_t pSinkSensorInitPort = 0;   //out sensor
+//uint8_t pSourceSensorInitPort = 1; //in sensor
+//uint8_t pSinkSensorInitPort = 0;   //out sensor
 
 /*********** transfer in KPa, otherwise all in Pa ******************/
 
@@ -57,16 +57,16 @@ void setup()
 //  }
 
   /*CAN initiation*/
-  canConfig();
+ // canConfig();
 
   /*setup loop() frequency to be 100Hz*/
-  setupLoopFrequency(100);
+  setupLoopFrequency(20);
 
   /*ports mapping*/
   uwManipulator.setupActuatorPorts(actuatorInitPorts);
-  uwManipulator.setupGripperPorts(gripperInitPort);
-  uwManipulator.setupPsourcePorts(pSourcePumpInitPort, pSourceValveInitPort, pSourceSensorInitPort);
-  uwManipulator.setupPsinkPorts(pSinkPumpInitPort, pSinkValveInitPort, pSinkSensorInitPort);
+//  uwManipulator.setupGripperPorts(gripperInitPort);
+  uwManipulator.setupPsourcePorts(pSourcePumpInitPort);
+  uwManipulator.setupPsinkPorts(pSinkPumpInitPort);
   PWMWriteFlush();
 
 }
@@ -76,7 +76,7 @@ void getRx();
 //100Hz default. change frequency by calling setupLoopFrequency(50);
 void loop()
 {
-	int readnum=HAL_UARTEx_ReceiveToIdle_DMA(&huart1, grxBuf, sizeof(HydroManipulatorCommand));
+	HAL_UARTEx_ReceiveToIdle_DMA(&huart1, grxBuf, sizeof(HydroManipulatorCommand));
   //AD start conversion two channel with DMA
 
 //  ADS1115_ReadUnblocked();
@@ -86,6 +86,7 @@ void loop()
 
   //while AD dma is ongoing, we could do control stuff without using sensor info
   uwManipulator.control();
+  //uwManipulator.controlTest();
 
   //wait for AD complete/Timeout for following action
 //  waitTrue(&gAD_complete,6);

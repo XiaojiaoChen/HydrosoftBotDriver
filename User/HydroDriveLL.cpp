@@ -11,7 +11,7 @@
 
 static int16_t adRawData[2]={0,0};
 float adVoltage[2]={0,0};
-static uint8_t PWMDutyBuffer[LED_CHANNEL_NUM];
+extern uint8_t PWMDutyBuffer[LED_CHANNEL_NUM];
 
 static int isDirtyPWM=0;
 float AnalogRead(uint16_t num)
@@ -44,6 +44,13 @@ void PWMWriteDuty(uint16_t num, float fduty)
 
 	/*Buffer pwm duty commands, needs to call  PWMWriteFlush() later*/
 	PWMDutyBuffer[num]=cycleduty;
+
+	//temp solution for current board
+//	if(num==7)
+//		PWMDutyBuffer[6]=cycleduty;
+//	else if(num==6)
+//		PWMDutyBuffer[7]=cycleduty;
+
 	isDirtyPWM=1;
 	//LED_Driver_SetPWM_One(num,cycleduty);
 

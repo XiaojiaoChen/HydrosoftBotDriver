@@ -174,9 +174,6 @@ void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size){
 	if(Size == 12 && grxBuf[0] == 0x5a && grxBuf[1] == 0x5a){
 		serialCallback();
 	}
-	else{
-		int a =1;
-	}
 }
 
 /* USER CODE END 4 */
@@ -234,4 +231,3 @@ void assert_failed(uint8_t *file, uint32_t line)
 }
 #endif /* USE_FULL_ASSERT */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

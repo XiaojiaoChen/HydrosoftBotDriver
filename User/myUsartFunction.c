@@ -146,6 +146,7 @@ void myUsartIntIRQ(UART_HandleTypeDef *huart)
 
 			uartDev->Received = 1;
 			int leng = uartDev->pRxBuf - &(uartDev->RxBuf[0]);
+
 			if((uartDev->RxBuf[0] == 0x5a) && (uartDev->RxBuf[1] == 0x5a)){
 				serialCallback((char *)(uartDev->RxBuf));
 			}

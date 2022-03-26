@@ -16,7 +16,7 @@ static uint8_t channelAddress[LED_CHANNEL_NUM]={
 		OUT16_COLOR_ADDR,OUT17_COLOR_ADDR,OUT18_COLOR_ADDR,OUT19_COLOR_ADDR,
 		OUT20_COLOR_ADDR,OUT21_COLOR_ADDR,OUT22_COLOR_ADDR,OUT23_COLOR_ADDR
 };
-
+uint8_t PWMDutyBuffer[LED_CHANNEL_NUM];
 /* LP5024 Initialization
  * Linear scale mode
  * Automatic power saving mode
@@ -38,6 +38,35 @@ int LED_Driver_Setup()
 	if((ret = HAL_I2C_Mem_Write(&hi2c2,LED_DRIVER_ADDR, DEVICE_CONFIG1_ADDR, I2C_MEMADD_SIZE_8BIT, txBuf,1,100))!=HAL_OK){
 	}
 
+	HAL_Delay(5);
+
+	for(int i=0;i<LED_CHANNEL_NUM;i++)
+	{
+		PWMDutyBuffer[i] = 255;
+	}
+	LED_Driver_SetPWM_Multi(0,LED_CHANNEL_NUM,PWMDutyBuffer);
+
+
+//	for(int i=0;i<LED_CHANNEL_NUM;i++)
+//		{
+//		LED_Driver_SetPWM_One(i,0);HAL_Delay(5);
+//		}
+
+
+
+//	LED_Driver_SetPWM_One(6,0);HAL_Delay(5);
+//	LED_Driver_SetPWM_One(7,0);HAL_Delay(5);
+//
+//	LED_Driver_SetPWM_One(6,255);HAL_Delay(5);
+//	LED_Driver_SetPWM_One(7,255);HAL_Delay(5);
+//
+//	LED_Driver_SetPWM_One(6,0);HAL_Delay(5);
+//	LED_Driver_SetPWM_One(7,255);HAL_Delay(5);
+//
+//	LED_Driver_SetPWM_One(6,255);HAL_Delay(5);
+//	LED_Driver_SetPWM_One(7,0);HAL_Delay(5);
+
+
 	return ret;
 }
 
@@ -48,7 +77,7 @@ void LED_Driver_SetPWM_One(uint16_t channel, uint8_t dutyCycle)
 
 void LED_Driver_SetPWM_Multi(uint8_t startChannel, uint8_t numofChannels, uint8_t dutyCycles[])
 {
-	HAL_I2C_Mem_Write(&hi2c2,LED_DRIVER_ADDR, channelAddress[startChannel],I2C_MEMADD_SIZE_8BIT,dutyCycles , numofChannels,10);
+	HAL_I2C_Mem_Write(&hi2c2,LED_DRIVER_ADDR, channelAddress[startChannel],I2C_MEMADD_SIZE_8BIT,dutyCycles , numofChannels,20);
 }
 
 uint8_t LED_Driver_GetPWM_One(uint16_t channel)

@@ -9,7 +9,6 @@
 
 #include "CHAMBER.h"
 #include "PRESSURESOURCE.h"
-#include "messages.h"
 #define SEGNUM 3
 #define ACTNUM 3
 #define P_ATM 101000
@@ -40,45 +39,48 @@ typedef struct __attribute__((packed)) HydroManipulatorStatusTag{
 }HydroManipulatorStatus;
 
 
-//
-//class HydroManipulatorStatus : public hydrosoft_ros::Sensor_Arm
-//{
-//	public:
-//		HydroManipulatorStatus()
-//		{
-//			actuatorStatus = (int16_t *)actuatorStatusBuf;
-//			actuatorStatus_length = SEGNUM*ACTNUM;
-//			quaternions = (int16_t *)quaternionsBuf;
-//			quaternions_length = (SEGNUM+1)*4;
-//		}
-//		int16_t actuatorStatusBuf[SEGNUM][ACTNUM];
-//		int16_t quaternionsBuf[(SEGNUM+1)][4];
-//};
-//
-//class HydroManipulatorCommand : public hydrosoft_ros::Command_Arm
-//{
-//	public:
-//		HydroManipulatorCommand()
-//		{
-//			actuatorCommand = (int16_t *)actuatorCommandBuf;
-//			actuatorCommand_length = SEGNUM*ACTNUM;
-//		}
-//		int16_t actuatorCommandBuf[SEGNUM][ACTNUM];
-//
-//		int16_t controlMode;
-//
-//		int16_t openingCmd_actuators[SEGNUM][ACTNUM][2];
-//		int16_t openingCmd_gripper[2];
-//		int16_t openingCmd_pSource_pump;
-//		int16_t openingCmd_pSource_valve;
-//		int16_t openingCmd_pSink_pump;
-//		int16_t openingCmd_pSink_valve;
-//
-//		int16_t pressureCmd_actuators[SEGNUM][ACTNUM];
-//		int16_t pressureCmd_gripper;
-//		int16_t pressureCmd_pSource;
-//		int16_t pressureCmd_pSink;
-//};
+
+#define ActInValveBtn_seg_0    		21
+#define ActInValveBtn_seg_1    		1344
+#define ActInValveBtn_seg_2    		86016
+#define ActOutValveBtn_seg_0    		42
+#define ActOutValveBtn_seg_1    		2688
+#define ActOutValveBtn_seg_2    	172032
+#define PSinkBtn    				12582912
+#define PSourceBtn    				3145728
+#define actInValveBtn_seg_0_act_0    1
+#define actInValveBtn_seg_0_act_1    4
+#define actInValveBtn_seg_0_act_2    16
+#define actInValveBtn_seg_1_act_0    64
+#define actInValveBtn_seg_1_act_1    256
+#define actInValveBtn_seg_1_act_2    1024
+#define actInValveBtn_seg_2_act_0    4096
+#define actInValveBtn_seg_2_act_1    16384
+#define actInValveBtn_seg_2_act_2    65536
+#define actOutValveBtn_seg_0_act_0    2
+#define actOutValveBtn_seg_0_act_1    8
+#define actOutValveBtn_seg_0_act_2    32
+#define actOutValveBtn_seg_1_act_0    128
+#define actOutValveBtn_seg_1_act_1    512
+#define actOutValveBtn_seg_1_act_2    2048
+#define actOutValveBtn_seg_2_act_0    8192
+#define actOutValveBtn_seg_2_act_1    32768
+#define actOutValveBtn_seg_2_act_2    131072
+#define gripperInValveBtn    			262144
+#define gripperOutValveBtn   			 524288
+#define joystick3DBtn   				 4
+#define joystickBtn   					 2
+#define manualControlBtn  				1
+#define pSinkPumpBtn   				 8388608
+#define pSinkValveBtn  				  4194304
+#define pSourcePumpBtn   				 2097152
+#define pSourceValveBtn    				1048576
+#define radioBtn_autoControl  		  	32
+#define radioBtn_feedbackControl  	  8
+#define radioBtn_pressureControl   	 16
+
+
+
 
 
 
@@ -108,13 +110,13 @@ public:
 	PRESSURE_SOURCE pSink;
 
 	void setupActuatorPorts(uint8_t (&ports)[SEGNUM][ACTNUM][2]);
-	void setupGripperPorts(uint8_t (&ports)[2]);
-	void setupPsourcePorts(uint8_t pumpPort, uint8_t valvePort, uint8_t sensorPort);
-	void setupPsinkPorts(uint8_t pumpPort, uint8_t valvePort, uint8_t sensorPort);
+//	void setupGripperPorts(uint8_t (&ports)[2]);
+	void setupPsourcePorts(uint8_t pumpPort);
+	void setupPsinkPorts(uint8_t pumpPort);
 
 	void control();
 	void encodeStatus();
-
+	void controlTest();
 
 	HydroManipulatorStatus manipulatorStatus;
 	HydroManipulatorCommand hostCommand;
